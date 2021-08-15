@@ -10,7 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -18,18 +18,20 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "institutions")
+@Table(name = "skills")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Institution {
+public class Skill {
     @Id
-    @SequenceGenerator(name = "institutions_id_seq", allocationSize = 1, sequenceName = "institutions_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
+    @SequenceGenerator(name = "skills_id_seq", allocationSize = 1, sequenceName = "skills_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "skills_id_seq")
     Integer id;
 
     @Column(name = "name")
     String name;
 
-    @OneToMany(mappedBy = "institution")
-//    @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
+    @Column(name = "level")
+    int level;
+
+    @ManyToMany(mappedBy = "skills")
     List<Position> positions;
 }

@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.constant.DriverCategory;
 import az.hrportal.hrportalapi.constant.EducationType;
 import az.hrportal.hrportalapi.constant.FamilyCondition;
 import az.hrportal.hrportalapi.constant.Gender;
+import az.hrportal.hrportalapi.constant.MilitaryAchievement;
 import az.hrportal.hrportalapi.constant.Series;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,6 +57,9 @@ public class Employee {
     @Column(name = "family_condition")
     @Enumerated(EnumType.STRING)
     FamilyCondition familyCondition;
+    @Column(name = "military_achievement")
+    @Enumerated(EnumType.STRING)
+    MilitaryAchievement militaryAchievement;
 
     @Column(name = "full_name", nullable = false)
     String fullName;

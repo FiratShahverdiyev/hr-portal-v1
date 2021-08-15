@@ -18,18 +18,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "institutions")
+@Table(name = "specialities")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Institution {
+public class Speciality {
     @Id
-    @SequenceGenerator(name = "institutions_id_seq", allocationSize = 1, sequenceName = "institutions_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
+    @SequenceGenerator(name = "specialities_id_seq", allocationSize = 1, sequenceName = "specialities_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialities_id_seq")
     Integer id;
 
     @Column(name = "name")
     String name;
 
-    @OneToMany(mappedBy = "institution")
-//    @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(mappedBy = "educationSpeciality")
     List<Position> positions;
 }
