@@ -1,0 +1,23 @@
+package az.hrportal.hrportalapi.constant;
+
+public enum BloodGroup {
+    BIR(1),
+    IKI(2),
+    UC(3),
+    DORT(4);
+
+    private int bloodGroup;
+
+    BloodGroup(int bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public BloodGroup intToEnum(int value) {
+        BloodGroup[] values = BloodGroup.values();
+        for (BloodGroup bloodGroup : values) {
+            if (bloodGroup.bloodGroup == value)
+                return bloodGroup;
+        }
+        return BIR;
+    }
+}
