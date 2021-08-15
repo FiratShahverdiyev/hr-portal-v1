@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.domain;
+package az.hrportal.hrportalapi.domain.position;
 
 import lombok.AccessLevel;
 import lombok.Getter;

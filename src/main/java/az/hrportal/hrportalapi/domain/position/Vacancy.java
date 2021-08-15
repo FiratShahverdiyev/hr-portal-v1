@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.domain;
+package az.hrportal.hrportalapi.domain.position;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,18 +18,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "institutions")
+@Table(name = "vacancies")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Institution {
+public class Vacancy {
     @Id
-    @SequenceGenerator(name = "institutions_id_seq", allocationSize = 1, sequenceName = "institutions_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
+    @SequenceGenerator(name = "vacancies_id_seq", allocationSize = 1, sequenceName = "vacancies_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vacancies_id_seq")
     Integer id;
 
     @Column(name = "name")
     String name;
 
-    @OneToMany(mappedBy = "institution")
-//    @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
+    @OneToMany(mappedBy = "vacancy")
     List<Position> positions;
 }

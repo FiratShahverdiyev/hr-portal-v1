@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.constant;
+package az.hrportal.hrportalapi.constant.position;
 
 public enum WorkPlace {
     Bakı_inzibati_bina(1),

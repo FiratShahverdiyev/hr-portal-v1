@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.constant;
+package az.hrportal.hrportalapi.constant.employee;
 
 public enum EducationDegree {
     MIDDLE,

@@ -1,11 +1,11 @@
-package az.hrportal.hrportalapi.domain;
+package az.hrportal.hrportalapi.domain.position;
 
-import az.hrportal.hrportalapi.constant.EducationDegree;
-import az.hrportal.hrportalapi.constant.GenderDemand;
-import az.hrportal.hrportalapi.constant.RequireFile;
-import az.hrportal.hrportalapi.constant.VacancyCategory;
-import az.hrportal.hrportalapi.constant.WorkMode;
-import az.hrportal.hrportalapi.constant.WorkPlace;
+import az.hrportal.hrportalapi.constant.employee.EducationDegree;
+import az.hrportal.hrportalapi.constant.position.GenderDemand;
+import az.hrportal.hrportalapi.constant.position.RequireFile;
+import az.hrportal.hrportalapi.constant.position.VacancyCategory;
+import az.hrportal.hrportalapi.constant.position.WorkMode;
+import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.dto.ComputerKnowledge;
 import az.hrportal.hrportalapi.dto.LanguageKnowledge;
 import az.hrportal.hrportalapi.dto.LegislationStatement;

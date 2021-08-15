@@ -1,6 +1,6 @@
 package az.hrportal.hrportalapi.dto;
 
-import az.hrportal.hrportalapi.constant.Level;
+import az.hrportal.hrportalapi.constant.position.Level;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,17 +1,18 @@
-package az.hrportal.hrportalapi.domain;
+package az.hrportal.hrportalapi.domain.employee;
 
-import az.hrportal.hrportalapi.constant.BloodGroup;
-import az.hrportal.hrportalapi.constant.DriverCategory;
-import az.hrportal.hrportalapi.constant.EducationType;
-import az.hrportal.hrportalapi.constant.FamilyCondition;
-import az.hrportal.hrportalapi.constant.Gender;
-import az.hrportal.hrportalapi.constant.MilitaryAchievement;
-import az.hrportal.hrportalapi.constant.Series;
+import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.constant.employee.DriverCategory;
+import az.hrportal.hrportalapi.constant.employee.EducationType;
+import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
+import az.hrportal.hrportalapi.constant.employee.Gender;
+import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.constant.employee.Series;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -133,6 +134,7 @@ public class Employee {
 
     @Column(name = "quota")
     @ElementCollection
+    @CollectionTable(name = "employee_quotas", joinColumns = @JoinColumn(name = "employee_id"))
     List<String> quotas;
 
     //Business
