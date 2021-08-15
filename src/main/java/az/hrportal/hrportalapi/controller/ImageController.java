@@ -18,8 +18,9 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping("save")
-    public ResponseDto<String> save(Integer id, MultipartFile file) {
-        return ResponseDto.of(imageService.save(id, file), 200);
+    public ResponseDto<Boolean> save(Integer id, MultipartFile file) {
+        imageService.save(id, file);
+        return ResponseDto.of(true, 200);
     }
 
     @GetMapping(value = "{file-name}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})

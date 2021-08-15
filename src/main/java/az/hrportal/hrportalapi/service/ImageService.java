@@ -16,12 +16,16 @@ public class ImageService {
     @Value("${file.upload.root-directory}")
     private String fileRootDirectory;
 
-    public String save(Integer id, MultipartFile file) {
-        return FileUtil.saveFile(fileRootDirectory, file.getOriginalFilename(),
+    public void save(Integer id, MultipartFile file) {
+        log.info("Image save service started with id : {}, fileName : {}", id, file.getOriginalFilename());
+        String fileName = FileUtil.saveFile(fileRootDirectory, file.getOriginalFilename(),
                 file.getContentType().split("/")[1], file);
+        employeeService.updatePhoto(id, fileName);
+        log.info("Image save service completed with id : {}, fileName : {}", id, fileName);
     }
 
     public byte[] get(String fileName) {
+        log.info("Image get service started with fileName : {}", fileName);
         return FileUtil.getImage(fileRootDirectory, fileName);
     }
 }
