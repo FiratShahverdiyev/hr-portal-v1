@@ -6,9 +6,10 @@ import az.hrportal.hrportalapi.constant.position.RequireFile;
 import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
-import az.hrportal.hrportalapi.dto.ComputerKnowledge;
-import az.hrportal.hrportalapi.dto.LanguageKnowledge;
-import az.hrportal.hrportalapi.dto.LegislationStatement;
+import az.hrportal.hrportalapi.dto.position.ComputerKnowledge;
+import az.hrportal.hrportalapi.dto.position.LanguageKnowledge;
+import az.hrportal.hrportalapi.dto.position.LegislationStatement;
+import az.hrportal.hrportalapi.dto.position.Skill;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +25,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -65,12 +64,9 @@ public class Position {
     VacancyCategory vacancyCategory;
     @ManyToOne
     JobFamily jobFamily;
-    @ManyToMany
-    @JoinTable(
-            name = "positions_skills",
-            joinColumns = {@JoinColumn(name = "skill_id")},
-            inverseJoinColumns = {@JoinColumn(name = "position_id")}
-    )
+    @ElementCollection
+    @CollectionTable(name = "position_skills", joinColumns = @JoinColumn(name = "position_id"))
+    @Column(name = "skill")
     List<Skill> skills;
     @Column(name = "work_place", nullable = false)
     @Enumerated(EnumType.STRING)

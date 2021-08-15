@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto;
+package az.hrportal.hrportalapi.dto.position;
 
 import az.hrportal.hrportalapi.constant.position.Level;
 import lombok.AccessLevel;
@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Embeddable
-public class ComputerKnowledge {
+public class LanguageKnowledge {
     String name;
     Level level;
 }

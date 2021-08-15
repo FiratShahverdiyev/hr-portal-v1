@@ -7,6 +7,7 @@ import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
 import az.hrportal.hrportalapi.constant.employee.Series;
+import az.hrportal.hrportalapi.dto.FamilyMember;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -131,7 +132,9 @@ public class Employee {
     String businessMailAddress;
 
     //Family
-    @OneToMany(mappedBy = "employee")
+    @Column(name = "family_member")
+    @ElementCollection
+    @CollectionTable(name = "employee_family_members", joinColumns = @JoinColumn(name = "employee_id"))
     List<FamilyMember> familyMembers;
 
     @Column(name = "quota")
