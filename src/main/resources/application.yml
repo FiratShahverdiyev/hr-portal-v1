@@ -27,6 +27,11 @@ file:
   upload:
     root-directory: src/main/resources/image/
 
+cors:
+  allow:
+    origin:
+      hr-portal: "*"
+
 application:
   swagger:
     title: Swagger BirBank WebSite
