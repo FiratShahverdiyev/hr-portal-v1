@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -41,7 +43,7 @@ public class Employee {
     Integer id;
 
     @Column(name = "photo")
-    String photoUrl;
+    String photo;
     @Column(name = "id_card_series", nullable = false)
     @Enumerated(EnumType.STRING)
     Series idCardSeries;
@@ -203,4 +205,11 @@ public class Employee {
     boolean isPrisoner;
     @Column(name = "colleagues_alliance")
     boolean isMemberOfColleaguesAlliance;
+
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }
