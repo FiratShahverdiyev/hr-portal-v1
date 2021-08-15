@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -23,6 +24,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.BIND_EXCEPTION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("Api error, errorCode: {} message: {}", status, ex.getMessage());
-        return ResponseEntity.status(400).body(new ErrorResponseDto(status.value(), message));
+        return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> entityNotFound(final Exception e) {
+        ErrorCode errorCode = ErrorCode.ENTITY_NOT_FOUND;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("Api error, errorCode: {} message: {}", e.getMessage(), errorCode.getCode());
+        return ResponseEntity.status(404).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 }

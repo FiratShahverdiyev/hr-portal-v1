@@ -11,6 +11,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ErrorResponseDto {
-    Integer code;
     String message;
+    Integer code;
 }
