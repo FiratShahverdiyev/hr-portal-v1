@@ -17,8 +17,6 @@ import java.util.Collections;
 @EnableSwagger2
 @Configuration
 public class SwaggerConfiguration {
-
-
     @Value("${application.swagger.title}")
     private String apiTitle;
     @Value("${application.swagger.description}")
