@@ -2,7 +2,10 @@ package az.hrportal.hrportalapi.domain.employee;
 
 import az.hrportal.hrportalapi.constant.employee.EducationType;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
@@ -22,12 +25,15 @@ import java.util.Date;
 @Setter
 @Table(name = "educations")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Education {
     @Id
     @Column(name = "employee_id")
     Integer id;
     @Column(name = "academic_degree_start_date")
-    String academicDegreeDate;
+    Date academicDegreeDate;
     @Column(name = "academic_degree_file_number")
     String academicDegreeNumber;
     @Column(name = "academic_degree_organization")
@@ -49,10 +55,12 @@ public class Education {
     @Column(name = "graduate_file_number")
     String graduateFileNumber;
     @Column(name = "graduate_file_start_date")
-    String graduateFileDate;
+    Date graduateFileDate;
     @Column(name = "education_type")
     @Enumerated(EnumType.STRING)
     EducationType educationType;
+    @Column(name = "nostrifikasiya_number")
+    String nostrifikasiyaNumber;
     @OneToOne
     @MapsId
     @JoinColumn(name = "employee_id")

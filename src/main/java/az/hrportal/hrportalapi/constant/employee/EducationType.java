@@ -10,7 +10,7 @@ public enum EducationType {
         this.education = education;
     }
 
-    public EducationType intToEnum(int value) {
+    public static EducationType intToEnum(int value) {
         EducationType[] values = EducationType.values();
         for (EducationType educationType : values) {
             if (educationType.education == value)

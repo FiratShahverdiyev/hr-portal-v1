@@ -1,21 +1,28 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.employee.Address;
+import az.hrportal.hrportalapi.domain.employee.Business;
 import az.hrportal.hrportalapi.domain.employee.ContactInfo;
 import az.hrportal.hrportalapi.domain.employee.Country;
+import az.hrportal.hrportalapi.domain.employee.Education;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.ForeignPassport;
 import az.hrportal.hrportalapi.domain.employee.IDCard;
+import az.hrportal.hrportalapi.dto.AcademicRequestDto;
+import az.hrportal.hrportalapi.dto.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.error.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.EmployeeMapper;
 import az.hrportal.hrportalapi.repository.AddressRepository;
+import az.hrportal.hrportalapi.repository.BusinessRepository;
 import az.hrportal.hrportalapi.repository.ContactInfoRepository;
 import az.hrportal.hrportalapi.repository.CountryRepository;
+import az.hrportal.hrportalapi.repository.EducationRepository;
 import az.hrportal.hrportalapi.repository.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.ForeignPassportRepository;
 import az.hrportal.hrportalapi.repository.IDCardRepository;
@@ -38,6 +45,8 @@ public class EmployeeService {
     private final ContactInfoRepository contactInfoRepository;
     private final ForeignPassportRepository foreignPassportRepository;
     private final IDCardRepository idCardRepository;
+    private final BusinessRepository businessRepository;
+    private final EducationRepository educationRepository;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -55,7 +64,7 @@ public class EmployeeService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException(Country.class));
 
         Employee employee = Employee.builder()
                 .familyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()))
@@ -115,6 +124,62 @@ public class EmployeeService {
                 .build();
         idCardRepository.save(idCard);
 
+        return saved.getId();
+    }
+
+    @Transactional
+    @SneakyThrows
+    public Integer updateBusiness(Integer id, BusinessRequestDto businessRequestDto) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+
+        Business business = Business.builder()
+                .company(businessRequestDto.getCompany())
+                .employee(employee)
+                .isMainJob(businessRequestDto.isMainJob())
+                .jobEndDate(dateFormat.parse(businessRequestDto.getJobEndDate()))
+                .jobStartDate(dateFormat.parse(businessRequestDto.getJobStartDate()))
+                .jobEndReason(businessRequestDto.getJobEndReason())
+                .position(businessRequestDto.getPosition())
+                .section(businessRequestDto.getSection())
+                .subSection(businessRequestDto.getSubSection())
+                .build();
+        businessRepository.save(business);
+
+        employee.setBusiness(business);
+        Employee saved = employeeRepository.save(employee);
+        return saved.getId();
+    }
+
+    @Transactional
+    @SneakyThrows
+    public Integer updateAcademic(Integer id, AcademicRequestDto academicRequestDto) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+
+        Education education = Education.builder()
+                .educationType(EducationType.intToEnum(academicRequestDto.getEducationType()))
+                .academicDegreeDate(dateFormat.parse(academicRequestDto.getAcademicDegreeDate()))
+                .academicDegreeNumber(academicRequestDto.getAcademicDegreeNumber())
+                .academicDegreeOrganization(academicRequestDto.getAcademicDegreeOrganization())
+                .degree(academicRequestDto.getDegree())
+                .direction(academicRequestDto.getDirection())
+                .employee(employee)
+                .entranceDate(dateFormat.parse(academicRequestDto.getEntranceDate()))
+                .faculty(academicRequestDto.getFaculty())
+                .graduateDate(dateFormat.parse(academicRequestDto.getGraduateDate()))
+                .graduateFileNumber(academicRequestDto.getGraduateFileNumber())
+                .graduateFileDate(dateFormat.parse(academicRequestDto.getGraduateFileDate()))
+                .institution(academicRequestDto.getInstitution())
+                .build();
+        educationRepository.save(education);
+
+        employee.setEducation(education);
+        Employee saved = employeeRepository.save(employee);
         return saved.getId();
     }
 }

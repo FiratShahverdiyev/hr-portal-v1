@@ -41,7 +41,6 @@ public class Business {
     Date jobStartDate;
     @Column(name = "job_end_date")
     Date jobEndDate;
-    //Isden azad olma maddes
     @Column(name = "job_end_reason")
     String jobEndReason; //TODO hardan gelir ??
     @Column(name = "main_job")
