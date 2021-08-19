@@ -17,6 +17,6 @@ public enum DriverCategory {
             if (driverCategory.category == value)
                 return driverCategory;
         }
-        return A;
+        throw new RuntimeException();
     }
 }

@@ -18,6 +18,6 @@ public enum VacancyCategory {
             if (vacancyCategory.value == value)
                 return vacancyCategory;
         }
-        return WORKER;
+        throw new RuntimeException();
     }
 }

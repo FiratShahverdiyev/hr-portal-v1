@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto.position;
+package az.hrportal.hrportalapi.domain.embeddable;
 
 import az.hrportal.hrportalapi.constant.position.Level;
 import lombok.AccessLevel;

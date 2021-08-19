@@ -12,12 +12,12 @@ public enum BloodGroup {
         this.bloodGroup = bloodGroup;
     }
 
-    public BloodGroup intToEnum(int value) {
+    public static BloodGroup intToEnum(int value) {
         BloodGroup[] values = BloodGroup.values();
         for (BloodGroup bloodGroup : values) {
             if (bloodGroup.bloodGroup == value)
                 return bloodGroup;
         }
-        return BIR;
+        throw new RuntimeException();
     }
 }

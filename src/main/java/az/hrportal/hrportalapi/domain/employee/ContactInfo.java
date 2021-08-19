@@ -1,7 +1,10 @@
 package az.hrportal.hrportalapi.domain.employee;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
@@ -18,6 +21,9 @@ import javax.persistence.Table;
 @Setter
 @Table(name = "contact_info")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ContactInfo {
     @Id
     @Column(name = "employee_id")

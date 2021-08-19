@@ -5,11 +5,14 @@ import az.hrportal.hrportalapi.constant.employee.DriverCategory;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.domain.embeddable.Certificate;
+import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.domain.position.Position;
-import az.hrportal.hrportalapi.dto.Certificate;
-import az.hrportal.hrportalapi.dto.FamilyMember;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -39,6 +42,9 @@ import java.util.List;
 @Setter
 @Table(name = "employees")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
     @Id
     @SequenceGenerator(name = "employees_id_seq", allocationSize = 1, sequenceName = "employees_id_seq")
@@ -73,9 +79,12 @@ public class Employee {
 
     @Column(name = "permission")
     String permission;
-    //Vesiqe veya muveqqeti yasamaq icazesi nedir ?
+
     @OneToOne(mappedBy = "employee")
     ForeignPassport foreignPassport;
+
+    @OneToOne(mappedBy = "employee")
+    IDCard idCard;
 
     @OneToOne(mappedBy = "employee")
     Address address;

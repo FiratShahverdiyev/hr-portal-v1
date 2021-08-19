@@ -12,12 +12,12 @@ public enum FamilyCondition {
         this.condition = condition;
     }
 
-    public FamilyCondition intToEnum(int value) {
+    public static FamilyCondition intToEnum(int value) {
         FamilyCondition[] values = FamilyCondition.values();
         for (FamilyCondition familyCondition : values) {
             if (familyCondition.condition == value)
                 return familyCondition;
         }
-        return SINGLE;
+        throw new RuntimeException();
     }
 }

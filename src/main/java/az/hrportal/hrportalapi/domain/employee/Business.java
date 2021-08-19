@@ -1,7 +1,10 @@
 package az.hrportal.hrportalapi.domain.employee;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
@@ -19,6 +22,9 @@ import java.util.Date;
 @Setter
 @Table(name = "business")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Business {
     @Id
     @Column(name = "employee_id")

@@ -19,6 +19,6 @@ public enum WorkPlace {
             if (workPlace.value == value)
                 return workPlace;
         }
-        return Bakı_inzibati_bina;
+        throw new RuntimeException();
     }
 }

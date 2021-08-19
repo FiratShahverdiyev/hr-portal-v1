@@ -20,6 +20,6 @@ public enum EducationDegree {
             if (educationDegree.degree == value)
                 return educationDegree;
         }
-        return MIDDLE;
+        throw new RuntimeException();
     }
 }

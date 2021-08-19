@@ -16,6 +16,6 @@ public enum WorkMode {
             if (workMode.value == value)
                 return workMode;
         }
-        return DAILY;
+        throw new RuntimeException();
     }
 }

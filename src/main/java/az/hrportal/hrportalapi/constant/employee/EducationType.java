@@ -16,6 +16,6 @@ public enum EducationType {
             if (educationType.education == value)
                 return educationType;
         }
-        return CORRESPONDENCE;
+        throw new RuntimeException();
     }
 }

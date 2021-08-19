@@ -1,5 +1,6 @@
-package az.hrportal.hrportalapi.dto;
+package az.hrportal.hrportalapi.domain.embeddable;
 
+import az.hrportal.hrportalapi.constant.employee.RelationType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,10 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Embeddable
 public class FamilyMember {
-    String type; //TODO Enum
+    RelationType relationType;
     String fullName;
-    Date birthDay; // ?
-    String birthPlace; //TODO Enum or entity
+    Date birthDay;
+    String birthPlace;
     String workPlace;
     String position;
     String address;

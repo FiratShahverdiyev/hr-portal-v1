@@ -2,7 +2,10 @@ package az.hrportal.hrportalapi.domain.employee;
 
 import az.hrportal.hrportalapi.constant.employee.Series;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
@@ -22,6 +25,9 @@ import java.util.Date;
 @Setter
 @Table(name = "id_card")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class IDCard {
     @Id
     @Column(name = "employee_id")

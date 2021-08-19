@@ -9,12 +9,12 @@ public enum Series {
         this.series = series;
     }
 
-    private Series intToEnum(int value) {
+    public static Series intToEnum(int value) {
         Series[] values = Series.values();
         for (Series series : values) {
             if (series.series == value)
                 return series;
         }
-        return AZE;
+        throw new RuntimeException();
     }
 }

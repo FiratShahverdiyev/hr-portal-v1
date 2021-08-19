@@ -16,6 +16,6 @@ public enum RequireFile {
             if (requireFile.value == value)
                 return requireFile;
         }
-        return CERTIFICATE;
+        throw new RuntimeException();
     }
 }

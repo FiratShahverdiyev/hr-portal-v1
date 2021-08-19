@@ -7,10 +7,10 @@ import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.domain.employee.Employee;
-import az.hrportal.hrportalapi.dto.position.ComputerKnowledge;
-import az.hrportal.hrportalapi.dto.position.LanguageKnowledge;
-import az.hrportal.hrportalapi.dto.position.LegislationStatement;
-import az.hrportal.hrportalapi.dto.position.Skill;
+import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
+import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
+import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
+import az.hrportal.hrportalapi.domain.embeddable.Skill;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,42 +54,31 @@ public class Position {
     SubWorkCalculateDegree subWorkCalculateDegree;
     @ManyToOne(optional = false)
     Vacancy vacancy;
-
     @Column(name = "count", nullable = false)
     Integer count;
-
     @ManyToOne(optional = false)
     Salary salary;
-
     @ManyToOne(optional = false)
     WorkCondition workCondition;
-
     @Column(name = "additional_salary")
     Integer additionalSalary;
-
     @Column(name = "work_mode", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
-
     @Column(name = "vacancy_category", nullable = false)
     @Enumerated(EnumType.STRING)
     VacancyCategory vacancyCategory;
-
     @ManyToOne
     JobFamily jobFamily;
-
     @ElementCollection
     @CollectionTable(name = "position_skills", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "skill")
     List<Skill> skills;
-
     @Column(name = "work_place", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkPlace workPlace;
-
     @ManyToOne
     Employee employee;
-
     @Column(name = "area_experience")
     Integer areaExperience;
     @Column(name = "leader_experience")
@@ -110,17 +99,14 @@ public class Position {
     GenderDemand genderDemand;
     @Column(name = "health")
     boolean isHealthy;
-
     @ElementCollection
     @CollectionTable(name = "position_computer_knowledge", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
     List<ComputerKnowledge> computerKnowledge;
-
     @ElementCollection
     @CollectionTable(name = "position_language_knowledge", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
     List<LanguageKnowledge> languageKnowledge;
-
     @ElementCollection
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")

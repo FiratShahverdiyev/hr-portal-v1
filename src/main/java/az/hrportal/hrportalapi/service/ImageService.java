@@ -20,7 +20,7 @@ public class ImageService {
         log.info("Image save service started with id : {}, fileName : {}", id, file.getOriginalFilename());
         String fileName = FileUtil.saveFile(fileRootDirectory, file.getOriginalFilename(),
                 file.getContentType().split("/")[1], file);
-        employeeService.updatePhoto(id, fileName);
+        employeeService.setPhotoName(id, fileName);
         log.info("Image save service completed with id : {}, fileName : {}", id, fileName);
     }
 

@@ -17,6 +17,6 @@ public enum Level {
             if (level.value == value)
                 return level;
         }
-        return MIDDLE;
+        throw new RuntimeException();
     }
 }

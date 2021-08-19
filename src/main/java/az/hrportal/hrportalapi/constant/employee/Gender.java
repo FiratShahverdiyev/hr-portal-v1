@@ -10,12 +10,12 @@ public enum Gender {
         this.gender = gender;
     }
 
-    public Gender intToEnum(int value) {
+    public static Gender intToEnum(int value) {
         Gender[] values = Gender.values();
         for (Gender gender : values) {
             if (gender.gender == value)
                 return gender;
         }
-        return MALE;
+        throw new RuntimeException();
     }
 }

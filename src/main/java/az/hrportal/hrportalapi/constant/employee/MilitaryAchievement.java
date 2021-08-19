@@ -18,6 +18,6 @@ public enum MilitaryAchievement {
             if (achievement.value == value)
                 return achievement;
         }
-        return Məhdud_yararlı;
+        throw new RuntimeException();
     }
 }
