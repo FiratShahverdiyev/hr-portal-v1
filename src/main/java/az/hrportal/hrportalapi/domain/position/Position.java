@@ -43,9 +43,11 @@ public class Position {
 
     @ManyToOne(optional = false)
     Institution institution;
-    //Struktur vahidi *
-    //Struktur bolmesi *
-    //Tabe struktur bolmesi *
+    @ManyToOne
+    Department department;
+    @ManyToOne
+    SubDepartment subDepartment;
+
     @ManyToOne(optional = false)
     Vacancy vacancy;
     @Column(name = "count", nullable = false)
