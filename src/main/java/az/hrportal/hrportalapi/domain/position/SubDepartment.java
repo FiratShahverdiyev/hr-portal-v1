@@ -35,4 +35,7 @@ public class SubDepartment {
 
     @OneToMany(mappedBy = "subDepartment")
     List<ObeyDepartment> obeyDepartment;
+
+    @OneToMany(mappedBy = "subDepartment")
+    List<Position> positions;
 }

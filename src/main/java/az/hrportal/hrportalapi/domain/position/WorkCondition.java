@@ -18,20 +18,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "departments")
+@Table(name = "work_condition")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Department {
+public class WorkCondition {
     @Id
-    @SequenceGenerator(name = "departments_id_seq", allocationSize = 1, sequenceName = "departments_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_id_seq")
+    @SequenceGenerator(name = "work_condition_id_seq", allocationSize = 1, sequenceName = "work_condition_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_condition_id_seq")
     Integer id;
 
     @Column(name = "name")
     String name;
 
-    @OneToMany(mappedBy = "department")
-    List<SubDepartment> subDepartment;
-
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "workCondition")
     List<Position> positions;
 }

@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,4 +32,7 @@ public class SubWorkCalculateDegree {
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
     WorkCalculateDegree workCalculateDegree;
+
+    @OneToMany(mappedBy = "subWorkCalculateDegree")
+    List<Position> positions;
 }

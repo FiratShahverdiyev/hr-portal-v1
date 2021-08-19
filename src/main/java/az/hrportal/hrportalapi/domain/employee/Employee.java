@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.constant.employee.DriverCategory;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.Certificate;
 import az.hrportal.hrportalapi.dto.FamilyMember;
 import lombok.AccessLevel;
@@ -110,6 +111,9 @@ public class Employee {
     List<Certificate> certificates;
     @OneToMany(mappedBy = "employee")
     List<GovernmentAchievement> governmentAchievements;
+
+    @OneToMany(mappedBy = "employee")
+    List<Position> positions;
 
     @Column(name = "driver_card_category")
     @Enumerated(EnumType.STRING)

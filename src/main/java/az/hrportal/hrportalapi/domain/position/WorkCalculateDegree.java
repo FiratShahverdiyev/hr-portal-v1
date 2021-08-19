@@ -31,4 +31,7 @@ public class WorkCalculateDegree {
 
     @OneToMany(mappedBy = "workCalculateDegree")
     List<SubWorkCalculateDegree> subWorkCalculateDegrees;
+
+    @OneToMany(mappedBy = "workCalculateDegree")
+    List<Position> positions;
 }
