@@ -46,7 +46,7 @@ application:
 
 logging:
   file:
-    name: "C:/Users/ShahverdiyevF/Documents/Projects/hrportal-api/log/hr_info_log.log"
+    name: "./logs/hr_info_log.log"
   level:
     ROOT: INFO
   pattern:
