@@ -63,17 +63,18 @@ public class EmployeeService {
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
-        log.info("updatePhoto service started with id : {}, fileName : {}", id, fileName);
+        log.info("setPhotoName service started with id : {}, fileName : {}", id, fileName);
         Employee employee = employeeRepository
                 .findById(id).orElseThrow(() -> new EntityNotFoundException(Employee.class));
         employee.setPhoto(fileName);
         employeeRepository.save(employee);
-        log.info("updatePhoto service completed with id : {}, fileName : {}", id, fileName);
+        log.info("********** setPhotoName service completed with id : {}, fileName : {} **********", id, fileName);
     }
 
     @Transactional
     @SneakyThrows
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
+        log.info("saveGeneralInfo service started with {}", generalInfoRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
@@ -137,12 +138,14 @@ public class EmployeeService {
                 .build();
         idCardRepository.save(idCard);
 
+        log.info("********** saveGeneralInfo service completed with id : {} **********", saved.getId());
         return saved.getId();
     }
 
     @Transactional
     @SneakyThrows
     public Integer updateGeneralInfo(Integer id, GeneralInfoRequestDto generalInfoRequestDto) {
+        log.info("updateGeneralInfo service started with {}", generalInfoRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -198,12 +201,15 @@ public class EmployeeService {
         idCardRepository.save(idCard);
 
         Employee saved = employeeRepository.save(employee);
+
+        log.info("********** updateGeneralInfo service completed with id : {} **********", saved.getId());
         return saved.getId();
     }
 
     @Transactional
     @SneakyThrows
     public Integer updateBusiness(Integer id, BusinessRequestDto businessRequestDto) {
+        log.info("updateBusiness service started with {}", businessRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -224,12 +230,15 @@ public class EmployeeService {
 
         employee.setBusiness(business);
         Employee saved = employeeRepository.save(employee);
+
+        log.info("********** updateBusiness service completed with id : {} **********", saved.getId());
         return saved.getId();
     }
 
     @Transactional
     @SneakyThrows
     public Integer updateAcademic(Integer id, AcademicRequestDto academicRequestDto) {
+        log.info("updateAcademic service started with {}", academicRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -263,28 +272,33 @@ public class EmployeeService {
         employee.setPrisoner(academicRequestDto.isPrisoner());
         //S.S Sehadetnamesi nomresi
         Employee saved = employeeRepository.save(employee);
+
+        log.info("********** updateAcademic service completed with id : {} **********", saved.getId());
         return saved.getId();
     }
 
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
+        log.info("getGeneralInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
-
+        log.info("********** getGeneralInfoById service completed with id : {} **********", id);
         return generalInfoMapper.toGeneralInfoResponseDto(employee);
     }
 
     public BusinessResponseDto getBusinessInfoById(Integer id) {
+        log.info("getBusinessInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
-
+        log.info("********** getBusinessInfoById service completed with id : {} **********", id);
         return businessInfoMapper.toBusinessResponseDto(employee);
     }
 
     @Transactional
     public Integer delete(Integer id) {
+        log.info("delete (Employee) service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
-
+        log.info("********** delete (Employee) service completed with id : {} **********", id);
         employeeRepository.delete(employee);
         return id;
     }
