@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto.employee;
+package az.hrportal.hrportalapi.dto.employee.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;

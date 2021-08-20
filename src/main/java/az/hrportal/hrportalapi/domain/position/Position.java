@@ -27,6 +27,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -77,8 +78,8 @@ public class Position {
     @Column(name = "work_place", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkPlace workPlace;
-    @ManyToOne
-    Employee employee;
+    @OneToMany(mappedBy = "position")
+    List<Employee> employee;
     @Column(name = "area_experience")
     Integer areaExperience;
     @Column(name = "leader_experience")
@@ -89,6 +90,7 @@ public class Position {
     @ManyToOne
     Speciality educationSpeciality;
     @Column(name = "require_file")
+    @Enumerated(EnumType.STRING)
     RequireFile requireFile;
     @Column(name = "length")
     Float length;

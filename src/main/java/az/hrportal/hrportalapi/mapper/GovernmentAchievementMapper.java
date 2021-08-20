@@ -1,7 +1,7 @@
 package az.hrportal.hrportalapi.mapper;
 
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
-import az.hrportal.hrportalapi.dto.employee.GovernmentAchievementRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.GovernmentAchievementRequestDto;
 import lombok.SneakyThrows;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;

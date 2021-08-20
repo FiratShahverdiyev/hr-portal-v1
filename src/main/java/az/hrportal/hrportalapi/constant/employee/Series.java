@@ -5,6 +5,10 @@ public enum Series {
 
     private int series;
 
+    public int getSeries() {
+        return series;
+    }
+
     Series(int series) {
         this.series = series;
     }

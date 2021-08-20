@@ -8,6 +8,10 @@ public enum BloodGroup {
 
     private int bloodGroup;
 
+    public int getBloodGroup() {
+        return bloodGroup;
+    }
+
     BloodGroup(int bloodGroup) {
         this.bloodGroup = bloodGroup;
     }

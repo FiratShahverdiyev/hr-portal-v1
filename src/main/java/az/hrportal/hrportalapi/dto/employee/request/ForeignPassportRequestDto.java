@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto.employee;
+package az.hrportal.hrportalapi.dto.employee.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,7 +8,9 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CertificateRequestDto {
-    String name;
+public class ForeignPassportRequestDto {
+    Integer series;
+    String number;
+    String startDate;
     String endDate;
 }

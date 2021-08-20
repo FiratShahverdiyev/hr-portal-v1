@@ -8,6 +8,10 @@ public enum FamilyCondition {
 
     private int condition;
 
+    public int getCondition() {
+        return condition;
+    }
+
     FamilyCondition(int condition) {
         this.condition = condition;
     }

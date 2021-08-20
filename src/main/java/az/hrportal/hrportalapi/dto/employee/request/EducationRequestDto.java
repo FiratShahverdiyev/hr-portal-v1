@@ -1,20 +1,18 @@
-package az.hrportal.hrportalapi.dto.employee;
+package az.hrportal.hrportalapi.dto.employee.request;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AcademicRequestDto {
+public class EducationRequestDto {
     String academicDegreeDate;
     String academicDegreeNumber;
     String academicDegreeOrganization;
-    String institution;
+    String institution; //TODO hardan gelir ??
     String faculty;
     String direction;
     String speciality;
@@ -25,11 +23,4 @@ public class AcademicRequestDto {
     String graduateFileDate;
     Integer educationType;
     String nostrifikasiyaNumber;
-    List<CertificateRequestDto> certificates;
-    List<GovernmentAchievementRequestDto> governmentAchievements;
-    Integer driverCardCategory;
-    String driverCardEndDate;
-    Integer kvota;
-    boolean isPrisoner;
-    boolean isMemberOfColleaguesAlliance;
 }

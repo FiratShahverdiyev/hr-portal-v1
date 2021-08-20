@@ -18,6 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -80,19 +81,19 @@ public class Employee {
     @Column(name = "permission")
     String permission;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     ForeignPassport foreignPassport;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     IDCard idCard;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Address address;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     ContactInfo contactInfo;
 
@@ -106,11 +107,11 @@ public class Employee {
     @CollectionTable(name = "employee_quotas", joinColumns = @JoinColumn(name = "employee_id"))
     List<String> quotas;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Business business;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Education education;
 
@@ -121,11 +122,12 @@ public class Employee {
     @ElementCollection
     @CollectionTable(name = "employee_certificates", joinColumns = @JoinColumn(name = "employee_id"))
     List<Certificate> certificates;
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     List<GovernmentAchievement> governmentAchievements;
 
-    @OneToMany(mappedBy = "employee")
-    List<Position> positions;
+    @ManyToOne
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
+    Position position;
 
     @Column(name = "driver_card_category")
     @Enumerated(EnumType.STRING)

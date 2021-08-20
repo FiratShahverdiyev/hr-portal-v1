@@ -6,6 +6,10 @@ public enum Gender {
 
     private int gender;
 
+    public int getGender() {
+        return gender;
+    }
+
     Gender(int gender) {
         this.gender = gender;
     }

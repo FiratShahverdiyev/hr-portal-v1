@@ -8,6 +8,10 @@ public enum RelationType {
 
     private int value;
 
+    public int getValue() {
+        return value;
+    }
+
     RelationType(int value) {
         this.value = value;
     }

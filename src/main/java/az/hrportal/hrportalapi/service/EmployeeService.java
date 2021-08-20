@@ -14,11 +14,13 @@ import az.hrportal.hrportalapi.domain.employee.Education;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.ForeignPassport;
 import az.hrportal.hrportalapi.domain.employee.IDCard;
-import az.hrportal.hrportalapi.dto.employee.AcademicRequestDto;
-import az.hrportal.hrportalapi.dto.employee.BusinessRequestDto;
-import az.hrportal.hrportalapi.dto.employee.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.CertificateMapper;
+import az.hrportal.hrportalapi.mapper.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.FamilyMemberMapper;
 import az.hrportal.hrportalapi.mapper.GovernmentAchievementMapper;
 import az.hrportal.hrportalapi.repository.employee.AddressRepository;
@@ -52,6 +54,7 @@ public class EmployeeService {
     private final FamilyMemberMapper familyMemberMapper;
     private final GovernmentAchievementMapper governmentAchievementMapper;
     private final CertificateMapper certificateMapper;
+    private final EmployeeMapper employeeMapper;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -134,6 +137,67 @@ public class EmployeeService {
 
     @Transactional
     @SneakyThrows
+    public Integer updateGeneralInfo(Integer id, GeneralInfoRequestDto generalInfoRequestDto) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+        Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
+                .orElseThrow(() -> new EntityNotFoundException(Country.class));
+
+        employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
+        employee.setFullName(generalInfoRequestDto.getFullName());
+        employee.setBirthDay(dateFormat.parse(generalInfoRequestDto.getBirthDay()));
+        employee.setBirthPlace(generalInfoRequestDto.getBirthPlace());
+        employee.setCitizenCountry(country);
+        employee.setGender(Gender.intToEnum(generalInfoRequestDto.getGender()));
+        employee.setBloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()));
+        employee.setPermission(generalInfoRequestDto.getPermission());
+        employee.setFamilyMembers(familyMemberMapper.toFamilyMembers(generalInfoRequestDto.getFamilyMembers()));
+
+        Address address = employee.getAddress();
+        address.setApartment(generalInfoRequestDto.getAddressApartment());
+        address.setBlock(generalInfoRequestDto.getAddressBlock());
+        address.setCity(generalInfoRequestDto.getAddressCity());
+        address.setCountry(generalInfoRequestDto.getAddressCountry());
+        address.setDistrict(generalInfoRequestDto.getAddressDistrict());
+        address.setHome(generalInfoRequestDto.getAddressHome());
+        address.setStreet(generalInfoRequestDto.getAddressStreet());
+        address.setVillage(generalInfoRequestDto.getAddressVillage());
+        addressRepository.save(address);
+
+        ContactInfo contactInfo = employee.getContactInfo();
+        contactInfo.setBusinessMailAddress(generalInfoRequestDto.getBusinessMailAddress());
+        contactInfo.setBusinessPhone(generalInfoRequestDto.getBusinessPhone());
+        contactInfo.setHomePhone(generalInfoRequestDto.getHomePhone());
+        contactInfo.setInternalBusinessPhone(generalInfoRequestDto.getInternalBusinessPhone());
+        contactInfo.setMobilePhone1(generalInfoRequestDto.getMobilePhone1());
+        contactInfo.setMobilePhone2(generalInfoRequestDto.getMobilePhone2());
+        contactInfo.setOwnMailAddress(generalInfoRequestDto.getOwnMailAddress());
+        contactInfoRepository.save(contactInfo);
+
+        ForeignPassport foreignPassport = employee.getForeignPassport();
+        foreignPassport.setEndDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportEndDate()));
+        foreignPassport.setSeries(Series.intToEnum(generalInfoRequestDto.getForeignPassportSeries()));
+        foreignPassport.setNumber(generalInfoRequestDto.getForeignPassportNumber());
+        foreignPassport.setStartDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportStartDate()));
+        foreignPassportRepository.save(foreignPassport);
+
+        IDCard idCard = employee.getIdCard();
+        idCard.setSeries(Series.intToEnum(generalInfoRequestDto.getIDCardSeries()));
+        idCard.setEndDate(dateFormat.parse(generalInfoRequestDto.getIDCardEndDate()));
+        idCard.setNumber(generalInfoRequestDto.getIDCardNumber());
+        idCard.setOrganization(generalInfoRequestDto.getIDCardOrganization());
+        idCard.setStartDate(dateFormat.parse(generalInfoRequestDto.getIDCardStartDate()));
+        idCard.setPin(generalInfoRequestDto.getIDCardPin());
+        idCardRepository.save(idCard);
+
+        Employee saved = employeeRepository.save(employee);
+        return saved.getId();
+    }
+
+    @Transactional
+    @SneakyThrows
     public Integer updateBusiness(Integer id, BusinessRequestDto businessRequestDto) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -197,6 +261,14 @@ public class EmployeeService {
         return saved.getId();
     }
 
+    public GeneralInfoResponseDto getById(Integer id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+
+        return employeeMapper.toGeneralInfoRequestDto(employee);
+    }
+
+    @Transactional
     public Integer delete(Integer id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
@@ -205,8 +277,8 @@ public class EmployeeService {
         return id;
     }
 
-    @Transactional
-    public Employee update(Integer id, Employee employeeDto) {
+    /*@Transactional
+    public Employee update(Integer id, EmployeeUpdateRequestDto employeeDto) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
         Address address = employee.getAddress();
@@ -216,5 +288,31 @@ public class EmployeeService {
         ForeignPassport foreignPassport = employee.getForeignPassport();
         IDCard idCard = employee.getIdCard();
 
-    }
+        if (employeeDto.getAddress() != null) {
+            address = employeeMapper.toAddress(employeeDto.getAddress());
+        }
+        if (employeeDto.getBusiness() != null) {
+            business = employeeMapper.toBusiness(employeeDto.getBusiness());
+        }
+        if (employeeDto.getEducation() != null) {
+            education = employeeMapper.toEducation(employeeDto.getEducation());
+        }
+        if (employeeDto.getContactInfo() != null) {
+            contactInfo = employeeMapper.toContactInfo(employeeDto.getContactInfo());
+        }
+        if (employeeDto.getForeignPassport() != null) {
+            foreignPassport = employeeMapper.toForeignPassport(employeeDto.getForeignPassport());
+        }
+        if (employeeDto.getIdCard() != null) {
+            idCard = employeeMapper.toIdCard(employeeDto.getIdCard());
+        }
+
+        employee.setAddress(address);
+        employee.setBusiness(business);
+        employee.setEducation(education);
+        employee.setContactInfo(contactInfo);
+        employee.setForeignPassport(foreignPassport);
+        employee.setIdCard(idCard);
+    }*/
+
 }
