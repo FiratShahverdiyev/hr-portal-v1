@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.repository;
+package az.hrportal.hrportalapi.repository.position;
 
 import az.hrportal.hrportalapi.domain.position.Salary;
 import org.springframework.data.jpa.repository.JpaRepository;

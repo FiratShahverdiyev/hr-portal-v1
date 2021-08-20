@@ -4,6 +4,7 @@ import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
+import az.hrportal.hrportalapi.constant.employee.Kvota;
 import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.employee.Address;
 import az.hrportal.hrportalapi.domain.employee.Business;
@@ -17,15 +18,17 @@ import az.hrportal.hrportalapi.dto.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.error.EntityNotFoundException;
-import az.hrportal.hrportalapi.mapper.EmployeeMapper;
-import az.hrportal.hrportalapi.repository.AddressRepository;
-import az.hrportal.hrportalapi.repository.BusinessRepository;
-import az.hrportal.hrportalapi.repository.ContactInfoRepository;
-import az.hrportal.hrportalapi.repository.CountryRepository;
-import az.hrportal.hrportalapi.repository.EducationRepository;
-import az.hrportal.hrportalapi.repository.EmployeeRepository;
-import az.hrportal.hrportalapi.repository.ForeignPassportRepository;
-import az.hrportal.hrportalapi.repository.IDCardRepository;
+import az.hrportal.hrportalapi.mapper.CertificateMapper;
+import az.hrportal.hrportalapi.mapper.FamilyMemberMapper;
+import az.hrportal.hrportalapi.mapper.GovernmentAchievementMapper;
+import az.hrportal.hrportalapi.repository.employee.AddressRepository;
+import az.hrportal.hrportalapi.repository.employee.BusinessRepository;
+import az.hrportal.hrportalapi.repository.employee.ContactInfoRepository;
+import az.hrportal.hrportalapi.repository.employee.CountryRepository;
+import az.hrportal.hrportalapi.repository.employee.EducationRepository;
+import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
+import az.hrportal.hrportalapi.repository.employee.ForeignPassportRepository;
+import az.hrportal.hrportalapi.repository.employee.IDCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +42,6 @@ import java.text.SimpleDateFormat;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
     private final CountryRepository countryRepository;
     private final AddressRepository addressRepository;
     private final ContactInfoRepository contactInfoRepository;
@@ -47,6 +49,9 @@ public class EmployeeService {
     private final IDCardRepository idCardRepository;
     private final BusinessRepository businessRepository;
     private final EducationRepository educationRepository;
+    private final FamilyMemberMapper familyMemberMapper;
+    private final GovernmentAchievementMapper governmentAchievementMapper;
+    private final CertificateMapper certificateMapper;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -75,7 +80,7 @@ public class EmployeeService {
                 .gender(Gender.intToEnum(generalInfoRequestDto.getGender()))
                 .bloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()))
                 .permission(generalInfoRequestDto.getPermission())
-                .familyMembers(employeeMapper.toFamilyMembers(generalInfoRequestDto.getFamilyMembers()))
+                .familyMembers(familyMemberMapper.toFamilyMembers(generalInfoRequestDto.getFamilyMembers()))
                 .build();
         Employee saved = employeeRepository.save(employee);
 
@@ -175,10 +180,19 @@ public class EmployeeService {
                 .graduateFileNumber(academicRequestDto.getGraduateFileNumber())
                 .graduateFileDate(dateFormat.parse(academicRequestDto.getGraduateFileDate()))
                 .institution(academicRequestDto.getInstitution())
+                .nostrifikasiyaNumber(academicRequestDto.getNostrifikasiyaNumber())
+                .speciality(academicRequestDto.getSpeciality())
                 .build();
         educationRepository.save(education);
 
         employee.setEducation(education);
+        employee.setGovernmentAchievements(governmentAchievementMapper
+                .tGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
+        employee.setCertificates(certificateMapper.toCertificates(academicRequestDto.getCertificates()));
+        employee.setKvota(Kvota.getKvota(academicRequestDto.getKvota()));
+        employee.setMemberOfColleaguesAlliance(academicRequestDto.isMemberOfColleaguesAlliance());
+        employee.setPrisoner(academicRequestDto.isPrisoner());
+        //S.S Sehadetnamesi nomresi
         Employee saved = employeeRepository.save(employee);
         return saved.getId();
     }

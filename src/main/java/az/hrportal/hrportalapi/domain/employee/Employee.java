@@ -93,7 +93,6 @@ public class Employee {
     @PrimaryKeyJoinColumn
     ContactInfo contactInfo;
 
-    //Family
     @Column(name = "family_member")
     @ElementCollection
     @CollectionTable(name = "employee_family_members", joinColumns = @JoinColumn(name = "employee_id"))
@@ -111,9 +110,10 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     @PrimaryKeyJoinColumn
     Education education;
-    //Nostrifikasiya sehadetnamesinin nomresi
 
-    //Achievements
+    @Column(name = "kvota")
+    String kvota;
+
     @Column(name = "certificate")
     @ElementCollection
     @CollectionTable(name = "employee_certificates", joinColumns = @JoinColumn(name = "employee_id"))

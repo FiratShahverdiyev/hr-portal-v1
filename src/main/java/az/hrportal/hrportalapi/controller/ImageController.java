@@ -2,6 +2,7 @@ package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.service.ImageService;
+import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class ImageController {
         return ResponseDto.of(true, 200);
     }
 
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     @GetMapping(value = "{file-name}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public byte[] get(@PathVariable("file-name") String fileName) {
         return imageService.get(fileName);

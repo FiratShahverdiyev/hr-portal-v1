@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")
-public interface EmployeeMapper {
+public interface FamilyMemberMapper {
     @IterableMapping(qualifiedByName = "toFamilyMember")
     List<FamilyMember> toFamilyMembers(List<FamilyMemberRequestDto> familyMemberRequestDtos);
 

@@ -1,6 +1,5 @@
-package az.hrportal.hrportalapi.repository;
+package az.hrportal.hrportalapi.repository.employee;
 
-import az.hrportal.hrportalapi.domain.employee.Business;
 import az.hrportal.hrportalapi.domain.employee.Education;
 import org.springframework.data.jpa.repository.JpaRepository;
 

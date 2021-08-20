@@ -5,9 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HrportalApiApplication {
-
     public static void main(String[] args) {
+        System.out.println();
         SpringApplication.run(HrportalApiApplication.class, args);
     }
-
 }
