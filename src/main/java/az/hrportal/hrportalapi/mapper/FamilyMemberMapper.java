@@ -8,6 +8,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.text.SimpleDateFormat;
@@ -22,8 +23,10 @@ public interface FamilyMemberMapper {
     List<FamilyMember> toFamilyMembers(List<FamilyMemberRequestDto> familyMemberRequestDtos);
 
     @Named("toFamilyMember")
-    @Mapping(target = "relationType", source = "relationType", qualifiedByName = "intToRelationType")
-    @Mapping(target = "birthDay", source = "birthDay", qualifiedByName = "stringToDate")
+    @Mapping(target = "relationType", source = "relationType", qualifiedByName = "intToRelationType",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "birthDay", source = "birthDay", qualifiedByName = "stringToDate",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     FamilyMember toFamilyMember(FamilyMemberRequestDto familyMemberRequestDto);
 
     @Named("intToRelationType")

@@ -7,6 +7,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +23,8 @@ public interface GovernmentAchievementMapper {
                                                                 governmentAchievementRequestDtos);
 
     @Named("toGovernmentAchievement")
-    @Mapping(target = "startDate", source = "startDate", qualifiedByName = "stringToDate")
+    @Mapping(target = "startDate", source = "startDate", qualifiedByName = "stringToDate",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     GovernmentAchievement toGovernmentAchievement(GovernmentAchievementRequestDto governmentAchievementRequestDto);
 
     @Named("stringToDate")

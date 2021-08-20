@@ -17,11 +17,14 @@ import az.hrportal.hrportalapi.domain.employee.IDCard;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.BusinessInfoMapper;
 import az.hrportal.hrportalapi.mapper.CertificateMapper;
 import az.hrportal.hrportalapi.mapper.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.FamilyMemberMapper;
+import az.hrportal.hrportalapi.mapper.GeneralInfoMapper;
 import az.hrportal.hrportalapi.mapper.GovernmentAchievementMapper;
 import az.hrportal.hrportalapi.repository.employee.AddressRepository;
 import az.hrportal.hrportalapi.repository.employee.BusinessRepository;
@@ -55,6 +58,8 @@ public class EmployeeService {
     private final GovernmentAchievementMapper governmentAchievementMapper;
     private final CertificateMapper certificateMapper;
     private final EmployeeMapper employeeMapper;
+    private final GeneralInfoMapper generalInfoMapper;
+    private final BusinessInfoMapper businessInfoMapper;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -261,11 +266,18 @@ public class EmployeeService {
         return saved.getId();
     }
 
-    public GeneralInfoResponseDto getById(Integer id) {
+    public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
 
-        return employeeMapper.toGeneralInfoRequestDto(employee);
+        return generalInfoMapper.toGeneralInfoResponseDto(employee);
+    }
+
+    public BusinessResponseDto getBusinessInfoById(Integer id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+
+        return businessInfoMapper.toBusinessResponseDto(employee);
     }
 
     @Transactional

@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.dto.employee.response;
 
-import az.hrportal.hrportalapi.dto.employee.request.FamilyMemberRequestDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

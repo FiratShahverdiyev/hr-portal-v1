@@ -7,6 +7,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.text.SimpleDateFormat;
@@ -21,7 +22,8 @@ public interface CertificateMapper {
     List<Certificate> toCertificates(List<CertificateRequestDto> certificateRequestDtos);
 
     @Named("toCertificate")
-    @Mapping(target = "endDate", source = "endDate", qualifiedByName = "stringToDate")
+    @Mapping(target = "endDate", source = "endDate", qualifiedByName = "stringToDate",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     Certificate toCertificate(CertificateRequestDto certificateRequestDto);
 
     @Named("stringToDate")
