@@ -30,20 +30,20 @@ public class EmployeeController {
         return ResponseDto.of(employeeService.saveGeneralInfo(generalInfoRequestDto), 200);
     }
 
-    @PutMapping("general/{id}")
+    @PutMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody GeneralInfoRequestDto
             generalInfoRequestDto) {
         return ResponseDto.of(employeeService.updateGeneralInfo(id, generalInfoRequestDto), 200);
     }
 
-    @PutMapping("business/{id}")
+    @PutMapping("business-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody BusinessRequestDto businessRequestDto) {
         return ResponseDto.of(employeeService.updateBusiness(id, businessRequestDto), 200);
     }
 
-    @PutMapping("academic/{id}")
+    @PutMapping("academic-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody AcademicRequestDto academicRequestDto) {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
