@@ -51,7 +51,7 @@ public interface GeneralInfoMapper {
     @Mapping(target = "internalBusinessPhone", source = "contactInfo.internalBusinessPhone")
     @Mapping(target = "ownMailAddress", source = "contactInfo.ownMailAddress")
     @Mapping(target = "businessMailAddress", source = "contactInfo.businessMailAddress")
-    @Mapping(target = "birthDay", source = "birthDay", qualifiedByName = "dateToString",
+    @Mapping(target = "birthday", source = "birthday", qualifiedByName = "dateToString",
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "familyCondition", source = "familyCondition")
     @Mapping(target = "gender", source = "gender")
@@ -66,7 +66,7 @@ public interface GeneralInfoMapper {
 
     @Named("toFamilyMemberResponseDto")
     @Mapping(target = "relationType", source = "relationType")
-    @Mapping(target = "birthDay", source = "birthDay", qualifiedByName = "dateToString",
+    @Mapping(target = "birthday", source = "birthday", qualifiedByName = "dateToString",
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     FamilyMemberResponseDto toFamilyMemberResponseDto(FamilyMember familyMember);
 

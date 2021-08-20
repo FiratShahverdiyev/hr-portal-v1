@@ -65,9 +65,9 @@ public class Employee {
     @Column(name = "full_name", nullable = false)
     String fullName;
     @Column(name = "birthday", nullable = false)
-    Date birthDay;
+    Date birthday;
     @Column(name = "birthplace", nullable = false)
-    String birthPlace;
+    String birthplace;
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
     Country citizenCountry;

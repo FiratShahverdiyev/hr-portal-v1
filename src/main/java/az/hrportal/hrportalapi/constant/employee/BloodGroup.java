@@ -1,10 +1,10 @@
 package az.hrportal.hrportalapi.constant.employee;
 
 public enum BloodGroup {
-    BIR(1),
-    IKI(2),
-    UC(3),
-    DORT(4);
+    ONE(1),
+    TWO(2),
+    THREE(3),
+    FOUR(4);
 
     private int bloodGroup;
 

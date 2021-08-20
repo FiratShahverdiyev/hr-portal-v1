@@ -1,6 +1,8 @@
 package az.hrportal.hrportalapi.helper;
 
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,13 +12,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+@Component
 public class FileUtil {
+    @Value("${file.upload.acceptable-extension}")
+    private String[] acceptableExtensions;
+    @Value("${file.upload.root-directory}")
+    private String fileRootDirectory;
 
     @SneakyThrows
-    public static String saveFile(String fileUploadDirectory, String fileName, String extension,
-                                  MultipartFile multipartFile) {
-        Path uploadPath = Paths.get(fileUploadDirectory);
-
+    public String saveFile(String fileName, String extension,
+                           MultipartFile multipartFile) {
+        checkExtension(extension);
+        Path uploadPath = Paths.get(fileRootDirectory);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
@@ -31,7 +38,16 @@ public class FileUtil {
     }
 
     @SneakyThrows
-    public static byte[] getImage(String fileRootDirectory, String fileName) {
+    public byte[] getImage(String fileName) {
         return Files.readAllBytes(Paths.get(fileRootDirectory, fileName));
+    }
+
+    private void checkExtension(String extension) {
+        for (String acceptableExtension : acceptableExtensions) {
+            if (extension.equals(acceptableExtension)) {
+                return;
+            }
+        }
+        throw new RuntimeException("Not allowed file extension!!");
     }
 }

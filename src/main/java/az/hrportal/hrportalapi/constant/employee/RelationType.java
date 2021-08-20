@@ -1,10 +1,10 @@
 package az.hrportal.hrportalapi.constant.employee;
 
 public enum RelationType {
-    BACI(1),
-    QARDAS(2),
-    ANA(3),
-    ATA(4);
+    SISTER(1),
+    BROTHER(2),
+    MOTHER(3),
+    FATHER(4);
 
     private int value;
 

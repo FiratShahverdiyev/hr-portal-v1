@@ -26,6 +26,7 @@ spring:
 file:
   upload:
     root-directory: src/main/resources/image/
+    acceptable-extension: png,jpg,jpeg
 
 cors:
   allow:

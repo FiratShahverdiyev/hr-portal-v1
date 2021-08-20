@@ -20,8 +20,8 @@ public class GeneralInfoResponseDto {
 
     String familyCondition;
     String fullName;
-    String birthDay;
-    String birthPlace;
+    String birthday;
+    String birthplace;
     Integer citizenCountryId; // ?
     String gender;
     String bloodGroup;

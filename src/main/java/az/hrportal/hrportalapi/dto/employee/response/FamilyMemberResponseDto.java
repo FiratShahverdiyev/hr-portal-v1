@@ -11,8 +11,8 @@ import lombok.experimental.FieldDefaults;
 public class FamilyMemberResponseDto {
     String relationType;
     String fullName;
-    String birthDay;
-    String birthPlace;
+    String birthday;
+    String birthplace;
     String workPlace;
     String position;
     String address;

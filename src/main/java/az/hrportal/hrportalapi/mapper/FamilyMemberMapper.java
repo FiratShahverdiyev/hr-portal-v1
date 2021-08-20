@@ -25,7 +25,7 @@ public interface FamilyMemberMapper {
     @Named("toFamilyMember")
     @Mapping(target = "relationType", source = "relationType", qualifiedByName = "intToRelationType",
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "birthDay", source = "birthDay", qualifiedByName = "stringToDate",
+    @Mapping(target = "birthday", source = "birthday", qualifiedByName = "stringToDate",
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     FamilyMember toFamilyMember(FamilyMemberRequestDto familyMemberRequestDto);
 

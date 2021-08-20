@@ -83,8 +83,8 @@ public class EmployeeService {
         Employee employee = Employee.builder()
                 .familyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()))
                 .fullName(generalInfoRequestDto.getFullName())
-                .birthDay(dateFormat.parse(generalInfoRequestDto.getBirthDay()))
-                .birthPlace(generalInfoRequestDto.getBirthPlace())
+                .birthday(dateFormat.parse(generalInfoRequestDto.getBirthday()))
+                .birthplace(generalInfoRequestDto.getBirthplace())
                 .citizenCountry(country)
                 .gender(Gender.intToEnum(generalInfoRequestDto.getGender()))
                 .bloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()))
@@ -155,8 +155,8 @@ public class EmployeeService {
 
         employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
         employee.setFullName(generalInfoRequestDto.getFullName());
-        employee.setBirthDay(dateFormat.parse(generalInfoRequestDto.getBirthDay()));
-        employee.setBirthPlace(generalInfoRequestDto.getBirthPlace());
+        employee.setBirthday(dateFormat.parse(generalInfoRequestDto.getBirthday()));
+        employee.setBirthplace(generalInfoRequestDto.getBirthplace());
         employee.setCitizenCountry(country);
         employee.setGender(Gender.intToEnum(generalInfoRequestDto.getGender()));
         employee.setBloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()));
@@ -198,7 +198,7 @@ public class EmployeeService {
         idCard.setOrganization(generalInfoRequestDto.getIDCardOrganization());
         idCard.setStartDate(dateFormat.parse(generalInfoRequestDto.getIDCardStartDate()));
         idCard.setPin(generalInfoRequestDto.getIDCardPin());
-        idCardRepository.save(idCard); 
+        idCardRepository.save(idCard);
 
         Employee saved = employeeRepository.save(employee);
 

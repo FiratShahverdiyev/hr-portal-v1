@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.Date;
 
 @Getter
@@ -16,7 +18,7 @@ import java.util.Date;
 public class FamilyMember {
     RelationType relationType;
     String fullName;
-    Date birthDay;
+    Date birthday;
     String birthPlace;
     String workPlace;
     String position;

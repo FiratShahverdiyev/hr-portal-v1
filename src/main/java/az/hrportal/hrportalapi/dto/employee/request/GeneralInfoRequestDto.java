@@ -22,8 +22,8 @@ public class GeneralInfoRequestDto {
 
     Integer familyCondition;
     String fullName;
-    String birthDay;
-    String birthPlace;
+    String birthday;
+    String birthplace;
     Integer citizenCountryId; // ?
     Integer gender;
     Integer bloodGroup;
