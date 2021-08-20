@@ -19,13 +19,14 @@ public class ImageController {
     private final ImageService imageService;
 
     @PostMapping("save")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Boolean> save(Integer id, MultipartFile file) {
         imageService.save(id, file);
         return ResponseDto.of(true, 200);
     }
 
-    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     @GetMapping(value = "{file-name}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public byte[] get(@PathVariable("file-name") String fileName) {
         return imageService.get(fileName);
     }

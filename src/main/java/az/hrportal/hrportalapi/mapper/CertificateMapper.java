@@ -1,7 +1,7 @@
 package az.hrportal.hrportalapi.mapper;
 
 import az.hrportal.hrportalapi.domain.embeddable.Certificate;
-import az.hrportal.hrportalapi.dto.CertificateRequestDto;
+import az.hrportal.hrportalapi.dto.employee.CertificateRequestDto;
 import lombok.SneakyThrows;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;

@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto;
+package az.hrportal.hrportalapi.dto.employee;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,8 +8,11 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class GovernmentAchievementRequestDto {
-    String name;
-    String organization;
+public class IDCardRequestDto {
+    Integer series;
+    String number;
     String startDate;
+    String endDate;
+    String pin;
+    String organization;
 }

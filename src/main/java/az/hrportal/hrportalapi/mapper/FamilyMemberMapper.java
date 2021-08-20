@@ -2,7 +2,7 @@ package az.hrportal.hrportalapi.mapper;
 
 import az.hrportal.hrportalapi.constant.employee.RelationType;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
-import az.hrportal.hrportalapi.dto.FamilyMemberRequestDto;
+import az.hrportal.hrportalapi.dto.employee.FamilyMemberRequestDto;
 import lombok.SneakyThrows;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;

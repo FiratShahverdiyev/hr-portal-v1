@@ -14,9 +14,9 @@ import az.hrportal.hrportalapi.domain.employee.Education;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.ForeignPassport;
 import az.hrportal.hrportalapi.domain.employee.IDCard;
-import az.hrportal.hrportalapi.dto.AcademicRequestDto;
-import az.hrportal.hrportalapi.dto.BusinessRequestDto;
-import az.hrportal.hrportalapi.dto.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.AcademicRequestDto;
+import az.hrportal.hrportalapi.dto.employee.BusinessRequestDto;
+import az.hrportal.hrportalapi.dto.employee.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.error.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.CertificateMapper;
 import az.hrportal.hrportalapi.mapper.FamilyMemberMapper;
@@ -195,5 +195,26 @@ public class EmployeeService {
         //S.S Sehadetnamesi nomresi
         Employee saved = employeeRepository.save(employee);
         return saved.getId();
+    }
+
+    public Integer delete(Integer id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+
+        employeeRepository.delete(employee);
+        return id;
+    }
+
+    @Transactional
+    public Employee update(Integer id, Employee employeeDto) {
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class));
+        Address address = employee.getAddress();
+        Business business = employee.getBusiness();
+        Education education = employee.getEducation();
+        ContactInfo contactInfo = employee.getContactInfo();
+        ForeignPassport foreignPassport = employee.getForeignPassport();
+        IDCard idCard = employee.getIdCard();
+
     }
 }

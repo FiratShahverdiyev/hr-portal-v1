@@ -17,6 +17,6 @@ public class AuthenticationController {
 
     @PostMapping("login")
     public ResponseDto<String> login(@RequestBody LoginRequestDto loginRequestDto) {
-        return ResponseDto.of(authenticationService.login(loginRequestDto));
+        return ResponseDto.of(authenticationService.login(loginRequestDto), 200);
     }
 }

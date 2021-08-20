@@ -81,12 +81,15 @@ public class Employee {
     String permission;
 
     @OneToOne(mappedBy = "employee")
+    @PrimaryKeyJoinColumn
     ForeignPassport foreignPassport;
 
     @OneToOne(mappedBy = "employee")
+    @PrimaryKeyJoinColumn
     IDCard idCard;
 
     @OneToOne(mappedBy = "employee")
+    @PrimaryKeyJoinColumn
     Address address;
 
     @OneToOne(mappedBy = "employee")

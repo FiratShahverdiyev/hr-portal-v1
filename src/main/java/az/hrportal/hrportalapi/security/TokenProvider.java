@@ -37,7 +37,7 @@ public class TokenProvider {
 //        httpServletResponse.addCookie(cookie);
 //        String userUniqueKeyHash = SecurityUtils.getUserUniqueKeyHash(userUniqueKey);
         String username = (String) authentication.getPrincipal();
-        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 5);
+        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 60);
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("username", username)
