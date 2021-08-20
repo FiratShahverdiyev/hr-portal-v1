@@ -43,3 +43,11 @@ application:
     title: Swagger BirBank WebSite
     description: The api is used for birbank.az website
     version: 1.0.0
+
+logging:
+  file:
+    name: "C:/Users/ShahverdiyevF/Documents/Projects/hrportal-api/log/hr_info_log.log"
+  level:
+    ROOT: INFO
+  pattern:
+    file: "[ %p ] %d{yyyy-MM-dd HH:mm:ss} [THREAD - %t] %-5p %c:%L - %m%n"
