@@ -198,7 +198,7 @@ public class EmployeeService {
         idCard.setOrganization(generalInfoRequestDto.getIDCardOrganization());
         idCard.setStartDate(dateFormat.parse(generalInfoRequestDto.getIDCardStartDate()));
         idCard.setPin(generalInfoRequestDto.getIDCardPin());
-        idCardRepository.save(idCard);
+        idCardRepository.save(idCard); 
 
         Employee saved = employeeRepository.save(employee);
 
@@ -298,8 +298,8 @@ public class EmployeeService {
         log.info("delete (Employee) service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class));
-        log.info("********** delete (Employee) service completed with id : {} **********", id);
         employeeRepository.delete(employee);
+        log.info("********** delete (Employee) service completed with id : {} **********", id);
         return id;
     }
 

@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        System.out.println(encode("12345"));
+//        System.out.println(encode("12345"));
         return super.authenticationManagerBean();
     }
 
