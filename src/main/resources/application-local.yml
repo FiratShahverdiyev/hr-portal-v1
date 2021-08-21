@@ -40,8 +40,8 @@ security:
 
 application:
   swagger:
-    title: Swagger BirBank WebSite
-    description: The api is used for birbank.az website
+    title: Swagger HrPortal WebSite
+    description: The api is used for YouDoIt website
     version: 1.0.0
 
 logging:
