@@ -12,7 +12,7 @@ public enum SubWorkCalculateDegree {
         this.value = value;
     }
 
-    private SubWorkCalculateDegree intToEnum(int value) {
+    public static SubWorkCalculateDegree intToEnum(int value) {
         SubWorkCalculateDegree[] values = SubWorkCalculateDegree.values();
         for (SubWorkCalculateDegree subWorkCalculateDegree : values) {
             if (subWorkCalculateDegree.value == value)

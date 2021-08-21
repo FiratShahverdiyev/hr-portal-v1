@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.constant.employee;
+package az.hrportal.hrportalapi.constant.position;
 
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 
@@ -16,7 +16,7 @@ public enum EducationDegree {
         this.degree = degree;
     }
 
-    public EducationDegree intToEnum(int value) {
+    public static EducationDegree intToEnum(int value) {
         EducationDegree[] values = EducationDegree.values();
         for (EducationDegree educationDegree : values) {
             if (educationDegree.degree == value)

@@ -13,7 +13,7 @@ public enum GenderDemand {
         this.value = value;
     }
 
-    private GenderDemand intToEnum(int value) {
+    public static GenderDemand intToEnum(int value) {
         GenderDemand[] values = GenderDemand.values();
         for (GenderDemand demand : values) {
             if (demand.value == value)

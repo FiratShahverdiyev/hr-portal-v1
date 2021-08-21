@@ -30,4 +30,13 @@ public class GeneralInfoRequestDto {
     String jobFamily;
     List<SkillRequestDto> skills;
     String fullNameAndPosition;
+    Integer areaExperience;
+    Integer leaderExperience;
+    Integer educationDegree;
+    String educationSpeciality;
+    Float height;
+    boolean healthy;
+    boolean militaryAchieve;
+    Integer genderDemand;
+    List<String> functionalities;
 }

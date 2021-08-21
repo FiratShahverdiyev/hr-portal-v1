@@ -12,7 +12,7 @@ public enum WorkMode {
         this.value = value;
     }
 
-    private WorkMode intToEnum(int value) {
+    public static WorkMode intToEnum(int value) {
         WorkMode[] values = WorkMode.values();
         for (WorkMode workMode : values) {
             if (workMode.value == value)

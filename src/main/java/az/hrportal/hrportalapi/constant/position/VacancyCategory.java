@@ -14,7 +14,7 @@ public enum VacancyCategory {
         this.value = value;
     }
 
-    private VacancyCategory intToEnum(int value) {
+    public static VacancyCategory intToEnum(int value) {
         VacancyCategory[] values = VacancyCategory.values();
         for (VacancyCategory vacancyCategory : values) {
             if (vacancyCategory.value == value)

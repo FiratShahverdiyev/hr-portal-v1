@@ -119,9 +119,9 @@ public class Employee {
     @Column(name = "driver_card_end_date")
     Date driverCardEndDate;
     @Column(name = "prisoner")
-    boolean isPrisoner;
+    boolean prisoner;
     @Column(name = "colleagues_alliance")
-    boolean isMemberOfColleaguesAlliance;
+    boolean memberOfColleaguesAlliance;
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;

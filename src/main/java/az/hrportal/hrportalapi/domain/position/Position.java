@@ -1,10 +1,11 @@
 package az.hrportal.hrportalapi.domain.position;
 
-import az.hrportal.hrportalapi.constant.employee.EducationDegree;
+import az.hrportal.hrportalapi.constant.position.EducationDegree;
 import az.hrportal.hrportalapi.constant.position.GenderDemand;
 import az.hrportal.hrportalapi.constant.position.RequireFile;
 import az.hrportal.hrportalapi.constant.position.SubWorkCalculateDegree;
 import az.hrportal.hrportalapi.constant.position.VacancyCategory;
+import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
@@ -12,7 +13,10 @@ import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,6 +38,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +47,9 @@ import java.util.List;
 @Setter
 @Table(name = "positions")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Position {
     @Id
     @SequenceGenerator(name = "positions_id_seq", allocationSize = 1, sequenceName = "positions_id_seq")
@@ -60,14 +68,17 @@ public class Position {
     SubWorkCalculateDegree subWorkCalculateDegree;
     @ManyToOne(optional = false)
     Vacancy vacancy;
+    @Column(name = "leader_full_name_position")
+    String fullNameAndPosition;
     @Column(name = "count", nullable = false)
     Integer count;
     @ManyToOne(optional = false)
     Salary salary;
-    @ManyToOne(optional = false)
+    @Column(name = "work_condition")
+    @Enumerated(EnumType.STRING)
     WorkCondition workCondition;
     @Column(name = "additional_salary")
-    Integer additionalSalary;
+    BigDecimal additionalSalary;
     @Column(name = "work_mode", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
@@ -100,15 +111,15 @@ public class Position {
     @Column(name = "require_file")
     @Enumerated(EnumType.STRING)
     RequireFile requireFile;
-    @Column(name = "length")
-    Float length;
+    @Column(name = "height")
+    Float height;
     @Column(name = "military_achievement")
-    boolean isMilitaryAchieve;
+    boolean militaryAchieve;
     @Column(name = "gender_demand")
     @Enumerated(EnumType.STRING)
     GenderDemand genderDemand;
     @Column(name = "health")
-    boolean isHealthy;
+    boolean healthy;
     @ElementCollection
     @CollectionTable(name = "position_computer_knowledge", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
@@ -121,6 +132,10 @@ public class Position {
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
     List<LegislationStatement> legislationStatement;
+    @ElementCollection
+    @CollectionTable(name = "position_functionalities", joinColumns = @JoinColumn(name = "position_id"))
+    @Column(name = "functionality")
+    List<String> functionalities;
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;
