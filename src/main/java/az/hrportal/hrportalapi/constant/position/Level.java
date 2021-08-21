@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.constant.position;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 
 public enum Level {
+    NONE(-1),
     BEST(1),
     MIDDLE(2),
     GOOD(3);

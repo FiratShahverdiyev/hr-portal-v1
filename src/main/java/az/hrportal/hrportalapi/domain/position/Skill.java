@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
@@ -32,4 +33,9 @@ public class Skill {
     Level level;
     @ManyToMany(mappedBy = "skills")
     List<Position> positions;
+
+    @PrePersist
+    private void setLevel() {
+        level = Level.NONE;
+    }
 }

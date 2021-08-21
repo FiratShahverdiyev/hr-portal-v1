@@ -94,7 +94,7 @@ public class Position {
             inverseJoinColumns = {@JoinColumn(name = "skill_id")}
     )
     List<Skill> skills;
-    @Column(name = "work_place", nullable = false)
+    @Column(name = "work_place")
     @Enumerated(EnumType.STRING)
     WorkPlace workPlace;
     @OneToMany(mappedBy = "position")

@@ -20,6 +20,6 @@ public class InstitutionController {
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto>> getAll() {
-        return ResponseDto.of(institutionService.getAllInstitutions(), 200);
+        return ResponseDto.of(institutionService.getAll(), 200);
     }
 }

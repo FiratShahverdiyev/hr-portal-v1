@@ -19,7 +19,7 @@ public enum WorkPlace {
         this.value = value;
     }
 
-    private WorkPlace intToEnum(int value) {
+    public static WorkPlace intToEnum(int value) {
         WorkPlace[] values = WorkPlace.values();
         for (WorkPlace workPlace : values) {
             if (workPlace.value == value)

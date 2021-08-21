@@ -16,7 +16,7 @@ public class InstitutionService {
     private final InstitutionRepository institutionRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAllInstitutions() {
+    public List<DropDownResponseDto> getAll() {
         log.info("getAllInstitutions service started");
         List<DropDownResponseDto> response = dropDownMapper.toInstitutionResponseDtos(institutionRepository.findAll());
         log.info("********** getAllInstitutions service completed **********");

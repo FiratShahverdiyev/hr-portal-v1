@@ -21,12 +21,12 @@ public class DepartmentController {
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto>> getAll() {
-        return ResponseDto.of(departmentService.getAllDepartments(), 200);
+        return ResponseDto.of(departmentService.getAll(), 200);
     }
 
     @GetMapping("/sub-department/{department}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto>> getAllSubDepartments(@PathVariable String department) {
-        return ResponseDto.of(departmentService.getAllSubDepartmentsByDepartment(department), 200);
+        return ResponseDto.of(departmentService.getAllByDepartment(department), 200);
     }
 }

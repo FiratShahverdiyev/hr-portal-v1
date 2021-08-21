@@ -16,7 +16,7 @@ public class SalaryService {
     private final SalaryRepository salaryRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAllSalaries() {
+    public List<DropDownResponseDto> getAll() {
         log.info("getAllSalaries service started");
         List<DropDownResponseDto> response = dropDownMapper.toSalaryResponseDtos(salaryRepository.findAll());
         log.info("********** getAllSalaries service completed **********");

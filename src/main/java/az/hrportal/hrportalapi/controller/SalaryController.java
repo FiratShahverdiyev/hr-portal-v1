@@ -20,6 +20,6 @@ public class SalaryController {
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto>> getAll() {
-        return ResponseDto.of(salaryService.getAllSalaries(), 200);
+        return ResponseDto.of(salaryService.getAll(), 200);
     }
 }

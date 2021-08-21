@@ -11,6 +11,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 public class SkillRequestDto {
-    String name;
+    Integer skillId;
     Integer level;
 }

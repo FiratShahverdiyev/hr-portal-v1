@@ -2,6 +2,7 @@ package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.position.EducationDegree;
 import az.hrportal.hrportalapi.constant.position.GenderDemand;
+import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.constant.position.SubWorkCalculateDegree;
 import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkCondition;
@@ -12,18 +13,20 @@ import az.hrportal.hrportalapi.domain.position.Institution;
 import az.hrportal.hrportalapi.domain.position.JobFamily;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.domain.position.Salary;
+import az.hrportal.hrportalapi.domain.position.Skill;
 import az.hrportal.hrportalapi.domain.position.Speciality;
 import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.position.request.SkillRequestDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
-import az.hrportal.hrportalapi.mapper.position.SkillMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
 import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
 import az.hrportal.hrportalapi.repository.position.PositionRepository;
 import az.hrportal.hrportalapi.repository.position.SalaryRepository;
+import az.hrportal.hrportalapi.repository.position.SkillRepository;
 import az.hrportal.hrportalapi.repository.position.SpecialityRepository;
 import az.hrportal.hrportalapi.repository.position.SubDepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.VacancyRepository;
@@ -49,7 +52,7 @@ public class PositionService {
     private final SpecialityRepository specialityRepository;
     private final SubDepartmentRepository subDepartmentRepository;
     private final SalaryRepository salaryRepository;
-    private final SkillMapper skillMapper;
+    private final SkillRepository skillRepository;
 
     @Transactional
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
@@ -77,13 +80,10 @@ public class PositionService {
                 .findByName(generalInfoRequestDto.getSubDepartmentName());
         SubDepartment subDepartment;
         if (optionalSubDepartment.isEmpty()) {
-            subDepartment = (SubDepartment) saveOther(generalInfoRequestDto.getSubDepartmentName(),
-                    SubDepartment.class);
+            subDepartment = saveSubDepartment(department, generalInfoRequestDto.getSubDepartmentName());
         } else {
             subDepartment = optionalSubDepartment.get();
         }
-        subDepartment.setDepartment(department);
-        subDepartmentRepository.save(subDepartment);
 
         Optional<Vacancy> optionalVacancy = vacancyRepository
                 .findByName(generalInfoRequestDto.getVacancyName());
@@ -121,6 +121,14 @@ public class PositionService {
             salary = optionalSalary.get();
         }
 
+        List<Skill> skills = new ArrayList<>();
+        for (SkillRequestDto skillRequestDto : generalInfoRequestDto.getSkills()) {
+            Skill skill = skillRepository.findById(skillRequestDto.getSkillId()).orElseThrow(() ->
+                    new EntityNotFoundException(Skill.class, skillRequestDto.getSkillId()));
+            skill.setLevel(Level.intToEnum(skillRequestDto.getLevel()));
+            skills.add(skill);
+        }
+
         Position position = Position.builder()
                 .institution(institution)
                 .department(department)
@@ -137,7 +145,7 @@ public class PositionService {
                 .additionalSalary(generalInfoRequestDto.getAdditionalSalary())
                 .workMode(WorkMode.intToEnum(generalInfoRequestDto.getWorkMode()))
                 .vacancyCategory(VacancyCategory.intToEnum(generalInfoRequestDto.getVacancyCategory()))
-                .skills(skillMapper.toSkills(generalInfoRequestDto.getSkills()))
+                .skills(skills)
                 .fullNameAndPosition(generalInfoRequestDto.getFullNameAndPosition())
                 .areaExperience(generalInfoRequestDto.getAreaExperience())
                 .leaderExperience(generalInfoRequestDto.getLeaderExperience())
@@ -147,6 +155,7 @@ public class PositionService {
                 .militaryAchieve(generalInfoRequestDto.isMilitaryAchieve())
                 .genderDemand(GenderDemand.intToEnum(generalInfoRequestDto.getGenderDemand()))
                 .functionalities(generalInfoRequestDto.getFunctionalities())
+                .workPlace(WorkPlace.intToEnum(generalInfoRequestDto.getWorkPlace()))
                 .build();
         Position saved = positionRepository.save(position);
 
@@ -164,6 +173,14 @@ public class PositionService {
         }
         log.info("********** getWorkAddress service completed **********");
         return response;
+    }
+
+    @Transactional
+    protected SubDepartment saveSubDepartment(Department department, String name) {
+        SubDepartment subDepartment = new SubDepartment();
+        subDepartment.setName(name);
+        subDepartment.setDepartment(department);
+        return subDepartmentRepository.save(subDepartment);
     }
 
     @Transactional
@@ -193,11 +210,11 @@ public class PositionService {
             speciality.setName((String) value);
             return specialityRepository.save(speciality);
         }
-        if (clazz.getSimpleName().equals(SubDepartment.class.getSimpleName())) {
+        /*if (clazz.getSimpleName().equals(SubDepartment.class.getSimpleName())) {
             SubDepartment subDepartment = new SubDepartment();
             subDepartment.setName((String) value);
             return subDepartmentRepository.save(subDepartment);
-        }
+        }*/
         if (clazz.getSimpleName().equals(Salary.class.getSimpleName())) {
             Salary salary = new Salary();
             salary.setSalary((BigDecimal) value);

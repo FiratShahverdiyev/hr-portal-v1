@@ -27,7 +27,7 @@ public class SubDepartment {
     @Column(name = "name")
     String name;
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     Department department;
     @OneToMany(mappedBy = "subDepartment")
     List<ObeyDepartment> obeyDepartment;

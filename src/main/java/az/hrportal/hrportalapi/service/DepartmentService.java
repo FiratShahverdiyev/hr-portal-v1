@@ -18,14 +18,14 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAllDepartments() {
+    public List<DropDownResponseDto> getAll() {
         log.info("getAllDepartments service started");
         List<DropDownResponseDto> response = dropDownMapper.toDepartmentResponseDtos(departmentRepository.findAll());
         log.info("********** getAllDepartments service completed **********");
         return response;
     }
 
-    public List<DropDownResponseDto> getAllSubDepartmentsByDepartment(String departmentName) {
+    public List<DropDownResponseDto> getAllByDepartment(String departmentName) {
         log.info("getAllSubDepartmentsByDepartment service started with department : {}", departmentName);
         List<DropDownResponseDto> subDepartments = dropDownMapper
                 .toSubDepartmentResponseDtos(departmentRepository.findByName(departmentName).orElseThrow(() ->
