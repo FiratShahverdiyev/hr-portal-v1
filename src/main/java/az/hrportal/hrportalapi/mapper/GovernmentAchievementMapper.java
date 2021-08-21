@@ -19,7 +19,7 @@ import java.util.List;
         componentModel = "spring")
 public interface GovernmentAchievementMapper {
     @IterableMapping(qualifiedByName = "toGovernmentAchievement")
-    List<GovernmentAchievement> tGovernmentAchievements(List<GovernmentAchievementRequestDto>
+    List<GovernmentAchievement> toGovernmentAchievements(List<GovernmentAchievementRequestDto>
                                                                 governmentAchievementRequestDtos);
 
     @Named("toGovernmentAchievement")

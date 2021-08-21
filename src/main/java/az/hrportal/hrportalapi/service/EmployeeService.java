@@ -152,7 +152,6 @@ public class EmployeeService {
     @SneakyThrows
     public Integer updateGeneralInfo(Integer id, GeneralInfoRequestDto generalInfoRequestDto) {
         log.info("updateGeneralInfo service started with {}", generalInfoRequestDto);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, id));
@@ -164,6 +163,7 @@ public class EmployeeService {
         } else {
             country = optionalCountry.get();
         }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
         employee.setFullName(generalInfoRequestDto.getFullName());
@@ -284,7 +284,7 @@ public class EmployeeService {
 
         employee.setEducation(education);
         employee.setGovernmentAchievements(governmentAchievementMapper
-                .tGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
+                .toGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
         employee.setCertificates(certificateMapper.toCertificates(academicRequestDto.getCertificates()));
         employee.setKvota(Quota.getQuota(academicRequestDto.getKvota()));
         employee.setMemberOfColleaguesAlliance(academicRequestDto.isMemberOfColleaguesAlliance());

@@ -46,13 +46,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        System.out.println(encode("12345"));
-        return super.authenticationManagerBean();
-    }
-
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
@@ -70,6 +63,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/webjars/**")
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/configuration/ui", "/configuration/security");
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        System.out.println(encode("12345"));
+        return super.authenticationManagerBean();
     }
 
     private String encode(String password) {
