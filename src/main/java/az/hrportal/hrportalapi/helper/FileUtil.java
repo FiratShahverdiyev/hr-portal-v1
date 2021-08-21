@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.helper;
 
+import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -48,6 +49,6 @@ public class FileUtil {
                 return;
             }
         }
-        throw new RuntimeException("Not allowed file extension!!");
+        throw new FileExtensionNotAllowedException(extension);
     }
 }

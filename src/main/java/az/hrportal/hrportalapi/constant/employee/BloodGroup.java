@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum BloodGroup {
     ONE(1),
     TWO(2),
@@ -22,6 +24,6 @@ public enum BloodGroup {
             if (bloodGroup.bloodGroup == value)
                 return bloodGroup;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(BloodGroup.class, value);
     }
 }

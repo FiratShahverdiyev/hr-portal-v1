@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum EducationDegree {
     MIDDLE(1),
     MIDDLE_SPECIAL(2),
@@ -20,6 +22,6 @@ public enum EducationDegree {
             if (educationDegree.degree == value)
                 return educationDegree;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(EducationDegree.class, value);
     }
 }

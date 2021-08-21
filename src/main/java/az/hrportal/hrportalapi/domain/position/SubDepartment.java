@@ -20,22 +20,17 @@ import java.util.List;
 @Setter
 @Table(name = "sub_departments")
 public class SubDepartment {
-
     @Id
     @SequenceGenerator(name = "sub_departments_id_seq", allocationSize = 1, sequenceName = "sub_departments_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sub_departments_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
     Department department;
-
     @OneToMany(mappedBy = "subDepartment")
     List<ObeyDepartment> obeyDepartment;
-
     @OneToMany(mappedBy = "subDepartment")
     List<Position> positions;
 }

@@ -25,10 +25,8 @@ public class WorkCondition {
     @SequenceGenerator(name = "work_condition_id_seq", allocationSize = 1, sequenceName = "work_condition_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_condition_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @OneToMany(mappedBy = "workCondition")
     List<Position> positions;
 }

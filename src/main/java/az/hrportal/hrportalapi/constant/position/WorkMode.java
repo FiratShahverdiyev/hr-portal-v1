@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.position;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum WorkMode {
     DAILY(1),
     ALTERNATELY(2);
@@ -16,6 +18,6 @@ public enum WorkMode {
             if (workMode.value == value)
                 return workMode;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(WorkMode.class, value);
     }
 }

@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.position;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum WorkPlace {
     Bakı_inzibati_bina(1),
     Dəniz_vağzalı(2),
@@ -19,6 +21,6 @@ public enum WorkPlace {
             if (workPlace.value == value)
                 return workPlace;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(WorkPlace.class, value);
     }
 }

@@ -25,13 +25,10 @@ public class Department {
     @SequenceGenerator(name = "departments_id_seq", allocationSize = 1, sequenceName = "departments_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "departments_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @OneToMany(mappedBy = "department")
     List<SubDepartment> subDepartment;
-
     @OneToMany(mappedBy = "department")
     List<Position> positions;
 }

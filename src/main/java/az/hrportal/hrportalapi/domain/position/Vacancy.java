@@ -25,10 +25,8 @@ public class Vacancy {
     @SequenceGenerator(name = "vacancies_id_seq", allocationSize = 1, sequenceName = "vacancies_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vacancies_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @OneToMany(mappedBy = "vacancy")
     List<Position> positions;
 }

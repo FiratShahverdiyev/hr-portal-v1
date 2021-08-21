@@ -23,10 +23,8 @@ public class User {
     @SequenceGenerator(name = "users_id_seq", allocationSize = 1, sequenceName = "users_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     Integer id;
-
     @Column(name = "username")
     String username;
-
     @Column(name = "password")
     String password;
 }

@@ -1,8 +1,10 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 import java.util.HashMap;
 
-public class Kvota {
+public class Quota {
     public static final String QUOTA_1 = "20 yaşadək gənc";
     public static final String QUOTA_2 = "Yetkinlik yaşına çatmamış uşaqları tərbiyə edən tək və çoxuşaqlı valideynlər";
     public static final String QUOTA_3 = "Sağlamlıq imkanları məhdud uşaqları tərbiyə edən valideynlər";
@@ -14,7 +16,7 @@ public class Kvota {
     public static final String QUOTA_9 = "Şəhid ailələri";
     public static HashMap<Integer, String> quotaMap;
 
-    private Kvota() {
+    private Quota() {
         quotaMap.put(1, QUOTA_1);
         quotaMap.put(2, QUOTA_2);
         quotaMap.put(3, QUOTA_3);
@@ -26,9 +28,9 @@ public class Kvota {
         quotaMap.put(9, QUOTA_9);
     }
 
-    public static String getKvota(Integer key) {
+    public static String getQuota(Integer key) {
         if (!quotaMap.containsKey(key)) {
-            throw new RuntimeException();
+            throw new EnumNotFoundException(Quota.class, key);
         }
         return quotaMap.get(key);
     }

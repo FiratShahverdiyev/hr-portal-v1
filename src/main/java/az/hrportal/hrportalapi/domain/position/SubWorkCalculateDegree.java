@@ -25,14 +25,11 @@ public class SubWorkCalculateDegree {
             sequenceName = "sub_work_calculate_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sub_work_calculate_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
     WorkCalculateDegree workCalculateDegree;
-
     @OneToMany(mappedBy = "subWorkCalculateDegree")
     List<Position> positions;
 }

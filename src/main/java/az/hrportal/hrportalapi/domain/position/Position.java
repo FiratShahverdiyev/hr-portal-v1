@@ -42,7 +42,6 @@ public class Position {
     @SequenceGenerator(name = "positions_id_seq", allocationSize = 1, sequenceName = "positions_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "positions_id_seq")
     Integer id;
-
     @ManyToOne(optional = false)
     Institution institution;
     @ManyToOne(optional = false)

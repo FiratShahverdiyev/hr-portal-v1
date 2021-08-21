@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum EducationType {
     VISUAL(1),
     CORRESPONDENCE(2);
@@ -16,6 +18,6 @@ public enum EducationType {
             if (educationType.education == value)
                 return educationType;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(EducationType.class, value);
     }
 }

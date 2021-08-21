@@ -2,8 +2,11 @@ package az.hrportal.hrportalapi.error;
 
 public enum ErrorCode {
     INTERNAL_SERVER(101, "error.server"),
-    ENTITY_NOT_FOUND(300, "error.not-found"),
+    ENTITY_NOT_FOUND(300, "error.entity.not-found"),
+    CONSTANT_NOT_FOUND(301, "error.constant.not-found"),
+    FILE_NOT_ALLOWED_EXTENSION(302, "error.file.not-allowed-extension"),
     BIND_EXCEPTION(303, "error.bind"),
+    BAD_CREDENTIALS(304, "error.bad-credentials"),
     BAD_REQUEST(400, "error.server");
 
     private int code;

@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum MilitaryAchievement {
     MILITARY_SUCCESSFULLY(1),
     UNFIT(2),
@@ -18,6 +20,6 @@ public enum MilitaryAchievement {
             if (achievement.value == value)
                 return achievement;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(MilitaryAchievement.class, value);
     }
 }

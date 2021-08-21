@@ -1,5 +1,8 @@
 package az.hrportal.hrportalapi.constant.position;
 
+import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum GenderDemand {
     MALE(1),
     FEMALE(2),
@@ -17,6 +20,6 @@ public enum GenderDemand {
             if (demand.value == value)
                 return demand;
         }
-        return NON;
+        throw new EnumNotFoundException(GenderDemand.class, value);
     }
 }

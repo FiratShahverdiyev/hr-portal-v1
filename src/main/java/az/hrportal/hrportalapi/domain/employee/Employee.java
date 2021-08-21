@@ -51,17 +51,14 @@ public class Employee {
     @SequenceGenerator(name = "employees_id_seq", allocationSize = 1, sequenceName = "employees_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_id_seq")
     Integer id;
-
     @Column(name = "photo")
     String photo;
-
     @Column(name = "family_condition")
     @Enumerated(EnumType.STRING)
     FamilyCondition familyCondition;
     @Column(name = "military_achievement")
     @Enumerated(EnumType.STRING)
     MilitaryAchievement militaryAchievement;
-
     @Column(name = "full_name", nullable = false)
     String fullName;
     @Column(name = "birthday", nullable = false)
@@ -77,69 +74,54 @@ public class Employee {
     @Column(name = "blood_group")
     @Enumerated(EnumType.STRING)
     BloodGroup bloodGroup;
-
     @Column(name = "permission")
     String permission;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     ForeignPassport foreignPassport;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     IDCard idCard;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Address address;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     ContactInfo contactInfo;
-
     @Column(name = "family_member")
     @ElementCollection
     @CollectionTable(name = "employee_family_members", joinColumns = @JoinColumn(name = "employee_id"))
     List<FamilyMember> familyMembers;
-
     @Column(name = "quota")
     @ElementCollection
     @CollectionTable(name = "employee_quotas", joinColumns = @JoinColumn(name = "employee_id"))
     List<String> quotas;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Business business;
-
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Education education;
-
     @Column(name = "kvota")
     String kvota;
-
     @Column(name = "certificate")
     @ElementCollection
     @CollectionTable(name = "employee_certificates", joinColumns = @JoinColumn(name = "employee_id"))
     List<Certificate> certificates;
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     List<GovernmentAchievement> governmentAchievements;
-
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
     Position position;
-
     @Column(name = "driver_card_category")
     @Enumerated(EnumType.STRING)
     DriverCategory driverCardCategory;
     @Column(name = "driver_card_end_date")
     Date driverCardEndDate;
-
     @Column(name = "prisoner")
     boolean isPrisoner;
     @Column(name = "colleagues_alliance")
     boolean isMemberOfColleaguesAlliance;
-
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;

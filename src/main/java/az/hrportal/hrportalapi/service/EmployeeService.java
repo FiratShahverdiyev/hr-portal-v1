@@ -4,7 +4,7 @@ import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
-import az.hrportal.hrportalapi.constant.employee.Kvota;
+import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.employee.Address;
 import az.hrportal.hrportalapi.domain.employee.Business;
@@ -19,7 +19,7 @@ import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
-import az.hrportal.hrportalapi.error.EntityNotFoundException;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.BusinessInfoMapper;
 import az.hrportal.hrportalapi.mapper.CertificateMapper;
 import az.hrportal.hrportalapi.mapper.EmployeeMapper;
@@ -65,7 +65,7 @@ public class EmployeeService {
     public void setPhotoName(Integer id, String fileName) {
         log.info("setPhotoName service started with id : {}, fileName : {}", id, fileName);
         Employee employee = employeeRepository
-                .findById(id).orElseThrow(() -> new EntityNotFoundException(Employee.class));
+                .findById(id).orElseThrow(() -> new EntityNotFoundException(Employee.class, id));
         employee.setPhoto(fileName);
         employeeRepository.save(employee);
         log.info("********** setPhotoName service completed with id : {}, fileName : {} **********", id, fileName);
@@ -78,7 +78,8 @@ public class EmployeeService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
-                .orElseThrow(() -> new EntityNotFoundException(Country.class));
+                .orElseThrow(() ->
+                        new EntityNotFoundException(Country.class, generalInfoRequestDto.getCitizenCountryId()));
 
         Employee employee = Employee.builder()
                 .familyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()))
@@ -149,9 +150,10 @@ public class EmployeeService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
         Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
-                .orElseThrow(() -> new EntityNotFoundException(Country.class));
+                .orElseThrow(() ->
+                        new EntityNotFoundException(Country.class, generalInfoRequestDto.getCitizenCountryId()));
 
         employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
         employee.setFullName(generalInfoRequestDto.getFullName());
@@ -213,7 +215,7 @@ public class EmployeeService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
 
         Business business = Business.builder()
                 .company(businessRequestDto.getCompany())
@@ -242,7 +244,7 @@ public class EmployeeService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
 
         Education education = Education.builder()
                 .educationType(EducationType.intToEnum(academicRequestDto.getEducationType()))
@@ -267,7 +269,7 @@ public class EmployeeService {
         employee.setGovernmentAchievements(governmentAchievementMapper
                 .tGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
         employee.setCertificates(certificateMapper.toCertificates(academicRequestDto.getCertificates()));
-        employee.setKvota(Kvota.getKvota(academicRequestDto.getKvota()));
+        employee.setKvota(Quota.getQuota(academicRequestDto.getKvota()));
         employee.setMemberOfColleaguesAlliance(academicRequestDto.isMemberOfColleaguesAlliance());
         employee.setPrisoner(academicRequestDto.isPrisoner());
         //S.S Sehadetnamesi nomresi
@@ -280,7 +282,7 @@ public class EmployeeService {
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
         log.info("getGeneralInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
         log.info("********** getGeneralInfoById service completed with id : {} **********", id);
         return generalInfoMapper.toGeneralInfoResponseDto(employee);
     }
@@ -288,7 +290,7 @@ public class EmployeeService {
     public BusinessResponseDto getBusinessInfoById(Integer id) {
         log.info("getBusinessInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
         log.info("********** getBusinessInfoById service completed with id : {} **********", id);
         return businessInfoMapper.toBusinessResponseDto(employee);
     }
@@ -297,48 +299,9 @@ public class EmployeeService {
     public Integer delete(Integer id) {
         log.info("delete (Employee) service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
+                new EntityNotFoundException(Employee.class, id));
         employeeRepository.delete(employee);
         log.info("********** delete (Employee) service completed with id : {} **********", id);
         return id;
     }
-
-    /*@Transactional
-    public Employee update(Integer id, EmployeeUpdateRequestDto employeeDto) {
-        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class));
-        Address address = employee.getAddress();
-        Business business = employee.getBusiness();
-        Education education = employee.getEducation();
-        ContactInfo contactInfo = employee.getContactInfo();
-        ForeignPassport foreignPassport = employee.getForeignPassport();
-        IDCard idCard = employee.getIdCard();
-
-        if (employeeDto.getAddress() != null) {
-            address = employeeMapper.toAddress(employeeDto.getAddress());
-        }
-        if (employeeDto.getBusiness() != null) {
-            business = employeeMapper.toBusiness(employeeDto.getBusiness());
-        }
-        if (employeeDto.getEducation() != null) {
-            education = employeeMapper.toEducation(employeeDto.getEducation());
-        }
-        if (employeeDto.getContactInfo() != null) {
-            contactInfo = employeeMapper.toContactInfo(employeeDto.getContactInfo());
-        }
-        if (employeeDto.getForeignPassport() != null) {
-            foreignPassport = employeeMapper.toForeignPassport(employeeDto.getForeignPassport());
-        }
-        if (employeeDto.getIdCard() != null) {
-            idCard = employeeMapper.toIdCard(employeeDto.getIdCard());
-        }
-
-        employee.setAddress(address);
-        employee.setBusiness(business);
-        employee.setEducation(education);
-        employee.setContactInfo(contactInfo);
-        employee.setForeignPassport(foreignPassport);
-        employee.setIdCard(idCard);
-    }*/
-
 }

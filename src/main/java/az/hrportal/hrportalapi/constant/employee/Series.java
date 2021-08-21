@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum Series {
     AZE(1);
 
@@ -19,6 +21,6 @@ public enum Series {
             if (series.series == value)
                 return series;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(Series.class, value);
     }
 }

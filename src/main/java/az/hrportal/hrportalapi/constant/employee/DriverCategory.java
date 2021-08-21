@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum DriverCategory {
     A(1),
     B(2),
@@ -17,6 +19,6 @@ public enum DriverCategory {
             if (driverCategory.category == value)
                 return driverCategory;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(DriverCategory.class, value);
     }
 }

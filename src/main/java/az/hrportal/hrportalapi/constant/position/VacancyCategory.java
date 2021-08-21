@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.position;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum VacancyCategory {
     LEADER(1),
     ENGINEER(2),
@@ -18,6 +20,6 @@ public enum VacancyCategory {
             if (vacancyCategory.value == value)
                 return vacancyCategory;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(VacancyCategory.class, value);
     }
 }

@@ -23,7 +23,6 @@ public class Section {
     @SequenceGenerator(name = "sections_id_seq", allocationSize = 1, sequenceName = "sections_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sections_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
 }

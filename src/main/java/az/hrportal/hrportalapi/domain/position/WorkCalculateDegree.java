@@ -25,13 +25,10 @@ public class WorkCalculateDegree {
     @SequenceGenerator(name = "work_calculate_id_seq", allocationSize = 1, sequenceName = "work_calculate_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "work_calculate_id_seq")
     Integer id;
-
     @Column(name = "name")
     String name;
-
     @OneToMany(mappedBy = "workCalculateDegree")
     List<SubWorkCalculateDegree> subWorkCalculateDegrees;
-
     @OneToMany(mappedBy = "workCalculateDegree")
     List<Position> positions;
 }

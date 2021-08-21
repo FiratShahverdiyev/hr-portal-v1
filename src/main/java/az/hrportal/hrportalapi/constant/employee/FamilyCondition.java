@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum FamilyCondition {
     MARRIED(1),
     DIVORCED(2),
@@ -22,6 +24,6 @@ public enum FamilyCondition {
             if (familyCondition.condition == value)
                 return familyCondition;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(FamilyCondition.class, value);
     }
 }

@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum RelationType {
     SISTER(1),
     BROTHER(2),
@@ -22,6 +24,6 @@ public enum RelationType {
             if (relationType.value == value)
                 return relationType;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(RelationType.class, value);
     }
 }

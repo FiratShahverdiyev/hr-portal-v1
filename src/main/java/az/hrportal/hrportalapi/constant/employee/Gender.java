@@ -1,5 +1,7 @@
 package az.hrportal.hrportalapi.constant.employee;
 
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum Gender {
     MALE(1),
     FEMALE(2);
@@ -20,6 +22,6 @@ public enum Gender {
             if (gender.gender == value)
                 return gender;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(Gender.class, value);
     }
 }

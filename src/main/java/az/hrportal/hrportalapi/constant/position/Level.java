@@ -1,5 +1,8 @@
 package az.hrportal.hrportalapi.constant.position;
 
+import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+
 public enum Level {
     BEST(1),
     MIDDLE(2),
@@ -17,6 +20,6 @@ public enum Level {
             if (level.value == value)
                 return level;
         }
-        throw new RuntimeException();
+        throw new EnumNotFoundException(Level.class, value);
     }
 }
