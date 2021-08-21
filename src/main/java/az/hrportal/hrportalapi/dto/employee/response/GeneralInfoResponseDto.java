@@ -22,7 +22,7 @@ public class GeneralInfoResponseDto {
     String fullName;
     String birthday;
     String birthplace;
-    Integer citizenCountryId; // ?
+    String citizenCountry; // ?
     String gender;
     String bloodGroup;
     String permission;

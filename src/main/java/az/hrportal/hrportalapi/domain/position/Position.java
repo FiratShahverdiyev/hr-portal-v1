@@ -15,6 +15,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -30,6 +32,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -112,4 +115,10 @@ public class Position {
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
     List<LegislationStatement> legislationStatement;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    private Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
 }

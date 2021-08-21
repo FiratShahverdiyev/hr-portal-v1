@@ -17,7 +17,7 @@ public class FamilyMember {
     RelationType relationType;
     String fullName;
     Date birthday;
-    String birthPlace;
+    String birthplace;
     String workPlace;
     String position;
     String address;
