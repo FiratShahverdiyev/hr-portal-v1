@@ -14,18 +14,19 @@ import az.hrportal.hrportalapi.domain.employee.Education;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.ForeignPassport;
 import az.hrportal.hrportalapi.domain.employee.IDCard;
+import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
-import az.hrportal.hrportalapi.mapper.BusinessInfoMapper;
-import az.hrportal.hrportalapi.mapper.CertificateMapper;
-import az.hrportal.hrportalapi.mapper.EmployeeMapper;
-import az.hrportal.hrportalapi.mapper.FamilyMemberMapper;
-import az.hrportal.hrportalapi.mapper.GeneralInfoMapper;
-import az.hrportal.hrportalapi.mapper.GovernmentAchievementMapper;
+import az.hrportal.hrportalapi.mapper.employee.BusinessInfoMapper;
+import az.hrportal.hrportalapi.mapper.employee.CertificateMapper;
+import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
+import az.hrportal.hrportalapi.mapper.employee.FamilyMemberMapper;
+import az.hrportal.hrportalapi.mapper.employee.GeneralInfoMapper;
+import az.hrportal.hrportalapi.mapper.employee.GovernmentAchievementMapper;
 import az.hrportal.hrportalapi.repository.employee.AddressRepository;
 import az.hrportal.hrportalapi.repository.employee.BusinessRepository;
 import az.hrportal.hrportalapi.repository.employee.ContactInfoRepository;
@@ -41,6 +42,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -282,11 +285,16 @@ public class EmployeeService {
                 .build();
         educationRepository.save(education);
 
+        List<String> quotas = new ArrayList<>();
+        for (Integer quotaKey : academicRequestDto.getQuotas()) {
+            quotas.add(Quota.getQuota(quotaKey));
+        }
+
         employee.setEducation(education);
         employee.setGovernmentAchievements(governmentAchievementMapper
                 .toGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
         employee.setCertificates(certificateMapper.toCertificates(academicRequestDto.getCertificates()));
-        employee.setKvota(Quota.getQuota(academicRequestDto.getKvota()));
+        employee.setQuotas(quotas);
         employee.setMemberOfColleaguesAlliance(academicRequestDto.isMemberOfColleaguesAlliance());
         employee.setPrisoner(academicRequestDto.isPrisoner());
         //S.S Sehadetnamesi nomresi
@@ -320,5 +328,17 @@ public class EmployeeService {
         employeeRepository.delete(employee);
         log.info("********** delete (Employee) service completed with id : {} **********", id);
         return id;
+    }
+
+    //TODO Delete on production
+    public List<KeyValue<String, Integer>> getAllQuotas() {
+        log.info("getAllQuotas service started");
+        List<KeyValue<String, Integer>> response = new ArrayList<>();
+        for (Integer key : Quota.getQuotaMapKeySet()) {
+            KeyValue<String, Integer> quota = new KeyValue<>(Quota.getQuota(key), key);
+            response.add(quota);
+        }
+        log.info("********** getAllQuotas service completed **********");
+        return response;
     }
 }

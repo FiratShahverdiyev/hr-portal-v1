@@ -31,7 +31,7 @@ public class AcademicRequestDto {
     List<GovernmentAchievementRequestDto> governmentAchievements;
     Integer driverCardCategory;
     String driverCardEndDate;
-    Integer kvota;
+    List<Integer> quotas;
     boolean isPrisoner;
     boolean isMemberOfColleaguesAlliance;
 }

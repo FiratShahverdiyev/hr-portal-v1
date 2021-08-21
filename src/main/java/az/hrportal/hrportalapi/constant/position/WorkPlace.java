@@ -11,6 +11,10 @@ public enum WorkPlace {
 
     private int value;
 
+    public int getValue() {
+        return value;
+    }
+
     WorkPlace(int value) {
         this.value = value;
     }

@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.mapper;
+package az.hrportal.hrportalapi.mapper.employee;
 
 import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.Series;
@@ -24,6 +24,7 @@ import org.mapstruct.ReportingPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//TODO Delete on production
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")

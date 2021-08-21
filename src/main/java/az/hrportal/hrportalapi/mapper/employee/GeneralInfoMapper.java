@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.mapper;
+package az.hrportal.hrportalapi.mapper.employee;
 
 import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.Series;

@@ -3,18 +3,19 @@ package az.hrportal.hrportalapi.constant.employee;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Quota {
-    public static final String QUOTA_1 = "20 yaşadək gənc";
-    public static final String QUOTA_2 = "Yetkinlik yaşına çatmamış uşaqları tərbiyə edən tək və çoxuşaqlı valideynlər";
-    public static final String QUOTA_3 = "Sağlamlıq imkanları məhdud uşaqları tərbiyə edən valideynlər";
-    public static final String QUOTA_4 = "Pensiya yaşına 2 ildən az qalmış şəxslər";
-    public static final String QUOTA_5 = "Əlillər və ya sağlamlıq imkanları məhdud 18 yaşınadək şəxslər";
-    public static final String QUOTA_6 = "Cəzaçəkmə yerlərindən azad edilmiş vətəndaşlar";
-    public static final String QUOTA_7 = "Məcburi köçkünlər";
-    public static final String QUOTA_8 = "Müharibə veteranları";
-    public static final String QUOTA_9 = "Şəhid ailələri";
-    public static HashMap<Integer, String> quotaMap;
+    private static final String QUOTA_1 = "20 yaşadək gənc";
+    private static final String QUOTA_2 = "Yetkinlik yaşına çatmamış uşaqları tərbiyə edən tək və çoxuşaqlı valideynlər";
+    private static final String QUOTA_3 = "Sağlamlıq imkanları məhdud uşaqları tərbiyə edən valideynlər";
+    private static final String QUOTA_4 = "Pensiya yaşına 2 ildən az qalmış şəxslər";
+    private static final String QUOTA_5 = "Əlillər və ya sağlamlıq imkanları məhdud 18 yaşınadək şəxslər";
+    private static final String QUOTA_6 = "Cəzaçəkmə yerlərindən azad edilmiş vətəndaşlar";
+    private static final String QUOTA_7 = "Məcburi köçkünlər";
+    private static final String QUOTA_8 = "Müharibə veteranları";
+    private static final String QUOTA_9 = "Şəhid ailələri";
+    private static HashMap<Integer, String> quotaMap;
 
     private Quota() {
         quotaMap.put(1, QUOTA_1);
@@ -33,5 +34,9 @@ public class Quota {
             throw new EnumNotFoundException(Quota.class, key);
         }
         return quotaMap.get(key);
+    }
+
+    public static Set<Integer> getQuotaMapKeySet() {
+        return quotaMap.keySet();
     }
 }

@@ -13,7 +13,7 @@ public enum Level {
         this.value = value;
     }
 
-    private Level intToEnum(int value) {
+    public static Level intToEnum(int value) {
         Level[] values = Level.values();
         for (Level level : values) {
             if (level.value == value)

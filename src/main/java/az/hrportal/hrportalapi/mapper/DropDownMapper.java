@@ -3,6 +3,8 @@ package az.hrportal.hrportalapi.mapper;
 import az.hrportal.hrportalapi.domain.employee.Country;
 import az.hrportal.hrportalapi.domain.position.Department;
 import az.hrportal.hrportalapi.domain.position.Institution;
+import az.hrportal.hrportalapi.domain.position.JobFamily;
+import az.hrportal.hrportalapi.domain.position.Salary;
 import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
@@ -24,4 +26,8 @@ public interface DropDownMapper {
     List<DropDownResponseDto> toVacancyResponseDtos(List<Vacancy> vacancies);
 
     List<DropDownResponseDto> toSubDepartmentResponseDtos(List<SubDepartment> subDepartments);
+
+    List<DropDownResponseDto> toSalaryResponseDtos(List<Salary> salaries);
+
+    List<DropDownResponseDto> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);
 }

@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.controller;
 
+import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("employee")
@@ -67,6 +70,14 @@ public class EmployeeController {
         return ResponseDto.of(employeeService.delete(id), 200);
     }
 
+    //TODO Delete on production
+    @GetMapping("quota")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<List<KeyValue<String, Integer>>> getAll() {
+        return ResponseDto.of(employeeService.getAllQuotas(), 200);
+    }
+
+    //TODO Delete on production
    /* @PutMapping("{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Employee> update(@PathVariable Integer id, @RequestBody EmployeeUpdateRequestDto employeeDto) {

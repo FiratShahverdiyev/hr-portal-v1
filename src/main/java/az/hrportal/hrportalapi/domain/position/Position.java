@@ -3,13 +3,13 @@ package az.hrportal.hrportalapi.domain.position;
 import az.hrportal.hrportalapi.constant.employee.EducationDegree;
 import az.hrportal.hrportalapi.constant.position.GenderDemand;
 import az.hrportal.hrportalapi.constant.position.RequireFile;
+import az.hrportal.hrportalapi.constant.position.SubWorkCalculateDegree;
 import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
-import az.hrportal.hrportalapi.domain.embeddable.Skill;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,6 +28,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -51,9 +53,10 @@ public class Position {
     Department department;
     @ManyToOne(optional = false)
     SubDepartment subDepartment;
-    @ManyToOne
-    WorkCalculateDegree workCalculateDegree;
-    @ManyToOne
+    @Column(name = "work_calculate_degree")
+    Integer workCalculateDegree;
+    @Column(name = "sub_work_calculate_degree")
+    @Enumerated(EnumType.STRING)
     SubWorkCalculateDegree subWorkCalculateDegree;
     @ManyToOne(optional = false)
     Vacancy vacancy;
@@ -73,9 +76,12 @@ public class Position {
     VacancyCategory vacancyCategory;
     @ManyToOne
     JobFamily jobFamily;
-    @ElementCollection
-    @CollectionTable(name = "position_skills", joinColumns = @JoinColumn(name = "position_id"))
-    @Column(name = "skill")
+    @ManyToMany
+    @JoinTable(
+            name = "position_skill",
+            joinColumns = {@JoinColumn(name = "position_id")},
+            inverseJoinColumns = {@JoinColumn(name = "skill_id")}
+    )
     List<Skill> skills;
     @Column(name = "work_place", nullable = false)
     @Enumerated(EnumType.STRING)

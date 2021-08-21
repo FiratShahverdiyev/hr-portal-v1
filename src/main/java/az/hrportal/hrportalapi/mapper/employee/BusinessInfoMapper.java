@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.mapper;
+package az.hrportal.hrportalapi.mapper.employee;
 
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
