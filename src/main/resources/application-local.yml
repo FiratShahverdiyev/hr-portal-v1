@@ -4,9 +4,9 @@ spring:
       max-file-size: 5MB
       max-request-size: 5MB
   datasource:
-    url: jdbc:postgresql://ec2-35-169-188-58.compute-1.amazonaws.com:5432/db4sfsihpa5fmr
-    username: jhrvoevrtbttsy
-    password: 9e4efe465ffbd6caaba93b898f81960a6d91874a1644142b04946435d62445ba
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: Martinfreeman
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
     hikari:
