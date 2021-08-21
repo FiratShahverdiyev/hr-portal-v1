@@ -7,7 +7,8 @@ import java.util.Set;
 
 public class Quota {
     private static final String QUOTA_1 = "20 yaşadək gənc";
-    private static final String QUOTA_2 = "Yetkinlik yaşına çatmamış uşaqları tərbiyə edən tək və çoxuşaqlı valideynlər";
+    private static final String QUOTA_2 = "Yetkinlik yaşına çatmamış uşaqları tərbiyə edən tək və " +
+            "çoxuşaqlı valideynlər";
     private static final String QUOTA_3 = "Sağlamlıq imkanları məhdud uşaqları tərbiyə edən valideynlər";
     private static final String QUOTA_4 = "Pensiya yaşına 2 ildən az qalmış şəxslər";
     private static final String QUOTA_5 = "Əlillər və ya sağlamlıq imkanları məhdud 18 yaşınadək şəxslər";
