@@ -64,17 +64,23 @@ public class EmployeeController {
         return ResponseDto.of(employeeService.getBusinessInfoById(id));
     }
 
-    @DeleteMapping("{id}")
+    @GetMapping("fullname-position")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> delete(@PathVariable Integer id) {
-        return ResponseDto.of(employeeService.delete(id), 200);
+    public ResponseDto<List<String>> getAllFullNameAndPosition() {
+        return ResponseDto.of(employeeService.getAllFullNameAndPosition(), 200);
     }
 
     //TODO Delete on production
     @GetMapping("quota")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, Integer>>> getAll() {
+    public ResponseDto<List<KeyValue<String, Integer>>> getAllQuota() {
         return ResponseDto.of(employeeService.getAllQuotas(), 200);
+    }
+
+    @DeleteMapping("{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> delete(@PathVariable Integer id) {
+        return ResponseDto.of(employeeService.delete(id), 200);
     }
 
     //TODO Delete on production

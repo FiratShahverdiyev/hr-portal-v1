@@ -29,4 +29,5 @@ public class GeneralInfoRequestDto {
     Integer vacancyCategory;
     String jobFamily;
     List<SkillRequestDto> skills;
+    String fullNameAndPosition;
 }

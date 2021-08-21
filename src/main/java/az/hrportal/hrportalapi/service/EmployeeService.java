@@ -320,6 +320,19 @@ public class EmployeeService {
         return businessInfoMapper.toBusinessResponseDto(employee);
     }
 
+    public List<String> getAllFullNameAndPosition() {
+        log.info("getAllFullNameAndPosition service started");
+        List<Employee> employees = employeeRepository.findAll();
+        List<String> response = new ArrayList<>();
+        for (Employee employee : employees) {
+            String fullNameAndPosition = employee.getFullName().concat(" ")
+                    .concat(employee.getBusiness().getPosition());
+            response.add(fullNameAndPosition);
+        }
+        log.info("********** getAllFullNameAndPosition service started **********");
+        return response;
+    }
+
     @Transactional
     public Integer delete(Integer id) {
         log.info("delete (Employee) service started with id : {}", id);
