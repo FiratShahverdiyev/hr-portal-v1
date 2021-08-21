@@ -1,1 +1,1 @@
-web: java -jar ./build/libs/hrportal-api-0.0.1-SNAPSHOT.war -Dserver.port=$PORT
+web: java -Dserver.port=$PORT -jar ./build/libs/hrportal-api-0.0.1-SNAPSHOT.war
