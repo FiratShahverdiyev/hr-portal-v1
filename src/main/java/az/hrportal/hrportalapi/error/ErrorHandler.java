@@ -29,6 +29,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.BIND_EXCEPTION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", status, ex.getMessage());
+        ex.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
     }
 
@@ -37,6 +38,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.ENTITY_NOT_FOUND;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(404).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -45,6 +47,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.CONSTANT_NOT_FOUND;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -53,6 +56,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.FILE_NOT_ALLOWED_EXTENSION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -61,6 +65,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.BAD_CREDENTIALS;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -69,6 +74,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        e.printStackTrace();
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -76,12 +82,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
-        StringBuilder errorLog = new StringBuilder();
-        errorLog.append("\n").append(e.getClass()).append(" : ").append(e.getMessage()).append("\n");
-        for (StackTraceElement trace : e.getStackTrace()) {
-            errorLog.append(trace).append("\n");
-        }
-        log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), errorLog);
+        log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), "INTERNAL SERVER");
+        e.printStackTrace();
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 }

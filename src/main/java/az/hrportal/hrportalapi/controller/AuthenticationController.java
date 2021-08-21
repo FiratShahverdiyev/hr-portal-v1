@@ -17,7 +17,6 @@ public class AuthenticationController {
 
     @PostMapping("login")
     public ResponseDto<String> login(@RequestBody LoginRequestDto loginRequestDto) {
-        throw new NullPointerException();
-//        return ResponseDto.of(authenticationService.login(loginRequestDto), 200);
+        return ResponseDto.of(authenticationService.login(loginRequestDto), 200);
     }
 }

@@ -46,7 +46,7 @@ public class GeneralInfoRequestDto {
     String fullName;
     String birthday;
     String birthplace;
-    Integer citizenCountryId; // ?
+    String citizenCountry; // ?
     Integer gender;
     Integer bloodGroup;
     String permission;

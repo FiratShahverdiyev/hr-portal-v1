@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.constant.position;
 
-import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 
 public enum RequireFile {

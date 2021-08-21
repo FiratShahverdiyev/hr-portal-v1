@@ -41,6 +41,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -77,9 +78,13 @@ public class EmployeeService {
         log.info("saveGeneralInfo service started with {}", generalInfoRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
-                .orElseThrow(() ->
-                        new EntityNotFoundException(Country.class, generalInfoRequestDto.getCitizenCountryId()));
+        Optional<Country> optionalCountry = countryRepository.findByName(generalInfoRequestDto.getCitizenCountry());
+        Country country;
+        if (optionalCountry.isEmpty()) {
+            country = saveOther(generalInfoRequestDto.getCitizenCountry());
+        } else {
+            country = optionalCountry.get();
+        }
 
         Employee employee = Employee.builder()
                 .familyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()))
@@ -151,9 +156,14 @@ public class EmployeeService {
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, id));
-        Country country = countryRepository.findById(generalInfoRequestDto.getCitizenCountryId())
-                .orElseThrow(() ->
-                        new EntityNotFoundException(Country.class, generalInfoRequestDto.getCitizenCountryId()));
+
+        Optional<Country> optionalCountry = countryRepository.findByName(generalInfoRequestDto.getCitizenCountry());
+        Country country;
+        if (optionalCountry.isEmpty()) {
+            country = saveOther(generalInfoRequestDto.getCitizenCountry());
+        } else {
+            country = optionalCountry.get();
+        }
 
         employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
         employee.setFullName(generalInfoRequestDto.getFullName());
@@ -206,6 +216,13 @@ public class EmployeeService {
 
         log.info("********** updateGeneralInfo service completed with id : {} **********", saved.getId());
         return saved.getId();
+    }
+
+    @Transactional
+    protected Country saveOther(String name) {
+        Country country = new Country();
+        country.setName(name);
+        return countryRepository.save(country);
     }
 
     @Transactional
