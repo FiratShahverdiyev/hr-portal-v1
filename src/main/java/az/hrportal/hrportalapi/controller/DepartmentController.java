@@ -6,6 +6,7 @@ import az.hrportal.hrportalapi.service.DepartmentService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,5 +22,11 @@ public class DepartmentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto>> getAll() {
         return ResponseDto.of(departmentService.getAllDepartments(), 200);
+    }
+
+    @GetMapping("/sub-department/{department}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<List<DropDownResponseDto>> getAllSubDepartments(@PathVariable String department) {
+        return ResponseDto.of(departmentService.getAllSubDepartmentsByDepartment(department), 200);
     }
 }
