@@ -50,4 +50,5 @@ public class GeneralInfoResponseDto {
     String businessMailAddress;
 
     List<FamilyMemberResponseDto> familyMembers;
+    String photo;
 }

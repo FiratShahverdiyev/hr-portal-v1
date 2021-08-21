@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 @Component
 public class FileUtil {
@@ -21,18 +22,19 @@ public class FileUtil {
     private String fileRootDirectory;
 
     @SneakyThrows
-    public String saveFile(String fileName, String extension,
+    public String saveFile(String extension,
                            MultipartFile multipartFile) {
         checkExtension(extension);
+        String fileName = String.valueOf(new Date().getTime()).concat(".").concat(extension);
         Path uploadPath = Paths.get(fileRootDirectory);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
         }
 
         try (InputStream inputStream = multipartFile.getInputStream()) {
-            Path filePath = uploadPath.resolve(fileName.concat(".").concat(extension));
+            Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-            return filePath.getName(filePath.getNameCount() - 1).toString();
+            return fileName;
         } catch (IOException ioe) {
             throw new IOException("Could not save image file: " + fileName, ioe);
         }
