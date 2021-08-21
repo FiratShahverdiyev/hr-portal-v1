@@ -1,10 +1,10 @@
 package az.hrportal.hrportalapi.constant.employee;
 
 public enum MilitaryAchievement {
-    Hərbi_mükəlləfiyyətli(1),
-    Yararsız(2),
-    Məhdud_yararlı(3),
-    Hərbidə_olma_tarixi(4);
+    MILITARY_SUCCESSFULLY(1),
+    UNFIT(2),
+    LIMITED_USEFUL(3),
+    MILITARY_DATE(4);
 
     private int value;
 

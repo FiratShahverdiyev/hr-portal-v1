@@ -20,15 +20,6 @@ public class GeneralInfoRequestDto {
     String IDCardEndDate;
     String IDCardOrganization;
 
-    Integer familyCondition;
-    String fullName;
-    String birthday;
-    String birthplace;
-    Integer citizenCountryId; // ?
-    Integer gender;
-    Integer bloodGroup;
-    String permission;
-
     Integer foreignPassportSeries;
     String foreignPassportStartDate;
     String foreignPassportEndDate;
@@ -50,6 +41,15 @@ public class GeneralInfoRequestDto {
     String internalBusinessPhone;
     String ownMailAddress;
     String businessMailAddress;
+
+    Integer familyCondition;
+    String fullName;
+    String birthday;
+    String birthplace;
+    Integer citizenCountryId; // ?
+    Integer gender;
+    Integer bloodGroup;
+    String permission;
 
     List<FamilyMemberRequestDto> familyMembers;
 }
