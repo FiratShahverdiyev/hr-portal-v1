@@ -23,8 +23,8 @@ import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.SkillRequestDto;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
-import az.hrportal.hrportalapi.mapper.position.GeneralInfoMapper;
 import az.hrportal.hrportalapi.mapper.position.KnowledgeMapper;
+import az.hrportal.hrportalapi.mapper.position.PositionGeneralInfoMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
 import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
@@ -58,7 +58,7 @@ public class PositionService {
     private final SalaryRepository salaryRepository;
     private final SkillRepository skillRepository;
     private final KnowledgeMapper knowledgeMapper;
-    private final GeneralInfoMapper generalInfoMapper;
+    private final PositionGeneralInfoMapper generalInfoMapper;
 
     @Transactional
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {

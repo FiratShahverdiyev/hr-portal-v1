@@ -21,7 +21,7 @@ import java.util.List;
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")
-public interface GeneralInfoMapper {
+public interface EmployeeGeneralInfoMapper {
     @Mapping(target = "IDCardSeries", source = "idCard.series")
     @Mapping(target = "IDCardNumber", source = "idCard.number")
     @Mapping(target = "IDCardStartDate", source = "idCard.startDate", qualifiedByName = "dateToString",

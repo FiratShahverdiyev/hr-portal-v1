@@ -13,4 +13,5 @@ import lombok.experimental.FieldDefaults;
 public class SkillResponseDto {
     String name;
     String level;
+    Integer skillId;
 }

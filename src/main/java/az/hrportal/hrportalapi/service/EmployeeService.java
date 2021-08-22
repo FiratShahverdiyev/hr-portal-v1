@@ -25,7 +25,7 @@ import az.hrportal.hrportalapi.mapper.employee.BusinessInfoMapper;
 import az.hrportal.hrportalapi.mapper.employee.CertificateMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.employee.FamilyMemberMapper;
-import az.hrportal.hrportalapi.mapper.employee.GeneralInfoMapper;
+import az.hrportal.hrportalapi.mapper.employee.EmployeeGeneralInfoMapper;
 import az.hrportal.hrportalapi.mapper.employee.GovernmentAchievementMapper;
 import az.hrportal.hrportalapi.repository.employee.AddressRepository;
 import az.hrportal.hrportalapi.repository.employee.BusinessRepository;
@@ -62,7 +62,7 @@ public class EmployeeService {
     private final GovernmentAchievementMapper governmentAchievementMapper;
     private final CertificateMapper certificateMapper;
     private final EmployeeMapper employeeMapper;
-    private final GeneralInfoMapper generalInfoMapper;
+    private final EmployeeGeneralInfoMapper employeeGeneralInfoMapper;
     private final BusinessInfoMapper businessInfoMapper;
 
     @Transactional
@@ -309,7 +309,7 @@ public class EmployeeService {
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, id));
         log.info("********** getGeneralInfoById service completed with id : {} **********", id);
-        return generalInfoMapper.toGeneralInfoResponseDto(employee);
+        return employeeGeneralInfoMapper.toGeneralInfoResponseDto(employee);
     }
 
     public BusinessResponseDto getBusinessInfoById(Integer id) {
