@@ -64,7 +64,6 @@ public class EmployeeService {
     private final FamilyMemberMapper familyMemberMapper;
     private final GovernmentAchievementMapper governmentAchievementMapper;
     private final CertificateMapper certificateMapper;
-    private final EmployeeMapper employeeMapper;
     private final EmployeeGeneralInfoMapper employeeGeneralInfoMapper;
     private final BusinessInfoMapper businessInfoMapper;
     private final GovernmentAchievementRepository governmentAchievementRepository;
