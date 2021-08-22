@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -25,13 +26,15 @@ public class AcademicRequestDto {
     String degree;
     String graduateFileNumber;
     String graduateFileDate;
+    @Range(min = 1, max = 2)
     Integer educationType;
     String nostrifikasiyaNumber;
     List<CertificateRequestDto> certificates;
     List<GovernmentAchievementRequestDto> governmentAchievements;
+    @Range(min = 1, max = 4)
     Integer driverCardCategory;
     String driverCardEndDate;
-    List<Integer> quotas;
+    List<@Range(min = 1, max = 9) Integer> quotas;
     boolean isPrisoner;
     boolean isMemberOfColleaguesAlliance;
 }

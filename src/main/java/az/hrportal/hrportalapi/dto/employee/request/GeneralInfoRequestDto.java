@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GeneralInfoRequestDto {
     @NotNull
+    @Range(min = 1, max = 1)
     Integer IDCardSeries;
     @NotEmpty
     String IDCardNumber;
@@ -29,6 +31,7 @@ public class GeneralInfoRequestDto {
     String IDCardOrganization;
 
     @NotNull
+    @Range(min = 1, max = 1)
     Integer foreignPassportSeries;
     @NotEmpty
     String foreignPassportStartDate;
@@ -68,7 +71,7 @@ public class GeneralInfoRequestDto {
     String ownMailAddress;
     @NotEmpty
     String businessMailAddress;
-
+    @Range(min = 1, max = 4)
     Integer familyCondition;
     @NotEmpty
     String fullName;
@@ -79,7 +82,9 @@ public class GeneralInfoRequestDto {
     @NotEmpty
     String citizenCountry;
     @NotNull
+    @Range(min = 1, max = 2)
     Integer gender;
+    @Range(min = 1, max = 4)
     Integer bloodGroup;
     String permission;
 
