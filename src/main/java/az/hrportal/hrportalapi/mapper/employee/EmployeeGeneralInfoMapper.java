@@ -1,7 +1,5 @@
 package az.hrportal.hrportalapi.mapper.employee;
 
-import az.hrportal.hrportalapi.constant.employee.EducationType;
-import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.employee.response.FamilyMemberResponseDto;
@@ -78,15 +76,5 @@ public interface EmployeeGeneralInfoMapper {
     @SneakyThrows
     default String dateToString(Date date) {
         return date.toString();
-    }
-
-    @Named("intToEducationType")
-    default EducationType intToEducationType(Integer value) {
-        return EducationType.intToEnum(value);
-    }
-
-    @Named("intToSeries")
-    default Series intToSeries(Integer value) {
-        return Series.intToEnum(value);
     }
 }

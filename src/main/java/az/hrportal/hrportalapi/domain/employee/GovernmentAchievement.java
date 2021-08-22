@@ -34,6 +34,6 @@ public class GovernmentAchievement {
     @Column(name = "start_date")
     Date startDate;
     @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
 }

@@ -3,11 +3,13 @@ package az.hrportal.hrportalapi.dto.employee.request;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class EducationRequestDto {
     String academicDegreeDate;
     String academicDegreeNumber;
@@ -21,6 +23,6 @@ public class EducationRequestDto {
     String degree;
     String graduateFileNumber;
     String graduateFileDate;
-    Integer educationType;
+    String educationType;
     String nostrifikasiyaNumber;
 }

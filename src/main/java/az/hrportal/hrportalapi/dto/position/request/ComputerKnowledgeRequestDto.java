@@ -12,5 +12,5 @@ import lombok.experimental.FieldDefaults;
 @ToString
 public class ComputerKnowledgeRequestDto {
     String name;
-    Integer level;
+    String level;
 }

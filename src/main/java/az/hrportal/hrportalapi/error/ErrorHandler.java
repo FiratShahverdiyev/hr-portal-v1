@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -108,6 +109,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
+        if (e.getCause().getClass().getSimpleName().equals(ParseException.class.getSimpleName())) {
+            ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
+            String message = messageResolver.resolve(errorCode.getMessage());
+            log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(),
+                    "PARSE EXCEPTION");
+            e.printStackTrace();
+            return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
+        }
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), "INTERNAL SERVER");

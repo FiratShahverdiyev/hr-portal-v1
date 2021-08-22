@@ -1,11 +1,12 @@
-package az.hrportal.hrportalapi.dto.employee.request;
+package az.hrportal.hrportalapi.dto.employee.response;
 
+import az.hrportal.hrportalapi.dto.employee.request.CertificateRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.GovernmentAchievementRequestDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AcademicRequestDto {
+public class AcademicInfoResponseDto {
     String academicDegreeDate;
     String academicDegreeNumber;
     String academicDegreeOrganization;
@@ -32,7 +33,7 @@ public class AcademicRequestDto {
     List<GovernmentAchievementRequestDto> governmentAchievements;
     String driverCardCategory;
     String driverCardEndDate;
-    List<@Range(min = 1, max = 9) Integer> quotas;
+    List<String> quotas;
     boolean isPrisoner;
     boolean isMemberOfColleaguesAlliance;
 }

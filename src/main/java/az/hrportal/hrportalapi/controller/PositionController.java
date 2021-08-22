@@ -45,7 +45,7 @@ public class PositionController {
         return ResponseDto.of(positionService.updateGeneralInfo(id, generalInfoRequestDto), 200);
     }
 
-    //TODO Delete on production
+    //  TODO Delete on production
     @GetMapping("work-address")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<KeyValue<String, Integer>>> getAll() {

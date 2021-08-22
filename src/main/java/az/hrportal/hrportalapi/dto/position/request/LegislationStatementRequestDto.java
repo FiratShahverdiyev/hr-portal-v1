@@ -12,5 +12,5 @@ import lombok.experimental.FieldDefaults;
 @ToString
 public class LegislationStatementRequestDto {
     String name;
-    Integer level;
+    String level;
 }

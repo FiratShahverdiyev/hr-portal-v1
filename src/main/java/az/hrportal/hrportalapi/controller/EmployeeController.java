@@ -4,7 +4,8 @@ import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
-import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.service.EmployeeService;
@@ -30,15 +31,15 @@ public class EmployeeController {
 
     @PostMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> create(@RequestBody GeneralInfoRequestDto generalInfoRequestDto) {
-        return ResponseDto.of(employeeService.saveGeneralInfo(generalInfoRequestDto), 200);
+    public ResponseDto<Integer> create(@RequestBody EmployeeGeneralInfoRequestDto employeeGeneralInfoRequestDto) {
+        return ResponseDto.of(employeeService.saveGeneralInfo(employeeGeneralInfoRequestDto), 200);
     }
 
     @PutMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid GeneralInfoRequestDto
-            generalInfoRequestDto) {
-        return ResponseDto.of(employeeService.updateGeneralInfo(id, generalInfoRequestDto), 200);
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid EmployeeGeneralInfoRequestDto
+            employeeGeneralInfoRequestDto) {
+        return ResponseDto.of(employeeService.updateGeneralInfo(id, employeeGeneralInfoRequestDto), 200);
     }
 
     @PutMapping("business-info/{id}")
@@ -58,7 +59,13 @@ public class EmployeeController {
     @GetMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<GeneralInfoResponseDto> getGeneralInfo(@PathVariable Integer id) {
-        return ResponseDto.of(employeeService.getGeneralInfoById(id));
+        return ResponseDto.of(employeeService.getGeneralInfoById(id), 200);
+    }
+
+    @GetMapping("academic-info/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<AcademicInfoResponseDto> getAcademicInfo(@PathVariable Integer id) {
+        return ResponseDto.of(employeeService.getAcademicInfoById(id), 200);
     }
 
     @GetMapping("business-info/{id}")
@@ -85,11 +92,4 @@ public class EmployeeController {
     public ResponseDto<Integer> delete(@PathVariable Integer id) {
         return ResponseDto.of(employeeService.delete(id), 200);
     }
-
-    //TODO Delete on production
-   /* @PutMapping("{id}")
-    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Employee> update(@PathVariable Integer id, @RequestBody EmployeeUpdateRequestDto employeeDto) {
-        return ResponseDto.of(employeeService.update(id, employeeDto), 200);
-    }*/
 }

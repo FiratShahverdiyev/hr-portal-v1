@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 public class FamilyMemberRequestDto {
-    Integer relationType;
+    String relationType;
     String fullName;
     String birthday;
     String birthplace;

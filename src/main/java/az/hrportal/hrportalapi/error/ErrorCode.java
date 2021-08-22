@@ -9,6 +9,8 @@ public enum ErrorCode {
     BAD_CREDENTIALS(304, "error.bad-credentials"),
     VALIDATION_NOT_EMPTY(305, "error.validation.not-empty"),
     VALIDATION_RANGE(306, "error.validation.range"),
+    SESSION_EXPIRED(307, "error.session.expired"),
+    INCORRECT_DATE_FORMAT(308, "error.incorrect.date-format"),
     BAD_REQUEST(400, "error.server");
 
     private int code;

@@ -20,7 +20,8 @@ public class DepartmentService {
 
     public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllDepartments service started");
-        List<DropDownResponseDto<String>> response = dropDownMapper.toDepartmentResponseDtos(departmentRepository.findAll());
+        List<DropDownResponseDto<String>> response = dropDownMapper
+                .toDepartmentResponseDtos(departmentRepository.findAll());
         log.info("********** getAllDepartments service completed **********");
         return response;
     }

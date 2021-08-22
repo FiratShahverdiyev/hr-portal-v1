@@ -40,7 +40,7 @@ public class SecurityFilter extends GenericFilterBean {
         } catch (InvalidTokenException e) {
             log.error("---------- Security filter error . Exception ----------");
             e.printStackTrace();
-            ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
+            ErrorCode errorCode = ErrorCode.SESSION_EXPIRED;
             String message = messageResolver.resolve(errorCode.getMessage());
             buildHttpErrorResponse(response, message, 401);
         }

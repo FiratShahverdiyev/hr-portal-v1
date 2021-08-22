@@ -1,25 +1,8 @@
 package az.hrportal.hrportalapi.constant.employee;
 
-import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
-
 public enum MilitaryAchievement {
-    MILITARY_SUCCESSFULLY(1),
-    UNFIT(2),
-    LIMITED_USEFUL(3),
-    MILITARY_DATE(4);
-
-    private int value;
-
-    MilitaryAchievement(int value) {
-        this.value = value;
-    }
-
-    public MilitaryAchievement intToEnum(int value) {
-        MilitaryAchievement[] values = MilitaryAchievement.values();
-        for (MilitaryAchievement achievement : values) {
-            if (achievement.value == value)
-                return achievement;
-        }
-        throw new EnumNotFoundException(MilitaryAchievement.class, value);
-    }
+    MILITARY_SUCCESSFULLY,
+    UNFIT,
+    LIMITED_USEFUL,
+    MILITARY_DATE
 }

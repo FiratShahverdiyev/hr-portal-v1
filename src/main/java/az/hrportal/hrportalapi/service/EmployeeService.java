@@ -13,19 +13,21 @@ import az.hrportal.hrportalapi.domain.employee.Country;
 import az.hrportal.hrportalapi.domain.employee.Education;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.ForeignPassport;
+import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
 import az.hrportal.hrportalapi.domain.employee.IDCard;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
-import az.hrportal.hrportalapi.dto.employee.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.employee.AcademicInfoMapper;
 import az.hrportal.hrportalapi.mapper.employee.BusinessInfoMapper;
 import az.hrportal.hrportalapi.mapper.employee.CertificateMapper;
-import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
-import az.hrportal.hrportalapi.mapper.employee.FamilyMemberMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeGeneralInfoMapper;
+import az.hrportal.hrportalapi.mapper.employee.FamilyMemberMapper;
 import az.hrportal.hrportalapi.mapper.employee.GovernmentAchievementMapper;
 import az.hrportal.hrportalapi.repository.employee.AddressRepository;
 import az.hrportal.hrportalapi.repository.employee.BusinessRepository;
@@ -34,6 +36,7 @@ import az.hrportal.hrportalapi.repository.employee.CountryRepository;
 import az.hrportal.hrportalapi.repository.employee.EducationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.ForeignPassportRepository;
+import az.hrportal.hrportalapi.repository.employee.GovernmentAchievementRepository;
 import az.hrportal.hrportalapi.repository.employee.IDCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -64,6 +67,8 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final EmployeeGeneralInfoMapper employeeGeneralInfoMapper;
     private final BusinessInfoMapper businessInfoMapper;
+    private final GovernmentAchievementRepository governmentAchievementRepository;
+    private final AcademicInfoMapper academicInfoMapper;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -77,73 +82,74 @@ public class EmployeeService {
 
     @Transactional
     @SneakyThrows
-    public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
-        log.info("saveGeneralInfo service started with {}", generalInfoRequestDto);
+    public Integer saveGeneralInfo(EmployeeGeneralInfoRequestDto employeeGeneralInfoRequestDto) {
+        log.info("saveGeneralInfo service started with {}", employeeGeneralInfoRequestDto);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        Optional<Country> optionalCountry = countryRepository.findByName(generalInfoRequestDto.getCitizenCountry());
+        Optional<Country> optionalCountry = countryRepository
+                .findByName(employeeGeneralInfoRequestDto.getCitizenCountry());
         Country country;
         if (optionalCountry.isEmpty()) {
-            country = saveOther(generalInfoRequestDto.getCitizenCountry());
+            country = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
         } else {
             country = optionalCountry.get();
         }
 
         Employee employee = Employee.builder()
-                .familyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()))
-                .fullName(generalInfoRequestDto.getFullName())
-                .birthday(dateFormat.parse(generalInfoRequestDto.getBirthday()))
-                .birthplace(generalInfoRequestDto.getBirthplace())
+                .familyCondition(FamilyCondition.valueOf(employeeGeneralInfoRequestDto.getFamilyCondition()))
+                .fullName(employeeGeneralInfoRequestDto.getFullName())
+                .birthday(dateFormat.parse(employeeGeneralInfoRequestDto.getBirthday()))
+                .birthplace(employeeGeneralInfoRequestDto.getBirthplace())
                 .citizenCountry(country)
-                .gender(Gender.intToEnum(generalInfoRequestDto.getGender()))
-                .bloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()))
-                .permission(generalInfoRequestDto.getPermission())
-                .familyMembers(familyMemberMapper.toFamilyMembers(generalInfoRequestDto.getFamilyMembers()))
+                .gender(Gender.valueOf(employeeGeneralInfoRequestDto.getGender()))
+                .bloodGroup(BloodGroup.valueOf(employeeGeneralInfoRequestDto.getBloodGroup()))
+                .permission(employeeGeneralInfoRequestDto.getPermission())
+                .familyMembers(familyMemberMapper.toFamilyMembers(employeeGeneralInfoRequestDto.getFamilyMembers()))
                 .build();
         Employee saved = employeeRepository.save(employee);
 
         Address address = Address.builder()
-                .apartment(generalInfoRequestDto.getAddressApartment())
-                .block(generalInfoRequestDto.getAddressBlock())
-                .city(generalInfoRequestDto.getAddressCity())
-                .country(generalInfoRequestDto.getAddressCountry())
-                .district(generalInfoRequestDto.getAddressDistrict())
-                .home(generalInfoRequestDto.getAddressHome())
-                .street(generalInfoRequestDto.getAddressStreet())
-                .village(generalInfoRequestDto.getAddressVillage())
+                .apartment(employeeGeneralInfoRequestDto.getAddressApartment())
+                .block(employeeGeneralInfoRequestDto.getAddressBlock())
+                .city(employeeGeneralInfoRequestDto.getAddressCity())
+                .country(employeeGeneralInfoRequestDto.getAddressCountry())
+                .district(employeeGeneralInfoRequestDto.getAddressDistrict())
+                .home(employeeGeneralInfoRequestDto.getAddressHome())
+                .street(employeeGeneralInfoRequestDto.getAddressStreet())
+                .village(employeeGeneralInfoRequestDto.getAddressVillage())
                 .employee(saved)
                 .build();
         addressRepository.save(address);
 
         ContactInfo contactInfo = ContactInfo.builder()
-                .businessMailAddress(generalInfoRequestDto.getBusinessMailAddress())
-                .businessPhone(generalInfoRequestDto.getBusinessPhone())
-                .homePhone(generalInfoRequestDto.getHomePhone())
-                .internalBusinessPhone(generalInfoRequestDto.getInternalBusinessPhone())
-                .mobilePhone1(generalInfoRequestDto.getMobilePhone1())
-                .mobilePhone2(generalInfoRequestDto.getMobilePhone2())
-                .ownMailAddress(generalInfoRequestDto.getOwnMailAddress())
+                .businessMailAddress(employeeGeneralInfoRequestDto.getBusinessMailAddress())
+                .businessPhone(employeeGeneralInfoRequestDto.getBusinessPhone())
+                .homePhone(employeeGeneralInfoRequestDto.getHomePhone())
+                .internalBusinessPhone(employeeGeneralInfoRequestDto.getInternalBusinessPhone())
+                .mobilePhone1(employeeGeneralInfoRequestDto.getMobilePhone1())
+                .mobilePhone2(employeeGeneralInfoRequestDto.getMobilePhone2())
+                .ownMailAddress(employeeGeneralInfoRequestDto.getOwnMailAddress())
                 .employee(employee)
                 .build();
         contactInfoRepository.save(contactInfo);
 
         ForeignPassport foreignPassport = ForeignPassport.builder()
-                .endDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportEndDate()))
-                .series(Series.intToEnum(generalInfoRequestDto.getForeignPassportSeries()))
-                .number(generalInfoRequestDto.getForeignPassportNumber())
-                .startDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportStartDate()))
+                .endDate(dateFormat.parse(employeeGeneralInfoRequestDto.getForeignPassportEndDate()))
+                .series(Series.valueOf(employeeGeneralInfoRequestDto.getForeignPassportSeries()))
+                .number(employeeGeneralInfoRequestDto.getForeignPassportNumber())
+                .startDate(dateFormat.parse(employeeGeneralInfoRequestDto.getForeignPassportStartDate()))
                 .employee(employee)
                 .build();
         foreignPassportRepository.save(foreignPassport);
 
         IDCard idCard = IDCard.builder()
-                .series(Series.intToEnum(generalInfoRequestDto.getIDCardSeries()))
-                .endDate(dateFormat.parse(generalInfoRequestDto.getIDCardEndDate()))
-                .number(generalInfoRequestDto.getIDCardNumber())
-                .organization(generalInfoRequestDto.getIDCardOrganization())
-                .startDate(dateFormat.parse(generalInfoRequestDto.getIDCardStartDate()))
+                .series(Series.valueOf(employeeGeneralInfoRequestDto.getIDCardSeries()))
+                .endDate(dateFormat.parse(employeeGeneralInfoRequestDto.getIDCardEndDate()))
+                .number(employeeGeneralInfoRequestDto.getIDCardNumber())
+                .organization(employeeGeneralInfoRequestDto.getIDCardOrganization())
+                .startDate(dateFormat.parse(employeeGeneralInfoRequestDto.getIDCardStartDate()))
                 .employee(employee)
-                .pin(generalInfoRequestDto.getIDCardPin())
+                .pin(employeeGeneralInfoRequestDto.getIDCardPin())
                 .build();
         idCardRepository.save(idCard);
 
@@ -153,66 +159,67 @@ public class EmployeeService {
 
     @Transactional
     @SneakyThrows
-    public Integer updateGeneralInfo(Integer id, GeneralInfoRequestDto generalInfoRequestDto) {
-        log.info("updateGeneralInfo service started with {}", generalInfoRequestDto);
+    public Integer updateGeneralInfo(Integer id, EmployeeGeneralInfoRequestDto employeeGeneralInfoRequestDto) {
+        log.info("updateGeneralInfo service started with {}", employeeGeneralInfoRequestDto);
 
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, id));
 
-        Optional<Country> optionalCountry = countryRepository.findByName(generalInfoRequestDto.getCitizenCountry());
+        Optional<Country> optionalCountry = countryRepository
+                .findByName(employeeGeneralInfoRequestDto.getCitizenCountry());
         Country country;
         if (optionalCountry.isEmpty()) {
-            country = saveOther(generalInfoRequestDto.getCitizenCountry());
+            country = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
         } else {
             country = optionalCountry.get();
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        employee.setFamilyCondition(FamilyCondition.intToEnum(generalInfoRequestDto.getFamilyCondition()));
-        employee.setFullName(generalInfoRequestDto.getFullName());
-        employee.setBirthday(dateFormat.parse(generalInfoRequestDto.getBirthday()));
-        employee.setBirthplace(generalInfoRequestDto.getBirthplace());
+        employee.setFamilyCondition(FamilyCondition.valueOf(employeeGeneralInfoRequestDto.getFamilyCondition()));
+        employee.setFullName(employeeGeneralInfoRequestDto.getFullName());
+        employee.setBirthday(dateFormat.parse(employeeGeneralInfoRequestDto.getBirthday()));
+        employee.setBirthplace(employeeGeneralInfoRequestDto.getBirthplace());
         employee.setCitizenCountry(country);
-        employee.setGender(Gender.intToEnum(generalInfoRequestDto.getGender()));
-        employee.setBloodGroup(BloodGroup.intToEnum(generalInfoRequestDto.getBloodGroup()));
-        employee.setPermission(generalInfoRequestDto.getPermission());
-        employee.setFamilyMembers(familyMemberMapper.toFamilyMembers(generalInfoRequestDto.getFamilyMembers()));
+        employee.setGender(Gender.valueOf(employeeGeneralInfoRequestDto.getGender()));
+        employee.setBloodGroup(BloodGroup.valueOf(employeeGeneralInfoRequestDto.getBloodGroup()));
+        employee.setPermission(employeeGeneralInfoRequestDto.getPermission());
+        employee.setFamilyMembers(familyMemberMapper.toFamilyMembers(employeeGeneralInfoRequestDto.getFamilyMembers()));
 
         Address address = employee.getAddress();
-        address.setApartment(generalInfoRequestDto.getAddressApartment());
-        address.setBlock(generalInfoRequestDto.getAddressBlock());
-        address.setCity(generalInfoRequestDto.getAddressCity());
-        address.setCountry(generalInfoRequestDto.getAddressCountry());
-        address.setDistrict(generalInfoRequestDto.getAddressDistrict());
-        address.setHome(generalInfoRequestDto.getAddressHome());
-        address.setStreet(generalInfoRequestDto.getAddressStreet());
-        address.setVillage(generalInfoRequestDto.getAddressVillage());
+        address.setApartment(employeeGeneralInfoRequestDto.getAddressApartment());
+        address.setBlock(employeeGeneralInfoRequestDto.getAddressBlock());
+        address.setCity(employeeGeneralInfoRequestDto.getAddressCity());
+        address.setCountry(employeeGeneralInfoRequestDto.getAddressCountry());
+        address.setDistrict(employeeGeneralInfoRequestDto.getAddressDistrict());
+        address.setHome(employeeGeneralInfoRequestDto.getAddressHome());
+        address.setStreet(employeeGeneralInfoRequestDto.getAddressStreet());
+        address.setVillage(employeeGeneralInfoRequestDto.getAddressVillage());
         addressRepository.save(address);
 
         ContactInfo contactInfo = employee.getContactInfo();
-        contactInfo.setBusinessMailAddress(generalInfoRequestDto.getBusinessMailAddress());
-        contactInfo.setBusinessPhone(generalInfoRequestDto.getBusinessPhone());
-        contactInfo.setHomePhone(generalInfoRequestDto.getHomePhone());
-        contactInfo.setInternalBusinessPhone(generalInfoRequestDto.getInternalBusinessPhone());
-        contactInfo.setMobilePhone1(generalInfoRequestDto.getMobilePhone1());
-        contactInfo.setMobilePhone2(generalInfoRequestDto.getMobilePhone2());
-        contactInfo.setOwnMailAddress(generalInfoRequestDto.getOwnMailAddress());
+        contactInfo.setBusinessMailAddress(employeeGeneralInfoRequestDto.getBusinessMailAddress());
+        contactInfo.setBusinessPhone(employeeGeneralInfoRequestDto.getBusinessPhone());
+        contactInfo.setHomePhone(employeeGeneralInfoRequestDto.getHomePhone());
+        contactInfo.setInternalBusinessPhone(employeeGeneralInfoRequestDto.getInternalBusinessPhone());
+        contactInfo.setMobilePhone1(employeeGeneralInfoRequestDto.getMobilePhone1());
+        contactInfo.setMobilePhone2(employeeGeneralInfoRequestDto.getMobilePhone2());
+        contactInfo.setOwnMailAddress(employeeGeneralInfoRequestDto.getOwnMailAddress());
         contactInfoRepository.save(contactInfo);
 
         ForeignPassport foreignPassport = employee.getForeignPassport();
-        foreignPassport.setEndDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportEndDate()));
-        foreignPassport.setSeries(Series.intToEnum(generalInfoRequestDto.getForeignPassportSeries()));
-        foreignPassport.setNumber(generalInfoRequestDto.getForeignPassportNumber());
-        foreignPassport.setStartDate(dateFormat.parse(generalInfoRequestDto.getForeignPassportStartDate()));
+        foreignPassport.setEndDate(dateFormat.parse(employeeGeneralInfoRequestDto.getForeignPassportEndDate()));
+        foreignPassport.setSeries(Series.valueOf(employeeGeneralInfoRequestDto.getForeignPassportSeries()));
+        foreignPassport.setNumber(employeeGeneralInfoRequestDto.getForeignPassportNumber());
+        foreignPassport.setStartDate(dateFormat.parse(employeeGeneralInfoRequestDto.getForeignPassportStartDate()));
         foreignPassportRepository.save(foreignPassport);
 
         IDCard idCard = employee.getIdCard();
-        idCard.setSeries(Series.intToEnum(generalInfoRequestDto.getIDCardSeries()));
-        idCard.setEndDate(dateFormat.parse(generalInfoRequestDto.getIDCardEndDate()));
-        idCard.setNumber(generalInfoRequestDto.getIDCardNumber());
-        idCard.setOrganization(generalInfoRequestDto.getIDCardOrganization());
-        idCard.setStartDate(dateFormat.parse(generalInfoRequestDto.getIDCardStartDate()));
-        idCard.setPin(generalInfoRequestDto.getIDCardPin());
+        idCard.setSeries(Series.valueOf(employeeGeneralInfoRequestDto.getIDCardSeries()));
+        idCard.setEndDate(dateFormat.parse(employeeGeneralInfoRequestDto.getIDCardEndDate()));
+        idCard.setNumber(employeeGeneralInfoRequestDto.getIDCardNumber());
+        idCard.setOrganization(employeeGeneralInfoRequestDto.getIDCardOrganization());
+        idCard.setStartDate(dateFormat.parse(employeeGeneralInfoRequestDto.getIDCardStartDate()));
+        idCard.setPin(employeeGeneralInfoRequestDto.getIDCardPin());
         idCardRepository.save(idCard);
 
         Employee saved = employeeRepository.save(employee);
@@ -267,7 +274,7 @@ public class EmployeeService {
                 new EntityNotFoundException(Employee.class, id));
 
         Education education = Education.builder()
-                .educationType(EducationType.intToEnum(academicRequestDto.getEducationType()))
+                .educationType(EducationType.valueOf(academicRequestDto.getEducationType()))
                 .academicDegreeDate(dateFormat.parse(academicRequestDto.getAcademicDegreeDate()))
                 .academicDegreeNumber(academicRequestDto.getAcademicDegreeNumber())
                 .academicDegreeOrganization(academicRequestDto.getAcademicDegreeOrganization())
@@ -291,8 +298,13 @@ public class EmployeeService {
         }
 
         employee.setEducation(education);
-        employee.setGovernmentAchievements(governmentAchievementMapper
-                .toGovernmentAchievements(academicRequestDto.getGovernmentAchievements()));
+        List<GovernmentAchievement> governmentAchievements = governmentAchievementMapper
+                .toGovernmentAchievements(academicRequestDto.getGovernmentAchievements());
+        for (GovernmentAchievement governmentAchievement : governmentAchievements) {
+            governmentAchievement.setEmployee(employee);
+        }
+        governmentAchievementRepository.saveAll(governmentAchievements);
+        employee.setGovernmentAchievements(governmentAchievements);
         employee.setCertificates(certificateMapper.toCertificates(academicRequestDto.getCertificates()));
         employee.setQuotas(quotas);
         employee.setMemberOfColleaguesAlliance(academicRequestDto.isMemberOfColleaguesAlliance());
@@ -318,6 +330,14 @@ public class EmployeeService {
                 new EntityNotFoundException(Employee.class, id));
         log.info("********** getBusinessInfoById service completed with id : {} **********", id);
         return businessInfoMapper.toBusinessResponseDto(employee);
+    }
+
+    public AcademicInfoResponseDto getAcademicInfoById(Integer id) {
+        log.info("getAcademicInfoById service started with id : {}", id);
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class, id));
+        log.info("********** getAcademicInfoById service completed with id : {} **********", id);
+        return academicInfoMapper.toAcademicInfoResponseDto(employee);
     }
 
     public List<String> getAllFullNameAndPosition() {

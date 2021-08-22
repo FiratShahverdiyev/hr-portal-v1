@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.mapper.employee;
 
-import az.hrportal.hrportalapi.constant.employee.RelationType;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.dto.employee.request.FamilyMemberRequestDto;
 import lombok.SneakyThrows;
@@ -23,16 +22,9 @@ public interface FamilyMemberMapper {
     List<FamilyMember> toFamilyMembers(List<FamilyMemberRequestDto> familyMemberRequestDtos);
 
     @Named("toFamilyMember")
-    @Mapping(target = "relationType", source = "relationType", qualifiedByName = "intToRelationType",
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "birthday", source = "birthday", qualifiedByName = "stringToDate",
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     FamilyMember toFamilyMember(FamilyMemberRequestDto familyMemberRequestDto);
-
-    @Named("intToRelationType")
-    default RelationType intToRelationType(Integer relationType) {
-        return RelationType.intToEnum(relationType);
-    }
 
     @Named("stringToDate")
     @SneakyThrows

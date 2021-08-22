@@ -131,7 +131,7 @@ public class PositionService {
         for (SkillRequestDto skillRequestDto : generalInfoRequestDto.getSkills()) {
             Skill skill = skillRepository.findById(skillRequestDto.getSkillId()).orElseThrow(() ->
                     new EntityNotFoundException(Skill.class, skillRequestDto.getSkillId()));
-            skill.setLevel(Level.intToEnum(skillRequestDto.getLevel()));
+            skill.setLevel(Level.valueOf(skillRequestDto.getLevel()));
             skills.add(skill);
         }
 
@@ -146,20 +146,20 @@ public class PositionService {
                 .count(generalInfoRequestDto.getVacancyCount())
                 .workCalculateDegree(generalInfoRequestDto.getWorkCalculateDegree())
                 .subWorkCalculateDegree(SubWorkCalculateDegree
-                        .intToEnum(generalInfoRequestDto.getSubWorkCalculateDegree()))
-                .workCondition(WorkCondition.intToEnum(generalInfoRequestDto.getWorkCondition()))
+                        .valueOf(generalInfoRequestDto.getSubWorkCalculateDegree()))
+                .workCondition(WorkCondition.valueOf(generalInfoRequestDto.getWorkCondition()))
                 .additionalSalary(generalInfoRequestDto.getAdditionalSalary())
-                .workMode(WorkMode.intToEnum(generalInfoRequestDto.getWorkMode()))
-                .vacancyCategory(VacancyCategory.intToEnum(generalInfoRequestDto.getVacancyCategory()))
+                .workMode(WorkMode.valueOf(generalInfoRequestDto.getWorkMode()))
+                .vacancyCategory(VacancyCategory.valueOf(generalInfoRequestDto.getVacancyCategory()))
                 .skills(skills)
                 .fullNameAndPosition(generalInfoRequestDto.getFullNameAndPosition())
                 .areaExperience(generalInfoRequestDto.getAreaExperience())
                 .leaderExperience(generalInfoRequestDto.getLeaderExperience())
-                .educationDegree(EducationDegree.intToEnum(generalInfoRequestDto.getEducationDegree()))
+                .educationDegree(EducationDegree.valueOf(generalInfoRequestDto.getEducationDegree()))
                 .height(generalInfoRequestDto.getHeight())
                 .healthy(generalInfoRequestDto.isHealthy())
                 .militaryAchieve(generalInfoRequestDto.isMilitaryAchieve())
-                .genderDemand(GenderDemand.intToEnum(generalInfoRequestDto.getGenderDemand()))
+                .genderDemand(GenderDemand.valueOf(generalInfoRequestDto.getGenderDemand()))
                 .functionalities(generalInfoRequestDto.getFunctionalities())
                 .workPlace(WorkPlace.intToEnum(generalInfoRequestDto.getWorkPlace()))
                 .build();
@@ -243,7 +243,7 @@ public class PositionService {
         for (SkillRequestDto skillRequestDto : generalInfoRequestDto.getSkills()) {
             Skill skill = skillRepository.findById(skillRequestDto.getSkillId()).orElseThrow(() ->
                     new EntityNotFoundException(Skill.class, skillRequestDto.getSkillId()));
-            skill.setLevel(Level.intToEnum(skillRequestDto.getLevel()));
+            skill.setLevel(Level.valueOf(skillRequestDto.getLevel()));
             skills.add(skill);
         }
 
@@ -257,20 +257,20 @@ public class PositionService {
         position.setCount(generalInfoRequestDto.getVacancyCount());
         position.setWorkCalculateDegree(generalInfoRequestDto.getWorkCalculateDegree());
         position.setSubWorkCalculateDegree(SubWorkCalculateDegree
-                .intToEnum(generalInfoRequestDto.getSubWorkCalculateDegree()));
-        position.setWorkCondition(WorkCondition.intToEnum(generalInfoRequestDto.getWorkCondition()));
+                .valueOf(generalInfoRequestDto.getSubWorkCalculateDegree()));
+        position.setWorkCondition(WorkCondition.valueOf(generalInfoRequestDto.getWorkCondition()));
         position.setAdditionalSalary(generalInfoRequestDto.getAdditionalSalary());
-        position.setWorkMode(WorkMode.intToEnum(generalInfoRequestDto.getWorkMode()));
-        position.setVacancyCategory(VacancyCategory.intToEnum(generalInfoRequestDto.getVacancyCategory()));
+        position.setWorkMode(WorkMode.valueOf(generalInfoRequestDto.getWorkMode()));
+        position.setVacancyCategory(VacancyCategory.valueOf(generalInfoRequestDto.getVacancyCategory()));
         position.setSkills(skills);
         position.setFullNameAndPosition(generalInfoRequestDto.getFullNameAndPosition());
         position.setAreaExperience(generalInfoRequestDto.getAreaExperience());
         position.setLeaderExperience(generalInfoRequestDto.getLeaderExperience());
-        position.setEducationDegree(EducationDegree.intToEnum(generalInfoRequestDto.getEducationDegree()));
+        position.setEducationDegree(EducationDegree.valueOf(generalInfoRequestDto.getEducationDegree()));
         position.setHeight(generalInfoRequestDto.getHeight());
         position.setHealthy(generalInfoRequestDto.isHealthy());
         position.setMilitaryAchieve(generalInfoRequestDto.isMilitaryAchieve());
-        position.setGenderDemand(GenderDemand.intToEnum(generalInfoRequestDto.getGenderDemand()));
+        position.setGenderDemand(GenderDemand.valueOf(generalInfoRequestDto.getGenderDemand()));
         position.setFunctionalities(generalInfoRequestDto.getFunctionalities());
         position.setWorkPlace(WorkPlace.intToEnum(generalInfoRequestDto.getWorkPlace()));
         Position saved = positionRepository.save(position);

@@ -12,5 +12,5 @@ import lombok.experimental.FieldDefaults;
 @ToString
 public class SkillRequestDto {
     Integer skillId;
-    Integer level;
+    String level;
 }

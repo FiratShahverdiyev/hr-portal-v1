@@ -19,7 +19,8 @@ public class SalaryService {
 
     public List<DropDownResponseDto<BigDecimal>> getAll() {
         log.info("getAllSalaries service started");
-        List<DropDownResponseDto<BigDecimal>> response = dropDownMapper.toSalaryResponseDtos(salaryRepository.findAll());
+        List<DropDownResponseDto<BigDecimal>> response = dropDownMapper
+                .toSalaryResponseDtos(salaryRepository.findAll());
         log.info("********** getAllSalaries service completed **********");
         return response;
     }

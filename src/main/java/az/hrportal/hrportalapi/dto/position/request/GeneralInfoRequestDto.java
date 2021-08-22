@@ -31,20 +31,16 @@ public class GeneralInfoRequestDto {
     Integer vacancyCount;
     @Range(min = 1, max = 3)
     Integer workCalculateDegree;
-    @Range(min = 1, max = 2)
-    Integer subWorkCalculateDegree;
+    String subWorkCalculateDegree;
     @NotNull
     BigDecimal salary;
-    @NotNull
-    @Range(min = 1, max = 2)
-    Integer workCondition;
+    @NotEmpty
+    String workCondition;
     BigDecimal additionalSalary;
-    @NotNull
-    @Range(min = 1, max = 2)
-    Integer workMode;
-    @NotNull
-    @Range(min = 1, max = 4)
-    Integer vacancyCategory;
+    @NotEmpty
+    String workMode;
+    @NotEmpty
+    String vacancyCategory;
     @NotEmpty
     String jobFamily;
     List<SkillRequestDto> skills;
@@ -55,14 +51,12 @@ public class GeneralInfoRequestDto {
     String fullNameAndPosition;
     Integer areaExperience;
     Integer leaderExperience;
-    @Range(min = 1, max = 6)
-    Integer educationDegree;
+    String educationDegree;
     String educationSpeciality;
     Float height;
     boolean healthy;
     boolean militaryAchieve;
-    @Range(min = 1, max = 3)
-    Integer genderDemand;
+    String genderDemand;
     @NotEmpty
     List<String> functionalities;
 }
