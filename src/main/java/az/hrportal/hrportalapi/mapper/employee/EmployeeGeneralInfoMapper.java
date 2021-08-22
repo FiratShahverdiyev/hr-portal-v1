@@ -15,6 +15,7 @@ import org.mapstruct.ReportingPolicy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -58,7 +59,7 @@ public interface EmployeeGeneralInfoMapper {
 
     @Named("toFamilyMemberResponseDtos")
     @IterableMapping(qualifiedByName = "toFamilyMemberResponseDto")
-    List<FamilyMemberResponseDto> toFamilyMemberResponseDtos(List<FamilyMember> familyMembers);
+    List<FamilyMemberResponseDto> toFamilyMemberResponseDtos(Set<FamilyMember> familyMembers);
 
     @Named("toFamilyMemberResponseDto")
     @Mapping(target = "birthday", source = "birthday", qualifiedByName = "dateToString",

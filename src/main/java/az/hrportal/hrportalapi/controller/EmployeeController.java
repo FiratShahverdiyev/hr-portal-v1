@@ -7,6 +7,7 @@ import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
+import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.service.EmployeeService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -54,6 +55,12 @@ public class EmployeeController {
     public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid
             AcademicRequestDto academicRequestDto) {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
+    }
+
+    @GetMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<List<EmployeeResponseDto>> getAll() {
+        return ResponseDto.of(employeeService.getAll(), 200);
     }
 
     @GetMapping("general-info/{id}")

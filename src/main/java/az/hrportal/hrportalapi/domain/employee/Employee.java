@@ -37,6 +37,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -91,11 +92,11 @@ public class Employee {
     @Column(name = "family_member")
     @ElementCollection
     @CollectionTable(name = "employee_family_members", joinColumns = @JoinColumn(name = "employee_id"))
-    List<FamilyMember> familyMembers;
+    Set<FamilyMember> familyMembers;
     @Column(name = "quota")
     @ElementCollection
     @CollectionTable(name = "employee_quotas", joinColumns = @JoinColumn(name = "employee_id"))
-    List<String> quotas;
+    Set<String> quotas;
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     Business business;
@@ -107,9 +108,9 @@ public class Employee {
     @Column(name = "certificate")
     @ElementCollection
     @CollectionTable(name = "employee_certificates", joinColumns = @JoinColumn(name = "employee_id"))
-    List<Certificate> certificates;
+    Set<Certificate> certificates;
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    List<GovernmentAchievement> governmentAchievements;
+    Set<GovernmentAchievement> governmentAchievements;
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
     Position position;

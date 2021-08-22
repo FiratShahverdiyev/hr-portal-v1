@@ -6,6 +6,7 @@ import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,14 +34,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ErrorHandler extends ResponseEntityExceptionHandler {
     private final LocaleMessageResolver messageResolver;
+    private final String logFile = "logs/hr_info_log.log";
 
+    @SneakyThrows
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
                                                          WebRequest request) {
+        Writer writer = new FileWriter(logFile, true);
         ErrorCode errorCode = ErrorCode.BIND_EXCEPTION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", status, ex.getMessage());
-        ex.printStackTrace();
+        ex.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
     }
 
@@ -67,7 +76,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.ENTITY_NOT_FOUND;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        e.printStackTrace();
         return ResponseEntity.status(404).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -76,7 +84,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.CONSTANT_NOT_FOUND;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -85,7 +92,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.FILE_NOT_ALLOWED_EXTENSION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -94,7 +100,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.BAD_CREDENTIALS;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        e.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
@@ -103,24 +108,24 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        e.printStackTrace();
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
+    public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) throws IOException {
+        Writer writer = new FileWriter(logFile, true);
         if (e.getCause().getClass().getSimpleName().equals(ParseException.class.getSimpleName())) {
             ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
             String message = messageResolver.resolve(errorCode.getMessage());
             log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(),
                     "PARSE EXCEPTION");
-            e.printStackTrace();
+            e.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
             return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
         }
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), "INTERNAL SERVER");
-        e.printStackTrace();
+        e.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 }
