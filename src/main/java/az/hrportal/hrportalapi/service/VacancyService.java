@@ -16,9 +16,9 @@ public class VacancyService {
     private final VacancyRepository vacancyRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAll() {
+    public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllVacancies service started");
-        List<DropDownResponseDto> response = dropDownMapper.toVacancyResponseDtos(vacancyRepository.findAll());
+        List<DropDownResponseDto<String>> response = dropDownMapper.toVacancyResponseDtos(vacancyRepository.findAll());
         log.info("********** getAllVacancies service completed **********");
         return response;
     }

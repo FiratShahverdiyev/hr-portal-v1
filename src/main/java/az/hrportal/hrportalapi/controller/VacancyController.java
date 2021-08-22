@@ -19,7 +19,7 @@ public class VacancyController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<DropDownResponseDto>> getAll() {
+    public ResponseDto<List<DropDownResponseDto<String>>> getAll() {
         return ResponseDto.of(vacancyService.getAll(), 200);
     }
 }

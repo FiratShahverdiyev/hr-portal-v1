@@ -27,9 +27,9 @@ public class CountryService {
         return saved.getId();
     }
 
-    public List<DropDownResponseDto> getAll() {
+    public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllCountries service started");
-        List<DropDownResponseDto> response = dropDownMapper.toCountryResponseDtos(countryRepository.findAll());
+        List<DropDownResponseDto<String>> response = dropDownMapper.toCountryResponseDtos(countryRepository.findAll());
         log.info("********** getAllCountries service completed **********");
         return response;
     }

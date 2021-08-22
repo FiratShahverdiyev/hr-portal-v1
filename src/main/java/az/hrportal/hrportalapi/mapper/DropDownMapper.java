@@ -8,26 +8,35 @@ import az.hrportal.hrportalapi.domain.position.Salary;
 import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")
 public interface DropDownMapper {
-    List<DropDownResponseDto> toCountryResponseDtos(List<Country> countries);
+    List<DropDownResponseDto<String>> toCountryResponseDtos(List<Country> countries);
 
-    List<DropDownResponseDto> toInstitutionResponseDtos(List<Institution> institutions);
+    List<DropDownResponseDto<String>> toInstitutionResponseDtos(List<Institution> institutions);
 
-    List<DropDownResponseDto> toDepartmentResponseDtos(List<Department> departments);
+    List<DropDownResponseDto<String>> toDepartmentResponseDtos(List<Department> departments);
 
-    List<DropDownResponseDto> toVacancyResponseDtos(List<Vacancy> vacancies);
+    List<DropDownResponseDto<String>> toVacancyResponseDtos(List<Vacancy> vacancies);
 
-    List<DropDownResponseDto> toSubDepartmentResponseDtos(List<SubDepartment> subDepartments);
+    List<DropDownResponseDto<String>> toSubDepartmentResponseDtos(List<SubDepartment> subDepartments);
 
-    List<DropDownResponseDto> toSalaryResponseDtos(List<Salary> salaries);
+    @IterableMapping(qualifiedByName = "toSalaryResponseDto")
+    List<DropDownResponseDto<BigDecimal>> toSalaryResponseDtos(List<Salary> salaries);
 
-    List<DropDownResponseDto> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);
+    @Named("toSalaryResponseDto")
+    @Mapping(target = "name", source = "salary")
+    DropDownResponseDto<BigDecimal> toSalaryResponseDto(Salary salary);
+
+    List<DropDownResponseDto<String>> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);
 }

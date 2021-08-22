@@ -18,16 +18,16 @@ public class DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAll() {
+    public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllDepartments service started");
-        List<DropDownResponseDto> response = dropDownMapper.toDepartmentResponseDtos(departmentRepository.findAll());
+        List<DropDownResponseDto<String>> response = dropDownMapper.toDepartmentResponseDtos(departmentRepository.findAll());
         log.info("********** getAllDepartments service completed **********");
         return response;
     }
 
-    public List<DropDownResponseDto> getAllByDepartment(String departmentName) {
+    public List<DropDownResponseDto<String>> getAllByDepartment(String departmentName) {
         log.info("getAllSubDepartmentsByDepartment service started with department : {}", departmentName);
-        List<DropDownResponseDto> subDepartments = dropDownMapper
+        List<DropDownResponseDto<String>> subDepartments = dropDownMapper
                 .toSubDepartmentResponseDtos(departmentRepository.findByName(departmentName).orElseThrow(() ->
                         new EntityNotFoundException(Department.class, departmentName)).getSubDepartment());
         log.info("********** getAllSubDepartmentsByDepartment service completed **********");

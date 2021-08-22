@@ -16,9 +16,9 @@ public class JobFamilyService {
     private final JobFamilyRepository jobFamilyRepository;
     private final DropDownMapper dropDownMapper;
 
-    public List<DropDownResponseDto> getAll() {
+    public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllJobFamilies service started");
-        List<DropDownResponseDto> response = dropDownMapper.toJobFamilyResponseDtos(jobFamilyRepository.findAll());
+        List<DropDownResponseDto<String>> response = dropDownMapper.toJobFamilyResponseDtos(jobFamilyRepository.findAll());
         log.info("********** getAllJobFamilies service completed **********");
         return response;
     }

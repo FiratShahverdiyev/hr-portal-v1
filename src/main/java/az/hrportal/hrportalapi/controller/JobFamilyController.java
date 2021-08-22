@@ -19,7 +19,7 @@ public class JobFamilyController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<DropDownResponseDto>> getAll() {
+    public ResponseDto<List<DropDownResponseDto<String>>> getAll() {
         return ResponseDto.of(jobFamilyService.getAll(), 200);
     }
 }

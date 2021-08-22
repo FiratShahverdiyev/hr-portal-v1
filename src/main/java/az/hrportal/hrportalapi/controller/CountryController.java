@@ -25,7 +25,7 @@ public class CountryController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<DropDownResponseDto>> getAll() {
+    public ResponseDto<List<DropDownResponseDto<String>>> getAll() {
         return ResponseDto.of(countryService.getAll(), 200);
     }
 }
