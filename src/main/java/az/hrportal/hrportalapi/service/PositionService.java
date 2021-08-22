@@ -19,8 +19,10 @@ import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
+import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.SkillRequestDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.position.KnowledgeMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
 import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
@@ -53,6 +55,7 @@ public class PositionService {
     private final SubDepartmentRepository subDepartmentRepository;
     private final SalaryRepository salaryRepository;
     private final SkillRepository skillRepository;
+    private final KnowledgeMapper knowledgeMapper;
 
     @Transactional
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
@@ -163,6 +166,132 @@ public class PositionService {
         return saved.getId();
     }
 
+    @Transactional
+    public Integer updateGeneralInfo(Integer id, GeneralInfoRequestDto generalInfoRequestDto) {
+        log.info("updateGeneralInfo service started with {}", generalInfoRequestDto);
+
+        Position position = positionRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+
+        Optional<Institution> optionalInstitution = institutionRepository
+                .findByName(generalInfoRequestDto.getInstitutionName());
+        Institution institution;
+        if (optionalInstitution.isEmpty()) {
+            institution = (Institution) saveOther(generalInfoRequestDto.getInstitutionName(), Institution.class);
+        } else {
+            institution = optionalInstitution.get();
+        }
+
+        Optional<Department> optionalDepartment = departmentRepository
+                .findByName(generalInfoRequestDto.getDepartmentName());
+        Department department;
+        if (optionalDepartment.isEmpty()) {
+            department = (Department) saveOther(generalInfoRequestDto.getDepartmentName(), Department.class);
+        } else {
+            department = optionalDepartment.get();
+        }
+
+        Optional<SubDepartment> optionalSubDepartment = subDepartmentRepository
+                .findByName(generalInfoRequestDto.getSubDepartmentName());
+        SubDepartment subDepartment;
+        if (optionalSubDepartment.isEmpty()) {
+            subDepartment = saveSubDepartment(department, generalInfoRequestDto.getSubDepartmentName());
+        } else {
+            subDepartment = optionalSubDepartment.get();
+        }
+
+        Optional<Vacancy> optionalVacancy = vacancyRepository
+                .findByName(generalInfoRequestDto.getVacancyName());
+        Vacancy vacancy;
+        if (optionalVacancy.isEmpty()) {
+            vacancy = (Vacancy) saveOther(generalInfoRequestDto.getVacancyName(), Vacancy.class);
+        } else {
+            vacancy = optionalVacancy.get();
+        }
+
+        Optional<JobFamily> optionalJobFamily = jobFamilyRepository
+                .findByName(generalInfoRequestDto.getJobFamily());
+        JobFamily jobFamily;
+        if (optionalJobFamily.isEmpty()) {
+            jobFamily = (JobFamily) saveOther(generalInfoRequestDto.getJobFamily(), JobFamily.class);
+        } else {
+            jobFamily = optionalJobFamily.get();
+        }
+
+        Optional<Speciality> optionalSpeciality = specialityRepository
+                .findByName(generalInfoRequestDto.getEducationSpeciality());
+        Speciality speciality;
+        if (optionalSpeciality.isEmpty()) {
+            speciality = (Speciality) saveOther(generalInfoRequestDto.getEducationSpeciality(), Speciality.class);
+        } else {
+            speciality = optionalSpeciality.get();
+        }
+
+        Optional<Salary> optionalSalary = salaryRepository
+                .findBySalary(generalInfoRequestDto.getSalary());
+        Salary salary;
+        if (optionalSalary.isEmpty()) {
+            salary = (Salary) saveOther(generalInfoRequestDto.getSalary(), Salary.class);
+        } else {
+            salary = optionalSalary.get();
+        }
+
+        List<Skill> skills = new ArrayList<>();
+        for (SkillRequestDto skillRequestDto : generalInfoRequestDto.getSkills()) {
+            Skill skill = skillRepository.findById(skillRequestDto.getSkillId()).orElseThrow(() ->
+                    new EntityNotFoundException(Skill.class, skillRequestDto.getSkillId()));
+            skill.setLevel(Level.intToEnum(skillRequestDto.getLevel()));
+            skills.add(skill);
+        }
+
+        position.setInstitution(institution);
+        position.setDepartment(department);
+        position.setSubDepartment(subDepartment);
+        position.setVacancy(vacancy);
+        position.setJobFamily(jobFamily);
+        position.setEducationSpeciality(speciality);
+        position.setSalary(salary);
+        position.setCount(generalInfoRequestDto.getVacancyCount());
+        position.setWorkCalculateDegree(generalInfoRequestDto.getWorkCalculateDegree());
+        position.setSubWorkCalculateDegree(SubWorkCalculateDegree
+                .intToEnum(generalInfoRequestDto.getSubWorkCalculateDegree()));
+        position.setWorkCondition(WorkCondition.intToEnum(generalInfoRequestDto.getWorkCondition()));
+        position.setAdditionalSalary(generalInfoRequestDto.getAdditionalSalary());
+        position.setWorkMode(WorkMode.intToEnum(generalInfoRequestDto.getWorkMode()));
+        position.setVacancyCategory(VacancyCategory.intToEnum(generalInfoRequestDto.getVacancyCategory()));
+        position.setSkills(skills);
+        position.setFullNameAndPosition(generalInfoRequestDto.getFullNameAndPosition());
+        position.setAreaExperience(generalInfoRequestDto.getAreaExperience());
+        position.setLeaderExperience(generalInfoRequestDto.getLeaderExperience());
+        position.setEducationDegree(EducationDegree.intToEnum(generalInfoRequestDto.getEducationDegree()));
+        position.setHeight(generalInfoRequestDto.getHeight());
+        position.setHealthy(generalInfoRequestDto.isHealthy());
+        position.setMilitaryAchieve(generalInfoRequestDto.isMilitaryAchieve());
+        position.setGenderDemand(GenderDemand.intToEnum(generalInfoRequestDto.getGenderDemand()));
+        position.setFunctionalities(generalInfoRequestDto.getFunctionalities());
+        position.setWorkPlace(WorkPlace.intToEnum(generalInfoRequestDto.getWorkPlace()));
+        Position saved = positionRepository.save(position);
+
+        log.info("********** updateGeneralInfo service completed with id : {} **********", saved.getId());
+        return saved.getId();
+    }
+
+    @Transactional
+    public Integer updateKnowledge(Integer id, KnowledgeRequestDto knowledgeRequestDto) {
+        log.info("updateKnowledge service started with id : {}, {}", id, knowledgeRequestDto);
+        Position position = positionRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        position.setLegislationStatement(knowledgeMapper
+                .toLegislationStatements(knowledgeRequestDto.getLegislationStatements()));
+        position.setComputerKnowledge(knowledgeMapper
+                .toComputerKnowledgeList(knowledgeRequestDto.getComputerKnowledge()));
+        position.setLanguageKnowledge(knowledgeMapper
+                .toLanguageKnowledgeList(knowledgeRequestDto.getLanguageKnowledge()));
+        positionRepository.save(position);
+        log.info("********** updateKnowledge service completed with id : {} **********", id);
+        return id;
+    }
+
     //TODO Delete on production
     public List<KeyValue<String, Integer>> getWorkAddress() {
         log.info("getWorkAddress service started");
@@ -210,11 +339,6 @@ public class PositionService {
             speciality.setName((String) value);
             return specialityRepository.save(speciality);
         }
-        /*if (clazz.getSimpleName().equals(SubDepartment.class.getSimpleName())) {
-            SubDepartment subDepartment = new SubDepartment();
-            subDepartment.setName((String) value);
-            return subDepartmentRepository.save(subDepartment);
-        }*/
         if (clazz.getSimpleName().equals(Salary.class.getSimpleName())) {
             Salary salary = new Salary();
             salary.setSalary((BigDecimal) value);

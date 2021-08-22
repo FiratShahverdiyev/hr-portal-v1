@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,20 +36,22 @@ public class EmployeeController {
 
     @PutMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody GeneralInfoRequestDto
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid GeneralInfoRequestDto
             generalInfoRequestDto) {
         return ResponseDto.of(employeeService.updateGeneralInfo(id, generalInfoRequestDto), 200);
     }
 
     @PutMapping("business-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody BusinessRequestDto businessRequestDto) {
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid
+            BusinessRequestDto businessRequestDto) {
         return ResponseDto.of(employeeService.updateBusiness(id, businessRequestDto), 200);
     }
 
     @PutMapping("academic-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody AcademicRequestDto academicRequestDto) {
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid
+            AcademicRequestDto academicRequestDto) {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
     }
 

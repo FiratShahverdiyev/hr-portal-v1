@@ -12,10 +12,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestControllerAdvice
 @Slf4j
@@ -31,6 +36,29 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         log.error("---------- Api error, errorCode: {} message: {} ----------", status, ex.getMessage());
         ex.printStackTrace();
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatus status,
+                                                                  WebRequest request) {
+        Map<String, String> errors = new HashMap<>();
+        var ref = new Object() {
+            String fieldName = null;
+            String message = null;
+        };
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            ref.fieldName = ((FieldError) error).getField();
+            ref.message = error.getDefaultMessage();
+            errors.put(ref.fieldName, ref.message);
+        });
+        errors.forEach((fieldName, message) -> {
+            log.error("---------- Api error, errorCode: {} message: {} ----------",
+                    400, fieldName + " - " + message);
+        });
+        return ResponseEntity.status(400)
+                .body(new ErrorResponseDto(ref.fieldName + " - " + ref.message, 400));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)

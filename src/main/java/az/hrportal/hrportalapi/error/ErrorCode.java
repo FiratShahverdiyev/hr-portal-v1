@@ -7,6 +7,8 @@ public enum ErrorCode {
     FILE_NOT_ALLOWED_EXTENSION(302, "error.file.not-allowed-extension"),
     BIND_EXCEPTION(303, "error.bind"),
     BAD_CREDENTIALS(304, "error.bad-credentials"),
+    VALIDATION_NOT_EMPTY(305, "error.validation.not-empty"),
+    VALIDATION_RANGE(306, "error.validation.range"),
     BAD_REQUEST(400, "error.server");
 
     private int code;
