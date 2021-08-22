@@ -21,7 +21,9 @@ import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.SkillRequestDto;
+import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.position.GeneralInfoMapper;
 import az.hrportal.hrportalapi.mapper.position.KnowledgeMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
@@ -56,6 +58,7 @@ public class PositionService {
     private final SalaryRepository salaryRepository;
     private final SkillRepository skillRepository;
     private final KnowledgeMapper knowledgeMapper;
+    private final GeneralInfoMapper generalInfoMapper;
 
     @Transactional
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
@@ -345,5 +348,13 @@ public class PositionService {
             return salaryRepository.save(salary);
         }
         throw new EntityNotFoundException(clazz, value);
+    }
+
+    public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
+        log.info("getGeneralInfoById service started with id : {}", id);
+        Position position = positionRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        log.info("********** getGeneralInfoById service completed with id : {} **********", id);
+        return generalInfoMapper.toGeneralInfoResponseDto(position);
     }
 }

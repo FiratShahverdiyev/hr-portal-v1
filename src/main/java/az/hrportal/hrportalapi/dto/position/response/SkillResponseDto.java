@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto.position.request;
+package az.hrportal.hrportalapi.dto.position.response;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
-public class LanguageKnowledgeRequestDto {
+public class SkillResponseDto {
     String name;
-    Integer level;
+    String level;
 }

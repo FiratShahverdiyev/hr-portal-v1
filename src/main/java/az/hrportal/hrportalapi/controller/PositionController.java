@@ -4,6 +4,7 @@ import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
+import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.service.PositionService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,11 @@ public class PositionController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<KeyValue<String, Integer>>> getAll() {
         return ResponseDto.of(positionService.getWorkAddress(), 200);
+    }
+
+    @GetMapping("general-info/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<GeneralInfoResponseDto> getGeneralInfo(@PathVariable Integer id) {
+        return ResponseDto.of(positionService.getGeneralInfoById(id), 200);
     }
 }
