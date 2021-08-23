@@ -9,7 +9,7 @@ import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
-import az.hrportal.hrportalapi.service.EmployeeService;
+import az.hrportal.hrportalapi.service.employee.EmployeeService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;

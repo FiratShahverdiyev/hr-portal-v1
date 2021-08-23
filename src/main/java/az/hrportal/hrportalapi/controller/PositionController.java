@@ -5,7 +5,7 @@ import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
-import az.hrportal.hrportalapi.service.PositionService;
+import az.hrportal.hrportalapi.service.position.PositionService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

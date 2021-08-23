@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.service;
+package az.hrportal.hrportalapi.service.position;
 
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;

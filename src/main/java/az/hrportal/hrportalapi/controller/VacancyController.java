@@ -2,7 +2,7 @@ package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;
-import az.hrportal.hrportalapi.service.VacancyService;
+import az.hrportal.hrportalapi.service.position.VacancyService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

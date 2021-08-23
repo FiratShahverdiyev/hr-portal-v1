@@ -1,26 +1,26 @@
-package az.hrportal.hrportalapi.service;
+package az.hrportal.hrportalapi.service.position;
 
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
-import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
+import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @Slf4j
 @RequiredArgsConstructor
-@Service
-public class InstitutionService {
-    private final InstitutionRepository institutionRepository;
+public class JobFamilyService {
+    private final JobFamilyRepository jobFamilyRepository;
     private final DropDownMapper dropDownMapper;
 
     public List<DropDownResponseDto<String>> getAll() {
-        log.info("getAllInstitutions service started");
+        log.info("getAllJobFamilies service started");
         List<DropDownResponseDto<String>> response = dropDownMapper
-                .toInstitutionResponseDtos(institutionRepository.findAll());
-        log.info("********** getAllInstitutions service completed **********");
+                .toJobFamilyResponseDtos(jobFamilyRepository.findAll());
+        log.info("********** getAllJobFamilies service completed **********");
         return response;
     }
 }

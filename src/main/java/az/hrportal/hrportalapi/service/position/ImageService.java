@@ -1,6 +1,7 @@
-package az.hrportal.hrportalapi.service;
+package az.hrportal.hrportalapi.service.position;
 
 import az.hrportal.hrportalapi.helper.FileUtil;
+import az.hrportal.hrportalapi.service.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.service;
+package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.domain.employee.Country;
