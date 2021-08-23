@@ -35,6 +35,7 @@ public interface EmployeeMapper {
     @Mapping(target = "entranceDate", source = "entranceDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "driverCardEndDate", source = "driverCardEndDate", dateFormat = "dd-MM-yyyy")
     @Mapping(target = "certificates", source = "certificates", qualifiedBy = DtoToCertificates.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "governmentAchievements", source = "governmentAchievements", ignore = true)
