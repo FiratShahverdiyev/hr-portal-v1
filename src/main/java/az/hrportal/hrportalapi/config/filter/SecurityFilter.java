@@ -2,7 +2,6 @@ package az.hrportal.hrportalapi.config.filter;
 
 import az.hrportal.hrportalapi.error.ErrorCode;
 import az.hrportal.hrportalapi.error.ErrorResponseDto;
-import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import az.hrportal.hrportalapi.security.SecurityUtil;
 import az.hrportal.hrportalapi.security.TokenProvider;

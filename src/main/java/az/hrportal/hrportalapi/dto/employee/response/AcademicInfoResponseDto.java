@@ -1,7 +1,5 @@
 package az.hrportal.hrportalapi.dto.employee.response;
 
-import az.hrportal.hrportalapi.dto.employee.request.CertificateRequestDto;
-import az.hrportal.hrportalapi.dto.employee.request.GovernmentAchievementRequestDto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
