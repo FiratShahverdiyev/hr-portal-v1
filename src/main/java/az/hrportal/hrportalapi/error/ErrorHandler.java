@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

@@ -37,9 +37,8 @@ public class SecurityFilter extends GenericFilterBean {
             Authentication authentication = tokenProvider.parseAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             chain.doFilter(request, response);
-        } catch (InvalidTokenException e) {
+        } catch (Exception e) {
             log.error("---------- Security filter error . Exception ----------");
-            e.printStackTrace();
             ErrorCode errorCode = ErrorCode.SESSION_EXPIRED;
             String message = messageResolver.resolve(errorCode.getMessage());
             buildHttpErrorResponse(response, message, 401);

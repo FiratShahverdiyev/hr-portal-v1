@@ -29,8 +29,8 @@ public class AcademicInfoResponseDto {
     String graduateFileDate;
     String educationType;
     String nostrifikasiyaNumber;
-    List<CertificateRequestDto> certificates;
-    List<GovernmentAchievementRequestDto> governmentAchievements;
+    List<CertificateResponseDto> certificates;
+    List<GovernmentAchievementResponseDto> governmentAchievements;
     String driverCardCategory;
     String driverCardEndDate;
     List<String> quotas;

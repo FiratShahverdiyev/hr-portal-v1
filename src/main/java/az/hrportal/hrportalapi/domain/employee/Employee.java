@@ -2,9 +2,11 @@ package az.hrportal.hrportalapi.domain.employee;
 
 import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.constant.employee.DriverCategory;
+import az.hrportal.hrportalapi.constant.employee.EducationType;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.embeddable.Certificate;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.domain.position.Position;
@@ -31,12 +33,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -77,18 +76,58 @@ public class Employee {
     BloodGroup bloodGroup;
     @Column(name = "permission")
     String permission;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    ForeignPassport foreignPassport;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    IDCard idCard;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Address address;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    ContactInfo contactInfo;
+    @Column(name = "foreign_passport_series")
+    @Enumerated(EnumType.STRING)
+    Series foreignPassportSeries;
+    @Column(name = "foreign_passport_number", nullable = false)
+    String foreignPassportNumber;
+    @Column(name = "foreign_passport_start_date", nullable = false)
+    Date foreignPassportStartDate;
+    @Column(name = "foreign_passport_end_date", nullable = false)
+    Date foreignPassportEndDate;
+    @Column(name = "id_card_series", nullable = false)
+    @Enumerated(EnumType.STRING)
+    Series IDCardSeries;
+    @Column(name = "id_card_number", nullable = false)
+    String IDCardNumber;
+    @Column(name = "id_card_pin", nullable = false)
+    String IDCardPin;
+    @Column(name = "id_card_organization", nullable = false)
+    String IDCardOrganization;
+    @Column(name = "id_card_start_date", nullable = false)
+    Date IDCardStartDate;
+    @Column(name = "id_card_end_date", nullable = false)
+    Date IDCardEndDate;
+    @Column(name = "address_country")
+    String addressCountry;
+    @Column(name = "address_city", nullable = false)
+    String addressCity;
+    @Column(name = "address_district", nullable = false)
+    String addressDistrict;
+    @Column(name = "address_village", nullable = false)
+    String addressVillage;
+    @Column(name = "address_street", nullable = false)
+    String addressStreet;
+    @Column(name = "address_block", nullable = false)
+    String addressBlock;
+    @Column(name = "address_apartment", nullable = false)
+    String addressApartment;
+    @Column(name = "address_home", nullable = false)
+    String addressHome;
+    @Column(name = "home_phone")
+    String homePhone;
+    @Column(name = "mobile_phone_1", nullable = false)
+    String mobilePhone1;
+    @Column(name = "mobile_phone_2")
+    String mobilePhone2;
+    @Column(name = "business_phone")
+    String businessPhone;
+    @Column(name = "internal_business_phone")
+    String internalBusinessPhone;
+    @Column(name = "own_mail_address")
+    String ownMailAddress;
+    @Column(name = "business_mail_address")
+    String businessMailAddress;
     @Column(name = "family_member")
     @ElementCollection
     @CollectionTable(name = "employee_family_members", joinColumns = @JoinColumn(name = "employee_id"))
@@ -97,12 +136,51 @@ public class Employee {
     @ElementCollection
     @CollectionTable(name = "employee_quotas", joinColumns = @JoinColumn(name = "employee_id"))
     Set<String> quotas;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Business business;
-    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    Education education;
+    @Column(name = "business_company")
+    String company;
+    @Column(name = "business_section")
+    String section;
+    @Column(name = "business_sub_section")
+    String subSection;
+    @Column(name = "business_position")
+    String businessPosition;
+    @Column(name = "business_job_start_date")
+    Date jobStartDate;
+    @Column(name = "business_job_end_date")
+    Date jobEndDate;
+    @Column(name = "business_job_end_reason")
+    String jobEndReason; //TODO hardan gelir ??
+    @Column(name = "business_main_job")
+    boolean isMainJob;
+    @Column(name = "academic_degree_start_date")
+    Date academicDegreeDate;
+    @Column(name = "academic_degree_file_number")
+    String academicDegreeNumber;
+    @Column(name = "academic_degree_organization")
+    String academicDegreeOrganization;
+    @Column(name = "institution")
+    String institution; //TODO hardan gelir ??
+    @Column(name = "faculty")
+    String faculty;
+    @Column(name = "direction")
+    String direction;
+    @Column(name = "speciality")
+    String speciality;
+    @Column(name = "entrance_date")
+    Date entranceDate;
+    @Column(name = "graduate_date")
+    Date graduateDate;
+    @Column(name = "degree")
+    String degree; //TODO Enum or keep  ??
+    @Column(name = "graduate_file_number")
+    String graduateFileNumber;
+    @Column(name = "graduate_file_start_date")
+    Date graduateFileDate;
+    @Column(name = "education_type")
+    @Enumerated(EnumType.STRING)
+    EducationType educationType;
+    @Column(name = "nostrifikasiya_number")
+    String nostrifikasiyaNumber;
     @Column(name = "kvota")
     String kvota;
     @Column(name = "certificate")
