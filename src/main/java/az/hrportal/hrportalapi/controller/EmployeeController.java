@@ -57,6 +57,12 @@ public class EmployeeController {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
     }
 
+    @DeleteMapping("{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> delete(@PathVariable Integer id) {
+        return ResponseDto.of(employeeService.delete(id), 200);
+    }
+
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<EmployeeResponseDto>> getAll() {
@@ -92,11 +98,5 @@ public class EmployeeController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<KeyValue<String, Integer>>> getAllQuota() {
         return ResponseDto.of(employeeService.getAllQuotas(), 200);
-    }
-
-    @DeleteMapping("{id}")
-    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> delete(@PathVariable Integer id) {
-        return ResponseDto.of(employeeService.delete(id), 200);
     }
 }

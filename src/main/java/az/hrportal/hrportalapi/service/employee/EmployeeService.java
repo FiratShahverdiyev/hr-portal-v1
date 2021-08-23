@@ -25,7 +25,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import springfox.documentation.annotations.Cacheable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -163,7 +162,6 @@ public class EmployeeService {
         return response;
     }
 
-    @Cacheable("employees")
     public List<EmployeeResponseDto> getAll() {
         log.info("getAll service started");
         List<EmployeeResponseDto> response = employeeResponseMapper
