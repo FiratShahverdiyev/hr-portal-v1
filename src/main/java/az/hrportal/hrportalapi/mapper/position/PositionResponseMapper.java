@@ -1,21 +1,17 @@
 package az.hrportal.hrportalapi.mapper.position;
 
 import az.hrportal.hrportalapi.domain.position.Position;
-import az.hrportal.hrportalapi.domain.position.Skill;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
-import az.hrportal.hrportalapi.dto.position.response.SkillResponseDto;
-import org.mapstruct.IterableMapping;
+import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
+import az.hrportal.hrportalapi.mapper.position.helper.SkillToDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
-
-import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring")
-public interface PositionGeneralInfoMapper {
+        componentModel = "spring", uses = PositionMapperHelper.class)
+public interface PositionResponseMapper {
     @Mapping(target = "institutionName", source = "institution.name")
     @Mapping(target = "departmentName", source = "department.name")
     @Mapping(target = "subDepartmentName", source = "subDepartment.name")
@@ -23,14 +19,6 @@ public interface PositionGeneralInfoMapper {
     @Mapping(target = "educationSpeciality", source = "educationSpeciality.name")
     @Mapping(target = "jobFamily", source = "jobFamily.name")
     @Mapping(target = "salary", source = "salary.salary")
-    @Mapping(target = "skills", source = "skills", qualifiedByName = "toSkillResponseDtos")
+    @Mapping(target = "skills", source = "skills", qualifiedBy = SkillToDto.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Position position);
-
-    @Named("toSkillResponseDtos")
-    @IterableMapping(qualifiedByName = "toSkillResponseDto")
-    List<SkillResponseDto> toSkillResponseDtos(List<Skill> skills);
-
-    @Named("toSkillResponseDto")
-    @Mapping(target = "skillId", source = "id")
-    SkillResponseDto toSkillResponseDto(Skill skill);
 }

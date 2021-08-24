@@ -23,6 +23,7 @@ import az.hrportal.hrportalapi.repository.employee.GovernmentAchievementReposito
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -124,7 +125,7 @@ public class EmployeeService {
         return saved.getId();
     }
 
-
+    @Cacheable("employees")
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
         log.info("getGeneralInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -133,6 +134,7 @@ public class EmployeeService {
         return employeeResponseMapper.toGeneralInfoResponseDto(employee);
     }
 
+    @Cacheable("employees")
     public BusinessResponseDto getBusinessInfoById(Integer id) {
         log.info("getBusinessInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -141,6 +143,7 @@ public class EmployeeService {
         return employeeResponseMapper.toBusinessResponseDto(employee);
     }
 
+    @Cacheable("employees")
     public AcademicInfoResponseDto getAcademicInfoById(Integer id) {
         log.info("getAcademicInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->

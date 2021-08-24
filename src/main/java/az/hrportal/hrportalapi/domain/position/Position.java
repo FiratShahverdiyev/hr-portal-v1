@@ -18,6 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -50,6 +51,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Position {
     @Id
     @SequenceGenerator(name = "positions_id_seq", allocationSize = 1, sequenceName = "positions_id_seq")
@@ -131,7 +133,7 @@ public class Position {
     @ElementCollection
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
-    List<LegislationStatement> legislationStatement;
+    List<LegislationStatement> legislationStatements;
     @ElementCollection
     @CollectionTable(name = "position_functionalities", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "functionality")

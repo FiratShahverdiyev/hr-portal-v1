@@ -20,11 +20,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,17 +30,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ErrorHandler extends ResponseEntityExceptionHandler {
     private final LocaleMessageResolver messageResolver;
-    private final String logFile = "logs/hr_info_log.log";
 
     @SneakyThrows
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status,
                                                          WebRequest request) {
-        Writer writer = new FileWriter(logFile, true);
         ErrorCode errorCode = ErrorCode.BIND_EXCEPTION;
         String message = messageResolver.resolve(errorCode.getMessage());
-        log.error("---------- Api error, errorCode: {} message: {} ----------", status, ex.getMessage());
-        ex.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                status, ex.getMessage(), getStackTrace(ex.getStackTrace()));
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
     }
 
@@ -113,19 +107,26 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) throws IOException {
-        Writer writer = new FileWriter(logFile, true);
-        if (e.getCause().getClass().getSimpleName().equals(ParseException.class.getSimpleName())) {
+        if (e.getCause() != null &&
+                e.getCause().getClass().getSimpleName().equals(ParseException.class.getSimpleName())) {
             ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
             String message = messageResolver.resolve(errorCode.getMessage());
-            log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(),
-                    "PARSE EXCEPTION");
-            e.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
+            log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                    errorCode.getCode(), "PARSE EXCEPTION", getStackTrace(e.getStackTrace()));
             return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
         }
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
-        log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), "INTERNAL SERVER");
-        e.printStackTrace(new PrintWriter(new BufferedWriter(writer)));
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), "INTERNAL SERVER", getStackTrace(e.getStackTrace()));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }
+
+    private String getStackTrace(StackTraceElement[] stackTraceElements) {
+        StringBuilder response = new StringBuilder();
+        for (StackTraceElement stackTraceElement : stackTraceElements) {
+            response.append(stackTraceElement).append("\n");
+        }
+        return String.valueOf(response);
     }
 }
