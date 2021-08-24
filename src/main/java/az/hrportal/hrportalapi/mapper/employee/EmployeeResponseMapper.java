@@ -52,23 +52,6 @@ public interface EmployeeResponseMapper {
     List<EmployeeResponseDto> toEmployeeResponseDtos(List<Employee> employees);
 
     @Named("toEmployeeResponseDto")
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "foreignPassportStartDate", source = "foreignPassportStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "foreignPassportEndDate", source = "foreignPassportEndDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "IDCardStartDate", source = "IDCardStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "IDCardEndDate", source = "IDCardEndDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "familyMembers", source = "familyMembers", qualifiedBy = FamilyMembersToDto.class,
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "certificates", source = "certificates", qualifiedBy = CertificatesToDto.class,
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "governmentAchievements", source = "governmentAchievements",
-            qualifiedBy = GovernmentAchievementToDto.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "jobEndDate", source = "jobEndDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "jobStartDate", source = "jobStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "academicDegreeDate", source = "academicDegreeDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "entranceDate", source = "entranceDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "citizenCountry", source = "citizenCountry.name")
+    @Mapping(target = "position", source = "businessPosition")
     EmployeeResponseDto toEmployeeResponseDto(Employee employee);
 }

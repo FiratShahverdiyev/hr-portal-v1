@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -65,8 +67,9 @@ public class EmployeeController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<EmployeeResponseDto>> getAll() {
-        return ResponseDto.of(employeeService.getAll(), 200);
+    public ResponseDto<PaginationResponseDto<List<EmployeeResponseDto>>> getAll(
+            @RequestParam int page, @RequestParam int size) {
+        return ResponseDto.of(employeeService.getPagination(page, size), 200);
     }
 
     @GetMapping("general-info/{id}")

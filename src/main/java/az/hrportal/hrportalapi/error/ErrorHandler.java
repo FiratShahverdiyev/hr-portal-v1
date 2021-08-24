@@ -165,8 +165,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             return errorMessage;
     }
 
-    private String getEnumPossibleValues(String enumm) {
-        switch (enumm) {
+    private String getEnumPossibleValues(String incorrectEnum) {
+        switch (incorrectEnum) {
             case "BloodGroup":
                 return Arrays.toString(BloodGroup.values());
             case "DriverCategory":

@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.domain.employee.Country;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
@@ -23,7 +24,7 @@ import az.hrportal.hrportalapi.repository.employee.GovernmentAchievementReposito
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -125,7 +126,6 @@ public class EmployeeService {
         return saved.getId();
     }
 
-    @Cacheable("employees")
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
         log.info("getGeneralInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -134,7 +134,6 @@ public class EmployeeService {
         return employeeResponseMapper.toGeneralInfoResponseDto(employee);
     }
 
-    @Cacheable("employees")
     public BusinessResponseDto getBusinessInfoById(Integer id) {
         log.info("getBusinessInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -143,7 +142,6 @@ public class EmployeeService {
         return employeeResponseMapper.toBusinessResponseDto(employee);
     }
 
-    @Cacheable("employees")
     public AcademicInfoResponseDto getAcademicInfoById(Integer id) {
         log.info("getAcademicInfoById service started with id : {}", id);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
@@ -165,12 +163,16 @@ public class EmployeeService {
         return response;
     }
 
-    public List<EmployeeResponseDto> getAll() {
-        log.info("getAll service started");
-        List<EmployeeResponseDto> response = employeeResponseMapper
+    public PaginationResponseDto<List<EmployeeResponseDto>> getPagination(int page, int size) {
+        log.info("getPagination service started");
+        List<EmployeeResponseDto> employees = employeeResponseMapper
                 .toEmployeeResponseDtos(employeeRepository.findAll());
-        log.info("********** getAll service completed **********");
-        return response;
+        PagedListHolder<EmployeeResponseDto> responseHolder = new PagedListHolder<>(employees);
+        responseHolder.setPage(page);
+        responseHolder.setPageSize(size);
+        List<EmployeeResponseDto> response = responseHolder.getPageList();
+        log.info("********** getPagination service completed **********");
+        return new PaginationResponseDto<>(response, response.size(), employees.size());
     }
 
     @Transactional

@@ -3,7 +3,6 @@ package az.hrportal.hrportalapi.constant.employee;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -21,8 +20,7 @@ public class Quota {
     private static final String QUOTA_9 = "Şəhid ailələri";
     private static HashMap<Integer, String> quotaMap = new HashMap<>();
 
-    @PostConstruct
-    private void initQuotaMap() {
+    private Quota() {
         quotaMap.put(1, QUOTA_1);
         quotaMap.put(2, QUOTA_2);
         quotaMap.put(3, QUOTA_3);
