@@ -42,6 +42,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -95,12 +96,12 @@ public class Position {
             joinColumns = {@JoinColumn(name = "position_id")},
             inverseJoinColumns = {@JoinColumn(name = "skill_id")}
     )
-    List<Skill> skills;
+    Set<Skill> skills;
     @Column(name = "work_place")
     @Enumerated(EnumType.STRING)
     WorkPlace workPlace;
     @OneToMany(mappedBy = "position")
-    List<Employee> employee;
+    Set<Employee> employee;
     @Column(name = "area_experience")
     Integer areaExperience;
     @Column(name = "leader_experience")
@@ -125,19 +126,19 @@ public class Position {
     @ElementCollection
     @CollectionTable(name = "position_computer_knowledge", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
-    List<ComputerKnowledge> computerKnowledge;
+    Set<ComputerKnowledge> computerKnowledge;
     @ElementCollection
     @CollectionTable(name = "position_language_knowledge", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
-    List<LanguageKnowledge> languageKnowledge;
+    Set<LanguageKnowledge> languageKnowledge;
     @ElementCollection
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "knowledge")
-    List<LegislationStatement> legislationStatements;
+    Set<LegislationStatement> legislationStatements;
     @ElementCollection
     @CollectionTable(name = "position_functionalities", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "functionality")
-    List<String> functionalities;
+    Set<String> functionalities;
     @CreationTimestamp
     @Column(name = "created_at")
     private Date createdAt;

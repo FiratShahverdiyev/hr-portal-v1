@@ -16,6 +16,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,7 +33,7 @@ public class Skill {
     @Enumerated(EnumType.STRING)
     Level level;
     @ManyToMany(mappedBy = "skills")
-    List<Position> positions;
+    Set<Position> positions;
 
     @PrePersist
     private void setLevel() {

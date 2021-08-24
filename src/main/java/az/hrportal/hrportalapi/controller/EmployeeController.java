@@ -68,7 +68,7 @@ public class EmployeeController {
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<PaginationResponseDto<List<EmployeeResponseDto>>> getAll(
-            @RequestParam int page, @RequestParam int size) {
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
         return ResponseDto.of(employeeService.getPagination(page, size), 200);
     }
 

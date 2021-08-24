@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmployeeResponseDto {
+    Integer id;
     String photo;
     String fullName;
     String department; // TODO ??

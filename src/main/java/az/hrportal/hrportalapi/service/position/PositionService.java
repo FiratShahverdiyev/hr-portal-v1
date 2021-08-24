@@ -12,10 +12,14 @@ import az.hrportal.hrportalapi.domain.position.Speciality;
 import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
+import az.hrportal.hrportalapi.dto.position.request.PositionFilterRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.SkillRequestDto;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
+import az.hrportal.hrportalapi.dto.position.response.KnowledgeResponseDto;
+import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.position.PositionMapper;
 import az.hrportal.hrportalapi.mapper.position.PositionResponseMapper;
@@ -30,11 +34,13 @@ import az.hrportal.hrportalapi.repository.position.SubDepartmentRepository;
 import az.hrportal.hrportalapi.repository.position.VacancyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +57,7 @@ public class PositionService {
     private final SubDepartmentRepository subDepartmentRepository;
     private final SkillRepository skillRepository;
     private final SalaryRepository salaryRepository;
-    private final PositionResponseMapper generalInfoMapper;
+    private final PositionResponseMapper positionResponseMapper;
     private final PositionMapper positionMapper;
 
     @Transactional
@@ -87,12 +93,34 @@ public class PositionService {
         return id;
     }
 
+    public PaginationResponseDto<List<PositionResponseDto>> getPaginationWithSearch(
+            int page, int size, PositionFilterRequestDto filterRequestDto) {
+        log.info("getPaginationWithSearch service started with {}", filterRequestDto);
+        List<Position> positions = positionRepository.findAll();
+        List<PositionResponseDto> responseDtoList = new ArrayList<>();
+        positionFilter(positions, responseDtoList, filterRequestDto);
+        PagedListHolder<PositionResponseDto> responseHolder = new PagedListHolder<>(responseDtoList);
+        responseHolder.setPage(page);
+        responseHolder.setPageSize(size);
+        List<PositionResponseDto> response = responseHolder.getPageList();
+        log.info("********** getPaginationWithSearch service completed **********");
+        return new PaginationResponseDto<>(response, response.size(), responseDtoList.size());
+    }
+
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {
         log.info("getGeneralInfoById service started with id : {}", id);
-        Position position = positionRepository.findById(id).orElseThrow(() ->
+        Position position = positionRepository.findByIdWithSkillsAndFunctionalities(id).orElseThrow(() ->
                 new EntityNotFoundException(Position.class, id));
         log.info("********** getGeneralInfoById service completed with id : {} **********", id);
-        return generalInfoMapper.toGeneralInfoResponseDto(position);
+        return positionResponseMapper.toGeneralInfoResponseDto(position);
+    }
+
+    public KnowledgeResponseDto getKnowledgeById(Integer id) {
+        log.info("getKnowledgeById service started with id : {}", id);
+        Position position = positionRepository.findByIdWithKnowledgeRelations(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        log.info("********** getKnowledgeById service completed with id : {} **********", id);
+        return positionResponseMapper.toKnowledgeResponseDto(position);
     }
 
     //TODO Delete on production
@@ -148,6 +176,32 @@ public class PositionService {
             return salaryRepository.save(salary);
         }
         throw new EntityNotFoundException(clazz, value);
+    }
+
+    private void positionFilter(List<Position> filterData,
+                                List<PositionResponseDto> response, PositionFilterRequestDto requestDto) {
+        if (requestDto.getDepartment() == null && requestDto.getSubDepartment() == null &&
+                requestDto.getVacancy() == null && requestDto.getVacancyCount() == null) {
+            response.addAll(positionResponseMapper.toPositionResponseDtos(filterData));
+            return;
+        }
+        for (Position position : filterData) {
+            if (requestDto.getDepartment() != null &&
+                    position.getDepartment().getName().equals(requestDto.getDepartment()))
+                response.add(positionResponseMapper.toPositionResponseDto(position));
+
+            if (requestDto.getSubDepartment() != null &&
+                    position.getSubDepartment().getName().equals(requestDto.getSubDepartment()))
+                response.add(positionResponseMapper.toPositionResponseDto(position));
+
+            if (requestDto.getVacancy() != null &&
+                    position.getVacancy().getName().equals(requestDto.getVacancy()))
+                response.add(positionResponseMapper.toPositionResponseDto(position));
+
+            if (requestDto.getVacancyCount() != null &&
+                    position.getCount().equals(requestDto.getVacancyCount()))
+                response.add(positionResponseMapper.toPositionResponseDto(position));
+        }
     }
 
     private void updatePositionRelations(Position position, GeneralInfoRequestDto generalInfoRequestDto) {
@@ -230,7 +284,7 @@ public class PositionService {
         position.setJobFamily(jobFamily);
         position.setEducationSpeciality(speciality);
         position.setSalary(salary);
-        position.setSkills(skills);
+        position.setSkills(new HashSet<>(skills));
         log.info("********** getRelations service completed **********");
     }
 }

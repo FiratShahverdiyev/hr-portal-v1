@@ -25,34 +25,33 @@ public interface PositionMapperHelper {
     default WorkPlace intToWorkPlace(Integer workPlace) {
         return WorkPlace.intToEnum(workPlace);
     }
+/*
 
     @Named("toComputerKnowledge")
     ComputerKnowledge toComputerKnowledge(ComputerKnowledgeRequestDto computerKnowledgeRequestDto);
 
-    @DtoToComputerKnowledgeList
     @IterableMapping(qualifiedByName = "toComputerKnowledge")
     List<ComputerKnowledge> toComputerKnowledgeList(List<ComputerKnowledgeRequestDto> computerKnowledgeRequestDtos);
 
     @Named("toLanguageKnowledge")
     LanguageKnowledge toLanguageKnowledge(LanguageKnowledgeRequestDto languageKnowledgeRequestDto);
 
-    @DtoToLanguageKnowledgeList
     @IterableMapping(qualifiedByName = "toLanguageKnowledge")
     List<LanguageKnowledge> toLanguageKnowledgeList(List<LanguageKnowledgeRequestDto> languageKnowledgeRequestDtos);
 
     @Named("toLegislationStatement")
     LegislationStatement toLegislationStatement(LegislationStatementRequestDto legislationStatementRequestDto);
 
-    @DtoToLegislationStatements
     @IterableMapping(qualifiedByName = "toLegislationStatement")
     List<LegislationStatement> toLegislationStatements(List<LegislationStatementRequestDto>
                                                                legislationStatementRequestDtos);
 
-    @SkillToDto
     @IterableMapping(qualifiedByName = "toSkillResponseDto")
     List<SkillResponseDto> toSkillResponseDtos(List<Skill> skills);
 
     @Named("toSkillResponseDto")
     @Mapping(target = "skillId", source = "id")
     SkillResponseDto toSkillResponseDto(Skill skill);
+*/
+
 }

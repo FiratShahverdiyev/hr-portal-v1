@@ -201,7 +201,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 return Arrays.toString(WorkMode.values());
             case "WorkPlace":
                 return Arrays.toString(WorkPlace.values());
+            default:
+                return "Unhandled Enum!";
         }
-        return "Unhandled Enum!";
     }
 }
