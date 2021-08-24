@@ -26,7 +26,7 @@ public class SkillController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, Integer>>> getAll() {
+    public ResponseDto<List<KeyValue<String, String>>> getAll() {
         return ResponseDto.of(skillService.getAll(), 200);
     }
 }

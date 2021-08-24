@@ -175,6 +175,11 @@ public class PositionService {
             salary.setSalary((BigDecimal) value);
             return salaryRepository.save(salary);
         }
+        if (clazz.getSimpleName().equals(Skill.class.getSimpleName())) {
+            Skill skill = new Skill();
+            skill.setName((String) value);
+            return skillRepository.save(skill);
+        }
         throw new EntityNotFoundException(clazz, value);
     }
 
@@ -271,10 +276,18 @@ public class PositionService {
 
         List<Skill> skills = new ArrayList<>();
         for (SkillRequestDto skillRequestDto : generalInfoRequestDto.getSkills()) {
-            Skill skill = skillRepository.findById(skillRequestDto.getSkillId()).orElseThrow(() ->
-                    new EntityNotFoundException(Skill.class, skillRequestDto.getSkillId()));
-            skill.setLevel(Level.valueOf(skillRequestDto.getLevel()));
-            skills.add(skill);
+            if (!skillRepository.existsByName(skillRequestDto.getSkill()))
+                throw new EntityNotFoundException(Skill.class, skillRequestDto.getSkill());
+            Optional<Skill> optionalSkill = skillRepository.findByNameAndLevel(skillRequestDto.getSkill(),
+                    Level.valueOf(skillRequestDto.getLevel()));
+            if (optionalSkill.isPresent()) {
+                skills.add(optionalSkill.get());
+            } else {
+                Skill newSkill = new Skill();
+                newSkill.setName(skillRequestDto.getSkill());
+                newSkill.setLevel(Level.valueOf(skillRequestDto.getLevel()));
+                skills.add(skillRepository.save(newSkill));
+            }
         }
 
         position.setInstitution(institution);
