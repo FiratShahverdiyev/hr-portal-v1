@@ -1,5 +1,22 @@
 package az.hrportal.hrportalapi.error;
 
+import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.constant.employee.DriverCategory;
+import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
+import az.hrportal.hrportalapi.constant.employee.Gender;
+import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.constant.employee.RelationType;
+import az.hrportal.hrportalapi.constant.employee.Series;
+import az.hrportal.hrportalapi.constant.position.Area;
+import az.hrportal.hrportalapi.constant.position.EducationDegree;
+import az.hrportal.hrportalapi.constant.position.GenderDemand;
+import az.hrportal.hrportalapi.constant.position.Level;
+import az.hrportal.hrportalapi.constant.position.RequireFile;
+import az.hrportal.hrportalapi.constant.position.SubWorkCalculateDegree;
+import az.hrportal.hrportalapi.constant.position.VacancyCategory;
+import az.hrportal.hrportalapi.constant.position.WorkCondition;
+import az.hrportal.hrportalapi.constant.position.WorkMode;
+import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
@@ -20,8 +37,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.io.IOException;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +55,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.BIND_EXCEPTION;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                status, ex.getMessage(), getStackTrace(ex.getStackTrace()));
+                status, ex.getMessage(), getStackTrace(ex));
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, status.value()));
     }
 
@@ -106,27 +123,85 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) throws IOException {
-        if (e.getCause() != null &&
-                e.getCause().getClass().getSimpleName().equals(ParseException.class.getSimpleName())) {
+    public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
+        if (e.getCause() instanceof ParseException) {
             ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
             String message = messageResolver.resolve(errorCode.getMessage());
             log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                    errorCode.getCode(), "PARSE EXCEPTION", getStackTrace(e.getStackTrace()));
+                    errorCode.getCode(), "PARSE EXCEPTION", getStackTrace(e));
+            return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
+        }
+        if (e instanceof IllegalArgumentException) {
+            ErrorCode errorCode = ErrorCode.BAD_REQUEST;
+            String message = messageResolver.resolve(errorCode.getMessage());
+            String incorrectEnum = getIncorrectEnum(e.getMessage());
+            message = message.concat(" - ").concat(incorrectEnum)
+                    .concat(" : ").concat(getEnumPossibleValues(incorrectEnum));
+            log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                    errorCode.getCode(), "ENUM EXCEPTION", getStackTrace(e));
             return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
         }
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                errorCode.getCode(), "INTERNAL SERVER", getStackTrace(e.getStackTrace()));
+                errorCode.getCode(), "INTERNAL SERVER", getStackTrace(e));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
-    private String getStackTrace(StackTraceElement[] stackTraceElements) {
+    private String getStackTrace(Exception ex) {
         StringBuilder response = new StringBuilder();
-        for (StackTraceElement stackTraceElement : stackTraceElements) {
+        response.append(ex.getMessage()).append("\n");
+        for (StackTraceElement stackTraceElement : ex.getStackTrace()) {
             response.append(stackTraceElement).append("\n");
         }
         return String.valueOf(response);
+    }
+
+    private String getIncorrectEnum(String errorMessage) {
+        String[] arr = errorMessage.split("\\.");
+        if (arr.length >= 2)
+            return arr[arr.length - 2];
+        else
+            return errorMessage;
+    }
+
+    private String getEnumPossibleValues(String enumm) {
+        switch (enumm) {
+            case "BloodGroup":
+                return Arrays.toString(BloodGroup.values());
+            case "DriverCategory":
+                return Arrays.toString(DriverCategory.values());
+            case "FamilyCondition":
+                return Arrays.toString(FamilyCondition.values());
+            case "Gender":
+                return Arrays.toString(Gender.values());
+            case "MilitaryAchievement":
+                return Arrays.toString(MilitaryAchievement.values());
+            case "RelationType":
+                return Arrays.toString(RelationType.values());
+            case "Series":
+                return Arrays.toString(Series.values());
+            case "Area":
+                return Arrays.toString(Area.values());
+            case "EducationDegree":
+                return Arrays.toString(EducationDegree.values());
+            case "GenderDemand":
+                return Arrays.toString(GenderDemand.values());
+            case "Level":
+                return Arrays.toString(Level.values());
+            case "RequireFile":
+                return Arrays.toString(RequireFile.values());
+            case "SubWorkCalculateDegree":
+                return Arrays.toString(SubWorkCalculateDegree.values());
+            case "VacancyCategory":
+                return Arrays.toString(VacancyCategory.values());
+            case "WorkCondition":
+                return Arrays.toString(WorkCondition.values());
+            case "WorkMode":
+                return Arrays.toString(WorkMode.values());
+            case "WorkPlace":
+                return Arrays.toString(WorkPlace.values());
+        }
+        return "Unhandled Enum!";
     }
 }
