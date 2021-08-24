@@ -3,17 +3,12 @@ package az.hrportal.hrportalapi.mapper.position;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
-import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.mapper.position.helper.IntToWorkPlace;
 import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
-
-import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,

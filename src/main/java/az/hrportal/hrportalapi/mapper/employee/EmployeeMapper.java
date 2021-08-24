@@ -13,29 +13,31 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
+import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
+
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring", uses = EmployeeMapperHelper.class)
 public interface EmployeeMapper {
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "birthday", source = "birthday", dateFormat = dateFormat)
     @Mapping(target = "familyMembers", source = "familyMembers", qualifiedBy = DtoToFamilyMembers.class)
-    @Mapping(target = "foreignPassportStartDate", source = "foreignPassportStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "IDCardStartDate", source = "IDCardStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "foreignPassportEndDate", source = "foreignPassportEndDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "IDCardEndDate", source = "IDCardEndDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "foreignPassportStartDate", source = "foreignPassportStartDate", dateFormat = dateFormat)
+    @Mapping(target = "IDCardStartDate", source = "IDCardStartDate", dateFormat = dateFormat)
+    @Mapping(target = "foreignPassportEndDate", source = "foreignPassportEndDate", dateFormat = dateFormat)
+    @Mapping(target = "IDCardEndDate", source = "IDCardEndDate", dateFormat = dateFormat)
     @Mapping(target = "citizenCountry", source = "citizenCountry", ignore = true)
     void updateEmployee(@MappingTarget Employee employee, EmployeeGeneralInfoRequestDto generalInfoRequestDto);
 
-    @Mapping(target = "jobStartDate", source = "jobStartDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "jobEndDate", source = "jobEndDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "jobStartDate", source = "jobStartDate", dateFormat = dateFormat)
+    @Mapping(target = "jobEndDate", source = "jobEndDate", dateFormat = dateFormat)
     @Mapping(target = "position", source = "position", ignore = true)
     void updateEmployee(@MappingTarget Employee employee, BusinessRequestDto businessRequestDto);
 
-    @Mapping(target = "academicDegreeDate", source = "academicDegreeDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "entranceDate", source = "entranceDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = "dd-MM-yyyy")
-    @Mapping(target = "driverCardEndDate", source = "driverCardEndDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "academicDegreeDate", source = "academicDegreeDate", dateFormat = dateFormat)
+    @Mapping(target = "entranceDate", source = "entranceDate", dateFormat = dateFormat)
+    @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = dateFormat)
+    @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = dateFormat)
+    @Mapping(target = "driverCardEndDate", source = "driverCardEndDate", dateFormat = dateFormat)
     @Mapping(target = "certificates", source = "certificates", qualifiedBy = DtoToCertificates.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "governmentAchievements", source = "governmentAchievements", ignore = true)

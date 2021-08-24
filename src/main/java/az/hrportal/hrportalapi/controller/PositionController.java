@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.controller;
 
-import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;

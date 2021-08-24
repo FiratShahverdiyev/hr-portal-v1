@@ -18,6 +18,8 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 import java.util.Set;
 
+import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
+
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")
@@ -28,7 +30,7 @@ public interface EmployeeMapperHelper {
                                                                 governmentAchievementRequestDtos);
 
     @Named("toGovernmentAchievement")
-    @Mapping(target = "startDate", source = "startDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "startDate", source = "startDate", dateFormat = dateFormat)
     GovernmentAchievement toGovernmentAchievement(GovernmentAchievementRequestDto governmentAchievementRequestDto);
 
     @DtoToCertificates
@@ -36,7 +38,7 @@ public interface EmployeeMapperHelper {
     Set<Certificate> toCertificates(List<CertificateRequestDto> certificateRequestDtos);
 
     @Named("toCertificate")
-    @Mapping(target = "endDate", source = "endDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "endDate", source = "endDate", dateFormat = dateFormat)
     Certificate toCertificate(CertificateRequestDto certificateRequestDto);
 
     @DtoToFamilyMembers
@@ -44,7 +46,7 @@ public interface EmployeeMapperHelper {
     Set<FamilyMember> toFamilyMembers(List<FamilyMemberRequestDto> familyMemberRequestDtos);
 
     @Named("toFamilyMember")
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "birthday", source = "birthday", dateFormat = dateFormat)
     FamilyMember toFamilyMember(FamilyMemberRequestDto familyMemberRequestDto);
 
     @FamilyMembersToDto
@@ -52,7 +54,7 @@ public interface EmployeeMapperHelper {
     List<FamilyMemberResponseDto> toFamilyMemberResponseDtos(Set<FamilyMember> familyMembers);
 
     @Named("toFamilyMemberResponseDto")
-    @Mapping(target = "birthday", source = "birthday", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "birthday", source = "birthday", dateFormat = dateFormat)
     FamilyMemberResponseDto toFamilyMemberResponseDto(FamilyMember familyMember);
 
     @GovernmentAchievementToDto
@@ -61,7 +63,7 @@ public interface EmployeeMapperHelper {
                                                                                       governmentAchievements);
 
     @Named("toGovernmentAchievementDto")
-    @Mapping(target = "startDate", source = "startDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "startDate", source = "startDate", dateFormat = dateFormat)
     GovernmentAchievementResponseDto toGovernmentAchievementDto(GovernmentAchievement governmentAchievement);
 
     @CertificatesToDto
@@ -69,6 +71,6 @@ public interface EmployeeMapperHelper {
     List<CertificateResponseDto> toCertificateDtos(Set<Certificate> certificates);
 
     @Named("toCertificateDto")
-    @Mapping(target = "endDate", source = "endDate", dateFormat = "dd-MM-yyyy")
+    @Mapping(target = "endDate", source = "endDate", dateFormat = dateFormat)
     CertificateResponseDto toCertificateDto(Certificate certificate);
 }
