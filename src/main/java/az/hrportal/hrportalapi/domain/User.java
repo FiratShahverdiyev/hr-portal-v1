@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -27,4 +30,10 @@ public class User {
     String username;
     @Column(name = "password")
     String password;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

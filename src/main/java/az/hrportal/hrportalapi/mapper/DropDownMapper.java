@@ -16,6 +16,7 @@ import org.mapstruct.ReportingPolicy;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
@@ -29,7 +30,7 @@ public interface DropDownMapper {
 
     List<DropDownResponseDto<String>> toVacancyResponseDtos(List<Vacancy> vacancies);
 
-    List<DropDownResponseDto<String>> toSubDepartmentResponseDtos(List<SubDepartment> subDepartments);
+    List<DropDownResponseDto<String>> toSubDepartmentResponseDtos(Set<SubDepartment> subDepartments);
 
     @IterableMapping(qualifiedByName = "toSalaryResponseDto")
     List<DropDownResponseDto<BigDecimal>> toSalaryResponseDtos(List<Salary> salaries);

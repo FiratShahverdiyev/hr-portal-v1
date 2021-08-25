@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,11 +32,11 @@ public class Country {
     @Column(name = "name")
     String name;
     @OneToMany(mappedBy = "citizenCountry")
-    List<Employee> employees;
+    Set<Employee> employees;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

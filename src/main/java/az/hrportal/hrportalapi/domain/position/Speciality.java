@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +15,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,5 +32,11 @@ public class Speciality {
     @Column(name = "name")
     String name;
     @OneToMany(mappedBy = "educationSpeciality")
-    List<Position> positions;
+    Set<Position> positions;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

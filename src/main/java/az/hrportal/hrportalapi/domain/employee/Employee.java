@@ -9,6 +9,7 @@ import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
 import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.domain.embeddable.Certificate;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
+import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -201,10 +202,12 @@ public class Employee {
     boolean prisoner;
     @Column(name = "colleagues_alliance")
     boolean memberOfColleaguesAlliance;
+    @OneToMany(mappedBy = "employee")
+    Set<Operation> operations;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

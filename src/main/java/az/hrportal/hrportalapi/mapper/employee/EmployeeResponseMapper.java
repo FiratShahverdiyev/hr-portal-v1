@@ -54,6 +54,7 @@ public interface EmployeeResponseMapper {
     List<EmployeeResponseDto> toEmployeeResponseDtos(List<Employee> employees);
 
     @Named("toEmployeeResponseDto")
-    @Mapping(target = "position", source = "businessPosition")
+    @Mapping(target = "position", source = "position.vacancy.name")
+    @Mapping(target = "department", source = "position.department.name")
     EmployeeResponseDto toEmployeeResponseDto(Employee employee);
 }

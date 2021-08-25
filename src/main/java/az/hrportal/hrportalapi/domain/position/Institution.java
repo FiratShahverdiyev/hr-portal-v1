@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,11 +33,11 @@ public class Institution {
     String name;
     @OneToMany(mappedBy = "institution")
 //    @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)
-    List<Position> positions;
+    Set<Position> positions;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

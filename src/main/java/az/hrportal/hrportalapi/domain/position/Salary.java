@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,11 +33,11 @@ public class Salary {
     @Column(name = "salary")
     BigDecimal salary;
     @OneToMany(mappedBy = "salary")
-    List<Position> positions;
+    Set<Position> positions;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

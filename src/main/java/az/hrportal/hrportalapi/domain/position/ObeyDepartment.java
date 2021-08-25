@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -30,4 +33,10 @@ public class ObeyDepartment {
     @ManyToOne
     @JoinColumn(name = "sub_department_id", referencedColumnName = "id", nullable = false)
     SubDepartment subDepartment;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

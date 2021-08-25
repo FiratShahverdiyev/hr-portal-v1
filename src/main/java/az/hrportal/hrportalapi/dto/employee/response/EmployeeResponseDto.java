@@ -12,6 +12,6 @@ public class EmployeeResponseDto {
     Integer id;
     String photo;
     String fullName;
-    String department; // TODO ??
-    String position;// TODO ??
+    String department;
+    String position;
 }

@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.domain.position;
 
+import az.hrportal.hrportalapi.domain.operation.Operation;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,13 +33,15 @@ public class Department {
     @Column(name = "name")
     String name;
     @OneToMany(mappedBy = "department")
-    List<SubDepartment> subDepartment;
+    Set<SubDepartment> subDepartment;
     @OneToMany(mappedBy = "department")
-    List<Position> positions;
+    Set<Position> positions;
+    @OneToMany(mappedBy = "department")
+    Set<Operation> operations;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,4 +38,10 @@ public class GovernmentAchievement {
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

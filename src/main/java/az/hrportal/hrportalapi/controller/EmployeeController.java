@@ -92,7 +92,7 @@ public class EmployeeController {
 
     @GetMapping("fullname-position")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<String>> getAllFullNameAndPosition() {
+    public ResponseDto<List<KeyValue<String, Integer>>> getAllFullNameAndPosition() {
         return ResponseDto.of(employeeService.getAllFullNameAndPosition(), 200);
     }
 

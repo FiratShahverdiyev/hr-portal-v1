@@ -150,14 +150,14 @@ public class EmployeeService {
         return employeeResponseMapper.toAcademicInfoResponseDto(employee);
     }
 
-    public List<String> getAllFullNameAndPosition() {
+    public List<KeyValue<String, Integer>> getAllFullNameAndPosition() {
         log.info("getAllFullNameAndPosition service started");
         List<Employee> employees = employeeRepository.findAll();
-        List<String> response = new ArrayList<>();
+        List<KeyValue<String, Integer>> response = new ArrayList<>();
         for (Employee employee : employees) {
             String fullNameAndPosition = employee.getFullName().concat(" ")
                     .concat(employee.getBusinessPosition());
-            response.add(fullNameAndPosition);
+            response.add(new KeyValue<>(fullNameAndPosition, employee.getId()));
         }
         log.info("********** getAllFullNameAndPosition service started **********");
         return response;

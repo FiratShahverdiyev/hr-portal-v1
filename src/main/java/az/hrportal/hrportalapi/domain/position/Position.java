@@ -64,10 +64,10 @@ public class Position {
     @ManyToOne(optional = false)
     SubDepartment subDepartment;
     @Column(name = "work_calculate_degree")
-    Integer workCalculateDegree;
+    Integer workCalculateDegree;//grade
     @Column(name = "sub_work_calculate_degree")
     @Enumerated(EnumType.STRING)
-    SubWorkCalculateDegree subWorkCalculateDegree;
+    SubWorkCalculateDegree subWorkCalculateDegree;//subGrade
     @ManyToOne(optional = false)
     Vacancy vacancy;
     @Column(name = "leader_full_name_position")
@@ -140,8 +140,8 @@ public class Position {
     Set<String> functionalities;
     @CreationTimestamp
     @Column(name = "created_at")
-    private Date createdAt;
+    Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
-    private Date updatedAt;
+    Date updatedAt;
 }

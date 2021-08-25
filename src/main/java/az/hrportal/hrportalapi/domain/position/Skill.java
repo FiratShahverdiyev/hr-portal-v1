@@ -4,6 +4,8 @@ import az.hrportal.hrportalapi.constant.position.Level;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +19,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import java.util.Date;
 import java.util.Set;
 
 @Getter
@@ -35,4 +38,10 @@ public class Skill {
     Level level;
     @ManyToMany(mappedBy = "skills")
     Set<Position> positions;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }

@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.service.position;
+package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.service.employee.EmployeeService;

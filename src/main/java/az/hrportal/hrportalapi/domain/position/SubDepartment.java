@@ -1,7 +1,10 @@
 package az.hrportal.hrportalapi.domain.position;
 
+import az.hrportal.hrportalapi.domain.operation.Operation;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,7 +35,15 @@ public class SubDepartment {
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     Department department;
     @OneToMany(mappedBy = "subDepartment")
-    List<ObeyDepartment> obeyDepartment;
+    Set<ObeyDepartment> obeyDepartment;
     @OneToMany(mappedBy = "subDepartment")
-    List<Position> positions;
+    Set<Position> positions;
+    @OneToMany(mappedBy = "subDepartment")
+    Set<Operation> operations;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    Date createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    Date updatedAt;
 }
