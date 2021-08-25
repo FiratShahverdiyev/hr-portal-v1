@@ -135,6 +135,15 @@ public class PositionService {
         return response;
     }
 
+    public Integer delete(Integer id) {
+        log.info("delete (Position) service started with id : {}", id);
+        Position position = positionRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        positionRepository.delete(position);
+        log.info("********** delete (Position) service completed with id : {} **********", id);
+        return id;
+    }
+
     @Transactional
     protected SubDepartment saveSubDepartment(Department department, String name) {
         SubDepartment subDepartment = new SubDepartment();
