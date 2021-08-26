@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static az.hrportal.hrportalapi.error.ErrorHandlerUtil.getStackTrace;
+
 @Slf4j
 @RequiredArgsConstructor
 public class SecurityFilter extends GenericFilterBean {
@@ -37,7 +39,7 @@ public class SecurityFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             chain.doFilter(request, response);
         } catch (Exception e) {
-            log.error("---------- Security filter error . Exception ----------");
+            log.error("---------- Security filter error . Exception ---------- \n StackTrace : {}", getStackTrace(e));
             ErrorCode errorCode = ErrorCode.SESSION_EXPIRED;
             String message = messageResolver.resolve(errorCode.getMessage());
             buildHttpErrorResponse(response, message, 401);

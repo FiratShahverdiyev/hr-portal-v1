@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 
 @Service
 @Slf4j
@@ -17,12 +18,12 @@ public class DocumentService {
     private final FileUtil fileUtil;
 
     @SneakyThrows
-    public void export2Pdf(String fileType, HttpServletResponse httpServletResponse) {
+    public void export2Pdf(String fileType, HttpServletResponse httpServletResponse, HashMap<String, String> data) {
         log.info("export2Pdf service started with fileType : {}", fileType);
         String fileName = fileType2Name(fileType);
+        httpServletResponse.getOutputStream().write(fileUtil.html2Pdf(fileType2Name(fileType), data));
         httpServletResponse.setHeader("Content-Disposition",
                 "attachment; filename=\"" + fileName + ".pdf\"");
-        httpServletResponse.getOutputStream().write(fileUtil.generatePDFFromHTML(fileName));
         log.info("********** export2Pdf service completed with fileType : {} **********", fileType);
     }
 
@@ -30,7 +31,7 @@ public class DocumentService {
         DocumentType documentType = DocumentType.valueOf(fileType);
         switch (documentType) {
             case A:
-                return "1";
+                return "test";
             case B:
                 return "2";
             case C:

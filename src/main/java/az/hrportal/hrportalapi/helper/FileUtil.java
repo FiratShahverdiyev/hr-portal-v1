@@ -1,15 +1,16 @@
 package az.hrportal.hrportalapi.helper;
 
+import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -19,9 +20,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.HashMap;
+
+import static az.hrportal.hrportalapi.error.ErrorHandlerUtil.getStackTrace;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class FileUtil {
     @Value("${file.upload.acceptable-extension}")
     private String[] acceptableExtensions;
@@ -29,7 +34,8 @@ public class FileUtil {
     private String documentRootDirectory;
     @Value("${file.upload.image-root-directory}")
     private String imageRootDirectory;
-    private final String pdfExtension = ".pdf";
+
+    private final TemplateEngine templateEngine;
 
     @SneakyThrows
     public String saveFile(String extension,
@@ -64,27 +70,25 @@ public class FileUtil {
         throw new FileExtensionNotAllowedException(extension);
     }
 
-    @SneakyThrows
-    public byte[] generatePDFFromHTML(String fileName) {
-        log.info("generatePDFFromHTML util started with fileName: {}", fileName);
-        PdfReader pdfReader = new PdfReader(documentRootDirectory + fileName + pdfExtension);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        PdfStamper pdfStamper = new PdfStamper(pdfReader, bos);
-        BaseFont baseFont = BaseFont.createFont(
-                BaseFont.TIMES_ROMAN,
-                BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-        int pages = pdfReader.getNumberOfPages();
-        for (int i = 1; i <= pages; i++) {
-            PdfContentByte pageContentByte =
-                    pdfStamper.getOverContent(i);
-            pageContentByte.beginText();
-            pageContentByte.setFontAndSize(baseFont, 14);
-            pageContentByte.setTextMatrix(50, 740);
-            pageContentByte.showTextAligned(0, "A", 355, 447, 0);
-            pageContentByte.endText();
+    public byte[] html2Pdf(String templateName, HashMap<String, String> data) {
+        log.info("html2Pdf util started with templateName: {}", templateName);
+        Context ctx = new Context();
+        for (String key : data.keySet()) {
+            ctx.setVariable(key, data.get(key));
         }
-        pdfStamper.close();
-        log.info("********** generatePDFFromHTML util completed with fileName: {} **********", fileName);
-        return bos.toByteArray();
+        try {
+            String processedHtml = templateEngine.process(templateName, ctx);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.setDocumentFromString(processedHtml);
+            renderer.layout();
+            renderer.createPDF(bos, false);
+            renderer.finishPDF();
+            log.info("********** html2Pdf util completed with templateName: {} **********", templateName);
+            return bos.toByteArray();
+        } catch (Exception e) {
+            log.error("---------- Error thrown while HTML2PDF. Exception ---------- \n StackTrace : {}", getStackTrace(e));
+            throw new DocumentException(e.getMessage());
+        }
     }
 }

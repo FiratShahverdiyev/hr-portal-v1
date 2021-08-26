@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity

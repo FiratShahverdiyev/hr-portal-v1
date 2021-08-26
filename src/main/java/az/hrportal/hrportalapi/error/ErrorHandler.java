@@ -17,6 +17,7 @@ import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
+import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
@@ -41,6 +42,8 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import static az.hrportal.hrportalapi.error.ErrorHandlerUtil.getStackTrace;
 
 @RestControllerAdvice
 @Slf4j
@@ -122,6 +125,14 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
+    @ExceptionHandler(DocumentException.class)
+    public ResponseEntity<ErrorResponseDto> documentException(final Exception e) {
+        ErrorCode errorCode = ErrorCode.DOCUMENT_PROBLEM;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
         if (e.getCause() instanceof ParseException) {
@@ -146,15 +157,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
                 errorCode.getCode(), "INTERNAL SERVER", getStackTrace(e));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
-    }
-
-    private String getStackTrace(Exception ex) {
-        StringBuilder response = new StringBuilder();
-        response.append(ex.getMessage()).append("\n");
-        for (StackTraceElement stackTraceElement : ex.getStackTrace()) {
-            response.append(stackTraceElement).append("\n");
-        }
-        return String.valueOf(response);
     }
 
     private String getIncorrectEnum(String errorMessage) {
