@@ -4,6 +4,9 @@ import az.hrportal.hrportalapi.dto.DocumentData;
 import az.hrportal.hrportalapi.service.DocumentService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,10 +22,12 @@ import javax.validation.Valid;
 public class DocumentController {
     private final DocumentService documentService;
 
-    @PostMapping(value = "export/{file-name}")
+    @PostMapping(value = "export", produces = {MediaType.APPLICATION_PDF_VALUE})
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public void export2Pdf(@PathVariable("file-name") String fileName, HttpServletResponse httpServletResponse,
-                           @RequestBody @Valid DocumentData data) {
-        documentService.export2Pdf(fileName, httpServletResponse, data.getData());
+    public byte[] export2Pdf(@RequestBody @Valid DocumentData documentData, HttpServletResponse httpServletResponse) {
+        byte[] response = documentService.export2Pdf(documentData);
+        httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + "Erize");
+        return response;
     }
 }

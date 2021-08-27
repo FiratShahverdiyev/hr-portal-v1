@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.error;
 
+import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.constant.employee.DriverCategory;
 import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
@@ -133,6 +134,18 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
+    /*@ExceptionHandler(EnumNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> enumNotFound(final Exception e) {
+        ErrorCode errorCode = ErrorCode.BAD_REQUEST;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        String incorrectEnum = getIncorrectEnum(e.getMessage());
+        message = message.concat(" - ").concat(incorrectEnum)
+                .concat(" : ").concat(getEnumPossibleValues(incorrectEnum));
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), "ENUM EXCEPTION", getStackTrace(e));
+        return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }*/
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
         if (e.getCause() instanceof ParseException) {
@@ -203,6 +216,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 return Arrays.toString(WorkMode.values());
             case "WorkPlace":
                 return Arrays.toString(WorkPlace.values());
+            case "DocumentType":
+                return Arrays.toString(DocumentType.values());
             default:
                 return "Unhandled Enum!";
         }

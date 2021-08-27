@@ -36,6 +36,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -63,7 +64,7 @@ public class Employee {
     @Column(name = "full_name", nullable = false)
     String fullName;
     @Column(name = "birthday", nullable = false)
-    Date birthday;
+    LocalDate birthday;
     @Column(name = "birthplace", nullable = false)
     String birthplace;
     @ManyToOne
@@ -83,9 +84,9 @@ public class Employee {
     @Column(name = "foreign_passport_number", nullable = false)
     String foreignPassportNumber;
     @Column(name = "foreign_passport_start_date", nullable = false)
-    Date foreignPassportStartDate;
+    LocalDate foreignPassportStartDate;
     @Column(name = "foreign_passport_end_date", nullable = false)
-    Date foreignPassportEndDate;
+    LocalDate foreignPassportEndDate;
     @Column(name = "id_card_series", nullable = false)
     @Enumerated(EnumType.STRING)
     Series IDCardSeries;
@@ -96,9 +97,9 @@ public class Employee {
     @Column(name = "id_card_organization", nullable = false)
     String IDCardOrganization;
     @Column(name = "id_card_start_date", nullable = false)
-    Date IDCardStartDate;
+    LocalDate IDCardStartDate;
     @Column(name = "id_card_end_date", nullable = false)
-    Date IDCardEndDate;
+    LocalDate IDCardEndDate;
     @Column(name = "address_country")
     String addressCountry;
     @Column(name = "address_city", nullable = false)
@@ -146,15 +147,15 @@ public class Employee {
     @Column(name = "business_position")
     String businessPosition;
     @Column(name = "business_job_start_date")
-    Date jobStartDate;
+    LocalDate jobStartDate;
     @Column(name = "business_job_end_date")
-    Date jobEndDate;
+    LocalDate jobEndDate;
     @Column(name = "business_job_end_reason")
     String jobEndReason; //TODO hardan gelir ??
     @Column(name = "business_main_job")
     boolean isMainJob;
     @Column(name = "academic_degree_start_date")
-    Date academicDegreeDate;
+    LocalDate academicDegreeDate;
     @Column(name = "academic_degree_file_number")
     String academicDegreeNumber;
     @Column(name = "academic_degree_organization")
@@ -168,15 +169,15 @@ public class Employee {
     @Column(name = "speciality")
     String speciality;
     @Column(name = "entrance_date")
-    Date entranceDate;
+    LocalDate entranceDate;
     @Column(name = "graduate_date")
-    Date graduateDate;
+    LocalDate graduateDate;
     @Column(name = "degree")
     String degree; //TODO Enum or keep  ??
     @Column(name = "graduate_file_number")
     String graduateFileNumber;
     @Column(name = "graduate_file_start_date")
-    Date graduateFileDate;
+    LocalDate graduateFileDate;
     @Column(name = "education_type")
     @Enumerated(EnumType.STRING)
     EducationType educationType;
@@ -197,7 +198,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     DriverCategory driverCardCategory;
     @Column(name = "driver_card_end_date")
-    Date driverCardEndDate;
+    LocalDate driverCardEndDate;
     @Column(name = "prisoner")
     boolean prisoner;
     @Column(name = "colleagues_alliance")

@@ -29,7 +29,6 @@ spring:
 file:
   upload:
     image-root-directory: src/main/resources/image/
-    document-root-directory: src/main/resources/document/
     acceptable-extension: png,jpg,jpeg
 
 cors:

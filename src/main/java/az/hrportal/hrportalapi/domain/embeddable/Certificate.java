@@ -6,7 +6,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Embeddable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -14,5 +14,5 @@ import java.util.Date;
 @Embeddable
 public class Certificate {
     String name;
-    Date endDate;
+    LocalDate endDate;
 }

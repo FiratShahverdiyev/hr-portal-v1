@@ -25,6 +25,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -55,7 +56,7 @@ public class Operation {
     @JoinColumn(name = "sub_department_id", referencedColumnName = "id")
     SubDepartment subDepartment;
     @Column(name = "dismissal_date")
-    Date dismissalDate;
+    LocalDate dismissalDate;
     @Column(name = "dismissal_reason")
     String dismissalReason;
     @Column(name = "compensation")

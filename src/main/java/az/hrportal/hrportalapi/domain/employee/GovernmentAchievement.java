@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -34,7 +35,7 @@ public class GovernmentAchievement {
     @Column(name = "organization")
     String organization;
     @Column(name = "start_date")
-    Date startDate;
+    LocalDate startDate;
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;

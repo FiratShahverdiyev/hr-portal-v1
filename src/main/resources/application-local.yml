@@ -1,3 +1,4 @@
+
 spring:
   servlet:
     multipart:
@@ -26,7 +27,6 @@ spring:
 file:
   upload:
     image-root-directory: src/main/resources/image/
-    document-root-directory: src/main/resources/document/
     acceptable-extension: png,jpg,jpeg
 
 cors:
@@ -52,3 +52,5 @@ logging:
     ROOT: INFO
   pattern:
     file: "[ %p ] %d{yyyy-MM-dd HH:mm:ss} [THREAD - %t] %-5p %c:%L - %m%n"
+server:
+  port: 8080

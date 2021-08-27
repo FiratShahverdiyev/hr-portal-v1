@@ -3,15 +3,20 @@ package az.hrportal.hrportalapi.dto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Size;
-import java.util.HashMap;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@ToString
 public class DocumentData {
-    @Size(max = 5)
-    HashMap<String, String> data;
+    @NotNull
+    @Range(min = 1, max = 10)
+    Integer documentType;
+    @NotNull
+    Integer employeeId;
 }

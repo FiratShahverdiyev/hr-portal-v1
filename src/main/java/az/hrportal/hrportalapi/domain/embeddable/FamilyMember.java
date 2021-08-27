@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.Embeddable;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ import java.util.Date;
 public class FamilyMember {
     RelationType relationType;
     String fullName;
-    Date birthday;
+    LocalDate birthday;
     String birthplace;
     String workPlace;
     String position;
