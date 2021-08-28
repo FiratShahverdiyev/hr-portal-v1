@@ -40,10 +40,8 @@ public class PdfCreator {
     private final PositionResponseMapper positionResponseMapper;
     private final OperationRepository operationRepository;
 
-    protected void createPosition(Document document, DocumentData documentData, PdfFont bold) {
+    protected void pdfCreatePosition(Document document, DocumentData documentData, PdfFont bold) {
         log.info("createPosition PDF creator started with {}", documentData);
-        Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
         Paragraph paragraph1 = new Paragraph("“Ştat vahid (lər) inin təsis edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -57,13 +55,151 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
-        Position position = employee.getPosition();
+        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, documentData.getPositionId()));
         GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
         if (translatedToAze == null) {
             translatedToAze = new GeneralInfoResponseDto();
         }
         Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan əmək haqqı ilə ştat" +
                 " vahidi vahidləri təsis edilsin.");
+        Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
+                translatedToAze.getDepartmentName());
+        Text subText2 = new Text("Tabe struktur bölmənin adı: ");
+        Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + translatedToAze.getVacancyName());
+        Text subText4 = new Text("Ştat vahidi (say):   " + documentData.getCount());
+        Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
+                documentData.getSalary());
+        Text subText6 = new Text("İş rejimi: " + translatedToAze.getWorkMode());
+        Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + translatedToAze.getVacancyCategory());
+        Text subText8 = new Text("İş yerinin ünvanı: " + translatedToAze.getWorkPlace());
+        Text text2 = new Text("2. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
+                "mrdən irəli gələn zəruri məsələlərin həllini təmin etsinlər.");
+        Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin. ");
+        Text text4 = new Text("4. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text5 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov");
+        text5.setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12).setFont(bold)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .add(new ListItem(subText7.getText()))
+                .add(new ListItem(subText8.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(list);
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        Operation saved = save(position, documentData);
+        log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());
+    }
+
+    protected void pdfDeletePosition(Document document, DocumentData documentData, PdfFont bold) {
+        log.info("deletePosition PDF creator started with {}", documentData);
+        Paragraph paragraph1 = new Paragraph("“Ştat vahid(lər)inin ləğv edilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + documentData.getMain());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, documentData.getPositionId()));
+        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
+        if (translatedToAze == null) {
+            translatedToAze = new GeneralInfoResponseDto();
+        }
+        Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan ştat vahidi (ləri)" +
+                " ləğv edilsin. ");
+        Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
+                translatedToAze.getDepartmentName());
+        Text subText2 = new Text("Tabe struktur bölmənin adı: ");
+        Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + translatedToAze.getVacancyName());
+        Text subText4 = new Text("Ştat vahidi (say):   " + translatedToAze.getVacancyCount());
+        Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
+                documentData.getSalary());
+        Text subText6 = new Text("İş rejimi: " + translatedToAze.getWorkMode());
+        Text subText8 = new Text("İş yerinin ünvanı: " + translatedToAze.getWorkPlace());
+        Text text2 = new Text("2. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
+                "mrdən irəli gələn zəruri məsələlərin həllini təmin etsinlər.");
+        Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin. ");
+        Text text4 = new Text("4. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text5 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov");
+        text5.setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12).setFont(bold)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .add(new ListItem(subText8.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(list);
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        Operation saved = save(position, documentData);
+        log.info("********** deletePosition PDF creator completed with operationId : {} **********", saved.getId());
+    }
+
+    protected void pdfChangeSalary(Document document, DocumentData documentData, PdfFont bold) {
+        log.info("pdfChangeSalary PDF creator started with {}", documentData);
+
+        Paragraph paragraph1 = new Paragraph("“Ştat əmək haqqının dəyişdirilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + documentData.getMain());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, documentData.getPositionId()));
+        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
+        if (translatedToAze == null) {
+            translatedToAze = new GeneralInfoResponseDto();
+        }
+        Text text1 = new Text("1.Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan vəzifəsinin" +
+                " əmək haqqı dəyişdirilsin.");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
                 translatedToAze.getDepartmentName());
         Text subText2 = new Text("Tabe struktur bölmənin adı: ");
@@ -106,11 +242,12 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         document.add(new Paragraph(text5));
-        Operation saved = save(employee, documentData);
-        log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());
+        Operation saved = save(position, documentData);
+        log.info("********** pdfChangeSalary PDF creator completed with operationId : {} **********", saved.getId());
     }
 
-    protected void createEndJob(Document document, DocumentData documentData,  PdfFont bold) {
+    protected void pdfEndJob(Document document, DocumentData documentData, PdfFont bold) {
+        log.info("createEndJob PDF creator started with {}", documentData);
         Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
         Paragraph paragraph1 = new Paragraph("“Əmək müqaviləsinə xitam verilməsi barədə”");
@@ -132,15 +269,15 @@ public class PdfCreator {
             translatedToAze = new GeneralInfoResponseDto();
         }
         Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
-                translatedToAze.getDepartmentName());
-        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + translatedToAze.getVacancyName());
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + translatedToAze.getDepartmentName());
         Text text3 = new Text("3. İşlədiyi alt struktur bölmənin adı: " + translatedToAze.getSubDepartmentName());
-        Text text4 = new Text("4. İşçinin vəzifəsi:  " + translatedToAze.getWorkMode());
+        Text text4 = new Text("4. İşçinin vəzifəsi:  " + translatedToAze.getVacancyName());
         Text text5 = new Text("5. İşdən azad olma tarixi:  " + documentData.getDismissalDate());
         Text text6 = new Text("6. İşdən azad olma səbəbi:  " + documentData.getDismissalReason());
 
         Text text7 = new Text("7.İstifadə edilməmiş məzuniyyət \n" +
-                "günlərinə görə kompensasiya:  " + translatedToAze.getWorkPlace());
+                "günlərinə görə kompensasiya:  " + "HESABLA");
 
         Text text9 = new Text("9. Maliyyə Departamentinə tapşırılsın ki, ödəniş məsələlərini həll etsin.");
         Text text10 = new Text("10. İnsan resursları departamentinə tapşırılsın ki, əmrlə işçi tanış edilsin. ");
@@ -166,6 +303,8 @@ public class PdfCreator {
         document.add(new Paragraph(text10));
         document.add(new Paragraph(text11));
         document.add(new Paragraph(text12));
+        Operation saved = save(employee, documentData);
+        log.info("********** createEndJob PDF creator completed with operationId : {} **********", saved.getId());
     }
 
     protected PdfFont getTTInterphasesFont(boolean isBold) {
@@ -184,13 +323,60 @@ public class PdfCreator {
 
     @Transactional
     protected Operation save(Employee employee, DocumentData documentData) {
-        Operation operation = Operation.builder()
-                .employee(employee)
-                .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
-                        DateTimeFormatter.ofPattern("dd-MM-yyyy")))
-                .dismissalReason(documentData.getDismissalReason())
-                .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
-                .build();
+        Operation operation;
+        if (documentData.getDocumentType() == 1)
+            operation = Operation.builder()
+                    .employee(employee)
+                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                    .dismissalReason(documentData.getDismissalReason())
+                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
+                    .build();
+        else if (documentData.getDocumentType() == 2)
+            operation = Operation.builder()
+                    .employee(employee)
+                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                    .dismissalReason(documentData.getDismissalReason())
+                    .documentType(DocumentType.SHTAT_VAHIDININ_LEGVI)
+                    .build();
+        else if (documentData.getDocumentType() == 8)
+            operation = Operation.builder()
+                    .employee(employee)
+                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                    .dismissalReason(documentData.getDismissalReason())
+                    .documentType(DocumentType.XITAM)
+                    .build();
+        else
+            operation = Operation.builder()
+                    .employee(employee)
+                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                    .dismissalReason(documentData.getDismissalReason())
+                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
+                    .build();
+        return operationRepository.save(operation);
+    }
+
+    @Transactional
+    protected Operation save(Position position, DocumentData documentData) {
+        Operation operation;
+        if (documentData.getDocumentType() == 1)
+            operation = Operation.builder()
+                    .position(position)
+                    .salary(documentData.getSalary())
+                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
+                    .build();
+        else
+            operation = Operation.builder()
+                    .position(position)
+                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
+                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                    .dismissalReason(documentData.getDismissalReason())
+                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
+                    .build();
+
         return operationRepository.save(operation);
     }
 }

@@ -84,11 +84,14 @@ public class FileUtil {
         DocumentType documentType = DocumentType.intToEnum(data.getDocumentType());
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
-                pdfCreator.createPosition(document, data, bold);
+                pdfCreator.pdfCreatePosition(document, data, bold);
                 break;
             }
+            case SHTAT_VAHIDININ_LEGVI:{
+                pdfCreator.pdfDeletePosition(document, data, bold);
+            }
             case XITAM: {
-                pdfCreator.createEndJob(document, data, bold);
+                pdfCreator.pdfEndJob(document, data, bold);
                 break;
             }
             default:

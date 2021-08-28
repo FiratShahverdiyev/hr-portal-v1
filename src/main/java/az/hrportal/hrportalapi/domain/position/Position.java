@@ -12,6 +12,7 @@ import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.domain.operation.Operation;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -138,6 +139,8 @@ public class Position {
     @CollectionTable(name = "position_functionalities", joinColumns = @JoinColumn(name = "position_id"))
     @Column(name = "functionality")
     Set<String> functionalities;
+    @OneToMany(mappedBy = "position")
+    Set<Operation> operations;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

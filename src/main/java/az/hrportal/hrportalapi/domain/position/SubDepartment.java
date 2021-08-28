@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.domain.position;
 
-import az.hrportal.hrportalapi.domain.operation.Operation;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;

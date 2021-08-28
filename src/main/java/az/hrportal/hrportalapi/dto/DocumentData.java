@@ -18,9 +18,10 @@ public class DocumentData {
     @NotNull
     @Range(min = 1, max = 10)
     Integer documentType;
-    @NotNull
     Integer employeeId;
+    Integer positionId;
     String main;
+    Integer count;
     //Xitam
     String dismissalDate;
     String dismissalReason;

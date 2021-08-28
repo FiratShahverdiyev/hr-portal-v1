@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.domain.operation;
 import az.hrportal.hrportalapi.constant.DocumentStatus;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.domain.position.Position;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,6 +46,9 @@ public class Operation {
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
+    @ManyToOne
+    @JoinColumn(name = "position_id", referencedColumnName = "id")
+    Position position;
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     DocumentType documentType;
@@ -59,6 +63,8 @@ public class Operation {
     BigDecimal compensation;
     @Column(name = "note")
     String note;
+    @Column(name = "salary")
+    BigDecimal salary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

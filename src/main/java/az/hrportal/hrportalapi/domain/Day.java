@@ -25,7 +25,7 @@ public class Day {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "days_id_seq")
     Integer id;
 
-    @Column(name = "day")
+    @Column(name = "day", unique = true)
     LocalDate day;
 
     @Column(name = "job_day")

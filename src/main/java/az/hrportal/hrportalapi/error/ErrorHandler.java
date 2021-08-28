@@ -8,7 +8,6 @@ import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
 import az.hrportal.hrportalapi.constant.employee.RelationType;
 import az.hrportal.hrportalapi.constant.employee.Series;
-import az.hrportal.hrportalapi.constant.position.Area;
 import az.hrportal.hrportalapi.constant.position.EducationDegree;
 import az.hrportal.hrportalapi.constant.position.GenderDemand;
 import az.hrportal.hrportalapi.constant.position.Level;
@@ -196,8 +195,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                 return Arrays.toString(RelationType.values());
             case "Series":
                 return Arrays.toString(Series.values());
-            case "Area":
-                return Arrays.toString(Area.values());
             case "EducationDegree":
                 return Arrays.toString(EducationDegree.values());
             case "GenderDemand":

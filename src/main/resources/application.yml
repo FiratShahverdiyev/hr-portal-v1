@@ -37,6 +37,7 @@ cors:
       hr-portal: "*"
 
 security:
+  day-init-key: 8XoI7_-lF1JarJ0VY9ttRNPbL-cmPSdpYgAUa1sK
   jwt:
     base64-secret: eUlKUFpFUjJkdEVtNDg0UUR5UDAxNlRWSnlLVnZMU1R0WkZtM0VzRzh6Y2ZQSm5TRXRQQjQzdk5vOGRGdEdzSlk1clV1RDlvSVFuVGtLeE9QMm96aHBzdWZDbzE2M0dWN2VWZ2JRT014SllIOWRRaFdm
     access-token-validity-in-milliseconds: 60000

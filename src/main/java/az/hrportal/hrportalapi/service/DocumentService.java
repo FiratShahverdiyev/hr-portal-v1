@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.service;
 
-import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.dto.DocumentData;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.repository.OperationRepository;
