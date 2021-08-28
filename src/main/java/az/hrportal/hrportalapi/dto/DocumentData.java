@@ -8,6 +8,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -19,4 +20,11 @@ public class DocumentData {
     Integer documentType;
     @NotNull
     Integer employeeId;
+    String main;
+    //Xitam
+    String dismissalDate;
+    String dismissalReason;
+    String note;
+    //Shtatin tesisi
+    BigDecimal salary;
 }

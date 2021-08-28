@@ -35,8 +35,8 @@ public class Department {
     Set<SubDepartment> subDepartment;
     @OneToMany(mappedBy = "department")
     Set<Position> positions;
-    @OneToMany(mappedBy = "department")
-    Set<Operation> operations;
+/*    @OneToMany(mappedBy = "department")
+    Set<Operation> operations;*/
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

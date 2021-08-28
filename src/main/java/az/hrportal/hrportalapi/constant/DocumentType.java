@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.constant;
 
-import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 
 public enum DocumentType {
