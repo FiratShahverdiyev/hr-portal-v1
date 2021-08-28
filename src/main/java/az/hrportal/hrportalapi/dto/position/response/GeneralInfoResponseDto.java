@@ -14,6 +14,7 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @ToString
 public class GeneralInfoResponseDto {
+    Integer id;
     String institutionName;
     String departmentName;
     String subDepartmentName;

@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AcademicInfoResponseDto {
+    Integer id;
     String academicDegreeDate;
     String academicDegreeNumber;
     String academicDegreeOrganization;

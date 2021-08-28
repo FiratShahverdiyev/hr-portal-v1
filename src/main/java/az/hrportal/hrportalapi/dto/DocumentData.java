@@ -21,11 +21,16 @@ public class DocumentData {
     Integer employeeId;
     Integer positionId;
     String main;
-    Integer count;
+    //Shtatin tesisi
+    //Shtatin legvi
+    //Stat emek haqqi deyisikliyi
+    BigDecimal demandedSalary;
+    //Strukturun tesisi
+    String institutionName;
+    String departmentName;
     //Xitam
     String dismissalDate;
     String dismissalReason;
     String note;
-    //Shtatin tesisi
-    BigDecimal salary;
+
 }

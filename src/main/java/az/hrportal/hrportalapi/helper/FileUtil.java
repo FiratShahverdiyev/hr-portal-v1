@@ -91,6 +91,13 @@ public class FileUtil {
                 pdfCreator.pdfDeletePosition(document, data, bold);
                 break;
             }
+            case SHTAT_EMEK_HAQQININ_DEYISTIRILMESI: {
+                pdfCreator.pdfChangeSalary(document, data, bold);
+                break;
+            }
+            case STRUKTURUN_TESIS_EDILMESI: {
+
+            }
             case XITAM: {
                 pdfCreator.pdfEndJob(document, data, bold);
                 break;

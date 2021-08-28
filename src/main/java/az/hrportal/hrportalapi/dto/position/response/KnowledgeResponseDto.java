@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KnowledgeResponseDto {
+    Integer id;
     List<ComputerKnowledgeResponseDto> computerKnowledge;
     List<LegislationStatementResponseDto> legislationStatements;
     List<LanguageKnowledgeResponseDto> languageKnowledge;

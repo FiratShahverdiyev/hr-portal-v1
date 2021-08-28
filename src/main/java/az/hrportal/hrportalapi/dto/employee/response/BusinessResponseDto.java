@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BusinessResponseDto {
+    Integer id;
     String company;
     String section;
     String subSection;

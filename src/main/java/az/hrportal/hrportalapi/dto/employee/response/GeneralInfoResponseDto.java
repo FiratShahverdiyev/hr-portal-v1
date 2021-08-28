@@ -11,6 +11,8 @@ import java.util.List;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class GeneralInfoResponseDto {
+    Integer id;
+
     String IDCardSeries;
     String IDCardNumber;
     String IDCardPin;
