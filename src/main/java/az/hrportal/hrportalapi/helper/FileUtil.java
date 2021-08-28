@@ -132,7 +132,9 @@ public class FileUtil {
 
         Position position = employee.getPosition();
         GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
-        log.info("BAXXXXXXXXXXXXXXXXX : {}", translatedToAze);
+        if (translatedToAze == null) {
+            throw new EntityNotFoundException(Position.class, employee);
+        }
         Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan əmək haqqı ilə ştat" +
                 " vahidi vahidləri təsis edilsin.");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
