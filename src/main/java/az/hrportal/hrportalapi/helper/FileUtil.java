@@ -87,8 +87,9 @@ public class FileUtil {
                 pdfCreator.pdfCreatePosition(document, data, bold);
                 break;
             }
-            case SHTAT_VAHIDININ_LEGVI:{
+            case SHTAT_VAHIDININ_LEGVI: {
                 pdfCreator.pdfDeletePosition(document, data, bold);
+                break;
             }
             case XITAM: {
                 pdfCreator.pdfEndJob(document, data, bold);

@@ -6,6 +6,7 @@ import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import az.hrportal.hrportalapi.security.SecurityUtil;
 import az.hrportal.hrportalapi.security.TokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -39,10 +40,19 @@ public class SecurityFilter extends GenericFilterBean {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             chain.doFilter(request, response);
         } catch (Exception e) {
-            log.error("---------- Security filter error . Exception ---------- \n StackTrace : {}", getStackTrace(e));
-            ErrorCode errorCode = ErrorCode.SESSION_EXPIRED;
-            String message = messageResolver.resolve(errorCode.getMessage());
-            buildHttpErrorResponse(response, message, 401);
+            if (e instanceof ExpiredJwtException) {
+                log.error("---------- Security filter error . Exception ---------- \n StackTrace : {}",
+                        getStackTrace(e));
+                ErrorCode errorCode = ErrorCode.TOKEN_EXPIRED;
+                String message = messageResolver.resolve(errorCode.getMessage());
+                buildHttpErrorResponse(response, message, 401);
+            } else {
+                log.error("---------- Security filter error . Exception ---------- \n StackTrace : {}",
+                        getStackTrace(e));
+                ErrorCode errorCode = ErrorCode.TOKEN_INVALID;
+                String message = messageResolver.resolve(errorCode.getMessage());
+                buildHttpErrorResponse(response, message, 401);
+            }
         }
     }
 

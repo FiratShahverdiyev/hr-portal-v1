@@ -40,6 +40,8 @@ public class PdfCreator {
     private final PositionResponseMapper positionResponseMapper;
     private final OperationRepository operationRepository;
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfCreatePosition(Document document, DocumentData documentData, PdfFont bold) {
         log.info("createPosition PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Ştat vahid (lər) inin təsis edilməsi barədə”");
@@ -109,6 +111,8 @@ public class PdfCreator {
         log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfDeletePosition(Document document, DocumentData documentData, PdfFont bold) {
         log.info("deletePosition PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Ştat vahid(lər)inin ləğv edilməsi barədə”");
@@ -176,6 +180,8 @@ public class PdfCreator {
         log.info("********** deletePosition PDF creator completed with operationId : {} **********", saved.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeSalary(Document document, DocumentData documentData, PdfFont bold) {
         log.info("pdfChangeSalary PDF creator started with {}", documentData);
 
@@ -246,6 +252,8 @@ public class PdfCreator {
         log.info("********** pdfChangeSalary PDF creator completed with operationId : {} **********", saved.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfEndJob(Document document, DocumentData documentData, PdfFont bold) {
         log.info("createEndJob PDF creator started with {}", documentData);
         Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
@@ -307,6 +315,7 @@ public class PdfCreator {
         log.info("********** createEndJob PDF creator completed with operationId : {} **********", saved.getId());
     }
 
+    @SuppressWarnings("checkstyle:localvariablename")
     protected PdfFont getTTInterphasesFont(boolean isBold) {
         String TTInterphases;
         if (isBold)
