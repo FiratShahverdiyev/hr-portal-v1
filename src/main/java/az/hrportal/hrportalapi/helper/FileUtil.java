@@ -39,8 +39,8 @@ public class FileUtil {
     private PdfFont bold;
 
     @SneakyThrows
-    public String saveFile(String extension,
-                           MultipartFile multipartFile) {
+    public String saveImage(String extension,
+                            MultipartFile multipartFile) {
         checkExtension(extension);
         String fileName = String.valueOf(new Date().getTime()).concat(".").concat(extension);
         Path uploadPath = Paths.get(imageRootDirectory);

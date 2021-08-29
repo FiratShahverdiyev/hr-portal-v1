@@ -15,7 +15,7 @@ public class ImageService {
 
     public void save(Integer id, MultipartFile file) {
         log.info("Image save service started with id : {}, fileName : {}", id, file.getOriginalFilename());
-        String fileName = fileUtil.saveFile(file.getContentType().split("/")[1], file);
+        String fileName = fileUtil.saveImage(file.getContentType().split("/")[1], file);
         employeeService.setPhotoName(id, fileName);
         log.info("Image save service completed with id : {}, fileName : {}", id, fileName);
     }
