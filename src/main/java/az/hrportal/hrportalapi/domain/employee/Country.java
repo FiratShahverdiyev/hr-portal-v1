@@ -28,7 +28,7 @@ public class Country {
     @SequenceGenerator(name = "countries_id_seq", allocationSize = 1, sequenceName = "countries_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countries_id_seq")
     Integer id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
     @OneToMany(mappedBy = "citizenCountry")
     Set<Employee> employees;

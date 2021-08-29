@@ -28,7 +28,7 @@ public class Institution {
     @SequenceGenerator(name = "institutions_id_seq", allocationSize = 1, sequenceName = "institutions_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
     Integer id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
     @OneToMany(mappedBy = "institution")
 //    @JoinColumn(name = "position_id", referencedColumnName = "id", nullable = false)

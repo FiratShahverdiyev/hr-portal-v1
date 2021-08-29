@@ -28,7 +28,7 @@ public class JobFamily {
     @SequenceGenerator(name = "job_families_id_seq", allocationSize = 1, sequenceName = "job_families_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_families_id_seq")
     Integer id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
     @OneToMany(mappedBy = "jobFamily")
     Set<Position> positions;

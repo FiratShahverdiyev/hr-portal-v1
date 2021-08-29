@@ -30,7 +30,7 @@ public class GovernmentAchievement {
             allocationSize = 1, sequenceName = "government_achievements_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "government_achievements_id_seq")
     Integer id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
     @Column(name = "organization")
     String organization;

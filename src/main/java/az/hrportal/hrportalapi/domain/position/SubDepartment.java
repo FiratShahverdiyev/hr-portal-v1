@@ -27,7 +27,7 @@ public class SubDepartment {
     @SequenceGenerator(name = "sub_departments_id_seq", allocationSize = 1, sequenceName = "sub_departments_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sub_departments_id_seq")
     Integer id;
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
