@@ -43,10 +43,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .frameOptions()
                 .sameOrigin()
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(new SecurityFilter(tokenProvider, messageResolver),
-                        UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                        UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -71,7 +73,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-//        System.out.println(encode("12345"));
         return super.authenticationManagerBean();
     }
 
