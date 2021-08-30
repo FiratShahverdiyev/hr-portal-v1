@@ -22,7 +22,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final LocaleMessageResolver messageResolver;
-    private final CorsFilterConfiguration corsFilter;
 
     @Bean
     public PasswordEncoder getEncoder() {
@@ -43,7 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .sameOrigin()
                 .and()
-                .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new SecurityFilter(tokenProvider, messageResolver),
                         UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
