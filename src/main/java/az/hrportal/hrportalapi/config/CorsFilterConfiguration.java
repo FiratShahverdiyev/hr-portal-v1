@@ -1,4 +1,3 @@
-/*
 package az.hrportal.hrportalapi.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +17,9 @@ public class CorsFilterConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins(hrPortalOrigin)
+                        .allowedOrigins("*")
                         .allowedMethods("*");
             }
         };
     }
 }
-*/
