@@ -20,7 +20,7 @@ import javax.validation.Valid;
 public class DocumentController {
     private final DocumentService documentService;
 
-    @PostMapping(value = "export", produces = {MediaType.APPLICATION_PDF_VALUE})
+    @PostMapping(value = "export", produces = MediaType.APPLICATION_PDF_VALUE)
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public byte[] export2Pdf(@RequestBody @Valid DocumentData documentData, HttpServletResponse httpServletResponse) {
         byte[] response = documentService.export2Pdf(documentData);

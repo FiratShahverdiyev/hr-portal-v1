@@ -18,7 +18,12 @@ public class DocumentService {
     @SneakyThrows
     public byte[] export2Pdf(DocumentData documentData) {
         log.info("export2Pdf service started with {}", documentData);
-        byte[] response = fileUtil.createAndGetPdf(documentData);
+        byte[] response = null;
+        try {
+            response = fileUtil.createAndGetPdf(documentData);
+        } catch (Exception e) {
+            log.info("****************************************************************************************");
+        }
         log.info("********** export2Pdf service completed with {} **********", documentData);
         return response;
     }
