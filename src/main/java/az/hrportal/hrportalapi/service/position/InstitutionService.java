@@ -18,20 +18,20 @@ public class InstitutionService {
     private final InstitutionRepository institutionRepository;
     private final DropDownMapper dropDownMapper;
 
+    public Boolean create(InstitutionRequestDto institutionRequestDto) {
+        log.info("create service started with {}", institutionRequestDto);
+        Institution institution = new Institution();
+        institution.setName(institutionRequestDto.getName());
+        institutionRepository.save(institution);
+        log.info("********** create service complete with {} **********", institutionRequestDto);
+        return true;
+    }
+
     public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllInstitutions service started");
         List<DropDownResponseDto<String>> response = dropDownMapper
                 .toInstitutionResponseDtos(institutionRepository.findAll());
         log.info("********** getAllInstitutions service completed **********");
         return response;
-    }
-
-    public Boolean create(InstitutionRequestDto institutionRequestDto) {
-        log.info("create service started with {}", institutionRequestDto);
-        Institution institution = new Institution();
-        institution.setName(institutionRequestDto.getName());
-        institutionRepository.save(institution);
-        log.info("create service comlpete with {}", institutionRequestDto);
-        return true;
     }
 }

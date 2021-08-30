@@ -1,6 +1,8 @@
 package az.hrportal.hrportalapi.service.position;
 
+import az.hrportal.hrportalapi.domain.position.JobFamily;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
+import az.hrportal.hrportalapi.dto.position.request.JobFamilyRequestDto;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,15 @@ import java.util.List;
 public class JobFamilyService {
     private final JobFamilyRepository jobFamilyRepository;
     private final DropDownMapper dropDownMapper;
+
+    public Boolean create(JobFamilyRequestDto jobFamilyRequestDto) {
+        log.info("create service started with {}", jobFamilyRequestDto);
+        JobFamily jobFamily = new JobFamily();
+        jobFamily.setName(jobFamilyRequestDto.getName());
+        jobFamilyRepository.save(jobFamily);
+        log.info("********** create service completed with {} **********", jobFamilyRequestDto);
+        return true;
+    }
 
     public List<DropDownResponseDto<String>> getAll() {
         log.info("getAllJobFamilies service started");

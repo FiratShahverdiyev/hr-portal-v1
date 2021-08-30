@@ -24,7 +24,7 @@ public class DepartmentService {
         Department department = new Department();
         department.setName(departmentRequestDto.getName());
         departmentRepository.save(department);
-        log.info("create service completed with {}", departmentRequestDto);
+        log.info("********** create service completed with {} **********", departmentRequestDto);
         return true;
     }
 
