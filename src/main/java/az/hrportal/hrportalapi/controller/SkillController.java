@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.HashSet;
 
 @RestController
 @RequestMapping("skill")
@@ -26,7 +26,7 @@ public class SkillController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, String>>> getAll() {
+    public ResponseDto<HashSet<KeyValue<String, String>>> getAll() {
         return ResponseDto.of(skillService.getAll(), 200);
     }
 }

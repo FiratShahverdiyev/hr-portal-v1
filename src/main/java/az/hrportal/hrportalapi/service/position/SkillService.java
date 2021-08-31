@@ -8,8 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,13 +27,13 @@ public class SkillService {
         return saved.getId();
     }
 
-    public List<KeyValue<String, String>> getAll() {
-        log.info("getAllSkills service started");
-        List<KeyValue<String, String>> response = new ArrayList<>();
+    public HashSet<KeyValue<String, String>> getAll() {
+        log.info("getAll service started");
+        HashSet<KeyValue<String, String>> response = new HashSet<>();
         for (Skill skill : skillRepository.findAll()) {
             response.add(new KeyValue<>(skill.getName(), skill.getLevel().toString()));
         }
-        log.info("********** getAllSkills service completed **********");
+        log.info("********** getAll service completed **********");
         return response;
     }
 }
