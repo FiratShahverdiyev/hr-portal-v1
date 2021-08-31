@@ -129,7 +129,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponseDto> documentException(final Exception e) {
         ErrorCode errorCode = ErrorCode.DOCUMENT_PROBLEM;
         String message = messageResolver.resolve(errorCode.getMessage());
-        log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 

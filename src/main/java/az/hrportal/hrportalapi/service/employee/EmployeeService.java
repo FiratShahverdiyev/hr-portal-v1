@@ -199,14 +199,18 @@ public class EmployeeService {
 
     @Transactional
     protected Country saveOther(String name) {
+        log.info("saveOther service started with name : {}", name);
         Country country = new Country();
         country.setName(name);
-        return countryRepository.save(country);
+        country = countryRepository.save(country);
+        log.info("********** saveOther service started with name : {} **********", name);
+        return country;
     }
 
     @Transactional
     protected List<GovernmentAchievement> saveAndGetGovernmentAchievements(
             List<GovernmentAchievementRequestDto> governmentAchievementRequestDtos, Employee employee) {
+        log.info("saveAndGetGovernmentAchievements service started with {}", governmentAchievementRequestDtos);
         List<GovernmentAchievement> governmentAchievements = new ArrayList<>();
         for (GovernmentAchievementRequestDto requestDto : governmentAchievementRequestDtos) {
             Optional<GovernmentAchievement> optionalGovernmentAchievement = governmentAchievementRepository
@@ -221,6 +225,8 @@ public class EmployeeService {
             }
             governmentAchievements.add(governmentAchievement);
         }
+        log.info("********** saveAndGetGovernmentAchievements service completed with {} **********",
+                governmentAchievementRequestDtos);
         return governmentAchievements;
     }
 

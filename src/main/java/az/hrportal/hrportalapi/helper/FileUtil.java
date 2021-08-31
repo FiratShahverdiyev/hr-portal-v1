@@ -41,6 +41,7 @@ public class FileUtil {
     @SneakyThrows
     public String saveImage(String extension,
                             MultipartFile multipartFile) {
+        log.info("saveImage util started");
         checkExtension(extension);
         String fileName = String.valueOf(new Date().getTime()).concat(".").concat(extension);
         Path uploadPath = Paths.get(imageRootDirectory);
@@ -50,6 +51,7 @@ public class FileUtil {
         try (InputStream inputStream = multipartFile.getInputStream()) {
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            log.info("********** saveImage util completed with fileName : {} **********", fileName);
             return fileName;
         } catch (IOException ioe) {
             throw new IOException("Could not save image file: " + fileName, ioe);
@@ -72,6 +74,7 @@ public class FileUtil {
 
     @SneakyThrows
     public byte[] createAndGetPdf(DocumentData data) {
+        log.info("createAndGetPdf util started with {}", data);
         regular = pdfCreator.getTTInterphasesFont(false);
         bold = pdfCreator.getTTInterphasesFont(true);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -106,6 +109,7 @@ public class FileUtil {
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
         document.close();
+        log.info("********** createAndGetPdf util completed with {} **********", data);
         return bos.toByteArray();
     }
 }

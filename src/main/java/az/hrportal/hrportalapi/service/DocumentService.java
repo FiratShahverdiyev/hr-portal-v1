@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.dto.DocumentData;
+import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +19,11 @@ public class DocumentService {
     @SneakyThrows
     public byte[] export2Pdf(DocumentData documentData) {
         log.info("export2Pdf service started with {}", documentData);
-        byte[] response = null;
+        byte[] response;
         try {
             response = fileUtil.createAndGetPdf(documentData);
         } catch (Exception e) {
-            log.info("****************************************************************************************");
+            throw new DocumentException(e);
         }
         log.info("********** export2Pdf service completed with {} **********", documentData);
         return response;

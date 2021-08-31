@@ -146,14 +146,18 @@ public class PositionService {
 
     @Transactional
     protected SubDepartment saveSubDepartment(Department department, String name) {
+        log.info("saveSubDepartment service started with name : {}", name);
         SubDepartment subDepartment = new SubDepartment();
         subDepartment.setName(name);
         subDepartment.setDepartment(department);
-        return subDepartmentRepository.save(subDepartment);
+        subDepartment = subDepartmentRepository.save(subDepartment);
+        log.info("********** saveSubDepartment service completed with name : {} **********", name);
+        return subDepartment;
     }
 
     @Transactional
     protected Object saveOther(Object value, Class clazz) {
+        log.info("saveOther service started with {}", value);
         if (clazz.getSimpleName().equals(Institution.class.getSimpleName())) {
             Institution institution = new Institution();
             institution.setName((String) value);
@@ -192,14 +196,15 @@ public class PositionService {
         throw new EntityNotFoundException(clazz, value);
     }
 
-    private void positionFilter(List<Position> filterData,
+    private void positionFilter(List<Position> data,
                                 List<PositionResponseDto> response, PositionFilterRequestDto requestDto) {
+        log.info("positionFilter service started with {}", requestDto);
         if (requestDto.getDepartment() == null && requestDto.getSubDepartment() == null &&
                 requestDto.getVacancy() == null && requestDto.getVacancyCount() == null) {
-            response.addAll(positionResponseMapper.toPositionResponseDtos(filterData));
+            response.addAll(positionResponseMapper.toPositionResponseDtos(data));
             return;
         }
-        for (Position position : filterData) {
+        for (Position position : data) {
             if (requestDto.getDepartment() != null &&
                     position.getDepartment().getName().equals(requestDto.getDepartment()))
                 response.add(positionResponseMapper.toPositionResponseDto(position));
@@ -215,11 +220,12 @@ public class PositionService {
             if (requestDto.getVacancyCount() != null &&
                     position.getCount().equals(requestDto.getVacancyCount()))
                 response.add(positionResponseMapper.toPositionResponseDto(position));
+            log.info("********** positionFilter service completed with {} **********", requestDto);
         }
     }
 
     private void updatePositionRelations(Position position, GeneralInfoRequestDto generalInfoRequestDto) {
-        log.info("getRelations service started");
+        log.info("updatePositionRelations service started with {}", generalInfoRequestDto);
         Optional<Institution> optionalInstitution = institutionRepository
                 .findByName(generalInfoRequestDto.getInstitutionName());
         Institution institution;
@@ -307,6 +313,6 @@ public class PositionService {
         position.setEducationSpeciality(speciality);
         position.setSalary(salary);
         position.setSkills(new HashSet<>(skills));
-        log.info("********** getRelations service completed **********");
+        log.info("********** updatePositionRelations service completed with {} **********", generalInfoRequestDto);
     }
 }

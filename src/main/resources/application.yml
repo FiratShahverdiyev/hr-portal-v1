@@ -54,4 +54,5 @@ logging:
   level:
     ROOT: INFO
   pattern:
-    file: "[ %p ] %d{yyyy-MM-dd HH:mm:ss} [THREAD - %t] %-5p %c:%L - %m%n"
+    file: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
+    console: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
