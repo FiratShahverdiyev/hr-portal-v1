@@ -23,7 +23,7 @@ public class InstitutionService {
         Institution institution = new Institution();
         institution.setName(institutionRequestDto.getName());
         institutionRepository.save(institution);
-        log.info("********** create service complete with {} **********", institutionRequestDto);
+        log.info("********** create service completed with {} **********", institutionRequestDto);
         return true;
     }
 

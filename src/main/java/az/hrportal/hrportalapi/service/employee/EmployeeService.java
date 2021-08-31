@@ -159,7 +159,7 @@ public class EmployeeService {
                     .concat(employee.getBusinessPosition());
             response.add(new KeyValue<>(fullNameAndPosition, employee.getId()));
         }
-        log.info("********** getAllFullNameAndPosition service started **********");
+        log.info("********** getAllFullNameAndPosition service completed **********");
         return response;
     }
 
@@ -203,7 +203,7 @@ public class EmployeeService {
         Country country = new Country();
         country.setName(name);
         country = countryRepository.save(country);
-        log.info("********** saveOther service started with name : {} **********", name);
+        log.info("********** saveOther service completed with name : {} **********", name);
         return country;
     }
 
