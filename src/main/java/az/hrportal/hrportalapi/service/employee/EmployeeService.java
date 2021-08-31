@@ -155,8 +155,9 @@ public class EmployeeService {
         List<Employee> employees = employeeRepository.findAll();
         List<KeyValue<String, Integer>> response = new ArrayList<>();
         for (Employee employee : employees) {
-            String fullNameAndPosition = employee.getFullName().concat(" ")
-                    .concat(employee.getBusinessPosition());
+            String fullNameAndPosition = employee.getFullName();
+            if (employee.getBusinessPosition() != null)
+                fullNameAndPosition = fullNameAndPosition.concat(" ").concat(employee.getBusinessPosition());
             response.add(new KeyValue<>(fullNameAndPosition, employee.getId()));
         }
         log.info("********** getAllFullNameAndPosition service completed **********");
