@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.mapper.position.helper;
 import az.hrportal.hrportalapi.constant.position.EducationDegree;
 import az.hrportal.hrportalapi.constant.position.GenderDemand;
 import az.hrportal.hrportalapi.constant.position.Level;
+import az.hrportal.hrportalapi.constant.position.RequireFile;
 import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
@@ -55,6 +56,11 @@ public interface PositionMapperHelper {
     @WorkModeValue
     default String getWorkModeValue(WorkMode workMode) {
         return workMode.getValue();
+    }
+
+    @RequireFileValue
+    default String getRequiredFileValue(RequireFile requireFile) {
+        return requireFile.getValue();
     }
 
     @SkillsToDto

@@ -40,5 +40,6 @@ public class GeneralInfoResponseDto {
     boolean healthy;
     boolean militaryAchieve;
     String genderDemand;
+    String requireFile;
     List<String> functionalities;
 }

@@ -7,6 +7,7 @@ import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.mapper.position.helper.EducationDegreeValue;
 import az.hrportal.hrportalapi.mapper.position.helper.GenderDemandValue;
 import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
+import az.hrportal.hrportalapi.mapper.position.helper.RequireFileValue;
 import az.hrportal.hrportalapi.mapper.position.helper.SkillsToDto;
 import az.hrportal.hrportalapi.mapper.position.helper.VacancyCategoryValue;
 import az.hrportal.hrportalapi.mapper.position.helper.WorkConditionValue;
@@ -30,11 +31,13 @@ public interface PositionResponseMapper {
     @Mapping(target = "educationSpeciality", source = "educationSpeciality.name")
     @Mapping(target = "jobFamily", source = "jobFamily.name")
     @Mapping(target = "salary", source = "salary.salary")
+    @Mapping(target = "vacancyCount", source = "count")
     @Mapping(target = "educationDegree", source = "educationDegree", qualifiedBy = EducationDegreeValue.class)
     @Mapping(target = "genderDemand", source = "genderDemand", qualifiedBy = GenderDemandValue.class)
     @Mapping(target = "vacancyCategory", source = "vacancyCategory", qualifiedBy = VacancyCategoryValue.class)
     @Mapping(target = "workCondition", source = "workCondition", qualifiedBy = WorkConditionValue.class)
     @Mapping(target = "workMode", source = "workMode", qualifiedBy = WorkModeValue.class)
+    @Mapping(target = "requireFile", source = "requireFile", qualifiedBy = RequireFileValue.class)
     @Mapping(target = "skills", source = "skills", qualifiedBy = SkillsToDto.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Position position);
 
