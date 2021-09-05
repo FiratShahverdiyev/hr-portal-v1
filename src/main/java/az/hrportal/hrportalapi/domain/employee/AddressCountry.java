@@ -21,16 +21,16 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-@Table(name = "countries")
+@Table(name = "address_countries")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Country {
+public class AddressCountry {
     @Id
-    @SequenceGenerator(name = "countries_id_seq", allocationSize = 1, sequenceName = "countries_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "countries_id_seq")
+    @SequenceGenerator(name = "address_countries_id_seq", allocationSize = 1, sequenceName = "address_countries_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_countries_id_seq")
     Integer id;
     @Column(name = "name", unique = true)
     String name;
-    @OneToMany(mappedBy = "citizenCountry")
+    @OneToMany(mappedBy = "addressCountry")
     Set<Employee> employees;
     @CreationTimestamp
     @Column(name = "created_at")

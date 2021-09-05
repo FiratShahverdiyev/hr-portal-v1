@@ -41,6 +41,9 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "foreignPassportEndDate", source = "foreignPassportEndDate", dateFormat = dateFormat)
     @Mapping(target = "birthday", source = "birthday", dateFormat = dateFormat)
     @Mapping(target = "citizenCountry", source = "citizenCountry.name")
+    @Mapping(target = "addressCountry", source = "addressCountry.name")
+    @Mapping(target = "addressCity", source = "addressCity.name")
+    @Mapping(target = "addressDistrict", source = "addressDistrict.name")
     @Mapping(target = "familyMembers", source = "familyMembers", qualifiedBy = FamilyMembersToDto.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Employee employee);

@@ -70,8 +70,8 @@ public class Employee {
     @Column(name = "birthplace", nullable = false)
     String birthplace;
     @ManyToOne
-    @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
-    Country citizenCountry;
+    @JoinColumn(name = "citizen_country_id", referencedColumnName = "id", nullable = false)
+    CitizenCountry citizenCountry;
     @Column(name = "gender", nullable = false)
     @Enumerated(EnumType.STRING)
     Gender gender;
@@ -102,12 +102,15 @@ public class Employee {
     LocalDate IDCardStartDate;
     @Column(name = "id_card_end_date", nullable = false)
     LocalDate IDCardEndDate;
-    @Column(name = "address_country")
-    String addressCountry;
-    @Column(name = "address_city", nullable = false)
-    String addressCity;
-    @Column(name = "address_district", nullable = false)
-    String addressDistrict;
+    @ManyToOne
+    @JoinColumn(name = "address_country_id", referencedColumnName = "id", nullable = false)
+    AddressCountry addressCountry;
+    @ManyToOne
+    @JoinColumn(name = "address_city_id", referencedColumnName = "id", nullable = false)
+    AddressCity addressCity;
+    @ManyToOne
+    @JoinColumn(name = "address_district_id", referencedColumnName = "id", nullable = false)
+    AddressDistrict addressDistrict;
     @Column(name = "address_village", nullable = false)
     String addressVillage;
     @Column(name = "address_street", nullable = false)

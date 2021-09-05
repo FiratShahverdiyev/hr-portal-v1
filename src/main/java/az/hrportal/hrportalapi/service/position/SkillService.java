@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class SkillService {
         return saved.getId();
     }
 
-    public HashSet<KeyValue<String, String>> getAll() {
+    public Set<KeyValue<String, String>> getAll() {
         log.info("getAll service started");
         HashSet<KeyValue<String, String>> response = new HashSet<>();
         for (Skill skill : skillRepository.findAll()) {

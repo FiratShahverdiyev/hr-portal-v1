@@ -69,5 +69,6 @@ public interface PositionMapperHelper {
 
     @Named("toSkillResponseDto")
     @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
+    @Mapping(target = "skill", source = "name")
     SkillResponseDto toSkillResponseDto(Skill skill);
 }

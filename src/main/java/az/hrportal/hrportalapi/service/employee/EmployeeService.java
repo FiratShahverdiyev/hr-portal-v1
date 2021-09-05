@@ -1,7 +1,10 @@
 package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.constant.employee.Quota;
-import az.hrportal.hrportalapi.domain.employee.Country;
+import az.hrportal.hrportalapi.domain.employee.AddressCity;
+import az.hrportal.hrportalapi.domain.employee.AddressCountry;
+import az.hrportal.hrportalapi.domain.employee.AddressDistrict;
+import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
 import az.hrportal.hrportalapi.dto.KeyValue;
@@ -18,7 +21,10 @@ import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeResponseMapper;
 import az.hrportal.hrportalapi.mapper.employee.helper.EmployeeMapperHelper;
-import az.hrportal.hrportalapi.repository.employee.CountryRepository;
+import az.hrportal.hrportalapi.repository.employee.AddressCityRepository;
+import az.hrportal.hrportalapi.repository.employee.AddressCountryRepository;
+import az.hrportal.hrportalapi.repository.employee.AddressDistrictRepository;
+import az.hrportal.hrportalapi.repository.employee.CitizenCountryRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.GovernmentAchievementRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +44,10 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final CountryRepository countryRepository;
+    private final CitizenCountryRepository citizenCountryRepository;
+    private final AddressCityRepository addressCityRepository;
+    private final AddressCountryRepository addressCountryRepository;
+    private final AddressDistrictRepository addressDistrictRepository;
     private final GovernmentAchievementRepository governmentAchievementRepository;
     private final EmployeeMapper employeeMapper;
     private final EmployeeResponseMapper employeeResponseMapper;
@@ -58,17 +67,19 @@ public class EmployeeService {
     @SneakyThrows
     public Integer saveGeneralInfo(EmployeeGeneralInfoRequestDto employeeGeneralInfoRequestDto) {
         log.info("saveGeneralInfo service started with {}", employeeGeneralInfoRequestDto);
-        Optional<Country> optionalCountry = countryRepository
+        Optional<CitizenCountry> optionalCountry = citizenCountryRepository
                 .findByName(employeeGeneralInfoRequestDto.getCitizenCountry());
-        Country country;
+        CitizenCountry citizenCountry;
         if (optionalCountry.isEmpty()) {
-            country = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
+            citizenCountry = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
         } else {
-            country = optionalCountry.get();
+            citizenCountry = optionalCountry.get();
         }
         Employee employee = new Employee();
         employeeMapper.updateEmployee(employee, employeeGeneralInfoRequestDto);
-        employee.setCitizenCountry(country);
+        updateEmployeeAddress(employee, employeeGeneralInfoRequestDto.getAddressCountryId(),
+                employeeGeneralInfoRequestDto.getAddressCityId(), employeeGeneralInfoRequestDto.getAddressDistrictId());
+        employee.setCitizenCountry(citizenCountry);
         Employee saved = employeeRepository.save(employee);
         log.info("********** saveGeneralInfo service completed with id : {} **********", saved.getId());
         return saved.getId();
@@ -80,16 +91,18 @@ public class EmployeeService {
         log.info("updateGeneralInfo service started with {}", employeeGeneralInfoRequestDto);
         Employee employee = employeeRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, id));
-        Optional<Country> optionalCountry = countryRepository
+        Optional<CitizenCountry> optionalCountry = citizenCountryRepository
                 .findByName(employeeGeneralInfoRequestDto.getCitizenCountry());
-        Country country;
+        CitizenCountry citizenCountry;
         if (optionalCountry.isEmpty()) {
-            country = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
+            citizenCountry = saveOther(employeeGeneralInfoRequestDto.getCitizenCountry());
         } else {
-            country = optionalCountry.get();
+            citizenCountry = optionalCountry.get();
         }
         employeeMapper.updateEmployee(employee, employeeGeneralInfoRequestDto);
-        employee.setCitizenCountry(country);
+        updateEmployeeAddress(employee, employeeGeneralInfoRequestDto.getAddressCountryId(),
+                employeeGeneralInfoRequestDto.getAddressCityId(), employeeGeneralInfoRequestDto.getAddressDistrictId());
+        employee.setCitizenCountry(citizenCountry);
         Employee saved = employeeRepository.save(employee);
         log.info("********** updateGeneralInfo service completed with id : {} **********", saved.getId());
         return saved.getId();
@@ -199,13 +212,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    protected Country saveOther(String name) {
+    protected CitizenCountry saveOther(String name) {
         log.info("saveOther service started with name : {}", name);
-        Country country = new Country();
-        country.setName(name);
-        country = countryRepository.save(country);
+        CitizenCountry citizenCountry = new CitizenCountry();
+        citizenCountry.setName(name);
+        citizenCountry = citizenCountryRepository.save(citizenCountry);
         log.info("********** saveOther service completed with name : {} **********", name);
-        return country;
+        return citizenCountry;
     }
 
     @Transactional
@@ -229,6 +242,19 @@ public class EmployeeService {
         log.info("********** saveAndGetGovernmentAchievements service completed with {} **********",
                 governmentAchievementRequestDtos);
         return governmentAchievements;
+    }
+
+    private void updateEmployeeAddress(Employee employee, Integer addressCountryId, Integer addressCityId,
+                                       Integer addressDistrictId) {
+        AddressCountry addressCountry = addressCountryRepository.findById(addressCountryId).orElseThrow(() ->
+                new EntityNotFoundException(AddressCountry.class, addressCountryId));
+        AddressCity addressCity = addressCityRepository.findById(addressCityId).orElseThrow(() ->
+                new EntityNotFoundException(AddressCity.class, addressCityId));
+        AddressDistrict addressDistrict = addressDistrictRepository.findById(addressDistrictId).orElseThrow(() ->
+                new EntityNotFoundException(AddressDistrict.class, addressDistrictId));
+        employee.setAddressCountry(addressCountry);
+        employee.setAddressCity(addressCity);
+        employee.setAddressDistrict(addressDistrict);
     }
 
     private List<String> getQuotasByKeys(List<Integer> quotaKeys) {

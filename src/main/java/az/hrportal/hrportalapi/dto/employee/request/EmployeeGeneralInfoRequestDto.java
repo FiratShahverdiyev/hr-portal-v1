@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -36,12 +37,12 @@ public class EmployeeGeneralInfoRequestDto {
     @NotEmpty
     String foreignPassportNumber;
 
-    @NotEmpty
-    String addressCountry;
-    @NotEmpty
-    String addressCity;
-    @NotEmpty
-    String addressDistrict;
+    @NotNull
+    Integer addressCountryId;
+    @NotNull
+    Integer addressCityId;
+    @NotNull
+    Integer addressDistrictId;
     @NotEmpty
     String addressVillage;
     @NotEmpty

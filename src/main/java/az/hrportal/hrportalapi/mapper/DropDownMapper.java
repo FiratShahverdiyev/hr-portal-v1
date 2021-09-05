@@ -1,6 +1,6 @@
 package az.hrportal.hrportalapi.mapper;
 
-import az.hrportal.hrportalapi.domain.employee.Country;
+import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
 import az.hrportal.hrportalapi.domain.position.Department;
 import az.hrportal.hrportalapi.domain.position.Institution;
 import az.hrportal.hrportalapi.domain.position.JobFamily;
@@ -22,7 +22,7 @@ import java.util.Set;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         componentModel = "spring")
 public interface DropDownMapper {
-    List<DropDownResponseDto<String>> toCountryResponseDtos(List<Country> countries);
+    List<DropDownResponseDto<String>> toCountryResponseDtos(List<CitizenCountry> countries);
 
     List<DropDownResponseDto<String>> toInstitutionResponseDtos(List<Institution> institutions);
 
