@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -124,12 +125,11 @@ public class PositionService {
     }
 
     //TODO Delete on production
-    public List<KeyValue<String, Integer>> getWorkAddress() {
+    public Set<KeyValue<String, Integer>> getWorkAddress() {
         log.info("getWorkAddress service started");
-        List<KeyValue<String, Integer>> response = new ArrayList<>();
+        Set<KeyValue<String, Integer>> response = new HashSet<>();
         for (WorkPlace workPlaces : WorkPlace.values()) {
-            KeyValue<String, Integer> keyValue = new KeyValue<>(workPlaces.toString(), workPlaces.getValue());
-            response.add(keyValue);
+            response.add(new KeyValue<>(workPlaces.toString(), workPlaces.getValue()));
         }
         log.info("********** getWorkAddress service completed **********");
         return response;

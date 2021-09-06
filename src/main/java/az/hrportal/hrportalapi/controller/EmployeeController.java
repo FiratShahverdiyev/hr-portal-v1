@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("employee")
@@ -92,14 +93,14 @@ public class EmployeeController {
 
     @GetMapping("fullname-position")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, Integer>>> getAllFullNameAndPosition() {
+    public ResponseDto<Set<KeyValue<String, Integer>>> getAllFullNameAndPosition() {
         return ResponseDto.of(employeeService.getAllFullNameAndPosition(), 200);
     }
 
     //TODO Delete on production
     @GetMapping("quota")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, Integer>>> getAllQuota() {
+    public ResponseDto<Set<KeyValue<String, Integer>>> getAllQuota() {
         return ResponseDto.of(employeeService.getAllQuotas(), 200);
     }
 }

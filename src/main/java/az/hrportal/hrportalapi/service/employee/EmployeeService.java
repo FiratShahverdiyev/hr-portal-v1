@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -163,10 +164,10 @@ public class EmployeeService {
         return employeeResponseMapper.toAcademicInfoResponseDto(employee);
     }
 
-    public List<KeyValue<String, Integer>> getAllFullNameAndPosition() {
+    public Set<KeyValue<String, Integer>> getAllFullNameAndPosition() {
         log.info("getAllFullNameAndPosition service started");
         List<Employee> employees = employeeRepository.findAll();
-        List<KeyValue<String, Integer>> response = new ArrayList<>();
+        Set<KeyValue<String, Integer>> response = new HashSet<>();
         for (Employee employee : employees) {
             String fullNameAndPosition = employee.getFullName();
             if (employee.getBusinessPosition() != null)
@@ -200,12 +201,11 @@ public class EmployeeService {
     }
 
     //TODO Delete on production
-    public List<KeyValue<String, Integer>> getAllQuotas() {
+    public Set<KeyValue<String, Integer>> getAllQuotas() {
         log.info("getAllQuotas service started");
-        List<KeyValue<String, Integer>> response = new ArrayList<>();
+        Set<KeyValue<String, Integer>> response = new HashSet<>();
         for (Integer key : Quota.getQuotaMapKeySet()) {
-            KeyValue<String, Integer> quota = new KeyValue<>(Quota.getQuota(key), key);
-            response.add(quota);
+            response.add(new KeyValue<>(Quota.getQuota(key), key));
         }
         log.info("********** getAllQuotas service completed **********");
         return response;

@@ -16,6 +16,5 @@ import lombok.experimental.FieldDefaults;
 public class KeyValue<K, V> {
     @EqualsAndHashCode.Include
     K key;
-    @EqualsAndHashCode.Exclude
     V value;
 }

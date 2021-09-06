@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("position")
@@ -81,7 +82,7 @@ public class PositionController {
 
     @GetMapping("work-address")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<KeyValue<String, Integer>>> getAllAddress() {
+    public ResponseDto<Set<KeyValue<String, Integer>>> getAllAddress() {
         return ResponseDto.of(positionService.getWorkAddress(), 200);
     }
 }

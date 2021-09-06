@@ -99,7 +99,7 @@ public class FileUtil {
                 break;
             }
             case STRUKTURUN_TESIS_EDILMESI: {
-
+                break;
             }
             case XITAM: {
                 pdfCreator.pdfEndJob(document, data, bold);
