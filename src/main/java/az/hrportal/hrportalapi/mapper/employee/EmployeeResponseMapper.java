@@ -5,9 +5,13 @@ import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
+import az.hrportal.hrportalapi.mapper.employee.helper.BloodGroupValue;
 import az.hrportal.hrportalapi.mapper.employee.helper.CertificatesToDto;
+import az.hrportal.hrportalapi.mapper.employee.helper.EducationTypeValue;
 import az.hrportal.hrportalapi.mapper.employee.helper.EmployeeMapperHelper;
+import az.hrportal.hrportalapi.mapper.employee.helper.FamilyConditionValue;
 import az.hrportal.hrportalapi.mapper.employee.helper.FamilyMembersToDto;
+import az.hrportal.hrportalapi.mapper.employee.helper.GenderValue;
 import az.hrportal.hrportalapi.mapper.employee.helper.GovernmentAchievementToDto;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -29,6 +33,7 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = dateFormat)
     @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = dateFormat)
     @Mapping(target = "driverCardEndDate", source = "driverCardEndDate", dateFormat = dateFormat)
+    @Mapping(target = "educationType", source = "educationType", qualifiedBy = EducationTypeValue.class)
     @Mapping(target = "certificates", source = "certificates", qualifiedBy = CertificatesToDto.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "governmentAchievements", source = "governmentAchievements",
@@ -46,6 +51,9 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "addressDistrict", source = "addressDistrict.name")
     @Mapping(target = "familyMembers", source = "familyMembers", qualifiedBy = FamilyMembersToDto.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "familyCondition", source = "familyCondition", qualifiedBy = FamilyConditionValue.class)
+    @Mapping(target = "gender", source = "gender", qualifiedBy = GenderValue.class)
+    @Mapping(target = "bloodGroup", source = "bloodGroup", qualifiedBy = BloodGroupValue.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Employee employee);
 
     @Mapping(target = "jobStartDate", source = "jobStartDate", dateFormat = dateFormat)

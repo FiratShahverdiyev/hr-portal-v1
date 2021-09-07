@@ -1,5 +1,11 @@
 package az.hrportal.hrportalapi.mapper.employee.helper;
 
+import az.hrportal.hrportalapi.constant.employee.BloodGroup;
+import az.hrportal.hrportalapi.constant.employee.EducationType;
+import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
+import az.hrportal.hrportalapi.constant.employee.Gender;
+import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
+import az.hrportal.hrportalapi.constant.employee.RelationType;
 import az.hrportal.hrportalapi.domain.embeddable.Certificate;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
@@ -55,6 +61,7 @@ public interface EmployeeMapperHelper {
 
     @Named("toFamilyMemberResponseDto")
     @Mapping(target = "birthday", source = "birthday", dateFormat = dateFormat)
+    @Mapping(target = "relationType", source = "relationType", qualifiedBy = RelationTypeValue.class)
     FamilyMemberResponseDto toFamilyMemberResponseDto(FamilyMember familyMember);
 
     @GovernmentAchievementToDto
@@ -73,4 +80,34 @@ public interface EmployeeMapperHelper {
     @Named("toCertificateDto")
     @Mapping(target = "endDate", source = "endDate", dateFormat = dateFormat)
     CertificateResponseDto toCertificateDto(Certificate certificate);
+
+    @BloodGroupValue
+    default String getBloodGroupValue(BloodGroup bloodGroup) {
+        return bloodGroup.getValue();
+    }
+
+    @EducationTypeValue
+    default String getEducationTypeValue(EducationType educationType) {
+        return educationType.getValue();
+    }
+
+    @FamilyConditionValue
+    default String getFamilyConditionValue(FamilyCondition familyCondition) {
+        return familyCondition.getValue();
+    }
+
+    @GenderValue
+    default String getGenderValue(Gender gender) {
+        return gender.getValue();
+    }
+
+    @MilitaryAchievementValue
+    default String getMilitaryAchievementValue(MilitaryAchievement militaryAchievement) {
+        return militaryAchievement.getValue();
+    }
+
+    @RelationTypeValue
+    default String getRelationTypeValue(RelationType relationType) {
+        return relationType.getValue();
+    }
 }
