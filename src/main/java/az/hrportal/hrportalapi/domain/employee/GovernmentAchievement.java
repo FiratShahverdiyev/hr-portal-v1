@@ -13,11 +13,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,15 +32,14 @@ public class GovernmentAchievement {
             allocationSize = 1, sequenceName = "government_achievements_id_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "government_achievements_id_seq")
     Integer id;
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     String name;
     @Column(name = "organization")
     String organization;
     @Column(name = "start_date")
     LocalDate startDate;
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    Employee employee;
+    @ManyToMany(mappedBy = "governmentAchievements")
+    Set<Employee> employees;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

@@ -22,7 +22,6 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -33,6 +32,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -194,7 +195,12 @@ public class Employee {
     @ElementCollection
     @CollectionTable(name = "employee_certificates", joinColumns = @JoinColumn(name = "employee_id"))
     Set<Certificate> certificates;
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(
+            name = "employee_achievement",
+            joinColumns = {@JoinColumn(name = "employee_id")},
+            inverseJoinColumns = {@JoinColumn(name = "achievement_id")}
+    )
     Set<GovernmentAchievement> governmentAchievements;
     @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")

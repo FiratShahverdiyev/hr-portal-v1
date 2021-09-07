@@ -232,7 +232,7 @@ public class EmployeeService {
             GovernmentAchievement governmentAchievement;
             if (optionalGovernmentAchievement.isEmpty()) {
                 governmentAchievement = employeeMapperHelper.toGovernmentAchievement(requestDto);
-                governmentAchievement.setEmployee(employee);
+                governmentAchievement.getEmployees().add((employee));
                 governmentAchievement = governmentAchievementRepository.save(governmentAchievement);
             } else {
                 governmentAchievement = optionalGovernmentAchievement.get();
