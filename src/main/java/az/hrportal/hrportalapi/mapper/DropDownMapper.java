@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.mapper;
 
 import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
+import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
 import az.hrportal.hrportalapi.domain.position.Department;
 import az.hrportal.hrportalapi.domain.position.Institution;
 import az.hrportal.hrportalapi.domain.position.JobFamily;
@@ -40,4 +41,6 @@ public interface DropDownMapper {
     DropDownResponseDto<BigDecimal> toSalaryResponseDto(Salary salary);
 
     List<DropDownResponseDto<String>> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);
+
+    List<DropDownResponseDto<String>> toGovernmentAchievementDtos(List<GovernmentAchievement> governmentAchievements);
 }
