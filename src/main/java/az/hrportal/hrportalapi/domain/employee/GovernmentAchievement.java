@@ -12,13 +12,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -39,7 +38,7 @@ public class GovernmentAchievement {
     @Column(name = "start_date")
     LocalDate startDate;
     @ManyToMany(mappedBy = "governmentAchievements")
-    Set<Employee> employees;
+    Set<Employee> employees = new HashSet<>();
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

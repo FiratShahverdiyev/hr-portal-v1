@@ -34,6 +34,8 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -236,6 +238,9 @@ public class EmployeeService {
                 governmentAchievement = governmentAchievementRepository.save(governmentAchievement);
             } else {
                 governmentAchievement = optionalGovernmentAchievement.get();
+                governmentAchievement.setStartDate(LocalDate.parse(requestDto.getStartDate(),
+                        DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                governmentAchievementRepository.save(governmentAchievement);
             }
             governmentAchievements.add(governmentAchievement);
         }
