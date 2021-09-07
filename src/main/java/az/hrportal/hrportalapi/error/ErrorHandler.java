@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.text.ParseException;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,37 +134,29 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
-    /*@ExceptionHandler(EnumNotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> enumNotFound(final Exception e) {
+    @ExceptionHandler(DateTimeParseException.class)
+    public ResponseEntity<ErrorResponseDto> dateTimeParse(final Exception e) {
+        ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
+        return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponseDto> illegalArgument(final Exception e) {
         ErrorCode errorCode = ErrorCode.BAD_REQUEST;
         String message = messageResolver.resolve(errorCode.getMessage());
         String incorrectEnum = getIncorrectEnum(e.getMessage());
         message = message.concat(" - ").concat(incorrectEnum)
                 .concat(" : ").concat(getEnumPossibleValues(incorrectEnum));
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                errorCode.getCode(), "ENUM EXCEPTION", getStackTrace(e));
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
-    }*/
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> internalServerError(final Exception e) {
-        if (e.getCause() instanceof ParseException) {
-            ErrorCode errorCode = ErrorCode.INCORRECT_DATE_FORMAT;
-            String message = messageResolver.resolve(errorCode.getMessage());
-            log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                    errorCode.getCode(), "PARSE EXCEPTION", getStackTrace(e));
-            return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
-        }
-        if (e instanceof IllegalArgumentException) {
-            ErrorCode errorCode = ErrorCode.BAD_REQUEST;
-            String message = messageResolver.resolve(errorCode.getMessage());
-            String incorrectEnum = getIncorrectEnum(e.getMessage());
-            message = message.concat(" - ").concat(incorrectEnum)
-                    .concat(" : ").concat(getEnumPossibleValues(incorrectEnum));
-            log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
-                    errorCode.getCode(), "ENUM EXCEPTION", getStackTrace(e));
-            return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
-        }
         ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",

@@ -4,6 +4,7 @@ import az.hrportal.hrportalapi.config.filter.SecurityFilter;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import az.hrportal.hrportalapi.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +23,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final LocaleMessageResolver messageResolver;
+
+    @Value("${filter.url.ignore}")
+    private String[] ignoredUrls;
 
     @Bean
     public PasswordEncoder getEncoder() {
@@ -54,21 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
-                .antMatchers("/error")
-                .antMatchers("/favicon.ico")
-                .antMatchers("/")
-                .antMatchers("/csrf")
-                .antMatchers("/actuator/**")
-                .antMatchers("/swagger-ui.html")
-                .antMatchers("/app/**/*.{js,html}")
-                .antMatchers("/i18n/**")
-                .antMatchers("/content/**")
-                .antMatchers("/actuator/health")
-                .antMatchers("/swagger-ui/index.html")
-                .antMatchers("/auth/**")
-                .antMatchers("/v2/api-docs", "/webjars/**")
-                .antMatchers("/swagger-resources/**")
-                .antMatchers("/configuration/ui", "/configuration/security");
+                .antMatchers(ignoredUrls)
+                .antMatchers("/auth/**");
     }
 
     @Bean

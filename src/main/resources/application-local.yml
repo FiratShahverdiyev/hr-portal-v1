@@ -53,5 +53,10 @@ logging:
   pattern:
     file: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
     console: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
+
 server:
   port: 8080
+
+filter:
+  url:
+    ignore: /error,/favicon.ico,/,/csrf,/actuator/**,/swagger-ui.html,/app/**/*.{js,html},/i18n/**,/content/**,/swagger-ui/index.html,/v2/api-docs,/webjars/**,/swagger-resources/**
