@@ -4,8 +4,11 @@ import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.KnowledgeResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
+import az.hrportal.hrportalapi.mapper.position.helper.ComputerKnowledgeToDto;
 import az.hrportal.hrportalapi.mapper.position.helper.EducationDegreeValue;
 import az.hrportal.hrportalapi.mapper.position.helper.GenderDemandValue;
+import az.hrportal.hrportalapi.mapper.position.helper.LanguageKnowledgeToDto;
+import az.hrportal.hrportalapi.mapper.position.helper.LegislationStatementToDto;
 import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
 import az.hrportal.hrportalapi.mapper.position.helper.RequireFileValue;
 import az.hrportal.hrportalapi.mapper.position.helper.SkillsToDto;
@@ -41,6 +44,10 @@ public interface PositionResponseMapper {
     @Mapping(target = "skills", source = "skills", qualifiedBy = SkillsToDto.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Position position);
 
+    @Mapping(target = "computerKnowledge", source = "computerKnowledge", qualifiedBy = ComputerKnowledgeToDto.class)
+    @Mapping(target = "legislationStatements", source = "legislationStatements",
+            qualifiedBy = LegislationStatementToDto.class)
+    @Mapping(target = "languageKnowledge", source = "languageKnowledge", qualifiedBy = LanguageKnowledgeToDto.class)
     KnowledgeResponseDto toKnowledgeResponseDto(Position position);
 
     @IterableMapping(qualifiedByName = "toPositionResponseDto")

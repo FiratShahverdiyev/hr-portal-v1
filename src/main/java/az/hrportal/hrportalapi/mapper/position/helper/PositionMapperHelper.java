@@ -8,7 +8,13 @@ import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
+import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
+import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
+import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
 import az.hrportal.hrportalapi.domain.position.Skill;
+import az.hrportal.hrportalapi.dto.position.response.ComputerKnowledgeResponseDto;
+import az.hrportal.hrportalapi.dto.position.response.LanguageKnowledgeResponseDto;
+import az.hrportal.hrportalapi.dto.position.response.LegislationStatementResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.SkillResponseDto;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
@@ -71,4 +77,32 @@ public interface PositionMapperHelper {
     @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
     @Mapping(target = "skill", source = "name")
     SkillResponseDto toSkillResponseDto(Skill skill);
+
+    @ComputerKnowledgeToDto
+    @IterableMapping(qualifiedByName = "toComputerKnowledgeResponseDto")
+    List<ComputerKnowledgeResponseDto> toComputerKnowledgeResponseDtos(Set<ComputerKnowledge> computerKnowledgeSet);
+
+    @Named("toComputerKnowledgeResponseDto")
+    @Mapping(target = "skill", source = "name")
+    @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
+    ComputerKnowledgeResponseDto toComputerKnowledgeResponseDto(ComputerKnowledge computerKnowledge);
+
+    @LanguageKnowledgeToDto
+    @IterableMapping(qualifiedByName = "toLanguageKnowledgeResponseDto")
+    List<LanguageKnowledgeResponseDto> toLanguageKnowledgeResponseDtos(Set<LanguageKnowledge> languageKnowledgeSet);
+
+    @Named("toLanguageKnowledgeResponseDto")
+    @Mapping(target = "skill", source = "name")
+    @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
+    LanguageKnowledgeResponseDto toLanguageKnowledgeResponseDto(LanguageKnowledge languageKnowledge);
+
+    @LegislationStatementToDto
+    @IterableMapping(qualifiedByName = "toLegislationStatementResponseDto")
+    List<LegislationStatementResponseDto> toLegislationStatementResponseDtos(Set<LegislationStatement>
+                                                                                     legislationStatementSet);
+
+    @Named("toLegislationStatementResponseDto")
+    @Mapping(target = "skill", source = "name")
+    @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
+    LegislationStatementResponseDto toLegislationStatementResponseDto(LegislationStatement legislationStatement);
 }
