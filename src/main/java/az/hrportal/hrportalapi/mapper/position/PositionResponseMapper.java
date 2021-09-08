@@ -19,6 +19,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -40,14 +41,17 @@ public interface PositionResponseMapper {
     @Mapping(target = "vacancyCategory", source = "vacancyCategory", qualifiedBy = VacancyCategoryValue.class)
     @Mapping(target = "workCondition", source = "workCondition", qualifiedBy = WorkConditionValue.class)
     @Mapping(target = "workMode", source = "workMode", qualifiedBy = WorkModeValue.class)
-    @Mapping(target = "requireFile", source = "requireFile", qualifiedBy = RequireFileValue.class)
+    @Mapping(target = "requireFile", source = "requireFile", qualifiedBy = RequireFileValue.class,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "skills", source = "skills", qualifiedBy = SkillsToDto.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Position position);
 
-    @Mapping(target = "computerKnowledge", source = "computerKnowledge", qualifiedBy = ComputerKnowledgeToDto.class)
+    @Mapping(target = "computerKnowledge", source = "computerKnowledge", qualifiedBy = ComputerKnowledgeToDto.class,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "legislationStatements", source = "legislationStatements",
-            qualifiedBy = LegislationStatementToDto.class)
-    @Mapping(target = "languageKnowledge", source = "languageKnowledge", qualifiedBy = LanguageKnowledgeToDto.class)
+            qualifiedBy = LegislationStatementToDto.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "languageKnowledge", source = "languageKnowledge", qualifiedBy = LanguageKnowledgeToDto.class,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     KnowledgeResponseDto toKnowledgeResponseDto(Position position);
 
     @IterableMapping(qualifiedByName = "toPositionResponseDto")

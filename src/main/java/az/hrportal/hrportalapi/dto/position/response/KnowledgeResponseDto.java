@@ -5,14 +5,14 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class KnowledgeResponseDto {
     Integer id;
-    List<ComputerKnowledgeResponseDto> computerKnowledge;
-    List<LegislationStatementResponseDto> legislationStatements;
-    List<LanguageKnowledgeResponseDto> languageKnowledge;
+    Set<ComputerKnowledgeResponseDto> computerKnowledge;
+    Set<LegislationStatementResponseDto> legislationStatements;
+    Set<LanguageKnowledgeResponseDto> languageKnowledge;
 }

@@ -125,15 +125,15 @@ public class Position {
     boolean healthy;
     @ElementCollection
     @CollectionTable(name = "position_computer_knowledge", joinColumns = @JoinColumn(name = "position_id"))
-    @Column(name = "knowledge")
+    @Column(name = "computer")
     Set<ComputerKnowledge> computerKnowledge;
     @ElementCollection
     @CollectionTable(name = "position_language_knowledge", joinColumns = @JoinColumn(name = "position_id"))
-    @Column(name = "knowledge")
+    @Column(name = "language")
     Set<LanguageKnowledge> languageKnowledge;
     @ElementCollection
     @CollectionTable(name = "position_legislation_statement", joinColumns = @JoinColumn(name = "position_id"))
-    @Column(name = "knowledge")
+    @Column(name = "legislation")
     Set<LegislationStatement> legislationStatements;
     @ElementCollection
     @CollectionTable(name = "position_functionalities", joinColumns = @JoinColumn(name = "position_id"))

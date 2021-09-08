@@ -80,7 +80,7 @@ public interface PositionMapperHelper {
 
     @ComputerKnowledgeToDto
     @IterableMapping(qualifiedByName = "toComputerKnowledgeResponseDto")
-    List<ComputerKnowledgeResponseDto> toComputerKnowledgeResponseDtos(Set<ComputerKnowledge> computerKnowledgeSet);
+    Set<ComputerKnowledgeResponseDto> toComputerKnowledgeResponseDtos(Set<ComputerKnowledge> computerKnowledgeSet);
 
     @Named("toComputerKnowledgeResponseDto")
     @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
@@ -88,7 +88,7 @@ public interface PositionMapperHelper {
 
     @LanguageKnowledgeToDto
     @IterableMapping(qualifiedByName = "toLanguageKnowledgeResponseDto")
-    List<LanguageKnowledgeResponseDto> toLanguageKnowledgeResponseDtos(Set<LanguageKnowledge> languageKnowledgeSet);
+    Set<LanguageKnowledgeResponseDto> toLanguageKnowledgeResponseDtos(Set<LanguageKnowledge> languageKnowledgeSet);
 
     @Named("toLanguageKnowledgeResponseDto")
     @Mapping(target = "level", source = "level", qualifiedBy = LevelValue.class)
@@ -96,7 +96,7 @@ public interface PositionMapperHelper {
 
     @LegislationStatementToDto
     @IterableMapping(qualifiedByName = "toLegislationStatementResponseDto")
-    List<LegislationStatementResponseDto> toLegislationStatementResponseDtos(Set<LegislationStatement>
+    Set<LegislationStatementResponseDto> toLegislationStatementResponseDtos(Set<LegislationStatement>
                                                                                      legislationStatementSet);
 
     @Named("toLegislationStatementResponseDto")
