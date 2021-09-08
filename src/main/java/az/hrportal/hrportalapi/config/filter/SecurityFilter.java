@@ -35,7 +35,7 @@ public class SecurityFilter extends GenericFilterBean {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         log.info("********** URI : {} ************", httpServletRequest.getRequestURI());
         try {
-            String token = SecurityUtil.extractToken(httpServletRequest.getHeader("Authorization"));
+            String token = SecurityUtil.extractToken(httpServletRequest);
             Authentication authentication = tokenProvider.parseAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             chain.doFilter(request, response);
