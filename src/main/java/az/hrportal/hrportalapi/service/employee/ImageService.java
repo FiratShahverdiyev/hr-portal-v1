@@ -15,7 +15,7 @@ public class ImageService {
 
     public void save(Integer id, MultipartFile file) {
         log.info("Image save service started with id : {}, fileName : {}", id, file.getOriginalFilename());
-        String fileName = fileUtil.saveImage(file.getContentType().split("/")[1], file);
+        String fileName = fileUtil.saveImage(file);
         employeeService.setPhotoName(id, fileName);
         log.info("Image save service completed with id : {}, fileName : {}", id, fileName);
     }
@@ -23,5 +23,17 @@ public class ImageService {
     public byte[] get(String fileName) {
         log.info("Image get service started with fileName : {}", fileName);
         return fileUtil.getImage(fileName);
+    }
+
+    public void uploadS3(Integer id, MultipartFile file) {
+        log.info("Image uploadS3 service started with id : {}, fileName : {}", id, file.getOriginalFilename());
+        String fileName = fileUtil.saveImageS3(file);
+        employeeService.setPhotoName(id, fileName);
+        log.info("Image uploadS3 service completed with id : {}, fileName : {}", id, fileName);
+    }
+
+    public byte[] getS3(String fileName) {
+        log.info("Image getS3 service started with fileName : {}", fileName);
+        return fileUtil.getImageS3(fileName);
     }
 }

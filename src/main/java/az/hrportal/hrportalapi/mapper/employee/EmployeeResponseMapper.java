@@ -33,7 +33,8 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "graduateDate", source = "graduateDate", dateFormat = dateFormat)
     @Mapping(target = "graduateFileDate", source = "graduateFileDate", dateFormat = dateFormat)
     @Mapping(target = "driverCardEndDate", source = "driverCardEndDate", dateFormat = dateFormat)
-    @Mapping(target = "educationType", source = "educationType", qualifiedBy = EducationTypeValue.class)
+    @Mapping(target = "educationType", source = "educationType", qualifiedBy = EducationTypeValue.class,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "certificates", source = "certificates", qualifiedBy = CertificatesToDto.class,
             nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "governmentAchievements", source = "governmentAchievements",

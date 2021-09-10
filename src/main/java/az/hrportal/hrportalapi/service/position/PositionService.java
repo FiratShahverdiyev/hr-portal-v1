@@ -121,9 +121,6 @@ public class PositionService {
         log.info("getKnowledgeById service started with id : {}", id);
         Position position = positionRepository.findByIdWithKnowledgeRelations(id).orElseThrow(() ->
                 new EntityNotFoundException(Position.class, id));
-        for (ComputerKnowledge computerKnowledge : position.getComputerKnowledge()){
-            log.info("******* {} \n", computerKnowledge.getName());
-        }
         log.info("********** getKnowledgeById service completed with id : {} **********", id);
         return positionResponseMapper.toKnowledgeResponseDto(position);
     }

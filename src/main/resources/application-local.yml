@@ -55,8 +55,17 @@ logging:
     console: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
 
 server:
-  port: 8080
+  port: 8085
 
 filter:
   url:
     ignore: /error,/favicon.ico,/,/csrf,/actuator/**,/swagger-ui.html,/app/**/*.{js,html},/i18n/**,/content/**,/swagger-ui/index.html,/v2/api-docs,/webjars/**,/swagger-resources/**
+
+amazon:
+  s3:
+    bucket:
+      hr-portal: hr-file-storage
+      folder:
+        employee-images: employee-images
+    access-key: AKIA4KJG2K4QRMASSY7V
+    secret-key: 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
