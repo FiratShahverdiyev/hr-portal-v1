@@ -28,7 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Date;
+import java.util.UUID;
 
 @Component
 @Slf4j
@@ -53,7 +53,7 @@ public class FileUtil {
         log.info("saveImage util started");
         String extension = file.getContentType().split("/")[1];
         checkExtension(extension);
-        String fileName = String.valueOf(new Date().getTime()).concat(".").concat(extension);
+        String fileName = generateFileName(extension);
         Path uploadPath = Paths.get(imageRootDirectory);
         if (!Files.exists(uploadPath)) {
             Files.createDirectories(uploadPath);
@@ -71,11 +71,13 @@ public class FileUtil {
     @SneakyThrows
     public String saveImageS3(MultipartFile file) {
         try {
+            log.info("saveImageS3 util started");
             String extension = file.getContentType().split("/")[1];
             checkExtension(extension);
-            String fileName = String.valueOf(new Date().getTime()).concat(".").concat(extension);
+            String fileName = generateFileName(extension);
             String path = bucket + "/" + employeeImagePath;
             amazonS3.putObject(path, fileName, file.getInputStream(), null);
+            log.info("********** saveImageS3 util completed with fileName : {} **********", fileName);
             return fileName;
         } catch (AmazonServiceException e) {
             throw new IllegalStateException("Failed to upload the file", e);
@@ -91,6 +93,10 @@ public class FileUtil {
         } catch (AmazonServiceException | IOException e) {
             throw new IllegalStateException("Failed to download the file", e);
         }
+    }
+
+    private String generateFileName(String extension) {
+        return String.valueOf(UUID.randomUUID().toString()).concat(".").concat(extension);
     }
 
     @SneakyThrows

@@ -2,7 +2,6 @@ package az.hrportal.hrportalapi.service.position;
 
 import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
-import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
 import az.hrportal.hrportalapi.domain.position.Department;
 import az.hrportal.hrportalapi.domain.position.Institution;
 import az.hrportal.hrportalapi.domain.position.JobFamily;

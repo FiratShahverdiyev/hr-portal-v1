@@ -55,7 +55,7 @@ logging:
     console: "[ %p ] %d{yyyy-MM-dd HH:mm:ss, Asia/Baku} [THREAD - %t] %-5p %c:%L - %m%n"
 
 server:
-  port: 8085
+  port: 8080
 
 filter:
   url:
