@@ -17,7 +17,6 @@ import com.itextpdf.layout.Document;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.pdfbox.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,7 +88,7 @@ public class FileUtil {
             String path = bucket + "/" + employeeImagePath;
             S3Object object = amazonS3.getObject(path, fileName);
             S3ObjectInputStream objectContent = object.getObjectContent();
-            return IOUtils.toByteArray(objectContent);
+            return objectContent.readAllBytes();
         } catch (AmazonServiceException | IOException e) {
             throw new IllegalStateException("Failed to download the file", e);
         }

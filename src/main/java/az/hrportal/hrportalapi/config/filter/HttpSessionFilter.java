@@ -4,6 +4,8 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 @Configuration
 @Slf4j
+@Order(value = Ordered.HIGHEST_PRECEDENCE)
 public class HttpSessionFilter extends OncePerRequestFilter {
     @Value("${filter.url.ignore}")
     private String[] ignoredUrls;

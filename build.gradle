@@ -39,13 +39,13 @@ dependencies {
     implementation "com.itextpdf:io:${itextVersion}"
     implementation "com.itextpdf:kernel:${itextVersion}"
 
-    implementation 'org.apache.pdfbox:pdfbox:2.0.4'
+//    implementation 'org.apache.pdfbox:pdfbox:2.0.4'
     implementation "io.springfox:springfox-bean-validators:2.9.2"
     implementation "io.springfox:springfox-swagger-ui:$swaggerVersion"
     implementation "org.json:json:$jsonVersion"
     runtimeOnly 'org.postgresql:postgresql'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 checkstyle {
     toolVersion = "$checkstyleVersion"
