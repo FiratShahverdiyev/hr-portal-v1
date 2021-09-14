@@ -15,6 +15,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,6 +30,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -61,8 +63,8 @@ public class Operation {
     String dismissalReason;
     @Column(name = "compensation")
     BigDecimal compensation;
-    @Column(name = "note")
-    String note;
+    @ElementCollection
+    List<String> note;
     @Column(name = "salary")
     BigDecimal salary;
     @CreationTimestamp

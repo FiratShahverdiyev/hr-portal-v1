@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,10 +29,8 @@ public class DocumentData {
     BigDecimal compensation;
     //Strukturun tesisi
     String institutionName;
-    String departmentName;
     //Xitam
     String dismissalDate;
     String dismissalReason;
-    String note;
-
+    List<String> note;
 }

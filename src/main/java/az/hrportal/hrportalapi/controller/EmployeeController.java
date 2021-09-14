@@ -8,6 +8,7 @@ import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
+import az.hrportal.hrportalapi.dto.employee.response.EmployeeDocumentResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.service.employee.EmployeeService;
@@ -95,6 +96,12 @@ public class EmployeeController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Set<KeyValue<String, Integer>>> getAllFullNameAndPosition() {
         return ResponseDto.of(employeeService.getAllFullNameAndPosition(), 200);
+    }
+
+    @GetMapping("document-info/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<EmployeeDocumentResponseDto> getDocumentInfo(@PathVariable Integer id) {
+        return ResponseDto.of(employeeService.getDocumentInfo(id), 200);
     }
 
     //TODO Delete on production

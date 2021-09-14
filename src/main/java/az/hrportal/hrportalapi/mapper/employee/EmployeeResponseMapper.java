@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.mapper.employee;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
+import az.hrportal.hrportalapi.dto.employee.response.EmployeeDocumentResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.mapper.employee.helper.BloodGroupValue;
@@ -71,4 +72,9 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "position", source = "position.vacancy.name")
     @Mapping(target = "department", source = "position.department.name")
     EmployeeResponseDto toEmployeeResponseDto(Employee employee);
+
+    @Mapping(target = "department", source = "position.department.name")
+    @Mapping(target = "subDepartment", source = "position.subDepartment.name")
+    @Mapping(target = "position", source = "position.vacancy.name")
+    EmployeeDocumentResponseDto toEmployeeDocumentResponseDto(Employee employee);
 }
