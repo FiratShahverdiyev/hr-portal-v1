@@ -5,20 +5,22 @@ import lombok.Getter;
 
 @Getter
 public enum DocumentType {
-    SHTAT_VAHIDININ_TESISI(1),
-    SHTAT_VAHIDININ_LEGVI(2),
-    SHTAT_EMEK_HAQQININ_DEYISTIRILMESI(3),
-    STRUKTURUN_TESIS_EDILMESI(4),
-    STRUKTURUN_ADININ_DEYISTIRILMESI(5),
-    STRUKRUTUN_LEGV_EDILMESI(6),
-    ISHE_QEBUL(7),
-    XITAM(8),
-    VEZIFE_DEYISIKLIYI(9),
-    EMEK_HAQQI_DEYISIKLIYI(10);
+    SHTAT_VAHIDININ_TESISI(1, Constant.STUFF),
+    SHTAT_VAHIDININ_LEGVI(2, Constant.STUFF),
+    SHTAT_EMEK_HAQQININ_DEYISTIRILMESI(3, Constant.STUFF),
+    STRUKTURUN_TESIS_EDILMESI(4, Constant.STUFF),
+    STRUKTURUN_ADININ_DEYISTIRILMESI(5, ""),
+    STRUKRUTUN_LEGV_EDILMESI(6, ""),
+    ISHE_QEBUL(7, Constant.EMPLOYEE),
+    XITAM(8, Constant.EMPLOYEE),
+    VEZIFE_DEYISIKLIYI(9, Constant.EMPLOYEE),
+    EMEK_HAQQI_DEYISIKLIYI(10, Constant.EMPLOYEE);
 
     private int value;
+    private String label;
 
-    DocumentType(int value) {
+    DocumentType(int value, String label) {
+        this.label = label;
         this.value = value;
     }
 

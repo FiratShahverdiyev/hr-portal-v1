@@ -1,7 +1,7 @@
 package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.DocumentData;
-import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.service.DocumentService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -35,7 +35,7 @@ public class DocumentController {
 
     @GetMapping("types")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Set<KeyValue<String, Integer>>> documentTypes() {
+    public ResponseDto<Set<KeyValueLabel<String, Integer, String>>> documentTypes() {
         return ResponseDto.of(documentService.getDocumentTypes(), 200);
     }
 }
