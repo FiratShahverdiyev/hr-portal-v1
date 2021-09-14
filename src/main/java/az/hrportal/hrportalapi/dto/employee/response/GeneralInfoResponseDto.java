@@ -51,6 +51,12 @@ public class GeneralInfoResponseDto {
     String ownMailAddress;
     String businessMailAddress;
 
+    String workPermissionSerial;
+    String workPermissionNumber;
+    Integer workPermissionPeriod;
+    String startWorkPermissionDate;
+    String expiredWorkPermissionDate;
+
     boolean active;
     List<FamilyMemberResponseDto> familyMembers;
     String photo;

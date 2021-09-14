@@ -25,6 +25,8 @@ public interface EmployeeMapper {
     @Mapping(target = "IDCardStartDate", source = "IDCardStartDate", dateFormat = dateFormat)
     @Mapping(target = "foreignPassportEndDate", source = "foreignPassportEndDate", dateFormat = dateFormat)
     @Mapping(target = "IDCardEndDate", source = "IDCardEndDate", dateFormat = dateFormat)
+    @Mapping(target = "startWorkPermissionDate", source = "startWorkPermissionDate", dateFormat = dateFormat)
+    @Mapping(target = "expiredWorkPermissionDate", source = "expiredWorkPermissionDate", dateFormat = dateFormat)
     @Mapping(target = "citizenCountry", source = "citizenCountry", ignore = true)
     void updateEmployee(@MappingTarget Employee employee, EmployeeGeneralInfoRequestDto generalInfoRequestDto);
 

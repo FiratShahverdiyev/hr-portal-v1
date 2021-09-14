@@ -82,5 +82,11 @@ public class EmployeeGeneralInfoRequestDto {
     String bloodGroup;
     String permission;
 
+    String workPermissionSerial;
+    String workPermissionNumber;
+    Integer workPermissionPeriod;
+    String startWorkPermissionDate;
+    String expiredWorkPermissionDate;
+
     List<FamilyMemberRequestDto> familyMembers;
 }

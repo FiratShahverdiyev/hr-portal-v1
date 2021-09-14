@@ -219,6 +219,16 @@ public class Employee {
     boolean active;
     @OneToMany(mappedBy = "employee")
     Set<Operation> operations;
+    @Column(name = "work_permission_serial")
+    String workPermissionSerial;
+    @Column(name = "work_permission_number")
+    String workPermissionNumber;
+    @Column(name = "work_permission_period")
+    Integer workPermissionPeriod;
+    @Column(name = "start_work_permission_date")
+    LocalDate startWorkPermissionDate;
+    @Column(name = "expired_work_permission_date")
+    LocalDate expiredWorkPermissionDate;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

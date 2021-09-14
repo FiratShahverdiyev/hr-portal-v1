@@ -55,6 +55,8 @@ public interface EmployeeResponseMapper {
     @Mapping(target = "familyCondition", source = "familyCondition", qualifiedBy = FamilyConditionValue.class)
     @Mapping(target = "gender", source = "gender", qualifiedBy = GenderValue.class)
     @Mapping(target = "bloodGroup", source = "bloodGroup", qualifiedBy = BloodGroupValue.class)
+    @Mapping(target = "startWorkPermissionDate", source = "startWorkPermissionDate", dateFormat = dateFormat)
+    @Mapping(target = "expiredWorkPermissionDate", source = "expiredWorkPermissionDate", dateFormat = dateFormat)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Employee employee);
 
     @Mapping(target = "jobStartDate", source = "jobStartDate", dateFormat = dateFormat)
