@@ -1,7 +1,9 @@
 package az.hrportal.hrportalapi.constant;
 
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
+import lombok.Getter;
 
+@Getter
 public enum DocumentType {
     SHTAT_VAHIDININ_TESISI(1),
     SHTAT_VAHIDININ_LEGVI(2),
