@@ -33,6 +33,12 @@ public class DocumentController {
         return response;
     }
 
+    @PostMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> create(@RequestBody @Valid DocumentData documentData) {
+        return ResponseDto.of(documentService.create(documentData), 200);
+    }
+
     @GetMapping("types")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Set<KeyValueLabel<String, Integer, String>>> documentTypes() {

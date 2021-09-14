@@ -25,6 +25,7 @@ public class DocumentData {
     //Shtatin legvi
     //Stat emek haqqi deyisikliyi
     BigDecimal demandedSalary;
+    BigDecimal compensation;
     //Strukturun tesisi
     String institutionName;
     String departmentName;
