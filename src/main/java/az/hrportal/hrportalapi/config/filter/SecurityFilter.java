@@ -33,11 +33,13 @@ public class SecurityFilter extends GenericFilterBean {
     @SneakyThrows
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        log.info("********** URI : {} ************", httpServletRequest.getRequestURI());
+        log.info("********** URI : {} called by USERNAME : {} ************", httpServletRequest.getRequestURI(),
+                SecurityUtil.getUsername());
         try {
             String token = SecurityUtil.extractToken(httpServletRequest);
             Authentication authentication = tokenProvider.parseAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            log.info("********** called by USERNAME : {} **********", SecurityUtil.getUsername());
             chain.doFilter(request, response);
         } catch (Exception e) {
             if (e instanceof ExpiredJwtException) {
