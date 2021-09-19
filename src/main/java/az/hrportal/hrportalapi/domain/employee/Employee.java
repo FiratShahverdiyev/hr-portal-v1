@@ -39,6 +39,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
@@ -229,6 +230,8 @@ public class Employee {
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")
     LocalDate expiredWorkPermissionDate;
+    @Column(name = "own_additional_salary")
+    BigDecimal ownAdditionalSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

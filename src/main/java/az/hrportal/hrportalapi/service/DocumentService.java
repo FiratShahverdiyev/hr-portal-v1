@@ -1,14 +1,13 @@
 package az.hrportal.hrportalapi.service;
 
-import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.constant.DocumentType;
-import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.DocumentData;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.helper.FileUtil;
+import az.hrportal.hrportalapi.mapper.operation.OperationMapper;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +25,7 @@ public class DocumentService {
     private final FileUtil fileUtil;
     private final OperationRepository operationRepository;
     private final EmployeeRepository employeeRepository;
+    private final OperationMapper operationMapper;
 
     @SneakyThrows
     public byte[] export2Pdf(DocumentData documentData) {
@@ -45,16 +43,10 @@ public class DocumentService {
     @SneakyThrows
     public Integer create(DocumentData documentData) {
         log.info("create (Document) service started with {}", documentData);
-        Operation operation = Operation.builder()
-                .documentType(DocumentType.intToEnum(documentData.getDocumentType()))
-                .dismissalReason(documentData.getDismissalReason())
-                .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
-                        DateTimeFormatter.ofPattern(Constant.dateFormat)))
-                .employee(employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
-                        new EntityNotFoundException(Employee.class, documentData.getEmployeeId())))
-                .note(documentData.getNote())
-                .compensation(documentData.getCompensation())
-                .build();
+        Operation operation = operationMapper.toOperation(documentData);
+        if (documentData.getEmployeeId() != null)
+            operation.setEmployee(employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
+                    new EntityNotFoundException(Operation.class, documentData.getEmployeeId())));
         Operation saved = operationRepository.save(operation);
         log.info("********** create (Document) service completed with id : {} **********", saved.getId());
         return saved.getId();

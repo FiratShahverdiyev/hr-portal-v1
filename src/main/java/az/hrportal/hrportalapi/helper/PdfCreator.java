@@ -20,8 +20,6 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
-import com.itextpdf.layout.element.List;
-import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
@@ -47,7 +45,7 @@ public class PdfCreator {
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfCreatePosition(Document document, DocumentData documentData, PdfFont bold) {
-        log.info("createPosition PDF creator started with {}", documentData);
+    /*    log.info("createPosition PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Ştat vahid (lər) inin təsis edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -61,12 +59,6 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
-        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
-                new EntityNotFoundException(Position.class, documentData.getPositionId()));
-        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
-        if (translatedToAze == null) {
-            translatedToAze = new GeneralInfoResponseDto();
-        }
         Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan əmək haqqı ilə ştat" +
                 " vahidi vahidləri təsis edilsin.");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
@@ -111,14 +103,13 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         document.add(new Paragraph(text5));
-        Operation saved = save(position, documentData);
-        log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());
+        log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());*/
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfDeletePosition(Document document, DocumentData documentData, PdfFont bold) {
-        log.info("deletePosition PDF creator started with {}", documentData);
+      /*  log.info("deletePosition PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Ştat vahid(lər)inin ləğv edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -132,12 +123,6 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
-        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
-                new EntityNotFoundException(Position.class, documentData.getPositionId()));
-        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
-        if (translatedToAze == null) {
-            translatedToAze = new GeneralInfoResponseDto();
-        }
         Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan ştat vahidi (ləri)" +
                 " ləğv edilsin. ");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
@@ -180,14 +165,13 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         document.add(new Paragraph(text5));
-        Operation saved = save(position, documentData);
-        log.info("********** deletePosition PDF creator completed with operationId : {} **********", saved.getId());
+        log.info("********** deletePosition PDF creator completed with operationId : {} **********", saved.getId());*/
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeSalary(Document document, DocumentData documentData, PdfFont bold) {
-        log.info("pdfChangeSalary PDF creator started with {}", documentData);
+   /*     log.info("pdfChangeSalary PDF creator started with {}", documentData);
 
         Paragraph paragraph1 = new Paragraph("“Ştat əmək haqqının dəyişdirilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
@@ -202,12 +186,6 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
-        Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
-                new EntityNotFoundException(Position.class, documentData.getPositionId()));
-        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
-        if (translatedToAze == null) {
-            translatedToAze = new GeneralInfoResponseDto();
-        }
         Text text1 = new Text("1.Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan vəzifəsinin" +
                 " əmək haqqı dəyişdirilsin.");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
@@ -250,8 +228,7 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         document.add(new Paragraph(text5));
-        Operation saved = save(position, documentData);
-        log.info("********** pdfChangeSalary PDF creator completed with operationId : {} **********", saved.getId());
+        log.info("********** pdfChangeSalary PDF creator completed with operationId : {} **********", saved.getId());*/
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
@@ -435,24 +412,4 @@ public class PdfCreator {
         return operationRepository.save(operation);
     }
 
-    @Transactional
-    protected Operation save(Position position, DocumentData documentData) {
-        Operation operation;
-        if (documentData.getDocumentType() == 1)
-            operation = Operation.builder()
-                    .position(position)
-                    .salary(position.getSalary().getSalary())
-                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
-                    .build();
-        else
-            operation = Operation.builder()
-                    .position(position)
-                    .dismissalDate(LocalDate.parse(documentData.getDismissalDate(),
-                            DateTimeFormatter.ofPattern("dd-MM-yyyy")))
-                    .dismissalReason(documentData.getDismissalReason())
-                    .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
-                    .build();
-
-        return operationRepository.save(operation);
-    }
 }

@@ -48,9 +48,9 @@ public class Operation {
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
-    @ManyToOne
+/*    @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
-    Position position;
+    Position position;*/
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     DocumentType documentType;
@@ -67,6 +67,20 @@ public class Operation {
     List<String> note;
     @Column(name = "salary")
     BigDecimal salary;
+    @Column(name = "join_date")
+    LocalDate joinDate;
+    @Column(name = "test_period")
+    Integer testPeriod;
+    @Column(name = "own_additional_salary")
+    BigDecimal ownAdditionalSalary;
+    @Column(name = "change_date")
+    LocalDate changeDate;
+    @Column(name = "department")
+    String department;
+    @Column(name = "position")
+    String position;
+    @Column(name = "new_own_additional_salary")
+    BigDecimal newOwnAdditionalSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

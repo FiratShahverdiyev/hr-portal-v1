@@ -17,20 +17,39 @@ import java.util.List;
 @ToString
 public class DocumentData {
     @NotNull
-    @Range(min = 1, max = 10)
+    @Range(min = 1, max = 14)
     Integer documentType;
-    Integer employeeId;
-    Integer positionId;
     String main;
-    //Shtatin tesisi
-    //Shtatin legvi
-    //Stat emek haqqi deyisikliyi
-    BigDecimal demandedSalary;
-    BigDecimal compensation;
-    //Strukturun tesisi
-    String institutionName;
     //Xitam
+    Integer employeeId;
     String dismissalDate;
     String dismissalReason;
     List<String> note;
+    //Ishe qebul
+    String joinDate;
+    Integer testPeriod;
+    BigDecimal ownAdditionalSalary;
+    //Vezife deyisikliyi
+    String changeDate;
+    String department;
+    String position;
+    BigDecimal mainSalary;
+    BigDecimal additionalSalary;
+    BigDecimal newOwnAdditionalSalary;
+    //Emek haqqi deyisikliyi
+    //Is yeri deyisikliyi
+    String newWorkPlace;
+    //Muveqqeti kecirilme
+    Integer temporaryPeriod = 1;
+    //maddi yardim
+    BigDecimal financialHelp;
+    //Mukafatlandirm
+    BigDecimal achievement;
+    //Statin tesisi, legvi
+    Integer vacancyCount;
+    BigDecimal salary;
+    String workMode;
+    String vacancyCategory;
+    @Range(min = 1, max = 5)
+    Integer workPlace;
 }
