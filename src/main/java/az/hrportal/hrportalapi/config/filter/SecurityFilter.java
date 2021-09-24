@@ -33,8 +33,7 @@ public class SecurityFilter extends GenericFilterBean {
     @SneakyThrows
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        log.info("********** URI : {} called by USERNAME : {} ************", httpServletRequest.getRequestURI(),
-                SecurityUtil.getUsername());
+        log.info("********** URI : {} ************", httpServletRequest.getRequestURI());
         try {
             String token = SecurityUtil.extractToken(httpServletRequest);
             Authentication authentication = tokenProvider.parseAuthentication(token);
