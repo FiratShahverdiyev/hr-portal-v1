@@ -1,0 +1,448 @@
+[ INFO ] 2021-09-24 12:25:35 [THREAD - main] INFO  az.hrportal.hrportalapi.HrportalApiApplication:55 - Starting HrportalApiApplication using Java 11.0.12 on firatshahverdiyev-ThinkPad-T15-Gen-1 with PID 7140 (/home/firatshahverdiyev/Documents/Projects/hrportal-api/build/classes/java/main started by firatshahverdiyev in /home/firatshahverdiyev/Documents/Projects/hrportal-api)
+[ INFO ] 2021-09-24 12:25:35 [THREAD - main] INFO  az.hrportal.hrportalapi.HrportalApiApplication:663 - The following profiles are active: local
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 66 ms. Found 19 JPA repository interfaces.
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 8080 (http)
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.50]
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:290 - Root WebApplicationContext: initialization completed in 1261 ms
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.hibernate.Version:44 - HHH000412: Hibernate ORM core version 5.4.32.Final
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  org.hibernate.annotations.common.Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[ INFO ] 2021-09-24 12:25:36 [THREAD - main] INFO  com.zaxxer.hikari.HikariDataSource:110 - IdentityHikariPool - Starting...
+[ ERROR ] 2021-09-24 12:25:37 [THREAD - main] ERROR com.zaxxer.hikari.pool.HikariPool:594 - IdentityHikariPool - Exception during pool initialization.
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:303)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:152)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:176)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1224)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1255)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332)
+	at az.hrportal.hrportalapi.HrportalApiApplication.main(HrportalApiApplication.java:11)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:231)
+	at org.postgresql.core.PGStream.<init>(PGStream.java:95)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:98)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	... 50 common frames omitted
+[ WARN ] 2021-09-24 12:25:37 [THREAD - main] WARN  org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:303)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:68)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:101)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:263)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:237)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.id.factory.internal.DefaultIdentifierGeneratorFactory.injectServices(DefaultIdentifierGeneratorFactory.java:152)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.injectDependencies(AbstractServiceRegistryImpl.java:286)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:243)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:214)
+	at org.hibernate.boot.internal.InFlightMetadataCollectorImpl.<init>(InFlightMetadataCollectorImpl.java:176)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:127)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:1224)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1255)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332)
+	at az.hrportal.hrportalapi.HrportalApiApplication.main(HrportalApiApplication.java:11)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:231)
+	at org.postgresql.core.PGStream.<init>(PGStream.java:95)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:98)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	... 50 common frames omitted
+[ INFO ] 2021-09-24 12:25:37 [THREAD - main] INFO  org.hibernate.dialect.Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+[ INFO ] 2021-09-24 12:25:38 [THREAD - main] INFO  com.zaxxer.hikari.HikariDataSource:110 - IdentityHikariPool - Starting...
+[ ERROR ] 2021-09-24 12:25:39 [THREAD - main] ERROR com.zaxxer.hikari.pool.HikariPool:594 - IdentityHikariPool - Exception during pool initialization.
+org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:303)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:43)
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcConnection(ImprovedExtractionContextImpl.java:60)
+	at org.hibernate.tool.schema.extract.internal.SequenceInformationExtractorLegacyImpl.extractMetadata(SequenceInformationExtractorLegacyImpl.java:40)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.initializeSequences(DatabaseInformationImpl.java:65)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.<init>(DatabaseInformationImpl.java:59)
+	at org.hibernate.tool.schema.internal.Helper.buildDatabaseInformation(Helper.java:155)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:96)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:184)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332)
+	at az.hrportal.hrportalapi.HrportalApiApplication.main(HrportalApiApplication.java:11)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:231)
+	at org.postgresql.core.PGStream.<init>(PGStream.java:95)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:98)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	... 48 common frames omitted
+[ WARN ] 2021-09-24 12:25:39 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:137 - SQL Error: 0, SQLState: 08001
+[ ERROR ] 2021-09-24 12:25:39 [THREAD - main] ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper:142 - Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+[ ERROR ] 2021-09-24 12:25:39 [THREAD - main] ERROR org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:426 - Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+[ WARN ] 2021-09-24 12:25:39 [THREAD - main] WARN  org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext:591 - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+[ INFO ] 2021-09-24 12:25:39 [THREAD - main] INFO  org.apache.catalina.core.StandardService:173 - Stopping service [Tomcat]
+[ INFO ] 2021-09-24 12:25:39 [THREAD - main] INFO  org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener:136 - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[ ERROR ] 2021-09-24 12:25:39 [THREAD - main] ERROR org.springframework.boot.SpringApplication:843 - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: Invocation of init method failed; nested exception is javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:602)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:524)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:908)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:145)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:434)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:338)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1343)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1332)
+	at az.hrportal.hrportalapi.HrportalApiApplication.main(HrportalApiApplication.java:11)
+Caused by: javax.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1845)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1782)
+	... 16 common frames omitted
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to open JDBC Connection for DDL execution
+	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:112)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:42)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:113)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:99)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:69)
+	at org.hibernate.tool.schema.internal.exec.ImprovedExtractionContextImpl.getJdbcConnection(ImprovedExtractionContextImpl.java:60)
+	at org.hibernate.tool.schema.extract.internal.SequenceInformationExtractorLegacyImpl.extractMetadata(SequenceInformationExtractorLegacyImpl.java:40)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.initializeSequences(DatabaseInformationImpl.java:65)
+	at org.hibernate.tool.schema.extract.internal.DatabaseInformationImpl.<init>(DatabaseInformationImpl.java:59)
+	at org.hibernate.tool.schema.internal.Helper.buildDatabaseInformation(Helper.java:155)
+	at org.hibernate.tool.schema.internal.AbstractSchemaMigrator.doMigration(AbstractSchemaMigrator.java:96)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:184)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:73)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:318)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:468)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1259)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:58)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409)
+	... 20 common frames omitted
+Caused by: org.postgresql.util.PSQLException: Connection to localhost:5432 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:303)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:51)
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:223)
+	at org.postgresql.Driver.makeConnection(Driver.java:465)
+	at org.postgresql.Driver.connect(Driver.java:264)
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:138)
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:364)
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:206)
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:476)
+	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:561)
+	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:115)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:112)
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:122)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess.obtainConnection(JdbcEnvironmentInitiator.java:180)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl.getIsolatedConnection(DdlTransactionIsolatorNonJtaImpl.java:43)
+	... 34 common frames omitted
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:399)
+	at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:242)
+	at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:224)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.base/java.net.Socket.connect(Socket.java:609)
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:231)
+	at org.postgresql.core.PGStream.<init>(PGStream.java:95)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:98)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:213)
+	... 48 common frames omitted
+[ INFO ] 2021-09-24 15:26:43 [THREAD - main] INFO  az.hrportal.hrportalapi.HrportalApiApplication:55 - Starting HrportalApiApplication using Java 11.0.12 on firatshahverdiyev-ThinkPad-T15-Gen-1 with PID 8021 (/home/firatshahverdiyev/Documents/Projects/hrportal-api/build/classes/java/main started by firatshahverdiyev in /home/firatshahverdiyev/Documents/Projects/hrportal-api)
+[ INFO ] 2021-09-24 15:26:43 [THREAD - main] INFO  az.hrportal.hrportalapi.HrportalApiApplication:663 - The following profiles are active: local
+[ INFO ] 2021-09-24 15:26:44 [THREAD - main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:132 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[ INFO ] 2021-09-24 15:26:44 [THREAD - main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate:201 - Finished Spring Data repository scanning in 67 ms. Found 19 JPA repository interfaces.
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:108 - Tomcat initialized with port(s): 8080 (http)
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.apache.catalina.core.StandardService:173 - Starting service [Tomcat]
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.apache.catalina.core.StandardEngine:173 - Starting Servlet engine: [Apache Tomcat/9.0.50]
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring embedded WebApplicationContext
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext:290 - Root WebApplicationContext: initialization completed in 1218 ms
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.hibernate.jpa.internal.util.LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.hibernate.Version:44 - HHH000412: Hibernate ORM core version 5.4.32.Final
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.hibernate.annotations.common.Version:56 - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  com.zaxxer.hikari.HikariDataSource:110 - IdentityHikariPool - Starting...
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  com.zaxxer.hikari.HikariDataSource:123 - IdentityHikariPool - Start completed.
+[ INFO ] 2021-09-24 15:26:45 [THREAD - main] INFO  org.hibernate.dialect.Dialect:175 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+[ INFO ] 2021-09-24 15:26:46 [THREAD - main] INFO  org.hibernate.orm.connections.access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@6fc1a1d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_hvno77kis5ofo7qehvlj60fly" of relation "address_cities" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_japcb68g55o2dp1g8vhpxj6mj" of relation "address_countries" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_948i9liv7l4rxqbcdki2lmd75" of relation "address_districts" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_7ei4ux904c6lrs0o7crkdbw8t" of relation "citizen_countries" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_aha6flpfx11nash10pyv9gbnd" of relation "days" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_j6cwks7xecs5jov19ro8ge3qk" of relation "departments" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_l3uewvcgggjpwyvk8gu8rs2b9" of relation "institutions" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_6vo8hucut9o5cjhdhlyb1lk49" of relation "job_families" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_ngf9cnr3y62h3qbljvu1xou5y" of relation "obey_departments" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_my8anf8jntxvghh5cu3qnihg5" of relation "salaries" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "ukojik3015qkep211hyu65ro4vd" of relation "skills" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_hyxbmhook00xojab057gnoo5u" of relation "specialities" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_qpjhralv4dgd38skq2udhmq2r" of relation "sub_departments" does not exist, skipping
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:230 - SQL Warning Code: 0, SQLState: 00000
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.hibernate.engine.jdbc.spi.SqlExceptionHelper:231 - constraint "uk_r43af9ap4edm43mmtq01oddj6" of relation "users" does not exist, skipping
+[ INFO ] 2021-09-24 15:26:46 [THREAD - main] INFO  org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+[ INFO ] 2021-09-24 15:26:46 [THREAD - main] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:437 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+[ WARN ] 2021-09-24 15:26:46 [THREAD - main] WARN  org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration:219 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/error'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/favicon.ico'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/csrf'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/actuator/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/swagger-ui.html'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/app/**/*.{js'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='html}'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/i18n/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/content/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/swagger-ui/index.html'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/v2/api-docs'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/webjars/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/swagger-resources/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure Ant [pattern='/auth/**'] with []
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping:69 - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.security.web.DefaultSecurityFilterChain:51 - Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@31b9108b, org.springframework.security.web.context.SecurityContextPersistenceFilter@70a9f4b7, org.springframework.web.filter.CorsFilter@11e323a6, org.springframework.security.web.authentication.logout.LogoutFilter@9a00385, az.hrportal.hrportalapi.config.filter.SecurityFilter@704205ef, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2fe6bcbb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6d7e2c53, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@18ee9a8f, org.springframework.security.web.session.SessionManagementFilter@1e8f20bf, org.springframework.security.web.access.ExceptionTranslationFilter@2a58d00a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@45144fdf]
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer:220 - Tomcat started on port(s): 8080 (http) with context path ''
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:160 - Context refreshed
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper:163 - Found 1 custom documentation plugin(s)
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.scanners.ApiListingReferenceScanner:41 - Scanning for api listing references
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_1
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_1
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_2
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_3
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_2
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: updateUsingPUT_1
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: updateUsingPUT_2
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_3
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_4
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_4
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_5
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_5
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_6
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: deleteUsingDELETE_1
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_6
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getGeneralInfoUsingGET_1
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: updateUsingPUT_3
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: updateUsingPUT_4
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_7
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_7
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_8
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_8
+[ INFO ] 2021-09-24 15:26:48 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: createUsingPOST_9
+[ INFO ] 2021-09-24 15:26:49 [THREAD - main] INFO  springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator:40 - Generating unique operation named: getAllUsingGET_9
+[ INFO ] 2021-09-24 15:26:49 [THREAD - main] INFO  az.hrportal.hrportalapi.HrportalApiApplication:61 - Started HrportalApiApplication in 5.461 seconds (JVM running for 5.94)
+[ INFO ] 2021-09-24 15:27:15 [THREAD - http-nio-8080-exec-1] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/]:173 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+[ INFO ] 2021-09-24 15:27:15 [THREAD - http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet:525 - Initializing Servlet 'dispatcherServlet'
+[ INFO ] 2021-09-24 15:27:15 [THREAD - http-nio-8080-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet:547 - Completed initialization in 3 ms
+[ INFO ] 2021-09-24 15:27:15 [THREAD - 03aaeb4fbe9b41e8bd61c29799874f1c] INFO  az.hrportal.hrportalapi.config.filter.SecurityFilter:36 - ********** URI : /swagger-ui.hrml ************
+[ ERROR ] 2021-09-24 15:27:15 [THREAD - 03aaeb4fbe9b41e8bd61c29799874f1c] ERROR az.hrportal.hrportalapi.config.filter.SecurityFilter:51 - ---------- Security filter error . Exception ---------- 
+ StackTrace : Token is not valid. TOKEN : null
+az.hrportal.hrportalapi.security.SecurityUtil.extractToken(SecurityUtil.java:16)
+az.hrportal.hrportalapi.config.filter.SecurityFilter.doFilter(SecurityFilter.java:38)
+org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:103)
+org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:89)
+org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:110)
+org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:80)
+org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:55)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:336)
+org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:211)
+org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:183)
+org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:358)
+org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:271)
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:190)
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:163)
+org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:190)
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:163)
+org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:190)
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:163)
+org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:190)
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:163)
+az.hrportal.hrportalapi.config.filter.HttpSessionFilter.doFilterInternal(HttpSessionFilter.java:27)
+org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:190)
+org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:163)
+org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:357)
+org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:382)
+org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:893)
+org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1723)
+org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+java.base/java.lang.Thread.run(Thread.java:829)
+
+[ INFO ] 2021-09-24 15:27:47 [THREAD - SpringApplicationShutdownHook] INFO  org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean:651 - Closing JPA EntityManagerFactory for persistence unit 'default'
+[ INFO ] 2021-09-24 15:27:47 [THREAD - SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:350 - IdentityHikariPool - Shutdown initiated...
+[ INFO ] 2021-09-24 15:27:47 [THREAD - SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource:352 - IdentityHikariPool - Shutdown completed.

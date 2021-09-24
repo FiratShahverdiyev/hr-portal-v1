@@ -2,18 +2,9 @@ package az.hrportal.hrportalapi.mapper;
 
 import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
-import az.hrportal.hrportalapi.domain.position.Department;
-import az.hrportal.hrportalapi.domain.position.Institution;
-import az.hrportal.hrportalapi.domain.position.JobFamily;
-import az.hrportal.hrportalapi.domain.position.Salary;
-import az.hrportal.hrportalapi.domain.position.SubDepartment;
-import az.hrportal.hrportalapi.domain.position.Vacancy;
+import az.hrportal.hrportalapi.domain.position.*;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.math.BigDecimal;
 import java.util.List;

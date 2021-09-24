@@ -1,25 +1,9 @@
 package az.hrportal.hrportalapi.mapper.employee;
 
 import az.hrportal.hrportalapi.domain.employee.Employee;
-import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.EmployeeDocumentResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
-import az.hrportal.hrportalapi.mapper.employee.helper.BloodGroupValue;
-import az.hrportal.hrportalapi.mapper.employee.helper.CertificatesToDto;
-import az.hrportal.hrportalapi.mapper.employee.helper.EducationTypeValue;
-import az.hrportal.hrportalapi.mapper.employee.helper.EmployeeMapperHelper;
-import az.hrportal.hrportalapi.mapper.employee.helper.FamilyConditionValue;
-import az.hrportal.hrportalapi.mapper.employee.helper.FamilyMembersToDto;
-import az.hrportal.hrportalapi.mapper.employee.helper.GenderValue;
-import az.hrportal.hrportalapi.mapper.employee.helper.GovernmentAchievementToDto;
-import org.mapstruct.IterableMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
-import org.mapstruct.NullValueCheckStrategy;
-import org.mapstruct.ReportingPolicy;
+import az.hrportal.hrportalapi.dto.employee.response.*;
+import az.hrportal.hrportalapi.mapper.employee.helper.*;
+import org.mapstruct.*;
 
 import java.util.List;
 

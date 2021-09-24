@@ -1,33 +1,19 @@
 package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.constant.employee.Quota;
-import az.hrportal.hrportalapi.domain.employee.AddressCity;
-import az.hrportal.hrportalapi.domain.employee.AddressCountry;
-import az.hrportal.hrportalapi.domain.employee.AddressDistrict;
-import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
-import az.hrportal.hrportalapi.domain.employee.Employee;
-import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
+import az.hrportal.hrportalapi.domain.employee.*;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.GovernmentAchievementRequestDto;
-import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.EmployeeDocumentResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
+import az.hrportal.hrportalapi.dto.employee.response.*;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeResponseMapper;
 import az.hrportal.hrportalapi.mapper.employee.helper.EmployeeMapperHelper;
-import az.hrportal.hrportalapi.repository.employee.AddressCityRepository;
-import az.hrportal.hrportalapi.repository.employee.AddressCountryRepository;
-import az.hrportal.hrportalapi.repository.employee.AddressDistrictRepository;
-import az.hrportal.hrportalapi.repository.employee.CitizenCountryRepository;
-import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
-import az.hrportal.hrportalapi.repository.employee.GovernmentAchievementRepository;
+import az.hrportal.hrportalapi.repository.employee.*;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -37,11 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Slf4j
