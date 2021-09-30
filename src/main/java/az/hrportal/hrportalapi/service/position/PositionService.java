@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.service.position;
 
+import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.domain.position.Department;
@@ -97,7 +98,7 @@ public class PositionService {
     public PaginationResponseDto<List<PositionResponseDto>> getPaginationWithSearch(
             int page, int size, PositionFilterRequestDto filterRequestDto) {
         log.info("getPaginationWithSearch service started with {}", filterRequestDto);
-        List<Position> positions = positionRepository.findAllByStatusIsApproved();
+        List<Position> positions = positionRepository.findAll();
         List<PositionResponseDto> responseDtoList = new ArrayList<>();
         positionFilter(positions, responseDtoList, filterRequestDto);
         PagedListHolder<PositionResponseDto> responseHolder = new PagedListHolder<>(responseDtoList);
@@ -205,6 +206,8 @@ public class PositionService {
             return;
         }
         for (Position position : data) {
+            if (!position.getStatus().equals(Status.APPROVED))
+                continue;
             if (requestDto.getDepartment() != null &&
                     position.getDepartment().getName().equals(requestDto.getDepartment()))
                 response.add(positionResponseMapper.toPositionResponseDto(position));

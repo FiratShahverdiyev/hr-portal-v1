@@ -25,11 +25,4 @@ public interface PositionRepository extends JpaRepository<Position, Integer> {
             "department", "subDepartment", "vacancy", "educationSpeciality", "jobFamily", "salary"})
     @Cacheable("positions")
     List<Position> findAll();
-
-    @Query("select p from Position p where p.status='APPROVED' ")
-    @EntityGraph(attributePaths = {"skills", "functionalities", "institution",
-            "languageKnowledge", "legislationStatements", "computerKnowledge",
-            "department", "subDepartment", "vacancy", "educationSpeciality", "jobFamily", "salary"})
-    @Cacheable("positions")
-    List<Position> findAllByStatusIsApproved();
 }
