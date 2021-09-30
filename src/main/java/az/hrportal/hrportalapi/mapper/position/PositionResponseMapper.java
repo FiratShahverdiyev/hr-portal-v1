@@ -4,8 +4,23 @@ import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.KnowledgeResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
-import az.hrportal.hrportalapi.mapper.position.helper.*;
-import org.mapstruct.*;
+import az.hrportal.hrportalapi.mapper.position.helper.ComputerKnowledgeToDto;
+import az.hrportal.hrportalapi.mapper.position.helper.EducationDegreeValue;
+import az.hrportal.hrportalapi.mapper.position.helper.GenderDemandValue;
+import az.hrportal.hrportalapi.mapper.position.helper.LanguageKnowledgeToDto;
+import az.hrportal.hrportalapi.mapper.position.helper.LegislationStatementToDto;
+import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
+import az.hrportal.hrportalapi.mapper.position.helper.RequireFileValue;
+import az.hrportal.hrportalapi.mapper.position.helper.SkillsToDto;
+import az.hrportal.hrportalapi.mapper.position.helper.VacancyCategoryValue;
+import az.hrportal.hrportalapi.mapper.position.helper.WorkConditionValue;
+import az.hrportal.hrportalapi.mapper.position.helper.WorkModeValue;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 

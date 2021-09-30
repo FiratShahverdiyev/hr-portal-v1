@@ -1,6 +1,13 @@
 package az.hrportal.hrportalapi.mapper.position.helper;
 
-import az.hrportal.hrportalapi.constant.position.*;
+import az.hrportal.hrportalapi.constant.position.EducationDegree;
+import az.hrportal.hrportalapi.constant.position.GenderDemand;
+import az.hrportal.hrportalapi.constant.position.Level;
+import az.hrportal.hrportalapi.constant.position.RequireFile;
+import az.hrportal.hrportalapi.constant.position.VacancyCategory;
+import az.hrportal.hrportalapi.constant.position.WorkCondition;
+import az.hrportal.hrportalapi.constant.position.WorkMode;
+import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LegislationStatement;
@@ -9,7 +16,11 @@ import az.hrportal.hrportalapi.dto.position.response.ComputerKnowledgeResponseDt
 import az.hrportal.hrportalapi.dto.position.response.LanguageKnowledgeResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.LegislationStatementResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.SkillResponseDto;
-import org.mapstruct.*;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 import java.util.Set;

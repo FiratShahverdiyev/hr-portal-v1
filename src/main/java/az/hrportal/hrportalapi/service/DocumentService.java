@@ -10,7 +10,6 @@ import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
-import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.mapper.document.DocumentInformationResponseMapper;
 import az.hrportal.hrportalapi.mapper.operation.OperationMapper;
@@ -37,15 +36,15 @@ public class DocumentService {
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
 
     @SneakyThrows
-    public byte[] export2Pdf(DocumentData documentData) {
-        log.info("export2Pdf service started with {}", documentData);
+    public byte[] export2Pdf(Integer operationId) {
+        log.info("export2Pdf service started with operationId : {}", operationId);
         byte[] response;
         try {
-            response = fileUtil.createAndGetPdf(documentData);
+            response = fileUtil.createAndGetPdf(operationId);
         } catch (Exception e) {
             throw new DocumentException(e);
         }
-        log.info("********** export2Pdf service completed with {} **********", documentData);
+        log.info("********** export2Pdf service completed with operationId : {} **********", operationId);
         return response;
     }
 
@@ -104,6 +103,6 @@ public class DocumentService {
     }
 
     protected void checkAndDo(DocumentType documentType) {
-       
+
     }
 }

@@ -1,9 +1,11 @@
 package az.hrportal.hrportalapi.helper;
 
 import az.hrportal.hrportalapi.constant.DocumentType;
-import az.hrportal.hrportalapi.dto.DocumentData;
+import az.hrportal.hrportalapi.domain.operation.Operation;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
+import az.hrportal.hrportalapi.repository.OperationRepository;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
@@ -35,6 +37,7 @@ import java.util.UUID;
 public class FileUtil {
     private final PdfCreator pdfCreator;
     private final AmazonS3 amazonS3;
+    private final OperationRepository operationRepository;
 
     @Value("${amazon.s3.bucket.folder.employee-images}")
     private String employeeImagePath;
@@ -113,8 +116,8 @@ public class FileUtil {
     }
 
     @SneakyThrows
-    public byte[] createAndGetPdf(DocumentData data) {
-        log.info("createAndGetPdf util started with {}", data);
+    public byte[] createAndGetPdf(Integer operationId) {
+        log.info("createAndGetPdf util started with operationId : {}", operationId);
         regular = pdfCreator.getTTInterphasesFont(false);
         bold = pdfCreator.getTTInterphasesFont(true);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -123,33 +126,34 @@ public class FileUtil {
         PageSize customPageSize = new PageSize(840F, 1188F);
         Document document = new Document(pdfDocument, customPageSize);
         document.setFont(regular);
-
-        DocumentType documentType = DocumentType.intToEnum(data.getDocumentType());
+        Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
+                new EntityNotFoundException(Operation.class, operationId));
+        DocumentType documentType = operation.getDocumentType();
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
-                pdfCreator.pdfCreatePosition(document, data, bold);
+                pdfCreator.pdfCreatePosition(document, operation, bold);
                 break;
             }
             case SHTAT_VAHIDININ_LEGVI: {
-                pdfCreator.pdfDeletePosition(document, data, bold);
+                pdfCreator.pdfDeletePosition(document, operation, bold);
                 break;
             }
             case SHTAT_EMEK_HAQQININ_DEYISTIRILMESI: {
-                pdfCreator.pdfChangeSalary(document, data, bold);
+                pdfCreator.pdfChangeSalary(document, operation, bold);
                 break;
             }
             case STRUKTURUN_TESIS_EDILMESI: {
                 break;
             }
             case XITAM: {
-                pdfCreator.pdfEndJob(document, data, bold);
+                pdfCreator.pdfEndJob(document, operation, bold);
                 break;
             }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
         document.close();
-        log.info("********** createAndGetPdf util completed with {} **********", data);
+        log.info("********** createAndGetPdf util completed with operationId : {} **********", operationId);
         return bos.toByteArray();
     }
 }

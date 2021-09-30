@@ -10,7 +10,13 @@ import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -24,8 +30,8 @@ public class DocumentController {
 
     @PostMapping(value = "export", produces = MediaType.APPLICATION_PDF_VALUE)
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public byte[] export2Pdf(@RequestBody @Valid DocumentData documentData, HttpServletResponse httpServletResponse) {
-        byte[] response = documentService.export2Pdf(documentData);
+    public byte[] export2Pdf(@RequestParam Integer operationId, HttpServletResponse httpServletResponse) {
+        byte[] response = documentService.export2Pdf(operationId);
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + "Erize");
         return response;

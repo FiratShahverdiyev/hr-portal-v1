@@ -1,13 +1,8 @@
 package az.hrportal.hrportalapi.helper;
 
-import az.hrportal.hrportalapi.constant.DocumentType;
-import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
-import az.hrportal.hrportalapi.dto.DocumentData;
-import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
-import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.position.PositionResponseMapper;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
@@ -20,16 +15,14 @@ import com.itextpdf.io.font.PdfEncodings;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -44,13 +37,13 @@ public class PdfCreator {
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
-    protected void pdfCreatePosition(Document document, DocumentData documentData, PdfFont bold) {
-    /*    log.info("createPosition PDF creator started with {}", documentData);
+    protected void pdfCreatePosition(Document document, Operation operation, PdfFont bold) {
+        log.info("createPosition PDF creator started with operationId : {}", operation.getId());
         Paragraph paragraph1 = new Paragraph("“Ştat vahid (lər) inin təsis edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
 
-        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + documentData.getMain());
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + operation.getMainOfOrder());
         paragraph2.setTextAlignment(TextAlignment.CENTER);
         paragraph2.setFont(bold);
 
@@ -59,18 +52,19 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
+        Position position = operation.getPosition();
         Text text1 = new Text("1. Aşağıda qeyd olunan Cəmiyyətin struktur bölməsində qeyd olunan əmək haqqı ilə ştat" +
                 " vahidi vahidləri təsis edilsin.");
         Text subText1 = new Text("Ştat cədvəli dəyişiklik edilən struktur bölmə: " +
-                translatedToAze.getDepartmentName());
+                position.getDepartment().getName());
         Text subText2 = new Text("Tabe struktur bölmənin adı: ");
-        Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + translatedToAze.getVacancyName());
-        Text subText4 = new Text("Ştat vahidi (say):   " + translatedToAze.getVacancyCount());
+        Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + position.getVacancy().getName());
+        Text subText4 = new Text("Ştat vahidi (say):   " + position.getCount());
         Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
-                translatedToAze.getSalary());
-        Text subText6 = new Text("İş rejimi: " + translatedToAze.getWorkMode());
-        Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + translatedToAze.getVacancyCategory());
-        Text subText8 = new Text("İş yerinin ünvanı: " + translatedToAze.getWorkPlace());
+                position.getSalary().getSalary());
+        Text subText6 = new Text("İş rejimi: " + position.getWorkMode());
+        Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + position.getVacancyCategory());
+        Text subText8 = new Text("İş yerinin ünvanı: " + position.getWorkPlace());
         Text text2 = new Text("2. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
                 "mrdən irəli gələn zəruri məsələlərin həllini təmin etsinlər.");
         Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin. ");
@@ -103,12 +97,12 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         document.add(new Paragraph(text5));
-        log.info("********** createPosition PDF creator completed with operationId : {} **********", saved.getId());*/
+        log.info("********** createPosition PDF creator completed with operationId : {} **********", operation.getId());
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
-    protected void pdfDeletePosition(Document document, DocumentData documentData, PdfFont bold) {
+    protected void pdfDeletePosition(Document document, Operation operation, PdfFont bold) {
       /*  log.info("deletePosition PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Ştat vahid(lər)inin ləğv edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
@@ -170,7 +164,7 @@ public class PdfCreator {
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
-    protected void pdfChangeSalary(Document document, DocumentData documentData, PdfFont bold) {
+    protected void pdfChangeSalary(Document document, Operation operation, PdfFont bold) {
    /*     log.info("pdfChangeSalary PDF creator started with {}", documentData);
 
         Paragraph paragraph1 = new Paragraph("“Ştat əmək haqqının dəyişdirilməsi barədə”");
@@ -233,7 +227,7 @@ public class PdfCreator {
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
-    protected void pdfEndJob(Document document, DocumentData documentData, PdfFont bold) {
+    protected void pdfEndJob(Document document, Operation operation, PdfFont bold) {
      /*   log.info("createEndJob PDF creator started with {}", documentData);
         Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
@@ -296,7 +290,7 @@ public class PdfCreator {
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
-    protected void pdfCreateDepartment(Document document, DocumentData documentData, PdfFont bold) {
+    protected void pdfCreateDepartment(Document document, Operation operation, PdfFont bold) {
        /* log.info("pdfCreateDepartment PDF creator started with {}", documentData);
         Paragraph paragraph1 = new Paragraph("“Strukturun təsis edilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);

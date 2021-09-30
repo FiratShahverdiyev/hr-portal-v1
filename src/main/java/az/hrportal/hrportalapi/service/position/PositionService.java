@@ -2,7 +2,15 @@ package az.hrportal.hrportalapi.service.position;
 
 import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
-import az.hrportal.hrportalapi.domain.position.*;
+import az.hrportal.hrportalapi.domain.position.Department;
+import az.hrportal.hrportalapi.domain.position.Institution;
+import az.hrportal.hrportalapi.domain.position.JobFamily;
+import az.hrportal.hrportalapi.domain.position.Position;
+import az.hrportal.hrportalapi.domain.position.Salary;
+import az.hrportal.hrportalapi.domain.position.Skill;
+import az.hrportal.hrportalapi.domain.position.Speciality;
+import az.hrportal.hrportalapi.domain.position.SubDepartment;
+import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
@@ -15,7 +23,15 @@ import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.position.PositionMapper;
 import az.hrportal.hrportalapi.mapper.position.PositionResponseMapper;
-import az.hrportal.hrportalapi.repository.position.*;
+import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
+import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
+import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
+import az.hrportal.hrportalapi.repository.position.PositionRepository;
+import az.hrportal.hrportalapi.repository.position.SalaryRepository;
+import az.hrportal.hrportalapi.repository.position.SkillRepository;
+import az.hrportal.hrportalapi.repository.position.SpecialityRepository;
+import az.hrportal.hrportalapi.repository.position.SubDepartmentRepository;
+import az.hrportal.hrportalapi.repository.position.VacancyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
@@ -23,7 +39,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Slf4j

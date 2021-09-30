@@ -7,7 +7,14 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.Set;
 
@@ -27,8 +34,8 @@ public class Department {
     Set<SubDepartment> subDepartment;
     @OneToMany(mappedBy = "department")
     Set<Position> positions;
-/*    @OneToMany(mappedBy = "department")
-    Set<Operation> operations;*/
+    /*    @OneToMany(mappedBy = "department")
+        Set<Operation> operations;*/
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
