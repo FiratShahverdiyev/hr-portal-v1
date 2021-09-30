@@ -95,6 +95,16 @@ public class PositionService {
         return id;
     }
 
+    @Transactional
+    public Integer changeStatus(Integer id, Integer status) {
+        log.info("changeStatus service started with id : {}, status : {}", id, status);
+        Position position = positionRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        position.setStatus(Status.intToEnum(status));
+        log.info("changeStatus service completed with id : {}, status : {}", id, status);
+        return id;
+    }
+
     public PaginationResponseDto<List<PositionResponseDto>> getPaginationWithSearch(
             int page, int size, PositionFilterRequestDto filterRequestDto) {
         log.info("getPaginationWithSearch service started with {}", filterRequestDto);

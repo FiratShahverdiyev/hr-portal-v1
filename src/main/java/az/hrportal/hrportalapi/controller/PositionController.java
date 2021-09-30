@@ -12,7 +12,6 @@ import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.service.position.PositionService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,11 +51,16 @@ public class PositionController {
         return ResponseDto.of(positionService.updateGeneralInfo(id, generalInfoRequestDto), 200);
     }
 
-    @DeleteMapping("{id}")
+    @PutMapping("status/{id}")
+    public ResponseDto<Integer> changeStatus(@PathVariable Integer id, @RequestParam Integer status) {
+        return ResponseDto.of(positionService.changeStatus(id, status));
+    }
+
+    /*@DeleteMapping("{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> delete(@PathVariable Integer id) {
         return ResponseDto.of(positionService.delete(id), 200);
-    }
+    }*/
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")

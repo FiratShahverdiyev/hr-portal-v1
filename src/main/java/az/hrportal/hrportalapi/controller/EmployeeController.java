@@ -14,7 +14,6 @@ import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.service.employee.EmployeeService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,11 +60,11 @@ public class EmployeeController {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
     }
 
-    @DeleteMapping("{id}")
+    /*@DeleteMapping("{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> delete(@PathVariable Integer id) {
         return ResponseDto.of(employeeService.delete(id), 200);
-    }
+    }*/
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
