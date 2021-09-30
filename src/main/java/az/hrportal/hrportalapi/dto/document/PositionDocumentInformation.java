@@ -16,6 +16,7 @@ public class PositionDocumentInformation {
     String vacancyName;
     Integer vacancyCount;
     BigDecimal salary;
+    BigDecimal additionalSalary;
     String workMode;
     String vacancyCategory;
     String workPlace;

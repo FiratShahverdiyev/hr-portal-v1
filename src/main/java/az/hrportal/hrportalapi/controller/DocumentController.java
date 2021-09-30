@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +42,12 @@ public class DocumentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> create(@RequestBody @Valid DocumentData documentData) {
         return ResponseDto.of(documentService.create(documentData), 200);
+    }
+
+    @PutMapping("status/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> changeStatus(@PathVariable Integer id, @RequestParam Integer status) {
+        return ResponseDto.of(documentService.changeStatus(id, status));
     }
 
     @GetMapping("types")

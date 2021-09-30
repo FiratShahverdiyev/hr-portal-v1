@@ -97,7 +97,7 @@ public class PositionService {
     public PaginationResponseDto<List<PositionResponseDto>> getPaginationWithSearch(
             int page, int size, PositionFilterRequestDto filterRequestDto) {
         log.info("getPaginationWithSearch service started with {}", filterRequestDto);
-        List<Position> positions = positionRepository.findAll();
+        List<Position> positions = positionRepository.findAllByStatusIsApproved();
         List<PositionResponseDto> responseDtoList = new ArrayList<>();
         positionFilter(positions, responseDtoList, filterRequestDto);
         PagedListHolder<PositionResponseDto> responseHolder = new PagedListHolder<>(responseDtoList);

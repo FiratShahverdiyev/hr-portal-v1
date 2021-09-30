@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.DocumentType;
+import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
@@ -21,6 +22,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,6 +65,20 @@ public class DocumentService {
         return saved.getId();
     }
 
+    @Transactional
+    public Integer changeStatus(Integer id, Integer status) {
+        log.info("changeStatus service started with id : {}, status : {}", id, status);
+        Operation operation = operationRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Operation.class, id));
+        operation.setStatus(Status.intToEnum(status));
+        if (status == 1) {
+            checkAndDo(operation);
+        }
+        Operation saved = operationRepository.save(operation);
+        log.info("changeStatus service completed with id : {}, status : {}", id, status);
+        return saved.getId();
+    }
+
     public EmployeeDocumentInformation getEmployeeDocumentInfoById(Integer employeeId) {
         log.info("getEmployeeDocumentInformation service started with positionId : {}", employeeId);
         Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
@@ -100,6 +116,29 @@ public class DocumentService {
         }
         log.info("********** getDocumentTypes service completed **********");
         return documentTypes;
+    }
+
+    @Transactional
+    protected void checkAndDo(Operation operation) {
+        switch (operation.getDocumentType()) {
+            case SHTAT_VAHIDININ_LEGVI: {
+                Position position = operation.getPosition();
+                position.setStatus(Status.REJECTED);
+                positionRepository.save(position);
+                break;
+            }
+            case ISHE_QEBUL: {
+                Employee employee = operation.getEmployee();
+                Position position = operation.getPosition();
+                employee.setPosition(position);
+                employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
+                employeeRepository.save(employee);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     }
 
     protected void checkAndDo(DocumentType documentType) {

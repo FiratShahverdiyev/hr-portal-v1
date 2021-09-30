@@ -62,8 +62,8 @@ public class PdfCreator {
         Text subText4 = new Text("Ştat vahidi (say):   " + position.getCount());
         Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
                 position.getSalary().getSalary());
-        Text subText6 = new Text("İş rejimi: " + position.getWorkMode());
-        Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + position.getVacancyCategory());
+        Text subText6 = new Text("İş rejimi: " + position.getWorkMode().getValue());
+        Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + position.getVacancyCategory().getValue());
         Text subText8 = new Text("İş yerinin ünvanı: " + position.getWorkPlace());
         Text text2 = new Text("2. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
                 "mrdən irəli gələn zəruri məsələlərin həllini təmin etsinlər.");
