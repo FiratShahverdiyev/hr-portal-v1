@@ -135,6 +135,14 @@ public class DocumentService {
                 employeeRepository.save(employee);
                 break;
             }
+            case VEZIFE_DEYISIKLIYI: {
+                Employee employee = operation.getEmployee();
+                Position position = operation.getPosition();
+                employee.setPosition(position);
+                employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
+                employeeRepository.save(employee);
+                break;
+            }
             default: {
                 break;
             }

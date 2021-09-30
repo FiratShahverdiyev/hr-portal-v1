@@ -63,16 +63,14 @@ public class Operation {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     Status status;
-    @Column(name = "dismissal_date")
+    /*@Column(name = "dismissal_date")
     LocalDate dismissalDate;
     @Column(name = "dismissal_reason")
-    String dismissalReason;
+    String dismissalReason;*/
     @Column(name = "compensation")
     BigDecimal compensation;
     @ElementCollection
     List<String> note;
-    @Column(name = "salary")
-    BigDecimal salary;
     @Column(name = "join_date")
     LocalDate joinDate;
     @Column(name = "test_period")
@@ -81,10 +79,6 @@ public class Operation {
     BigDecimal ownAdditionalSalary;
     @Column(name = "change_date")
     LocalDate changeDate;
-    @Column(name = "department")
-    String department;
-    /*    @Column(name = "position")
-        String position;*/
     @Column(name = "new_own_additional_salary")
     BigDecimal newOwnAdditionalSalary;
     @CreationTimestamp

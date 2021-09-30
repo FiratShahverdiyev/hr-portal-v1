@@ -52,6 +52,7 @@ public class PositionController {
     }
 
     @PutMapping("status/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> changeStatus(@PathVariable Integer id, @RequestParam Integer status) {
         return ResponseDto.of(positionService.changeStatus(id, status));
     }

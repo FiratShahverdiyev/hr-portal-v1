@@ -47,8 +47,6 @@ public class FileUtil {
     private String[] acceptableExtensions;
     @Value("${file.upload.image-root-directory}")
     private String imageRootDirectory;
-    private PdfFont regular;
-    private PdfFont bold;
 
     @SneakyThrows
     public String saveImage(MultipartFile file) {
@@ -118,35 +116,29 @@ public class FileUtil {
     @SneakyThrows
     public byte[] createAndGetPdf(Integer operationId) {
         log.info("createAndGetPdf util started with operationId : {}", operationId);
-        regular = pdfCreator.getTTInterphasesFont(false);
-        bold = pdfCreator.getTTInterphasesFont(true);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         PdfWriter pdfWriter = new PdfWriter(bos);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         PageSize customPageSize = new PageSize(840F, 1188F);
         Document document = new Document(pdfDocument, customPageSize);
-        document.setFont(regular);
         Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, operationId));
         DocumentType documentType = operation.getDocumentType();
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
-                pdfCreator.pdfCreatePosition(document, operation, bold);
+                pdfCreator.pdfCreatePosition(document, operation);
                 break;
             }
             case SHTAT_VAHIDININ_LEGVI: {
-                pdfCreator.pdfDeletePosition(document, operation, bold);
+                pdfCreator.pdfDeletePosition(document, operation);
                 break;
             }
-            case SHTAT_EMEK_HAQQININ_DEYISTIRILMESI: {
-                pdfCreator.pdfChangeSalary(document, operation, bold);
-                break;
-            }
-            case STRUKTURUN_TESIS_EDILMESI: {
+            case ISHE_QEBUL: {
+                pdfCreator.pdfJoinToJob(document, operation);
                 break;
             }
             case XITAM: {
-                pdfCreator.pdfEndJob(document, operation, bold);
+                pdfCreator.pdfEndJob(document, operation);
                 break;
             }
             default:
