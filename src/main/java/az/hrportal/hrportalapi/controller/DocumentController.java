@@ -3,6 +3,8 @@ package az.hrportal.hrportalapi.controller;
 import az.hrportal.hrportalapi.dto.DocumentData;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.ResponseDto;
+import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
+import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.service.DocumentService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +41,23 @@ public class DocumentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Set<KeyValueLabel<String, Integer, String>>> documentTypes() {
         return ResponseDto.of(documentService.getDocumentTypes(), 200);
+    }
+
+    @GetMapping("employee/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<EmployeeDocumentInformation> getEmployeeInfoById(@PathVariable Integer id) {
+        return ResponseDto.of(documentService.getEmployeeDocumentInfoById(id));
+    }
+
+    @GetMapping("position/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<PositionDocumentInformation> getPositionInfoById(@PathVariable Integer id) {
+        return ResponseDto.of(documentService.getPositionDocumentInfoById(id));
+    }
+
+    @GetMapping("position")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Set<Integer>> getAllPositionsId() {
+        return ResponseDto.of(documentService.getAllPositionsId());
     }
 }

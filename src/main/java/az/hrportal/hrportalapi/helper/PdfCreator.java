@@ -234,7 +234,7 @@ public class PdfCreator {
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfEndJob(Document document, DocumentData documentData, PdfFont bold) {
-        log.info("createEndJob PDF creator started with {}", documentData);
+     /*   log.info("createEndJob PDF creator started with {}", documentData);
         Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
                 new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
         Paragraph paragraph1 = new Paragraph("“Əmək müqaviləsinə xitam verilməsi barədə”");
@@ -291,7 +291,7 @@ public class PdfCreator {
         document.add(new Paragraph(text11));
         document.add(new Paragraph(text12));
         Operation saved = save(employee, documentData);
-        log.info("********** createEndJob PDF creator completed with operationId : {} **********", saved.getId());
+        log.info("********** createEndJob PDF creator completed with operationId : {} **********", saved.getId());*/
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
@@ -374,7 +374,7 @@ public class PdfCreator {
         }
     }
 
-    @Transactional
+    /*@Transactional
     protected Operation save(Employee employee, DocumentData documentData) {
         Operation operation;
         if (documentData.getDocumentType() == 1)
@@ -410,6 +410,6 @@ public class PdfCreator {
                     .documentType(DocumentType.SHTAT_VAHIDININ_TESISI)
                     .build();
         return operationRepository.save(operation);
-    }
+    }*/
 
 }

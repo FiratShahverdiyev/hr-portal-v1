@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.List;
 
 @Getter
 @Setter
@@ -19,37 +18,71 @@ public class DocumentData {
     @NotNull
     @Range(min = 1, max = 14)
     Integer documentType;
-    String main;
-    //Xitam
+
+    String mainOfOrder;
+    String titleDepartment;
+    String titleFullName;
+
+    /*CHANGE EMPLOYEE POSITION*/
     Integer employeeId;
-    String dismissalDate;
-    String dismissalReason;
-    List<String> note;
-    //Ishe qebul
+    Integer positionId;
+    //departmentName
+    //vacancyName
+    //salary
+    //additionalSalary
+    //ownAdditionalSalary
+    String changeDate;
+    //newDepartmentName
+    //newVacancyName
+    //newSalary
+    //newAdditionalSalary
+    BigDecimal newOwnAdditionalSalary;
+
+    /*CHANGE EMPLOYEE SALARY*/
+    //Integer employeeId;
+    //departmentName
+    //vacancyName
+    //salary
+    //additionalSalary
+    //ownAdditionalSalary
+    //String changeDate;
+    BigDecimal newSalary;
+    BigDecimal newAdditionalSalary;
+    //BigDecimal newOwnAdditionalSalary;
+
+    /*CREATE POSITION*/
+    //Integer positionId;
+    //departmentName
+    //subDepartmentName
+    //vacancyName
+    //vacancyCount
+    //salary
+    //WorkMode
+    //VacancyCategory
+    //WorkPlace
+
+    /*DELETE POSITION*/
+    //Integer positionId;
+    //departmentName
+    //subDepartmentName
+    //vacancyName
+    //vacancyCount
+    //salary
+    //WorkMode
+    //VacancyCategory
+    //WorkPlace
+
+    /*JOIN TO JOB*/
+    //Integer employeeId;
+    //Integer positionId;
+    //fullName
+    //departmentName
+    //subDepartmentName
+    //vacancyName
     String joinDate;
     Integer testPeriod;
     BigDecimal ownAdditionalSalary;
-    //Vezife deyisikliyi
-    String changeDate;
-    String department;
-    String position;
-    BigDecimal mainSalary;
-    BigDecimal additionalSalary;
-    BigDecimal newOwnAdditionalSalary;
-    //Emek haqqi deyisikliyi
-    //Is yeri deyisikliyi
-    String newWorkPlace;
-    //Muveqqeti kecirilme
-    Integer temporaryPeriod = 1;
-    //maddi yardim
-    BigDecimal financialHelp;
-    //Mukafatlandirm
-    BigDecimal achievement;
-    //Statin tesisi, legvi
-    Integer vacancyCount;
-    BigDecimal salary;
-    String workMode;
-    String vacancyCategory;
-    @Range(min = 1, max = 5)
-    Integer workPlace;
+    //salary
+    //additionalSalary
+    //ownAdditionalSalary
 }

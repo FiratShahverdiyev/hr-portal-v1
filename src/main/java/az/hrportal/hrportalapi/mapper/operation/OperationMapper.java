@@ -15,7 +15,6 @@ import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 public interface OperationMapper {
 
     @Mapping(target = "documentType", source = "documentType", qualifiedBy = IntToDocumentType.class)
-    @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "changeDate", source = "changeDate", dateFormat = dateFormat)
     Operation toOperation(DocumentData documentData);

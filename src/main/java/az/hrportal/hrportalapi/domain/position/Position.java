@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.domain.position;
 
+import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.constant.position.*;
 import az.hrportal.hrportalapi.domain.embeddable.ComputerKnowledge;
 import az.hrportal.hrportalapi.domain.embeddable.LanguageKnowledge;
@@ -113,10 +114,18 @@ public class Position {
     Set<String> functionalities;
     @OneToMany(mappedBy = "position")
     Set<Operation> operations;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    Status status;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
     Date updatedAt;
+
+    @PrePersist
+    void setStatus() {
+        status = Status.PENDING;
+    }
 }

@@ -1,8 +1,9 @@
 package az.hrportal.hrportalapi.domain.operation;
 
-import az.hrportal.hrportalapi.constant.DocumentStatus;
+import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.domain.position.Position;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,15 +31,21 @@ public class Operation {
     @ManyToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
-/*    @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "position_id", referencedColumnName = "id")
-    Position position;*/
+    Position position;
+    @Column(name = "main")
+    String mainOfOrder;
+    @Column(name = "title_department")
+    String titleDepartment;
+    @Column(name = "title_full_name")
+    String titleFullName;
     @Column(name = "type")
     @Enumerated(EnumType.STRING)
     DocumentType documentType;
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    DocumentStatus documentStatus;
+    Status status;
     @Column(name = "dismissal_date")
     LocalDate dismissalDate;
     @Column(name = "dismissal_reason")
@@ -59,8 +66,8 @@ public class Operation {
     LocalDate changeDate;
     @Column(name = "department")
     String department;
-    @Column(name = "position")
-    String position;
+/*    @Column(name = "position")
+    String position;*/
     @Column(name = "new_own_additional_salary")
     BigDecimal newOwnAdditionalSalary;
     @CreationTimestamp
@@ -72,6 +79,6 @@ public class Operation {
 
     @PrePersist
     void setStatus() {
-        documentStatus = DocumentStatus.PENDING;
+        status = Status.PENDING;
     }
 }
