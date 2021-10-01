@@ -97,4 +97,8 @@ public class DocumentData {
     String dismissalDate;
     //String compensation
     List<String> notes;
+
+    /*CHANGE WORK MODE*/
+    //Integer employeeId
+    String workMode;
 }

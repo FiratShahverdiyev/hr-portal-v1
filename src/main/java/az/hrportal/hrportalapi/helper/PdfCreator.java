@@ -326,8 +326,8 @@ public class PdfCreator {
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
         Text text6 = new Text("6. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
-        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + operation.getNewSalary());
+        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + operation.getNewAdditionalSalary());
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text7 = new Text("7. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");

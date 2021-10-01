@@ -151,8 +151,6 @@ public class DocumentService {
             }
             case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
-                Position position = operation.getPosition();
-                employee.setPosition(position);
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
