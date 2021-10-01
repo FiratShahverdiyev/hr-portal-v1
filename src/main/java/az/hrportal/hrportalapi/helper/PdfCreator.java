@@ -282,9 +282,11 @@ public class PdfCreator {
         document.add(new Paragraph(text5));
         document.add(new Paragraph(text6));
         document.add(new Paragraph(text7));
-        if (operation.getNote() != null) {
-            Text text8 = new Text("8.Qeyd:  " + operation.getNote());
-            document.add(new Paragraph(text8));
+        if (operation.getNotes() != null) {
+            for (String note : operation.getNotes()) {
+                Text text8 = new Text(".Qeyd:  " + note);
+                document.add(new Paragraph(text8));
+            }
         }
         document.add(new Paragraph(text9));
         document.add(new Paragraph(text10));

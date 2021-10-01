@@ -70,7 +70,7 @@ public class Operation {
     @Column(name = "compensation")
     BigDecimal compensation;
     @ElementCollection
-    List<String> note;
+    List<String> notes;
     @Column(name = "join_date")
     LocalDate joinDate;
     @Column(name = "test_period")
@@ -81,6 +81,10 @@ public class Operation {
     LocalDate changeDate;
     @Column(name = "new_own_additional_salary")
     BigDecimal newOwnAdditionalSalary;
+    @Column(name = "new_own_additional_salary")
+    BigDecimal newAdditionalSalary;
+    @Column(name = "new_salary")
+    BigDecimal newSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

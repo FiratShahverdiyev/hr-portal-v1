@@ -96,5 +96,5 @@ public class DocumentData {
     String dismissalReason;
     String dismissalDate;
     //String compensation
-    List<String> note;
+    List<String> notes;
 }
