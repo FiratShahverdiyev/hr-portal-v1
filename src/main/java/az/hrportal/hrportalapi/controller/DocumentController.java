@@ -1,6 +1,6 @@
 package az.hrportal.hrportalapi.controller;
 
-import az.hrportal.hrportalapi.dto.DocumentData;
+import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;

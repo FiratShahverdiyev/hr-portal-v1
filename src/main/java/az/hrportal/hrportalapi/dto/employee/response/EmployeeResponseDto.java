@@ -14,5 +14,5 @@ public class EmployeeResponseDto {
     String fullName;
     String department;
     String position;
-    boolean active;
+    Boolean active;
 }

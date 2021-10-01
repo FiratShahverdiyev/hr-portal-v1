@@ -5,7 +5,7 @@ import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
-import az.hrportal.hrportalapi.dto.DocumentData;
+import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
@@ -131,11 +131,25 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
+                employee.setActive(true);
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
             }
             case VEZIFE_DEYISIKLIYI: {
+                Employee employee = operation.getEmployee();
+                Position position = operation.getPosition();
+                employee.setPosition(position);
+                employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
+                employeeRepository.save(employee);
+                break;
+            }
+            case XITAM: {
+                Employee employee = operation.getEmployee();
+                employee.setActive(false);
+                break;
+            }
+            case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);

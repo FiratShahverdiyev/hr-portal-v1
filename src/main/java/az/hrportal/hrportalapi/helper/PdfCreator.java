@@ -239,14 +239,12 @@ public class PdfCreator {
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfEndJob(Document document, Operation operation) {
-     /*   log.info("createEndJob PDF creator started with {}", documentData);
-        Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
+        log.info("pdfEndJob PDF creator started with operationId : {}", operation.getId());
         Paragraph paragraph1 = new Paragraph("“Əmək müqaviləsinə xitam verilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
 
-        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + documentData.getMain());
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + operation.getMainOfOrder());
         paragraph2.setTextAlignment(TextAlignment.CENTER);
         paragraph2.setFont(bold);
 
@@ -255,18 +253,15 @@ public class PdfCreator {
         paragraph3.setCharacterSpacing(10);
         paragraph3.setFont(bold);
 
+        Employee employee = operation.getEmployee();
         Position position = employee.getPosition();
-        GeneralInfoResponseDto translatedToAze = positionResponseMapper.toGeneralInfoResponseDto(position);
-        if (translatedToAze == null) {
-            translatedToAze = new GeneralInfoResponseDto();
-        }
         Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
                 employee.getFullName());
-        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + translatedToAze.getDepartmentName());
-        Text text3 = new Text("3. İşlədiyi alt struktur bölmənin adı: " + translatedToAze.getSubDepartmentName());
-        Text text4 = new Text("4. İşçinin vəzifəsi:  " + translatedToAze.getVacancyName());
-        Text text5 = new Text("5. İşdən azad olma tarixi:  " + documentData.getDismissalDate());
-        Text text6 = new Text("6. İşdən azad olma səbəbi:  " + documentData.getDismissalReason());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + position.getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi alt struktur bölmənin adı: " + position.getSubDepartment().getName());
+        Text text4 = new Text("4. İşçinin vəzifəsi:  " + position.getVacancy().getName());
+        Text text5 = new Text("5. İşdən azad olma tarixi:  " + operation.getDismissalDate());
+        Text text6 = new Text("6. İşdən azad olma səbəbi:  " + operation.getDismissalReason());
 
         Text text7 = new Text("7.İstifadə edilməmiş məzuniyyət \n" +
                 "günlərinə görə kompensasiya:  " + "HESABLA");
@@ -287,16 +282,100 @@ public class PdfCreator {
         document.add(new Paragraph(text5));
         document.add(new Paragraph(text6));
         document.add(new Paragraph(text7));
-        if (documentData.getNote() != null) {
-            Text text8 = new Text("8.Qeyd:  " + documentData.getNote());
+        if (operation.getNote() != null) {
+            Text text8 = new Text("8.Qeyd:  " + operation.getNote());
             document.add(new Paragraph(text8));
         }
         document.add(new Paragraph(text9));
         document.add(new Paragraph(text10));
         document.add(new Paragraph(text11));
         document.add(new Paragraph(text12));
-        Operation saved = save(employee, documentData);
-        log.info("********** createEndJob PDF creator completed with operationId : {} **********", saved.getId());*/
+        log.info("********** pdfEndJob PDF creator completed with operationId : {} **********", operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfChangeEmployeeSalary(Document document, Operation operation) {
+        log.info("pdfChangeEmployeeSalary PDF creator started with operationId : {}", operation.getId());
+        Paragraph paragraph1 = new Paragraph("“Vəzifə dəyişikliyi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getTitleDepartment() + " departamentinin müdiri " +
+                operation.getTitleFullName() + " oğlunun təqdimatı, işçinin ərizəsi" +
+                " və qüvvədə olan əmək müqaviləsinə" + " bağlanmış əlavəyə əsasən,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Position position = employee.getPosition();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
+        Text text5 = new Text("5. Keçirildiyi struktur bölmə:   " + position.getDepartment().getName());
+
+        Text text6 = new Text("6.Keçirildiyi vəzifə:  " + position.getVacancy().getName());
+        Text text7 = new Text("7. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
+        Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
+
+        Text text8 = new Text("8. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
+        Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
+        Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+                " zəruri məsələlərin həllini təmin etsinlər. ");
+        Text text10 = new Text("10. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text11 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov");
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .setMarginLeft(5);
+
+        List list2 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list2
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(list1);
+        document.add(new Paragraph(text8));
+        document.add(list2);
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        document.add(new Paragraph(text11));
+        log.info("********** pdfChangeEmployeeSalary PDF creator completed with operationId : {} **********",
+                operation.getId());
     }
 
     @SuppressWarnings("checkstyle:localvariablename")

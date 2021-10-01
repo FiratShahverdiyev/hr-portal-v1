@@ -1,7 +1,7 @@
 package az.hrportal.hrportalapi.mapper.operation;
 
 import az.hrportal.hrportalapi.domain.operation.Operation;
-import az.hrportal.hrportalapi.dto.DocumentData;
+import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.mapper.operation.helper.IntToDocumentType;
 import az.hrportal.hrportalapi.mapper.operation.helper.OperationMapperHelper;
 import org.mapstruct.Mapper;
@@ -17,5 +17,6 @@ public interface OperationMapper {
     @Mapping(target = "documentType", source = "documentType", qualifiedBy = IntToDocumentType.class)
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "changeDate", source = "changeDate", dateFormat = dateFormat)
+    @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
     Operation toOperation(DocumentData documentData);
 }

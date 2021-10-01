@@ -11,7 +11,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -139,6 +138,10 @@ public class FileUtil {
             }
             case XITAM: {
                 pdfCreator.pdfEndJob(document, operation);
+                break;
+            }
+            case VEZIFE_DEYISIKLIYI: {
+                pdfCreator.pdfChangeEmployeeSalary(document, operation);
                 break;
             }
             default:

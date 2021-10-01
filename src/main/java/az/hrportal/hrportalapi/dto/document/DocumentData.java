@@ -1,4 +1,4 @@
-package az.hrportal.hrportalapi.dto;
+package az.hrportal.hrportalapi.dto.document;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -85,4 +86,15 @@ public class DocumentData {
     //salary
     //additionalSalary
     //ownAdditionalSalary
+
+    /*LEAVE FROM JOB*/
+    //Integer employeeId
+    //fullName
+    //departmentName
+    //subDepartmentName
+    //vacancyName
+    String dismissalReason;
+    String dismissalDate;
+    //String compensation
+    List<String> note;
 }

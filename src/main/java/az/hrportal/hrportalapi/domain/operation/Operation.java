@@ -63,10 +63,10 @@ public class Operation {
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     Status status;
-    /*@Column(name = "dismissal_date")
+    @Column(name = "dismissal_date")
     LocalDate dismissalDate;
     @Column(name = "dismissal_reason")
-    String dismissalReason;*/
+    String dismissalReason;
     @Column(name = "compensation")
     BigDecimal compensation;
     @ElementCollection

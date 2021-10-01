@@ -36,7 +36,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
@@ -217,7 +216,7 @@ public class Employee {
     @Column(name = "colleagues_alliance")
     boolean memberOfColleaguesAlliance;
     @Column(name = "active")
-    boolean active;
+    Boolean active;
     @OneToMany(mappedBy = "employee")
     Set<Operation> operations;
     @Column(name = "work_permission_serial")
@@ -238,9 +237,4 @@ public class Employee {
     @UpdateTimestamp
     @Column(name = "updated_at")
     Date updatedAt;
-
-    @PrePersist
-    void setIsActive() {
-        this.active = true;
-    }
 }
