@@ -7,12 +7,14 @@ import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.mapper.document.DocumentInformationResponseMapper;
+import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
 import az.hrportal.hrportalapi.mapper.operation.OperationMapper;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
@@ -20,10 +22,12 @@ import az.hrportal.hrportalapi.repository.position.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -36,6 +40,7 @@ public class DocumentService {
     private final PositionRepository positionRepository;
     private final OperationMapper operationMapper;
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
+    private final DocumentResponseMapper documentResponseMapper;
 
     @SneakyThrows
     public byte[] export2Pdf(Integer operationId) {
@@ -77,6 +82,12 @@ public class DocumentService {
         Operation saved = operationRepository.save(operation);
         log.info("changeStatus service completed with id : {}, status : {}", id, status);
         return saved.getId();
+    }
+
+    public List<DocumentResponseDto> getDocuments() {
+        log.info("getDocuments service started");
+        return documentResponseMapper.toDocumentResponseDtos(operationRepository.findAll(Sort.by("createAt")
+                .descending()));
     }
 
     public EmployeeDocumentInformation getEmployeeDocumentInfoById(Integer employeeId) {

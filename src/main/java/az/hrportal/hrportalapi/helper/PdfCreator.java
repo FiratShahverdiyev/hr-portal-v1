@@ -295,6 +295,8 @@ public class PdfCreator {
         log.info("********** pdfEndJob PDF creator completed with operationId : {} **********", operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeEmployeeSalary(Document document, Operation operation) {
         log.info("pdfChangeEmployeeSalary PDF creator started with operationId : {}", operation.getId());
         Paragraph paragraph1 = new Paragraph("“Əmək haqqı dəyişikliyi barədə”");
@@ -313,7 +315,6 @@ public class PdfCreator {
         paragraph3.setFont(bold);
 
         Employee employee = operation.getEmployee();
-        Position position = employee.getPosition();
         Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
                 employee.getFullName());
         Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()

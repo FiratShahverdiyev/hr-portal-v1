@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.controller;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.service.DocumentService;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -48,6 +50,12 @@ public class DocumentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> changeStatus(@PathVariable Integer id, @RequestParam Integer status) {
         return ResponseDto.of(documentService.changeStatus(id, status));
+    }
+
+    @GetMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<List<DocumentResponseDto>> getDocuments() {
+        return ResponseDto.of(documentService.getDocuments());
     }
 
     @GetMapping("types")
