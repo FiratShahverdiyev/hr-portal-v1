@@ -141,6 +141,10 @@ public class FileUtil {
                 break;
             }
             case VEZIFE_DEYISIKLIYI: {
+                pdfCreator.pdfChangeEmployeePosition(document, operation);
+                break;
+            }
+            case EMEK_HAQQI_DEYISIKLIYI: {
                 pdfCreator.pdfChangeEmployeeSalary(document, operation);
                 break;
             }
