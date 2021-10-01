@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
@@ -54,8 +55,10 @@ public class DocumentController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<DocumentResponseDto>> getDocuments() {
-        return ResponseDto.of(documentService.getDocuments());
+    public ResponseDto<PaginationResponseDto<List<DocumentResponseDto>>> getDocuments(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        return ResponseDto.of(documentService.getDocuments(page, size));
     }
 
     @GetMapping("types")

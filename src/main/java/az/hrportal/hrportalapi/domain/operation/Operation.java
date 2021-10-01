@@ -81,7 +81,7 @@ public class Operation {
     LocalDate changeDate;
     @Column(name = "new_own_additional_salary")
     BigDecimal newOwnAdditionalSalary;
-    @Column(name = "new_own_additional_salary")
+    @Column(name = "new_additional_salary")
     BigDecimal newAdditionalSalary;
     @Column(name = "new_salary")
     BigDecimal newSalary;

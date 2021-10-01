@@ -6,6 +6,7 @@ import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
@@ -22,7 +23,7 @@ import az.hrportal.hrportalapi.repository.position.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -84,10 +85,16 @@ public class DocumentService {
         return saved.getId();
     }
 
-    public List<DocumentResponseDto> getDocuments() {
+    public PaginationResponseDto<List<DocumentResponseDto>> getDocuments(int page, int size) {
         log.info("getDocuments service started");
-        return documentResponseMapper.toDocumentResponseDtos(operationRepository.findAll(Sort.by("createAt")
-                .descending()));
+        List<DocumentResponseDto> data = documentResponseMapper
+                .toDocumentResponseDtos(operationRepository.findAll(/*Sort.by("createdAt").descending()*/));
+        PagedListHolder<DocumentResponseDto> pagedListHolder = new PagedListHolder<>(data);
+        pagedListHolder.setPage(page);
+        pagedListHolder.setPageSize(size);
+        List<DocumentResponseDto> response = pagedListHolder.getPageList();
+        log.info("getDocuments service completed");
+        return new PaginationResponseDto<>(response, response.size(), data.size());
     }
 
     public EmployeeDocumentInformation getEmployeeDocumentInfoById(Integer employeeId) {

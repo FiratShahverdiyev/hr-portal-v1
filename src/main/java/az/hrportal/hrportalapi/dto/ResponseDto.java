@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ResponseDto<T> {
-
     T data;
     int code;
 
