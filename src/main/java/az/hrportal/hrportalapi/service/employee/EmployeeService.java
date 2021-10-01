@@ -15,7 +15,6 @@ import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDt
 import az.hrportal.hrportalapi.dto.employee.request.GovernmentAchievementRequestDto;
 import az.hrportal.hrportalapi.dto.employee.response.AcademicInfoResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
-import az.hrportal.hrportalapi.dto.employee.response.EmployeeDocumentResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
@@ -141,14 +140,6 @@ public class EmployeeService {
         Employee saved = employeeRepository.save(employee);
         log.info("********** updateAcademic service completed with id : {} **********", saved.getId());
         return saved.getId();
-    }
-
-    public EmployeeDocumentResponseDto getDocumentInfo(Integer id) {
-        log.info("getDocumentInfo service started with id : {}", id);
-        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
-                new EntityNotFoundException(Employee.class, id));
-        log.info("********** getDocumentInfo service completed **********");
-        return employeeResponseMapper.toEmployeeDocumentResponseDto(employee);
     }
 
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {

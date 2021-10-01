@@ -24,5 +24,10 @@ public interface DocumentInformationResponseMapper {
     @Mapping(target = "vacancyCategory", source = "vacancyCategory", qualifiedBy = VacancyCategoryValue.class)
     PositionDocumentInformation toPositionDocumentInformation(Position position);
 
+    @Mapping(target = "departmentName", source = "position.department.name")
+    @Mapping(target = "subDepartmentName", source = "position.subDepartment.name")
+    @Mapping(target = "vacancyName", source = "position.vacancy.name")
+    @Mapping(target = "salary", source = "position.salary.salary")
+    @Mapping(target = "additionalSalary", source = "position.additionalSalary")
     EmployeeDocumentInformation toEmployeeDocumentInformation(Employee employee);
 }
