@@ -5,12 +5,14 @@ import lombok.Getter;
 
 @Getter
 public enum DocumentType {
-    SHTAT_VAHIDININ_TESISI(1, DocumentLabel.STAFF.toString()),
-    SHTAT_VAHIDININ_LEGVI(2, DocumentLabel.STAFF.toString()),
-    ISHE_QEBUL(7, DocumentLabel.EMPLOYEE.toString()),
-    XITAM(8, DocumentLabel.EMPLOYEE.toString()),
-    VEZIFE_DEYISIKLIYI(9, DocumentLabel.EMPLOYEE.toString()),
-    EMEK_HAQQI_DEYISIKLIYI(10, DocumentLabel.EMPLOYEE.toString());
+    SHTAT_VAHIDININ_TESISI(1, DocumentLabel.STAFF.toString(), "Ştat vahidinin təsisi"),
+    SHTAT_VAHIDININ_LEGVI(2, DocumentLabel.STAFF.toString(), "Ştat vahidinin ləğvi"),
+    ISHE_QEBUL(7, DocumentLabel.EMPLOYEE.toString(), "İşə qəbul"),
+    XITAM(8, DocumentLabel.EMPLOYEE.toString(), "Xitam"),
+    VEZIFE_DEYISIKLIYI(9, DocumentLabel.EMPLOYEE.toString(), "Vəzifə dəyişikliyi"),
+    EMEK_HAQQI_DEYISIKLIYI(10, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqı dəyişikliyi"),
+    ELAVE_EMEK_HAQQI(11, DocumentLabel.EMPLOYEE.toString(), "Əlavə əmək haqqı"),
+    ISH_REJIMININ_DEYISTIRILMESI(12, DocumentLabel.EMPLOYEE.toString(), "İş rejiminin dəyiştirilməsi");
    /* ISH_YERI_DEYISIKLIYI(11, DocumentLabel.EMPLOYEE.toString()),
     MUVEQQETI_KECIRILME(12, DocumentLabel.EMPLOYEE.toString()),
     MADDI_YARDIM(13, DocumentLabel.EMPLOYEE.toString()),
@@ -18,10 +20,12 @@ public enum DocumentType {
 
     private int value;
     private String label;
+    private String valueAz;
 
-    DocumentType(int value, String label) {
+    DocumentType(int value, String label, String valueAz) {
         this.label = label;
         this.value = value;
+        this.valueAz = valueAz;
     }
 
     public static DocumentType intToEnum(int value) {

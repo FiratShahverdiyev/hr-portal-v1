@@ -2,6 +2,7 @@ package az.hrportal.hrportalapi.domain.operation;
 
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.Status;
+import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.position.Position;
 import lombok.AccessLevel;
@@ -85,6 +86,9 @@ public class Operation {
     BigDecimal newAdditionalSalary;
     @Column(name = "new_salary")
     BigDecimal newSalary;
+    @Column(name = "work_mode")
+    @Enumerated(EnumType.STRING)
+    WorkMode workMode;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

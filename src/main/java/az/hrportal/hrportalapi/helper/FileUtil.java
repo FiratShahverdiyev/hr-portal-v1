@@ -148,6 +148,14 @@ public class FileUtil {
                 pdfCreator.pdfChangeEmployeeSalary(document, operation);
                 break;
             }
+            case ELAVE_EMEK_HAQQI: {
+                pdfCreator.pdfAdditionalSalary(document, operation);
+                break;
+            }
+            case ISH_REJIMININ_DEYISTIRILMESI: {
+                pdfCreator.pdfChangeWorkMode(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

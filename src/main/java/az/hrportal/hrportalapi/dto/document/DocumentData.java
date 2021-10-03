@@ -101,4 +101,14 @@ public class DocumentData {
     /*CHANGE WORK MODE*/
     //Integer employeeId
     String workMode;
+
+    /*CHANGE EMPLOYEE SALARY*/
+    //Integer employeeId;
+    //departmentName
+    //vacancyName
+    //salary
+    //additionalSalary
+    //String changeDate;
+    //BigDecimal newSalary;
+    //BigDecimal newAdditionalSalary;
 }

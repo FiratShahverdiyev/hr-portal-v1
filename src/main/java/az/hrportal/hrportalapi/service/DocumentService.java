@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
+import az.hrportal.hrportalapi.domain.position.Salary;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -88,12 +90,12 @@ public class DocumentService {
     public PaginationResponseDto<List<DocumentResponseDto>> getDocuments(int page, int size) {
         log.info("getDocuments service started");
         List<DocumentResponseDto> data = documentResponseMapper
-                .toDocumentResponseDtos(operationRepository.findAll(/*Sort.by("createdAt").descending()*/));
+                .toDocumentResponseDtos(operationRepository.findAll(Sort.by("createdAt").descending()));
         PagedListHolder<DocumentResponseDto> pagedListHolder = new PagedListHolder<>(data);
         pagedListHolder.setPage(page);
         pagedListHolder.setPageSize(size);
         List<DocumentResponseDto> response = pagedListHolder.getPageList();
-        log.info("getDocuments service completed");
+        log.info("********** getDocuments service completed **********");
         return new PaginationResponseDto<>(response, response.size(), data.size());
     }
 
@@ -129,7 +131,7 @@ public class DocumentService {
         log.info("getDocumentTypes service started");
         Set<KeyValueLabel<String, Integer, String>> documentTypes = new HashSet<>();
         for (DocumentType documentType : DocumentType.values()) {
-            documentTypes.add(new KeyValueLabel<>(documentType.toString(), documentType.getValue(),
+            documentTypes.add(new KeyValueLabel<>(documentType.getValueAz(), documentType.getValue(),
                     documentType.getLabel()));
         }
         log.info("********** getDocumentTypes service completed **********");
@@ -145,6 +147,12 @@ public class DocumentService {
                 positionRepository.save(position);
                 break;
             }
+            case SHTAT_VAHIDININ_TESISI: {
+                Position position = operation.getPosition();
+                position.setStatus(Status.APPROVED);
+                positionRepository.save(position);
+                break;
+            }
             case ISHE_QEBUL: {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
@@ -152,6 +160,11 @@ public class DocumentService {
                 employee.setActive(true);
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
+                break;
+            }
+            case XITAM: {
+                Employee employee = operation.getEmployee();
+                employee.setActive(false);
                 break;
             }
             case VEZIFE_DEYISIKLIYI: {
@@ -162,15 +175,34 @@ public class DocumentService {
                 employeeRepository.save(employee);
                 break;
             }
-            case XITAM: {
-                Employee employee = operation.getEmployee();
-                employee.setActive(false);
-                break;
-            }
+
             case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
+                Position position = employee.getPosition();
+                Salary salary = new Salary();
+                salary.setSalary(operation.getNewSalary());
+                position.setSalary(salary);
+                position.setAdditionalSalary(operation.getNewAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
+                positionRepository.save(position);
+                break;
+            }
+            case ELAVE_EMEK_HAQQI: {
+                Employee employee = operation.getEmployee();
+                Position position = employee.getPosition();
+                Salary salary = new Salary();
+                salary.setSalary(operation.getNewSalary());
+                position.setSalary(salary);
+                position.setAdditionalSalary(operation.getNewAdditionalSalary());
+                positionRepository.save(position);
+                break;
+            }
+            case ISH_REJIMININ_DEYISTIRILMESI: {
+                Employee employee = operation.getEmployee();
+                Position position = employee.getPosition();
+                position.setWorkMode(operation.getWorkMode());
+                positionRepository.save(position);
                 break;
             }
             default: {
