@@ -12,6 +12,7 @@ import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
+import az.hrportal.hrportalapi.error.ErrorHandlerUtil;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.helper.FileUtil;
@@ -28,6 +29,7 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -46,12 +48,13 @@ public class DocumentService {
     private final DocumentResponseMapper documentResponseMapper;
 
     @SneakyThrows
-    public byte[] export2Pdf(Integer operationId) {
+    public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
         log.info("export2Pdf service started with operationId : {}", operationId);
         byte[] response;
         try {
             response = fileUtil.createAndGetPdf(operationId);
         } catch (Exception e) {
+            ErrorHandlerUtil.buildHttpErrorResponse(httpServletResponse, "Document export failed", 309);
             throw new DocumentException(e);
         }
         log.info("********** export2Pdf service completed with operationId : {} **********", operationId);

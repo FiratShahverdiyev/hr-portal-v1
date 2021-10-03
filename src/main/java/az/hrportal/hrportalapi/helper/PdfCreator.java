@@ -240,6 +240,7 @@ public class PdfCreator {
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfEndJob(Document document, Operation operation) {
         log.info("pdfEndJob PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
         Paragraph paragraph1 = new Paragraph("“Əmək müqaviləsinə xitam verilməsi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -299,6 +300,7 @@ public class PdfCreator {
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeEmployeeSalary(Document document, Operation operation) {
         log.info("pdfChangeEmployeeSalary PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
         Paragraph paragraph1 = new Paragraph("“Əmək haqqı dəyişikliyi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -378,6 +380,7 @@ public class PdfCreator {
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeEmployeePosition(Document document, Operation operation) {
         log.info("pdfChangeEmployeePosition PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
         Paragraph paragraph1 = new Paragraph("“Vəzifə dəyişikliyi barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -463,6 +466,7 @@ public class PdfCreator {
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfAdditionalSalary(Document document, Operation operation) {
         log.info("pdfAdditionalSalary PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
         Paragraph paragraph1 = new Paragraph("“Əmək şəraitinə görə əlavə əmək haqqı barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);
@@ -538,6 +542,7 @@ public class PdfCreator {
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfChangeWorkMode(Document document, Operation operation) {
         log.info("pdfChangeWorkMode PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
         Paragraph paragraph1 = new Paragraph("“Əmək şəraitinə görə əlavə əmək haqqı barədə”");
         paragraph1.setTextAlignment(TextAlignment.CENTER);
         paragraph1.setFont(bold);

@@ -32,10 +32,10 @@ import java.util.Set;
 public class DocumentController {
     private final DocumentService documentService;
 
-    @PostMapping(value = "export", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "export/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public byte[] export2Pdf(@RequestParam Integer operationId, HttpServletResponse httpServletResponse) {
-        byte[] response = documentService.export2Pdf(operationId);
+    public byte[] export2Pdf(@PathVariable("id") Integer operationId, HttpServletResponse httpServletResponse) {
+        byte[] response = documentService.export2Pdf(operationId, httpServletResponse);
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + "Erize");
         return response;

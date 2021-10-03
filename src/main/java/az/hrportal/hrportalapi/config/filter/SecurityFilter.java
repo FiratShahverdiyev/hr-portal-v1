@@ -1,11 +1,9 @@
 package az.hrportal.hrportalapi.config.filter;
 
 import az.hrportal.hrportalapi.error.ErrorCode;
-import az.hrportal.hrportalapi.error.ErrorResponseDto;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import az.hrportal.hrportalapi.security.SecurityUtil;
 import az.hrportal.hrportalapi.security.TokenProvider;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,9 +16,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
+import static az.hrportal.hrportalapi.error.ErrorHandlerUtil.buildHttpErrorResponse;
 import static az.hrportal.hrportalapi.error.ErrorHandlerUtil.getStackTrace;
 
 @Slf4j
@@ -57,13 +54,5 @@ public class SecurityFilter extends GenericFilterBean {
         }
     }
 
-    private void buildHttpErrorResponse(ServletResponse response, String message,
-                                        Integer code) throws IOException {
-        HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        ErrorResponseDto errorResponse = new ErrorResponseDto(message, 101);
-        byte[] responseToSend = (new ObjectMapper()).writeValueAsString(errorResponse).getBytes();
-        httpServletResponse.setHeader("Content-Type", "application/json");
-        httpServletResponse.setStatus(code);
-        response.getOutputStream().write(responseToSend);
-    }
+
 }

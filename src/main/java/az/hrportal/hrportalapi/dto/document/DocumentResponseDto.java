@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DocumentResponseDto {
+    Integer id;
     String documentType;
     String createDate;
     String status;
