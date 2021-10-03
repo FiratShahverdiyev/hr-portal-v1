@@ -85,7 +85,6 @@ public class DocumentData {
     BigDecimal ownAdditionalSalary;
     //salary
     //additionalSalary
-    //ownAdditionalSalary
 
     /*LEAVE FROM JOB*/
     //Integer employeeId
@@ -102,7 +101,7 @@ public class DocumentData {
     //Integer employeeId
     String workMode;
 
-    /*CHANGE EMPLOYEE SALARY*/
+    /*ADDITIONAL SALARY*/
     //Integer employeeId;
     //departmentName
     //vacancyName

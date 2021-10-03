@@ -12,8 +12,8 @@ import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
-import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.error.exception.ValidationException;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.mapper.document.DocumentInformationResponseMapper;
 import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
@@ -28,7 +28,6 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -46,16 +45,9 @@ public class DocumentService {
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
     private final DocumentResponseMapper documentResponseMapper;
 
-    @SneakyThrows
-    public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
+    public byte[] export2Pdf(Integer operationId) {
         log.info("export2Pdf service started with operationId : {}", operationId);
-        byte[] response;
-        try {
-            response = fileUtil.createAndGetPdf(operationId);
-        } catch (Exception e) {
-            httpServletResponse.setHeader("Content-Type", "application/json");
-            throw new DocumentException(e);
-        }
+        byte[] response = fileUtil.createAndGetPdf(operationId);
         log.info("********** export2Pdf service completed with operationId : {} **********", operationId);
         return response;
     }
@@ -63,6 +55,7 @@ public class DocumentService {
     @SneakyThrows
     public Integer create(DocumentData documentData) {
         log.info("create (Document) service started with {}", documentData);
+        validate(documentData);
         Operation operation = operationMapper.toOperation(documentData);
         if (documentData.getEmployeeId() != null)
             operation.setEmployee(employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
@@ -213,7 +206,54 @@ public class DocumentService {
         }
     }
 
-    protected void checkAndDo(DocumentType documentType) {
-
+    private void validate(DocumentData documentData) {
+        DocumentType documentType = DocumentType.intToEnum(documentData.getDocumentType());
+        switch (documentType) {
+            case SHTAT_VAHIDININ_TESISI:
+            case SHTAT_VAHIDININ_LEGVI: {
+                if (documentData.getPositionId() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case ISHE_QEBUL: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getJoinDate() == null || documentData.getTestPeriod() == null ||
+                        documentData.getOwnAdditionalSalary() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case XITAM: {
+                if (documentData.getEmployeeId() == null || documentData.getDismissalDate() == null ||
+                        documentData.getDismissalReason() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case VEZIFE_DEYISIKLIYI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getChangeDate() == null || documentData.getNewOwnAdditionalSalary() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case EMEK_HAQQI_DEYISIKLIYI: {
+                if (documentData.getEmployeeId() == null || documentData.getNewSalary() == null ||
+                        documentData.getNewAdditionalSalary() == null || documentData.getChangeDate() == null ||
+                        documentData.getNewOwnAdditionalSalary() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case ELAVE_EMEK_HAQQI: {
+                if (documentData.getEmployeeId() == null || documentData.getNewSalary() == null ||
+                        documentData.getChangeDate() == null || documentData.getNewAdditionalSalary() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            case ISH_REJIMININ_DEYISTIRILMESI: {
+                if (documentData.getEmployeeId() == null || documentData.getWorkMode() == null)
+                    throw new ValidationException(documentData.toString());
+                break;
+            }
+            default:
+                break;
+        }
     }
 }

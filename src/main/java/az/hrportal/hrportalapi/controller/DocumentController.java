@@ -35,7 +35,7 @@ public class DocumentController {
     @GetMapping(value = "export/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public byte[] export2Pdf(@PathVariable("id") Integer operationId, HttpServletResponse httpServletResponse) {
-        byte[] response = documentService.export2Pdf(operationId, httpServletResponse);
+        byte[] response = documentService.export2Pdf(operationId);
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + "Erize");
         return response;

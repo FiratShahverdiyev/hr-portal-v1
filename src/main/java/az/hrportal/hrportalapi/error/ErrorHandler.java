@@ -22,6 +22,7 @@ import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
+import az.hrportal.hrportalapi.error.exception.ValidationException;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -162,6 +163,15 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
                 errorCode.getCode(), "INTERNAL SERVER", getStackTrace(e));
         return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ErrorResponseDto> validationException(final Exception e) {
+        ErrorCode errorCode = ErrorCode.VALIDATION_NOT_EMPTY;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
+        return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
     private String getIncorrectEnum(String errorMessage) {
