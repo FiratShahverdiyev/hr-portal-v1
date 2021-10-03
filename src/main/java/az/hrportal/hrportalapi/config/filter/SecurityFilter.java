@@ -43,7 +43,7 @@ public class SecurityFilter extends GenericFilterBean {
                         getStackTrace(e));
                 ErrorCode errorCode = ErrorCode.TOKEN_EXPIRED;
                 String message = messageResolver.resolve(errorCode.getMessage());
-                buildHttpErrorResponse(response, message, 401);
+                buildHttpErrorResponse(response, message, 406);
             } else {
                 log.error("---------- Security filter error . Exception ---------- \n StackTrace : {}",
                         getStackTrace(e));

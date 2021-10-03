@@ -12,7 +12,6 @@ import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
-import az.hrportal.hrportalapi.error.ErrorHandlerUtil;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.helper.FileUtil;
@@ -54,7 +53,7 @@ public class DocumentService {
         try {
             response = fileUtil.createAndGetPdf(operationId);
         } catch (Exception e) {
-            ErrorHandlerUtil.buildHttpErrorResponse(httpServletResponse, "Document export failed", 309);
+            httpServletResponse.setHeader("Content-Type", "application/json");
             throw new DocumentException(e);
         }
         log.info("********** export2Pdf service completed with operationId : {} **********", operationId);
