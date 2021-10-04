@@ -169,9 +169,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ErrorResponseDto> validationException(final Exception e) {
         ErrorCode errorCode = ErrorCode.VALIDATION_NOT_EMPTY;
         String message = messageResolver.resolve(errorCode.getMessage());
-        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+        log.error("---------- Api error, errorCode: {} message: {}  must not be null ---------- \n StackTrace : {}",
                 errorCode.getCode(), e.getMessage(), getStackTrace(e));
-        return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
+        return ResponseEntity.status(400).body(new ErrorResponseDto(e.getMessage() + " " + message,
+                errorCode.getCode()));
     }
 
     private String getIncorrectEnum(String errorMessage) {

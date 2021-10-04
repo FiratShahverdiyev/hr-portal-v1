@@ -6,6 +6,7 @@ import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
+import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.service.DocumentService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -59,6 +60,12 @@ public class DocumentController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
         return ResponseDto.of(documentService.getDocuments(page, size));
+    }
+
+    @GetMapping("{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<GeneralDocumentInformation> getDocumentById(@PathVariable Integer id) {
+        return ResponseDto.of(documentService.getDocumentById(id));
     }
 
     @GetMapping("types")

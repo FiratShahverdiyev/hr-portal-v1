@@ -11,6 +11,7 @@ import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
+import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.ValidationException;
@@ -80,6 +81,14 @@ public class DocumentService {
         Operation saved = operationRepository.save(operation);
         log.info("changeStatus service completed with id : {}, status : {}", id, status);
         return saved.getId();
+    }
+
+    public GeneralDocumentInformation getDocumentById(Integer id) {
+        log.info("getDocumentById service started with id : {}", id);
+        Operation operation = operationRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Operation.class, id));
+        log.info("********** getDocumentById service completed with id : {} **********", id);
+        return documentResponseMapper.toGeneralDocumentInformation(operation);
     }
 
     public PaginationResponseDto<List<DocumentResponseDto>> getDocuments(int page, int size) {
@@ -212,44 +221,46 @@ public class DocumentService {
             case SHTAT_VAHIDININ_TESISI:
             case SHTAT_VAHIDININ_LEGVI: {
                 if (documentData.getPositionId() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("positionId");
                 break;
             }
             case ISHE_QEBUL: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getJoinDate() == null || documentData.getTestPeriod() == null ||
                         documentData.getOwnAdditionalSalary() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("positionId,employeeId,joinDate,testPeriod,ownAdditionalSalary");
                 break;
             }
             case XITAM: {
                 if (documentData.getEmployeeId() == null || documentData.getDismissalDate() == null ||
                         documentData.getDismissalReason() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("employeeId,dismissalDate,dismissalReason");
                 break;
             }
             case VEZIFE_DEYISIKLIYI: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getChangeDate() == null || documentData.getNewOwnAdditionalSalary() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("positionId,employeeId,changeDate,newOwnAdditionalSalary");
                 break;
             }
             case EMEK_HAQQI_DEYISIKLIYI: {
                 if (documentData.getEmployeeId() == null || documentData.getNewSalary() == null ||
                         documentData.getNewAdditionalSalary() == null || documentData.getChangeDate() == null ||
                         documentData.getNewOwnAdditionalSalary() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("newSalary,employeeId,changeDate,newOwnAdditionalSalary, " +
+                            "newAdditionalSalary");
                 break;
             }
             case ELAVE_EMEK_HAQQI: {
                 if (documentData.getEmployeeId() == null || documentData.getNewSalary() == null ||
                         documentData.getChangeDate() == null || documentData.getNewAdditionalSalary() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("employeeId,newSalary,changeDate,newAdditionalSalary" +
+                            "");
                 break;
             }
             case ISH_REJIMININ_DEYISTIRILMESI: {
                 if (documentData.getEmployeeId() == null || documentData.getWorkMode() == null)
-                    throw new ValidationException(documentData.toString());
+                    throw new ValidationException("employeeId,workMode");
                 break;
             }
             default:
