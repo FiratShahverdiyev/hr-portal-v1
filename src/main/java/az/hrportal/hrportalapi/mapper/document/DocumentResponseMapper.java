@@ -1,9 +1,9 @@
 package az.hrportal.hrportalapi.mapper.document;
 
+import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
-import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,13 +17,14 @@ import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring", uses = PositionMapperHelper.class)
+        componentModel = "spring")
 public interface DocumentResponseMapper {
     @Named("toDocumentResponseDto")
     @Mapping(target = "createDate", source = "createdAt", dateFormat = dateFormat)
     DocumentResponseDto toDocumentResponseDto(Operation operation);
 
     @IterableMapping(qualifiedByName = "toDocumentResponseDto")
+    @Mapping(target = "documentType", source = "documentType", qualifiedByName = "toValueAz")
     List<DocumentResponseDto> toDocumentResponseDtos(List<Operation> operations);
 
     @Mapping(target = "employeeId", source = "employee.id", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
@@ -32,4 +33,9 @@ public interface DocumentResponseMapper {
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);
+
+    @Named("toValueAz")
+    default String toValueAz(DocumentType documentType) {
+        return documentType.getValueAz();
+    }
 }
