@@ -29,5 +29,6 @@ public interface DocumentInformationResponseMapper {
     @Mapping(target = "vacancyName", source = "position.vacancy.name")
     @Mapping(target = "salary", source = "position.salary.salary")
     @Mapping(target = "additionalSalary", source = "position.additionalSalary")
+    @Mapping(target = "workMode", source = "position.workMode", qualifiedBy = WorkModeValue.class)
     EmployeeDocumentInformation toEmployeeDocumentInformation(Employee employee);
 }

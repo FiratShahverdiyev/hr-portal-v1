@@ -99,7 +99,7 @@ public class DocumentData {
 
     /*CHANGE WORK MODE*/
     //Integer employeeId
-    String workMode;
+    String newWorkMode;
 
     /*ADDITIONAL SALARY*/
     //Integer employeeId;

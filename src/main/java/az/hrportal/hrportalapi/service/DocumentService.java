@@ -259,7 +259,8 @@ public class DocumentService {
                 break;
             }
             case ISH_REJIMININ_DEYISTIRILMESI: {
-                if (documentData.getEmployeeId() == null || documentData.getWorkMode() == null)
+                if (documentData.getEmployeeId() == null || documentData.getNewWorkMode() == null ||
+                        documentData.getNewSalary() == null)
                     throw new ValidationException("employeeId,workMode");
                 break;
             }
