@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.controller;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
@@ -64,6 +65,14 @@ public class EmployeeController {
     public ResponseDto<Integer> delete(@PathVariable Integer id) {
         return ResponseDto.of(employeeService.delete(id), 200);
     }*/
+
+    @GetMapping("document/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<PaginationResponseDto<List<DocumentResponseDto>>> getDocumentsById(
+            @PathVariable Integer id, @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        return ResponseDto.of(employeeService.getDocumentsById(id, page, size), 200);
+    }
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")

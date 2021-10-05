@@ -9,6 +9,7 @@ import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.GovernmentAchievement;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
@@ -18,6 +19,7 @@ import az.hrportal.hrportalapi.dto.employee.response.BusinessResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeResponseMapper;
 import az.hrportal.hrportalapi.mapper.employee.helper.EmployeeMapperHelper;
@@ -55,6 +57,7 @@ public class EmployeeService {
     private final EmployeeMapper employeeMapper;
     private final EmployeeResponseMapper employeeResponseMapper;
     private final EmployeeMapperHelper employeeMapperHelper;
+    private final DocumentResponseMapper documentResponseMapper;
 
     @Transactional
     public void setPhotoName(Integer id, String fileName) {
@@ -190,6 +193,20 @@ public class EmployeeService {
         List<EmployeeResponseDto> response = responseHolder.getPageList();
         log.info("********** getPagination service completed **********");
         return new PaginationResponseDto<>(response, response.size(), employees.size());
+    }
+
+    public PaginationResponseDto<List<DocumentResponseDto>> getDocumentsById(Integer id, int page, int size) {
+        log.info("getDocumentsById service started");
+        Employee employee = employeeRepository.findById(id).orElseThrow(() ->
+                new EntityNotFoundException(Employee.class, id));
+        List<DocumentResponseDto> documents = documentResponseMapper
+                .toDocumentResponseDtos(new ArrayList<>(employee.getOperations()));
+        PagedListHolder<DocumentResponseDto> responseHolder = new PagedListHolder<>(documents);
+        responseHolder.setPageSize(page);
+        responseHolder.setPageSize(size);
+        List<DocumentResponseDto> response = responseHolder.getPageList();
+        log.info("********** getDocumentsById service completed **********");
+        return new PaginationResponseDto<>(response, response.size(), documents.size());
     }
 
     @Transactional
