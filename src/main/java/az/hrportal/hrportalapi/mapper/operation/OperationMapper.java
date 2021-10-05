@@ -18,5 +18,6 @@ public interface OperationMapper {
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "changeDate", source = "changeDate", dateFormat = dateFormat)
     @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
+    @Mapping(target = "workMode", source = "newWorkMode")
     Operation toOperation(DocumentData documentData);
 }

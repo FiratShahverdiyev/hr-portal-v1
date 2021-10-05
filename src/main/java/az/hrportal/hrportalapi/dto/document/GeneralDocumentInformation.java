@@ -29,5 +29,5 @@ public class GeneralDocumentInformation {
     String dismissalReason;
     String dismissalDate;
     List<String> notes;
-    String workMode;
+    String newWorkMode;
 }

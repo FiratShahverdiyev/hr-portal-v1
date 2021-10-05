@@ -17,5 +17,6 @@ public class EmployeeDocumentInformation {
     BigDecimal salary;
     BigDecimal additionalSalary;
     BigDecimal ownAdditionalSalary;
+    String fullName;
     String workMode;
 }

@@ -24,7 +24,7 @@ public class PdfCreator {
     private PdfFont regular;
     private PdfFont bold;
 
-    public PdfCreator() {
+    public void createFont() {
         regular = getTTInterphasesFont(false);
         bold = getTTInterphasesFont(true);
     }

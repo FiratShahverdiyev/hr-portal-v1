@@ -288,6 +288,11 @@ public class DocumentService {
                     throw new ValidationException("employeeId,achievement");
                 break;
             }
+            case MUVEQQETI_EVEZETME: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null)
+                    throw new ValidationException("employeeId,positionId,changePeriod");
+                break;
+            }
             default:
                 break;
         }

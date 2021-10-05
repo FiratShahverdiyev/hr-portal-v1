@@ -15,8 +15,9 @@ public enum DocumentType {
     ISH_REJIMININ_DEYISTIRILMESI(12, DocumentLabel.EMPLOYEE.toString(), "İş rejiminin dəyiştirilməsi"),
     ISH_YERI_DEYISIKLIYI(13, DocumentLabel.EMPLOYEE.toString(), "Iş yeri dəyişikliyi"),
     MUVEQQETI_KECIRILME(14, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti keçirilmə"),
-    MADDI_YARDIM(15, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
-    MUKAFATLANDIRMA(16, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma");
+    MADDI_YARDIM(33, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
+    MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
+    MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə");
 
     private int value;
     private String label;

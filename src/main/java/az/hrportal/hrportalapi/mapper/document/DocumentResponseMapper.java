@@ -37,7 +37,8 @@ public interface DocumentResponseMapper {
     @Mapping(target = "changeDate", source = "changeDate", dateFormat = dateFormat)
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
-    @Mapping(target = "workMode", source = "workMode", qualifiedBy = WorkModeValue.class)
+    @Mapping(target = "newWorkMode", source = "workMode",
+            qualifiedBy = WorkModeValue.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "documentType", source = "documentType", qualifiedByName = "documentToValueAz")
     @Mapping(target = "documentId", source = "documentType", qualifiedByName = "documentToId")
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);

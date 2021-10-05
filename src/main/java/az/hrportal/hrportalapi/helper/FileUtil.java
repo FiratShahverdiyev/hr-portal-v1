@@ -123,6 +123,7 @@ public class FileUtil {
         Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, operationId));
         DocumentType documentType = operation.getDocumentType();
+        pdfCreator.createFont();
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
                 pdfCreator.pdfCreatePosition(document, operation);
