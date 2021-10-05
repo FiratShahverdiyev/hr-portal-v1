@@ -295,7 +295,7 @@ public class DocumentService {
                 break;
             }
             case SHTAT_EMEK_HAQQINA_ELAVE: {
-                if (documentData.getEmployeeId() == null || documentData.getOwnAdditionalSalary() == null)
+                if (documentData.getEmployeeId() == null || documentData.getNewAdditionalSalary() == null)
                     throw new ValidationException("employeeId,ownAdditionalSalary");
                 break;
             }

@@ -90,6 +90,8 @@ public class Operation {
     BigDecimal financialHelp;
     @Column(name = "achievement")
     BigDecimal achievement;
+    @Column(name = "change_period")
+    Integer changePeriod;
     @Column(name = "work_mode")
     @Enumerated(EnumType.STRING)
     WorkMode workMode;

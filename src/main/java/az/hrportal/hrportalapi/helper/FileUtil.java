@@ -157,6 +157,26 @@ public class FileUtil {
                 pdfCreator.pdfChangeWorkMode(document, operation);
                 break;
             }
+            case MUVEQQETI_EVEZETME: {
+                pdfCreator.pdfTemporaryChange(document, operation);
+                break;
+            }
+            case MADDI_YARDIM: {
+                pdfCreator.pdfFinancialHelp(document, operation);
+                break;
+            }
+            case ISH_YERI_DEYISIKLIYI: {
+                break;
+            }
+            case MUKAFATLANDIRMA: {
+                break;
+            }
+            case MUVEQQETI_KECIRILME: {
+                break;
+            }
+            case SHTAT_EMEK_HAQQINA_ELAVE: {
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
