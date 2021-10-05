@@ -110,4 +110,8 @@ public class DocumentData {
     //String changeDate;
     //BigDecimal newSalary;
     //BigDecimal newAdditionalSalary;
+
+    Integer changePeriod;
+    BigDecimal financialHelp;
+    BigDecimal achievement;
 }

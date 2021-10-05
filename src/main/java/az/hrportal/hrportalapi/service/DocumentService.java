@@ -261,7 +261,31 @@ public class DocumentService {
             case ISH_REJIMININ_DEYISTIRILMESI: {
                 if (documentData.getEmployeeId() == null || documentData.getNewWorkMode() == null ||
                         documentData.getNewSalary() == null)
-                    throw new ValidationException("employeeId,workMode");
+                    throw new ValidationException("employeeId,newWorkMode,newSalary");
+                break;
+            }
+            case ISH_YERI_DEYISIKLIYI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getNewOwnAdditionalSalary() == null || documentData.getChangeDate() == null)
+                    throw new ValidationException("employeeId,positionId,newOwnAdditionalSalary,changeDate");
+                break;
+            }
+            case MUVEQQETI_KECIRILME: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getNewOwnAdditionalSalary() == null || documentData.getChangeDate() == null ||
+                        documentData.getChangePeriod() == null)
+                    throw new ValidationException("employeeId,positionId," +
+                            "newOwnAdditionalSalary,changeDate,changePeriod");
+                break;
+            }
+            case MADDI_YARDIM: {
+                if (documentData.getEmployeeId() == null || documentData.getFinancialHelp() == null)
+                    throw new ValidationException("employeeId,financialHelp");
+                break;
+            }
+            case MUKAFATLANDIRMA: {
+                if (documentData.getEmployeeId() == null || documentData.getAchievement() == null)
+                    throw new ValidationException("employeeId,achievement");
                 break;
             }
             default:

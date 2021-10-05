@@ -6,6 +6,8 @@ import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.mapper.constant.ConstantMapperHelper;
 import az.hrportal.hrportalapi.mapper.constant.StatusToValueAz;
+import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
+import az.hrportal.hrportalapi.mapper.position.helper.WorkModeValue;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,7 +21,7 @@ import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring", uses = ConstantMapperHelper.class)
+        componentModel = "spring", uses = {PositionMapperHelper.class, ConstantMapperHelper.class})
 public interface DocumentResponseMapper {
     @Named("toDocumentResponseDto")
     @Mapping(target = "createDate", source = "createdAt", dateFormat = dateFormat)
@@ -35,10 +37,18 @@ public interface DocumentResponseMapper {
     @Mapping(target = "changeDate", source = "changeDate", dateFormat = dateFormat)
     @Mapping(target = "joinDate", source = "joinDate", dateFormat = dateFormat)
     @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
+    @Mapping(target = "workMode", source = "workMode", qualifiedBy = WorkModeValue.class)
+    @Mapping(target = "documentType", source = "documentType", qualifiedByName = "documentToValueAz")
+    @Mapping(target = "documentId", source = "documentType", qualifiedByName = "documentToId")
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);
 
     @Named("documentToValueAz")
     default String documentToValueAz(DocumentType documentType) {
         return documentType.getValueAz();
+    }
+
+    @Named("documentToId")
+    default Integer documentToId(DocumentType documentType) {
+        return documentType.getValue();
     }
 }

@@ -15,6 +15,7 @@ public class GeneralDocumentInformation {
     Integer employeeId;
     Integer positionId;
     String documentType;
+    Integer documentId;
     String mainOfOrder;
     String titleDepartment;
     String titleFullName;

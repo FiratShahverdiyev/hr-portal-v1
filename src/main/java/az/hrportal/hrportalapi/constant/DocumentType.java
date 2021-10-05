@@ -12,11 +12,11 @@ public enum DocumentType {
     VEZIFE_DEYISIKLIYI(9, DocumentLabel.EMPLOYEE.toString(), "Vəzifə dəyişikliyi"),
     EMEK_HAQQI_DEYISIKLIYI(10, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqı dəyişikliyi"),
     ELAVE_EMEK_HAQQI(11, DocumentLabel.EMPLOYEE.toString(), "Əlavə əmək haqqı"),
-    ISH_REJIMININ_DEYISTIRILMESI(12, DocumentLabel.EMPLOYEE.toString(), "İş rejiminin dəyiştirilməsi");
-   /* ISH_YERI_DEYISIKLIYI(11, DocumentLabel.EMPLOYEE.toString()),
-    MUVEQQETI_KECIRILME(12, DocumentLabel.EMPLOYEE.toString()),
-    MADDI_YARDIM(13, DocumentLabel.EMPLOYEE.toString()),
-    MUKAFATLANDIRMA(14, DocumentLabel.EMPLOYEE.toString());*/
+    ISH_REJIMININ_DEYISTIRILMESI(12, DocumentLabel.EMPLOYEE.toString(), "İş rejiminin dəyiştirilməsi"),
+    ISH_YERI_DEYISIKLIYI(13, DocumentLabel.EMPLOYEE.toString(), "Iş yeri dəyişikliyi"),
+    MUVEQQETI_KECIRILME(14, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti keçirilmə"),
+    MADDI_YARDIM(15, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
+    MUKAFATLANDIRMA(16, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma");
 
     private int value;
     private String label;

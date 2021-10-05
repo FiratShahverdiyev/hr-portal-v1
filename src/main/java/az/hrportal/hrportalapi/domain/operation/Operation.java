@@ -86,6 +86,10 @@ public class Operation {
     BigDecimal newAdditionalSalary;
     @Column(name = "new_salary")
     BigDecimal newSalary;
+    @Column(name = "financial_help")
+    BigDecimal financialHelp;
+    @Column(name = "achievement")
+    BigDecimal achievement;
     @Column(name = "work_mode")
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
