@@ -5,13 +5,15 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    PENDING(0),
-    APPROVED(1),
-    REJECTED(2);
+    PENDING(0, "Təstiq gözləyir"),
+    APPROVED(1, "Təstiqlənib"),
+    REJECTED(2, "Ləğv edildi");
 
     private int value;
+    private String valueAz;
 
-    Status(int value) {
+    Status(int value, String valueAz) {
+        this.valueAz = valueAz;
         this.value = value;
     }
 

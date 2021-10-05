@@ -4,6 +4,8 @@ import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
+import az.hrportal.hrportalapi.mapper.constant.ConstantMapperHelper;
+import az.hrportal.hrportalapi.mapper.constant.StatusToValueAz;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,14 +19,15 @@ import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring")
+        componentModel = "spring", uses = ConstantMapperHelper.class)
 public interface DocumentResponseMapper {
     @Named("toDocumentResponseDto")
     @Mapping(target = "createDate", source = "createdAt", dateFormat = dateFormat)
+    @Mapping(target = "documentType", source = "documentType", qualifiedByName = "documentToValueAz")
+    @Mapping(target = "status", source = "status", qualifiedBy = StatusToValueAz.class)
     DocumentResponseDto toDocumentResponseDto(Operation operation);
 
     @IterableMapping(qualifiedByName = "toDocumentResponseDto")
-    @Mapping(target = "documentType", source = "documentType", qualifiedByName = "toValueAz")
     List<DocumentResponseDto> toDocumentResponseDtos(List<Operation> operations);
 
     @Mapping(target = "employeeId", source = "employee.id", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
@@ -34,8 +37,8 @@ public interface DocumentResponseMapper {
     @Mapping(target = "dismissalDate", source = "dismissalDate", dateFormat = dateFormat)
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);
 
-    @Named("toValueAz")
-    default String toValueAz(DocumentType documentType) {
+    @Named("documentToValueAz")
+    default String documentToValueAz(DocumentType documentType) {
         return documentType.getValueAz();
     }
 }

@@ -14,6 +14,7 @@ import az.hrportal.hrportalapi.domain.position.SubDepartment;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.PositionFilterRequestDto;
@@ -22,6 +23,7 @@ import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.KnowledgeResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
 import az.hrportal.hrportalapi.mapper.position.PositionMapper;
 import az.hrportal.hrportalapi.mapper.position.PositionResponseMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
@@ -61,6 +63,7 @@ public class PositionService {
     private final SalaryRepository salaryRepository;
     private final PositionResponseMapper positionResponseMapper;
     private final PositionMapper positionMapper;
+    private final DocumentResponseMapper documentResponseMapper;
 
     @Transactional
     public Integer saveGeneralInfo(GeneralInfoRequestDto generalInfoRequestDto) {
@@ -117,6 +120,20 @@ public class PositionService {
         List<PositionResponseDto> response = responseHolder.getPageList();
         log.info("********** getPaginationWithSearch service completed **********");
         return new PaginationResponseDto<>(response, response.size(), responseDtoList.size());
+    }
+
+    public PaginationResponseDto<List<DocumentResponseDto>> getDocumentsById(Integer id, int page, int size) {
+        log.info("getDocumentsById service started with id : {}", id);
+        Position position = positionRepository.findByIdWithKnowledgeRelations(id).orElseThrow(() ->
+                new EntityNotFoundException(Position.class, id));
+        List<DocumentResponseDto> documents = documentResponseMapper
+                .toDocumentResponseDtos(new ArrayList<>(position.getOperations()));
+        PagedListHolder<DocumentResponseDto> responseHolder = new PagedListHolder<>(documents);
+        responseHolder.setPageSize(page);
+        responseHolder.setPageSize(size);
+        List<DocumentResponseDto> response = responseHolder.getPageList();
+        log.info("********** getDocumentsById service completed with : id {} **********", id);
+        return new PaginationResponseDto<>(response, response.size(), documents.size());
     }
 
     public GeneralInfoResponseDto getGeneralInfoById(Integer id) {

@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.controller;
 import az.hrportal.hrportalapi.dto.KeyValue;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.ResponseDto;
+import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.GeneralInfoRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.KnowledgeRequestDto;
 import az.hrportal.hrportalapi.dto.position.request.PositionFilterRequestDto;
@@ -71,6 +72,14 @@ public class PositionController {
             @RequestParam(required = false) String vacancy, @RequestParam(required = false) Integer vacancyCount) {
         return ResponseDto.of(positionService.getPaginationWithSearch(page, size,
                 new PositionFilterRequestDto(department, subDepartment, vacancy, vacancyCount)), 200);
+    }
+
+    @GetMapping("document/{id}")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<PaginationResponseDto<List<DocumentResponseDto>>> getDocumentsById(
+            @PathVariable Integer id, @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        return ResponseDto.of(positionService.getDocumentsById(id, page, size), 200);
     }
 
     @GetMapping("general-info/{id}")
