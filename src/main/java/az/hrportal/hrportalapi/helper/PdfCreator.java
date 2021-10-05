@@ -66,8 +66,7 @@ public class PdfCreator {
         Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin. ");
         Text text4 = new Text("4. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text5 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
-        text5.setFont(bold);
+                "Ziyadov").setFont(bold);
 
         List list = new List()
                 .setSymbolIndent(12).setFont(bold)
@@ -132,7 +131,7 @@ public class PdfCreator {
         Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin. ");
         Text text4 = new Text("4. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text5 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
         text5.setFont(bold);
 
         List list = new List()
@@ -198,7 +197,7 @@ public class PdfCreator {
                 "mrdən irəli gələn zəruri məsələlərin həllini təmin etsinlər.");
         Text text9 = new Text("9. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text10 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         text1.setFont(bold);
         text2.setFont(bold);
@@ -271,7 +270,7 @@ public class PdfCreator {
         Text text10 = new Text("10. İnsan resursları departamentinə tapşırılsın ki, əmrlə işçi tanış edilsin. ");
         Text text11 = new Text("11. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text12 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         document.add(paragraph1);
         document.add(paragraph2);
@@ -336,7 +335,7 @@ public class PdfCreator {
                 " zəruri məsələlərin həllini təmin etsinlər. ");
         Text text8 = new Text("8. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text9 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         List list1 = new List()
                 .setSymbolIndent(12)
@@ -420,7 +419,7 @@ public class PdfCreator {
                 " zəruri məsələlərin həllini təmin etsinlər. ");
         Text text10 = new Text("10. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text11 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         List list1 = new List()
                 .setSymbolIndent(12)
@@ -500,7 +499,7 @@ public class PdfCreator {
                 " zəruri məsələlərin həllini təmin etsinlər. ");
         Text text8 = new Text("8. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text9 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         List list1 = new List()
                 .setSymbolIndent(12)
@@ -568,13 +567,14 @@ public class PdfCreator {
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("5. İşçinin faktiki iş rejimi:  " + employee.getPosition().getWorkMode().getValue());
         Text text6 = new Text("6. İşçinin keçirildiyi iş rejimi:  " + operation.getWorkMode().getValue());
-        Text text7 = new Text("7. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla)");
+        Text text7 = new Text("7. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla) : " +
+                employee.getPosition().getSalary().getSalary());
         Text text8 = new Text("8. Dəyişiklik edilən əmək haqqı Azn (vergilər və digər ödənişlər daxil olmaqla: ");
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
         Text text10 = new Text("10. Əmr imzalandığı gündən qüvvəyə minir. ");
         Text text11 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov");
+                "Ziyadov").setFont(bold);
 
         document.add(paragraph1);
         document.add(paragraph2);

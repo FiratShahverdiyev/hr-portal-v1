@@ -289,7 +289,8 @@ public class DocumentService {
                 break;
             }
             case MUVEQQETI_EVEZETME: {
-                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null)
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getChangePeriod() == null)
                     throw new ValidationException("employeeId,positionId,changePeriod");
                 break;
             }

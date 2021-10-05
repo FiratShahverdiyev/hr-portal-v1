@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -17,7 +16,6 @@ import java.util.List;
 @ToString
 public class DocumentData {
     @NotNull
-    @Range(min = 1, max = 14)
     Integer documentType;
 
     String mainOfOrder;

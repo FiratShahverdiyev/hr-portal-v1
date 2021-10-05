@@ -37,8 +37,9 @@ public class DocumentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public byte[] export2Pdf(@PathVariable("id") Integer operationId, HttpServletResponse httpServletResponse) {
         byte[] response = documentService.export2Pdf(operationId);
+        httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/pdf");
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + "Erize");
+                "attachment; filename=" + "Erize");
         return response;
     }
 
