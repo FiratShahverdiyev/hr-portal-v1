@@ -293,6 +293,11 @@ public class DocumentService {
                     throw new ValidationException("employeeId,positionId,changePeriod");
                 break;
             }
+            case SHTAT_EMEK_HAQQINA_ELAVE: {
+                if (documentData.getEmployeeId() == null || documentData.getOwnAdditionalSalary() == null)
+                    throw new ValidationException("employeeId,ownAdditionalSalary");
+                break;
+            }
             default:
                 break;
         }
