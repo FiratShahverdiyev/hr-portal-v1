@@ -166,12 +166,14 @@ public class FileUtil {
                 break;
             }
             case ISH_YERI_DEYISIKLIYI: {
+                pdfCreator.pdfChangeWorkPlace(document, operation);
                 break;
             }
             case MUKAFATLANDIRMA: {
                 break;
             }
             case MUVEQQETI_KECIRILME: {
+                pdfCreator.pdfTemporaryPass(document, operation);
                 break;
             }
             case SHTAT_EMEK_HAQQINA_ELAVE: {

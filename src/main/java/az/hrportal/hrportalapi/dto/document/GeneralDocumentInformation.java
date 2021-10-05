@@ -25,6 +25,7 @@ public class GeneralDocumentInformation {
     BigDecimal newOwnAdditionalSalary;
     String joinDate;
     Integer testPeriod;
+    Integer changePeriod;
     BigDecimal ownAdditionalSalary;
     String dismissalReason;
     String dismissalDate;

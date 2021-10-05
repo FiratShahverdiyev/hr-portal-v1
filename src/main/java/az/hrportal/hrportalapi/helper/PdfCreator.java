@@ -706,7 +706,7 @@ public class PdfCreator {
                 .getSubDepartment().getName());
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("5. Maddi yardımın məbləği (vergilər və digər ödənişər xaric olmaqla):  " +
-                employee.getPosition().getWorkMode().getValue());
+                operation.getFinancialHelp());
         Text text6 = new Text("6. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
         Text text7 = new Text("7. Əmr imzalandığı gündən qüvvəyə minir. ");
@@ -725,6 +725,181 @@ public class PdfCreator {
         document.add(new Paragraph(text7));
         document.add(new Paragraph(text8));
         log.info("********** pdfFinancialHelp PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfChangeWorkPlace(Document document, Operation operation) {
+        log.info("pdfChangeWorkPlace PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İş yeri dəyişikliyi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getTitleDepartment() + " departamentinin müdiri " +
+                operation.getTitleFullName() + " oğlunun təqdimatı, işçinin ərizəsi" +
+                " və qüvvədə olan əmək müqaviləsinə" + " bağlanmış əlavəyə əsasən,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Position position = employee.getPosition();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
+        Text text5 = new Text("5. Keçirildiyi struktur bölmə:   " + position.getDepartment().getName());
+
+        Text text6 = new Text("6.Keçirildiyi iş yeri: " + position.getWorkPlace());
+        Text text7 = new Text("7. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
+        Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
+
+        Text text8 = new Text("8. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
+        Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
+        Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+                " zəruri məsələlərin həllini təmin etsinlər. ");
+        Text text10 = new Text("10. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text11 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .setMarginLeft(5);
+
+        List list2 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list2
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(list1);
+        document.add(new Paragraph(text8));
+        document.add(list2);
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        document.add(new Paragraph(text11));
+        log.info("********** pdfChangeWorkPlace PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfTemporaryPass(Document document, Operation operation) {
+        log.info("pdfTemporaryPass PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Müvəqqəti keçirilmə barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getTitleDepartment() + " departamentinin müdiri " +
+                operation.getTitleFullName() + " oğlunun təqdimatı, işçinin ərizəsi" +
+                " və qüvvədə olan əmək müqaviləsinə" + " bağlanmış əlavəyə əsasən,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Position position = employee.getPosition();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
+        Text text5 = new Text("5. Keçirildiyi müddət:   " + operation.getChangePeriod());
+        Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
+        Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
+        Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
+        Text text9 = new Text("9. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
+        Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
+
+        Text text10 = new Text("10. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
+        Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
+        Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+                " zəruri məsələlərin həllini təmin etsinlər. ");
+        Text text12 = new Text("12. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text13 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .setMarginLeft(5);
+
+        List list2 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list2
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        document.add(list1);
+        document.add(new Paragraph(text10));
+        document.add(list2);
+        document.add(new Paragraph(text11));
+        document.add(new Paragraph(text12));
+        document.add(new Paragraph(text13));
+        log.info("********** pdfTemporaryPass PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
 
