@@ -15,6 +15,7 @@ import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.ValidationException;
+import az.hrportal.hrportalapi.helper.CommonHelper;
 import az.hrportal.hrportalapi.helper.FileUtil;
 import az.hrportal.hrportalapi.mapper.document.DocumentInformationResponseMapper;
 import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
@@ -53,7 +54,7 @@ public class DocumentService {
         Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, operationId));
         byte[] response = fileUtil.createAndGetPdf(operation);
-        String fileName = operation.getDocumentType().toString();
+        String fileName = operation.getDocumentType().getValueAz();
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=" + fileName);
         httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/pdf");
@@ -69,9 +70,14 @@ public class DocumentService {
         if (documentData.getEmployeeId() != null)
             operation.setEmployee(employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
                     new EntityNotFoundException(Employee.class, documentData.getEmployeeId())));
-        if (documentData.getPositionId() != null)
-            operation.setPosition(positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
-                    new EntityNotFoundException(Position.class, documentData.getPositionId())));
+        if (documentData.getPositionId() != null) {
+            Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
+                    new EntityNotFoundException(Position.class, documentData.getPositionId()));
+            if (CommonHelper.checkStatus(position))
+                operation.setPosition(position);
+            else
+                throw new RuntimeException("Position isn't approved");
+        }
         Operation saved = operationRepository.save(operation);
         log.info("********** create (Document) service completed with id : {} **********", saved.getId());
         return saved.getId();
@@ -133,7 +139,8 @@ public class DocumentService {
         log.info("getAllPositionsId service started");
         Set<Integer> response = new HashSet<>();
         for (Position position : positionRepository.findAll()) {
-            response.add(position.getId());
+            if (CommonHelper.checkStatus(position))
+                response.add(position.getId());
         }
         log.info("********** getAllPositionsId service completed **********");
         return response;
@@ -262,8 +269,7 @@ public class DocumentService {
             case ELAVE_EMEK_HAQQI: {
                 if (documentData.getEmployeeId() == null || documentData.getNewSalary() == null ||
                         documentData.getChangeDate() == null || documentData.getNewAdditionalSalary() == null)
-                    throw new ValidationException("employeeId,newSalary,changeDate,newAdditionalSalary" +
-                            "");
+                    throw new ValidationException("employeeId,newSalary,changeDate,newAdditionalSalary");
                 break;
             }
             case ISH_REJIMININ_DEYISTIRILMESI: {
@@ -304,7 +310,7 @@ public class DocumentService {
             }
             case SHTAT_EMEK_HAQQINA_ELAVE: {
                 if (documentData.getEmployeeId() == null || documentData.getNewAdditionalSalary() == null)
-                    throw new ValidationException("employeeId,ownAdditionalSalary");
+                    throw new ValidationException("employeeId,newOwnAdditionalSalary");
                 break;
             }
             default:

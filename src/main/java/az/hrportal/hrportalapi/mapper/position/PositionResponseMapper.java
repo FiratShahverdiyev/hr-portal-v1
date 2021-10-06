@@ -4,6 +4,8 @@ import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.position.response.GeneralInfoResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.KnowledgeResponseDto;
 import az.hrportal.hrportalapi.dto.position.response.PositionResponseDto;
+import az.hrportal.hrportalapi.mapper.constant.ConstantMapperHelper;
+import az.hrportal.hrportalapi.mapper.constant.StatusToValueAz;
 import az.hrportal.hrportalapi.mapper.position.helper.ComputerKnowledgeToDto;
 import az.hrportal.hrportalapi.mapper.position.helper.EducationDegreeValue;
 import az.hrportal.hrportalapi.mapper.position.helper.GenderDemandValue;
@@ -26,7 +28,7 @@ import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
-        componentModel = "spring", uses = PositionMapperHelper.class)
+        componentModel = "spring", uses = {PositionMapperHelper.class, ConstantMapperHelper.class})
 public interface PositionResponseMapper {
     @Mapping(target = "institutionName", source = "institution.name")
     @Mapping(target = "departmentName", source = "department.name")
@@ -63,5 +65,6 @@ public interface PositionResponseMapper {
     @Mapping(target = "vacancyName", source = "vacancy.name")
     @Mapping(target = "vacancyCount", source = "count")
     @Mapping(target = "salary", source = "salary.salary")
+    @Mapping(target = "status", source = "status", qualifiedBy = StatusToValueAz.class)
     PositionResponseDto toPositionResponseDto(Position position);
 }
