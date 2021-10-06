@@ -69,12 +69,17 @@ public interface EmployeeResponseMapper {
     List<EmployeeResponseDto> toEmployeeResponseDtos(List<Employee> employees);
 
     @Named("toEmployeeResponseDto")
-    @Mapping(target = "position", source = "position.vacancy.name")
-    @Mapping(target = "department", source = "position.department.name")
+    @Mapping(target = "position", source = "position.vacancy.name",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "department", source = "position.department.name",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     EmployeeResponseDto toEmployeeResponseDto(Employee employee);
 
-    @Mapping(target = "department", source = "position.department.name")
-    @Mapping(target = "subDepartment", source = "position.subDepartment.name")
-    @Mapping(target = "position", source = "position.vacancy.name")
+    @Mapping(target = "department", source = "position.department.name",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "subDepartment", source = "position.subDepartment.name",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "position", source = "position.vacancy.name",
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     EmployeeDocumentResponseDto toEmployeeDocumentResponseDto(Employee employee);
 }

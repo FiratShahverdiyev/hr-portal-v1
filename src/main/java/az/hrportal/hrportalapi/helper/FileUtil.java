@@ -2,7 +2,6 @@ package az.hrportal.hrportalapi.helper;
 
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.operation.Operation;
-import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import az.hrportal.hrportalapi.repository.OperationRepository;
@@ -113,15 +112,13 @@ public class FileUtil {
     }
 
     @SneakyThrows
-    public byte[] createAndGetPdf(Integer operationId) {
-        log.info("createAndGetPdf util started with operationId : {}", operationId);
+    public byte[] createAndGetPdf(Operation operation) {
+        log.info("createAndGetPdf util started");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         PdfWriter pdfWriter = new PdfWriter(bos);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         PageSize customPageSize = new PageSize(840F, 1188F);
         Document document = new Document(pdfDocument, customPageSize);
-        Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
-                new EntityNotFoundException(Operation.class, operationId));
         DocumentType documentType = operation.getDocumentType();
         pdfCreator.createFont();
         switch (documentType) {
@@ -183,7 +180,7 @@ public class FileUtil {
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
         document.close();
-        log.info("********** createAndGetPdf util completed with operationId : {} **********", operationId);
+        log.info("********** createAndGetPdf util completed with **********");
         return bos.toByteArray();
     }
 }

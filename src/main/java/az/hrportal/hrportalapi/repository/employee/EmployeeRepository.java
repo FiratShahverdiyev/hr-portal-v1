@@ -10,7 +10,7 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Override
     @EntityGraph(attributePaths = {"governmentAchievements", "certificates",
-            "familyMembers", "quotas", "citizenCountry"})
+            "familyMembers", "quotas", "citizenCountry", "position"})
     @Cacheable("employees")
     List<Employee> findAll();
 }

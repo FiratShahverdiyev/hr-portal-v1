@@ -17,4 +17,5 @@ public class PositionResponseDto {
     String vacancyName;
     Integer vacancyCount;
     BigDecimal salary;
+    String status;
 }

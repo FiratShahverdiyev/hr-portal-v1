@@ -27,8 +27,10 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -46,9 +48,15 @@ public class DocumentService {
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
     private final DocumentResponseMapper documentResponseMapper;
 
-    public byte[] export2Pdf(Integer operationId) {
+    public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
         log.info("export2Pdf service started with operationId : {}", operationId);
-        byte[] response = fileUtil.createAndGetPdf(operationId);
+        Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
+                new EntityNotFoundException(Operation.class, operationId));
+        byte[] response = fileUtil.createAndGetPdf(operation);
+        String fileName = operation.getDocumentType().toString();
+        httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=" + fileName);
+        httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/pdf");
         log.info("********** export2Pdf service completed with operationId : {} **********", operationId);
         return response;
     }

@@ -11,7 +11,6 @@ import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
 import az.hrportal.hrportalapi.service.DocumentService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,11 +35,7 @@ public class DocumentController {
     @GetMapping(value = "export/{id}", produces = MediaType.APPLICATION_PDF_VALUE)
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public byte[] export2Pdf(@PathVariable("id") Integer operationId, HttpServletResponse httpServletResponse) {
-        byte[] response = documentService.export2Pdf(operationId);
-        httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, "application/pdf");
-        httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=" + "Erize");
-        return response;
+        return documentService.export2Pdf(operationId, httpServletResponse);
     }
 
     @PostMapping
