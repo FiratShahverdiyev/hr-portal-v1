@@ -27,7 +27,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring", uses = {PositionMapperHelper.class, ConstantMapperHelper.class})
 public interface PositionResponseMapper {
     @Mapping(target = "institutionName", source = "institution.name")
@@ -43,17 +43,14 @@ public interface PositionResponseMapper {
     @Mapping(target = "vacancyCategory", source = "vacancyCategory", qualifiedBy = VacancyCategoryValue.class)
     @Mapping(target = "workCondition", source = "workCondition", qualifiedBy = WorkConditionValue.class)
     @Mapping(target = "workMode", source = "workMode", qualifiedBy = WorkModeValue.class)
-    @Mapping(target = "requireFile", source = "requireFile", qualifiedBy = RequireFileValue.class,
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "requireFile", source = "requireFile", qualifiedBy = RequireFileValue.class)
     @Mapping(target = "skills", source = "skills", qualifiedBy = SkillsToDto.class)
     GeneralInfoResponseDto toGeneralInfoResponseDto(Position position);
 
-    @Mapping(target = "computerKnowledge", source = "computerKnowledge", qualifiedBy = ComputerKnowledgeToDto.class,
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+    @Mapping(target = "computerKnowledge", source = "computerKnowledge", qualifiedBy = ComputerKnowledgeToDto.class)
     @Mapping(target = "legislationStatements", source = "legislationStatements",
-            qualifiedBy = LegislationStatementToDto.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-    @Mapping(target = "languageKnowledge", source = "languageKnowledge", qualifiedBy = LanguageKnowledgeToDto.class,
-            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+            qualifiedBy = LegislationStatementToDto.class)
+    @Mapping(target = "languageKnowledge", source = "languageKnowledge", qualifiedBy = LanguageKnowledgeToDto.class)
     KnowledgeResponseDto toKnowledgeResponseDto(Position position);
 
     @IterableMapping(qualifiedByName = "toPositionResponseDto")

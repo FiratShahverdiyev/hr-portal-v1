@@ -26,6 +26,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Value("${filter.url.ignore}")
     private String[] ignoredUrls;
+    @Value("${filter.url.csp}")
+    private String cspUrl;
 
     @Bean
     public PasswordEncoder getEncoder() {
@@ -43,8 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .headers()
-                .contentSecurityPolicy("script-src 'self' https://trustedscripts.example.com; " +
-                        "object-src " + "https://trustedplugins.example.com; report-uri /csp-report-endpoint/")
+                .contentSecurityPolicy(cspUrl)
                 .and()
                 .frameOptions()
                 .sameOrigin()
