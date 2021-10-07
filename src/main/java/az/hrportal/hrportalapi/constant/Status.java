@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 public enum Status {
-    PENDING(0, "Təstiq gözləyir"),
-    APPROVED(1, "Təstiqlənib"),
+    PENDING(0, "Təsdiq gözləyir"),
+    APPROVED(1, "Təsdiqlənib"),
     REJECTED(2, "Ləğv edildi");
 
     private int value;

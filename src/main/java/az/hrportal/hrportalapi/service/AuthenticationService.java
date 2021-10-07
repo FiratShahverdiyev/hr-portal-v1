@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.service;
 
+import az.hrportal.hrportalapi.constant.Role;
 import az.hrportal.hrportalapi.domain.User;
 import az.hrportal.hrportalapi.dto.LoginRequestDto;
 import az.hrportal.hrportalapi.repository.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,7 @@ public class AuthenticationService {
         log.info("login service started with username : {}", loginRequestDto.getUsername());
         Authentication authentication = new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(),
                 loginRequestDto.getPassword());
-        authenticationManager.authenticate(authentication);
+        authentication = authenticationManager.authenticate(authentication);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         log.info("login service completed with username : {}", loginRequestDto.getUsername());
         return tokenProvider.createToken(authentication);
@@ -42,6 +45,9 @@ public class AuthenticationService {
         User user = new User();
         user.setUsername("admin");
         user.setPassword("$2a$10$NrrK28KlvCBz47/FvKhksO6lEA4Io.yz2t/ChfbgbmAqQHemPhfuW");
+        Set<Role> roles = new HashSet<>();
+        roles.add(Role.ROLE_ADMIN);
+        user.setRoles(roles);
         userRepository.save(user);
     }
 }

@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.dto.employee.response;
 
+import az.hrportal.hrportalapi.dto.KeyValue;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,9 +35,9 @@ public class GeneralInfoResponseDto {
     String foreignPassportEndDate;
     String foreignPassportNumber;
 
-    String addressCountry;
-    String addressCity;
-    String addressDistrict;
+    KeyValue<String, Integer> addressCountry;
+    KeyValue<String, Integer> addressCity;
+    KeyValue<String, Integer> addressDistrict;
     String addressVillage;
     String addressStreet;
     String addressBlock;
