@@ -5,7 +5,6 @@ import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
-import az.hrportal.hrportalapi.domain.position.Salary;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.document.DocumentData;
@@ -177,6 +176,7 @@ public class DocumentService {
                 Position position = operation.getPosition();
                 employee.setPosition(position);
                 employee.setActive(true);
+                employee.setSalary(position.getSalary().getSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -190,6 +190,7 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
+                employee.setSalary(position.getSalary().getSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -198,11 +199,9 @@ public class DocumentService {
             case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
-                Salary salary = new Salary();
-                salary.setSalary(operation.getNewSalary());
-                position.setSalary(salary);
                 position.setAdditionalSalary(operation.getNewAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
+                employee.setSalary(operation.getNewSalary());
                 employeeRepository.save(employee);
                 positionRepository.save(position);
                 break;
@@ -210,10 +209,9 @@ public class DocumentService {
             case ELAVE_EMEK_HAQQI: {
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
-                Salary salary = new Salary();
-                salary.setSalary(operation.getNewSalary());
-                position.setSalary(salary);
+                employee.setSalary(operation.getNewSalary());
                 position.setAdditionalSalary(operation.getNewAdditionalSalary());
+                employeeRepository.save(employee);
                 positionRepository.save(position);
                 break;
             }

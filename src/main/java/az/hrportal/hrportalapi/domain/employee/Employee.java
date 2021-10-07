@@ -225,6 +225,8 @@ public class Employee {
     String workPermissionNumber;
     @Column(name = "work_permission_period")
     Integer workPermissionPeriod;
+    @Column(name = "salary")
+    BigDecimal salary;
     @Column(name = "start_work_permission_date")
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")
