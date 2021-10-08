@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -45,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/**/status/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/**/status/*").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .headers()

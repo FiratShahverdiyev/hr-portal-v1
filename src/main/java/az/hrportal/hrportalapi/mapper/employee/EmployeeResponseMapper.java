@@ -30,7 +30,8 @@ import java.util.List;
 import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring", uses = EmployeeMapperHelper.class)
 public interface EmployeeResponseMapper {
     @Mapping(target = "academicDegreeDate", source = "academicDegreeDate", dateFormat = dateFormat)
