@@ -122,6 +122,13 @@ public class FileUtil {
         document.setLeftMargin(100f);
         document.setTopMargin(320f);
         pdfCreator.createFont();
+        checkAndCreatePdf(document, operation);
+        document.close();
+        log.info("********** createAndGetPdf util completed with **********");
+        return bos.toByteArray();
+    }
+
+    private void checkAndCreatePdf(Document document, Operation operation) {
         DocumentType documentType = operation.getDocumentType();
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
@@ -181,8 +188,5 @@ public class FileUtil {
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
-        document.close();
-        log.info("********** createAndGetPdf util completed with **********");
-        return bos.toByteArray();
     }
 }

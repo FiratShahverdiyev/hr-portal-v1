@@ -41,6 +41,7 @@ public interface DocumentResponseMapper {
             qualifiedBy = WorkModeValue.class, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "documentType", source = "documentType", qualifiedByName = "documentToValueAz")
     @Mapping(target = "documentId", source = "documentType", qualifiedByName = "documentToId")
+    @Mapping(target = "status", source = "status", qualifiedBy = StatusToValueAz.class)
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);
 
     @Named("documentToValueAz")

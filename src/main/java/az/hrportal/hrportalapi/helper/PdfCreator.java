@@ -284,7 +284,7 @@ public class PdfCreator {
         document.add(new Paragraph(text7));
         if (operation.getNotes() != null) {
             for (String note : operation.getNotes()) {
-                Text text8 = new Text(".Qeyd:  " + note);
+                Text text8 = new Text("8.Qeyd:  " + note);
                 document.add(new Paragraph(text8));
             }
         }

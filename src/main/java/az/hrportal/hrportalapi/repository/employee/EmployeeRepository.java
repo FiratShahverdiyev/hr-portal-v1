@@ -4,6 +4,7 @@ import az.hrportal.hrportalapi.domain.employee.Employee;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
             "familyMembers", "quotas", "citizenCountry", "position"})
     @Cacheable("employees")
     List<Employee> findAll();
+
+    @Query("SELECT e.id,e.salary,e.fullName FROM Employee e where e.active=true")
+    @EntityGraph(attributePaths = {"operations"})
+    List<Employee> findActiveEmployees();
 }

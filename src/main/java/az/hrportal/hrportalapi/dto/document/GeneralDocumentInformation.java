@@ -31,4 +31,5 @@ public class GeneralDocumentInformation {
     String dismissalDate;
     List<String> notes;
     String newWorkMode;
+    String status;
 }
