@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.domain.Day;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
 import az.hrportal.hrportalapi.domain.operation.Operation;
+import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.DayRepository;
@@ -12,6 +13,7 @@ import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,10 +31,10 @@ public class EmployeeSalaryService {
     private final EmployeeRepository employeeRepository;
     private final DayRepository dayRepository;
 
-    public List<EmployeeSalaryResponseDto> getAll() {
+    public PaginationResponseDto<List<EmployeeSalaryResponseDto>> getAll(int page, int size) {
         log.info("getAll service started");
         List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
-        List<EmployeeSalaryResponseDto> response = new ArrayList<>();
+        List<EmployeeSalaryResponseDto> data = new ArrayList<>();
         for (Employee employee : employees) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
             employeeSalaryResponseDto.setId(employee.getId());
@@ -40,21 +42,25 @@ public class EmployeeSalaryService {
             EmployeeSalary employeeSalary = calculate(employee); //TODO maaslarin backup-ni al
             employeeSalaryResponseDto.setNetSalary(employeeSalary.getNetSalary());
             employeeSalaryResponseDto.setGrossSalary(employeeSalary.getGrossSalary());
-            response.add(employeeSalaryResponseDto);
+            data.add(employeeSalaryResponseDto);
         }
+        PagedListHolder<EmployeeSalaryResponseDto> listHolder = new PagedListHolder<>(data);
+        listHolder.setPage(page);
+        listHolder.setPageSize(size);
+        List<EmployeeSalaryResponseDto> response = listHolder.getPageList();
         log.info("********** getAll service completed **********");
-        return response;
+        return new PaginationResponseDto<>(response, response.size(), employees.size());
     }
 
     @Transactional
     public EmployeeSalary calculate(Employee employee) {
         log.info("calculate service started");
         Float gross = employee.getSalary();
-        Float dsmf = gross % Constant.DSMF;
-        Float incomeTax = gross % Constant.INCOME_TAX;
-        Float its = gross % Constant.ITS;
-        Float unemploymentInsurance = gross % Constant.UNEMPLOYMENT_INSURANCE;
-        Float tradeUnion = gross % Constant.TRADE_UNION;
+        Float dsmf = percentage(gross, Constant.DSMF);
+        Float incomeTax = percentage(gross, Constant.INCOME_TAX);
+        Float its = percentage(gross, Constant.ITS);
+        Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
+        Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
         Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
         Float netSalary = gross - totalTax;
         EmployeeSalary employeeSalary = EmployeeSalary.builder()
@@ -65,6 +71,7 @@ public class EmployeeSalaryService {
                 .unemploymentInsurance(unemploymentInsurance)
                 .tradeUnion(tradeUnion)
                 .netSalary(netSalary)
+                .employee(employee)
                 .build();
         EmployeeSalary saved = employeeSalaryRepository.save(employeeSalary);
         log.info("********** calculate service completed with savedId : {} **********", saved.getId());
@@ -93,5 +100,9 @@ public class EmployeeSalaryService {
                 return false;
         }
         return true;
+    }
+
+    private Float percentage(Float number, Float percentage) {
+        return number * percentage / 100;
     }
 }
