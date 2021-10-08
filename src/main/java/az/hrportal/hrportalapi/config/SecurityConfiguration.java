@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.config;
 
+import az.hrportal.hrportalapi.config.filter.AccessDeniedHandler;
 import az.hrportal.hrportalapi.config.filter.SecurityFilter;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import az.hrportal.hrportalapi.security.TokenProvider;
@@ -23,6 +24,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final TokenProvider tokenProvider;
     private final LocaleMessageResolver messageResolver;
+    private final AccessDeniedHandler accessDeniedHandler;
 
     @Value("${filter.url.ignore}")
     private String[] ignoredUrls;
@@ -40,8 +42,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .csrf().disable()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler)
+                .and()
                 .authorizeRequests()
-                .antMatchers("/document/status/*").hasAnyRole("ADMIN")
+                .antMatchers("/**/status/*").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .headers()

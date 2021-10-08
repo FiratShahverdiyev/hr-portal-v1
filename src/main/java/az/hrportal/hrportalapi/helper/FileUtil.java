@@ -119,8 +119,10 @@ public class FileUtil {
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         PageSize customPageSize = new PageSize(840F, 1188F);
         Document document = new Document(pdfDocument, customPageSize);
-        DocumentType documentType = operation.getDocumentType();
+        document.setLeftMargin(100f);
+        document.setTopMargin(320f);
         pdfCreator.createFont();
+        DocumentType documentType = operation.getDocumentType();
         switch (documentType) {
             case SHTAT_VAHIDININ_TESISI: {
                 pdfCreator.pdfCreatePosition(document, operation);
