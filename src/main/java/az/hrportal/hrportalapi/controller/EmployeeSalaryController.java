@@ -22,7 +22,15 @@ public class EmployeeSalaryController {
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<PaginationResponseDto<List<EmployeeSalaryResponseDto>>> getAll(
-            @RequestParam int page, @RequestParam int size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
         return ResponseDto.of(employeeSalaryService.getAll(page, size), 200);
     }
+
+   /* @GetMapping("test")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public void test() {
+        Day lastDayOfMonth = dayRepository.findLastJobDayOfMonth(LocalDate.now().getMonthValue()).get(0);
+        System.out.println("LASTDAY" + lastDayOfMonth.getDay());
+    }*/
 }

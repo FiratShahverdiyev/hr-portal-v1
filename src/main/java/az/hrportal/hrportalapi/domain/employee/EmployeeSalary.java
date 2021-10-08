@@ -15,8 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -50,5 +52,14 @@ public class EmployeeSalary {
     @Column(name = "net_salary")
     Float netSalary;
     @Column(name = "active_days")
-    Integer acctiveDays;
+    Integer activeDays;
+    @Column(name = "salary_calculation_date")
+    LocalDate salaryCalculationDate;
+    @Column(name = "backup")
+    Boolean backup;
+
+    @PrePersist
+    void setBackup() {
+        this.backup = false;
+    }
 }
