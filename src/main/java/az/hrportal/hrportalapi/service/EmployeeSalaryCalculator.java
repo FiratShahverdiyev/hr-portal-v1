@@ -27,6 +27,48 @@ public class EmployeeSalaryCalculator {
     private final EmployeeRepository employeeRepository;
     private final DayRepository dayRepository;
 
+    @Scheduled(cron = "0 0 23 * * 1-6", zone = "Asia/Baku")
+    private void salaryManager() {
+        log.info("salaryManager schedule started");
+        LocalDate now = LocalDate.now();
+        Day day = dayRepository.findByDay(now).orElseThrow(() -> new EntityNotFoundException(Day.class, now));
+        if (day.isJobDay()) {
+            log.info("schedule ended because isn't job day. Date : {}", day.getDay());
+            return;
+        }
+        calculateEmployeeWorkDay();
+        setEmployeesMonthlySalary();
+        log.info("********** salaryManager schedule completed **********");
+    }
+
+    @Transactional
+    protected void calculateEmployeeWorkDay() {
+        log.info("calculateEmployeeWorkDay schedule started");
+        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository.findAllByBackupIsFalse();
+        for (EmployeeSalary employeeSalary : employeeSalaries) {
+            if (checkEmployeeOperations(employeeSalary.getEmployee().getOperations()))
+                employeeSalary.setActiveDays(employeeSalary.getActiveDays() + 1);
+        }
+        employeeSalaryRepository.saveAll(employeeSalaries);
+        log.info("********** calculateEmployeeWorkDay schedule completed **********");
+    }
+
+    private void setEmployeesMonthlySalary() {
+        log.info("setEmployeesMonthlySalary schedule started");
+        Day day = dayRepository.findLastJobDayOfMonth(
+                LocalDate.now().getMonthValue()).get(0);
+        if (!day.getDay().isEqual(LocalDate.now())) {
+            log.info("schedule ended because isn't last day of month. Date : {}", day.getDay());
+            return;
+        }
+        backup();
+        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
+        for (Employee employee : employees) {
+            calculate(employee);
+        }
+        log.info("********** setEmployeesMonthlySalary schedule completed **********");
+    }
+
     @Transactional
     protected void calculate(Employee employee) {
         log.info("calculate service started");
@@ -50,37 +92,6 @@ public class EmployeeSalaryCalculator {
                 .build();
         EmployeeSalary saved = employeeSalaryRepository.save(employeeSalary);
         log.info("********** calculate service completed with savedId : {} **********", saved.getId());
-    }
-
-    @Scheduled(cron = "0 0 23 * * *", zone = "Asia/Baku")
-    private void dayManager() {
-        log.info("dayManager schedule started");
-        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
-        LocalDate now = LocalDate.now();
-        Day day = dayRepository.findByDay(now).orElseThrow(() -> new EntityNotFoundException(Day.class, now));
-        if (day.isJobDay())
-            return;
-        for (Employee employee : employees) {
-            EmployeeSalary employeeSalary = employeeSalaryRepository.getById(employee.getId());
-            if (checkEmployeeOperations(employee.getOperations()))
-                employeeSalary.setActiveDays(employeeSalary.getActiveDays() + 1);
-        }
-        setEmployeesMonthlySalary();
-        log.info("********** dayManager schedule completed **********");
-    }
-
-    private void setEmployeesMonthlySalary() {
-        log.info("setEmployeesMonthlySalary schedule started");
-        Day lastDayOfMonth = dayRepository.findLastJobDayOfMonth(
-                LocalDate.now().getMonthValue()).get(0);
-        if (!lastDayOfMonth.getDay().isEqual(LocalDate.now()))
-            return;
-        backup();
-        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
-        for (Employee employee : employees) {
-            calculate(employee);
-        }
-        log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
 
     private void backup() {
