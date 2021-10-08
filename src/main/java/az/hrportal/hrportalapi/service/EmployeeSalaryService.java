@@ -25,7 +25,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class SalaryCalculator {
+public class EmployeeSalaryService {
     private final EmployeeSalaryRepository employeeSalaryRepository;
     private final EmployeeRepository employeeRepository;
     private final DayRepository dayRepository;
