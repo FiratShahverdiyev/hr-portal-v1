@@ -41,7 +41,6 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -213,7 +212,7 @@ public class PositionService {
         }
         if (clazz.getSimpleName().equals(Salary.class.getSimpleName())) {
             Salary salary = new Salary();
-            salary.setSalary((BigDecimal) value);
+            salary.setSalary((Float) value);
             return salaryRepository.save(salary);
         }
         if (clazz.getSimpleName().equals(Skill.class.getSimpleName())) {

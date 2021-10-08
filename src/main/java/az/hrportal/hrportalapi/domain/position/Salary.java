@@ -15,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +29,7 @@ public class Salary {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salaries_id_seq")
     Integer id;
     @Column(name = "salary", unique = true)
-    BigDecimal salary;
+    Float salary;
     @OneToMany(mappedBy = "salary")
     Set<Position> positions;
     @CreationTimestamp

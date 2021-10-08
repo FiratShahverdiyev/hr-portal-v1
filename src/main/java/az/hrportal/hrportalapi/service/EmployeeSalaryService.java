@@ -16,7 +16,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ public class EmployeeSalaryService {
 
     public List<EmployeeSalaryResponseDto> getAll() {
         log.info("getAll service started");
-        List<Employee> employees = employeeRepository.findActiveEmployees();
+        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
         List<EmployeeSalaryResponseDto> response = new ArrayList<>();
         for (Employee employee : employees) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
@@ -50,14 +49,14 @@ public class EmployeeSalaryService {
     @Transactional
     public EmployeeSalary calculate(Employee employee) {
         log.info("calculate service started");
-        BigDecimal gross = employee.getSalary();
-        BigDecimal dsmf = gross.multiply(BigDecimal.valueOf(Constant.DSMF));
-        BigDecimal incomeTax = gross.multiply(BigDecimal.valueOf(Constant.INCOME_TAX));
-        BigDecimal its = gross.multiply(BigDecimal.valueOf(Constant.ITS));
-        BigDecimal unemploymentInsurance = gross.multiply(BigDecimal.valueOf(Constant.UNEMPLOYMENT_INSURANCE));
-        BigDecimal tradeUnion = gross.multiply(BigDecimal.valueOf(Constant.TRADE_UNION));
-        BigDecimal totalTax = dsmf.add(incomeTax).add(its).add(unemploymentInsurance).add(tradeUnion);
-        BigDecimal netSalary = gross.subtract(totalTax);
+        Float gross = employee.getSalary();
+        Float dsmf = gross % Constant.DSMF;
+        Float incomeTax = gross % Constant.INCOME_TAX;
+        Float its = gross % Constant.ITS;
+        Float unemploymentInsurance = gross % Constant.UNEMPLOYMENT_INSURANCE;
+        Float tradeUnion = gross % Constant.TRADE_UNION;
+        Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+        Float netSalary = gross - totalTax;
         EmployeeSalary employeeSalary = EmployeeSalary.builder()
                 .grossSalary(gross)
                 .dsmf(dsmf)
@@ -75,7 +74,7 @@ public class EmployeeSalaryService {
     @Scheduled(cron = "0 0 23 * * *", zone = "Asia/Baku")
     public void dayManager() {
         log.info("dayManager schedule started");
-        List<Employee> employees = employeeRepository.findActiveEmployees();
+        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
         LocalDate now = LocalDate.now();
         Day day = dayRepository.findByDay(now).orElseThrow(() -> new EntityNotFoundException(Day.class, now));
         if (day.isJobDay())

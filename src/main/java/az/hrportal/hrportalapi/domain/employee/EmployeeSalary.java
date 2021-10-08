@@ -17,39 +17,38 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "employees")
+@Table(name = "employee_salaries")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeSalary {
     @Id
-    @SequenceGenerator(name = "employees_id_seq", allocationSize = 1, sequenceName = "employees_id_seq")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employees_id_seq")
+    @SequenceGenerator(name = "employee_salaries_id_seq", allocationSize = 1, sequenceName = "employee_salaries_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_salaries_id_seq")
     Integer id;
 
     @OneToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
     @Column(name = "gross_salary")
-    BigDecimal grossSalary;
+    Float grossSalary;
     @Column(name = "dsmf")
-    BigDecimal dsmf;
+    Float dsmf;
     @Column(name = "income_tax")
-    BigDecimal incomeTax;
+    Float incomeTax;
     @Column(name = "its")
-    BigDecimal its;
+    Float its;
     @Column(name = "trade_union")
-    BigDecimal tradeUnion;
+    Float tradeUnion;
     @Column(name = "unemployment_insurance")
-    BigDecimal unemploymentInsurance;
+    Float unemploymentInsurance;
     @Column(name = "net_salary")
-    BigDecimal netSalary;
+    Float netSalary;
     @Column(name = "active_days")
     Integer acctiveDays;
 }

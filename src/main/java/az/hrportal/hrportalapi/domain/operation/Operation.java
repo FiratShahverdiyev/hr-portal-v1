@@ -28,7 +28,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +68,7 @@ public class Operation {
     @Column(name = "dismissal_reason")
     String dismissalReason;
     @Column(name = "compensation")
-    BigDecimal compensation;
+    Float compensation;
     @ElementCollection
     List<String> notes;
     @Column(name = "join_date")
@@ -77,19 +76,19 @@ public class Operation {
     @Column(name = "test_period")
     Integer testPeriod;
     @Column(name = "own_additional_salary")
-    BigDecimal ownAdditionalSalary;
+    Float ownAdditionalSalary;
     @Column(name = "change_date")
     LocalDate changeDate;
     @Column(name = "new_own_additional_salary")
-    BigDecimal newOwnAdditionalSalary;
+    Float newOwnAdditionalSalary;
     @Column(name = "new_additional_salary")
-    BigDecimal newAdditionalSalary;
+    Float newAdditionalSalary;
     @Column(name = "new_salary")
-    BigDecimal newSalary;
+    Float newSalary;
     @Column(name = "financial_help")
-    BigDecimal financialHelp;
+    Float financialHelp;
     @Column(name = "achievement")
-    BigDecimal achievement;
+    Float achievement;
     @Column(name = "change_period")
     Integer changePeriod;
     @Column(name = "work_mode")

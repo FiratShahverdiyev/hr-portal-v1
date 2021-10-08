@@ -42,7 +42,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -83,7 +82,7 @@ public class Position {
     @Enumerated(EnumType.STRING)
     WorkCondition workCondition;
     @Column(name = "additional_salary")
-    BigDecimal additionalSalary;
+    Float additionalSalary;
     @Column(name = "work_mode", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkMode workMode;

@@ -36,9 +36,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
@@ -226,17 +226,22 @@ public class Employee {
     @Column(name = "work_permission_period")
     Integer workPermissionPeriod;
     @Column(name = "salary")
-    BigDecimal salary;
+    Float salary;
     @Column(name = "start_work_permission_date")
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")
     LocalDate expiredWorkPermissionDate;
     @Column(name = "own_additional_salary")
-    BigDecimal ownAdditionalSalary;
+    Float ownAdditionalSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
     @UpdateTimestamp
     @Column(name = "updated_at")
     Date updatedAt;
+
+    @PrePersist
+    void setActive() {
+        this.active = false;
+    }
 }
