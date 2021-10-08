@@ -72,7 +72,7 @@ public class SalaryCalculator {
         return saved;
     }
 
-    @Scheduled(cron = "0 23 * * *", zone = "Asia/Baku")
+    @Scheduled(cron = "0 0 23 * * *", zone = "Asia/Baku")
     public void dayManager() {
         log.info("dayManager schedule started");
         List<Employee> employees = employeeRepository.findActiveEmployees();
