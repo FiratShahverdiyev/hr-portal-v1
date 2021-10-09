@@ -35,4 +35,5 @@ public class GeneralDocumentInformation {
     String eventFrom;
     String eventTo;
     String eventName;
+    String disciplineType;
 }

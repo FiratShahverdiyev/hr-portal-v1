@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.domain.operation;
 
+import az.hrportal.hrportalapi.constant.DisciplineType;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
@@ -102,6 +103,15 @@ public class Operation {
     String eventName;
     @Column(name = "day_in_event")
     Integer dayInEvent;
+    @Column(name = "discipline_type")
+    @Enumerated(EnumType.STRING)
+    DisciplineType disciplineType;
+    @Column(name = "presentation_owner_name")
+    String presentationOwnerName;
+    @Column(name = "presentation_owner_department")
+    String presentationOwnerDepartment;
+    @Column(name = "presentation_owner_position")
+    String presentationOwnerPosition;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

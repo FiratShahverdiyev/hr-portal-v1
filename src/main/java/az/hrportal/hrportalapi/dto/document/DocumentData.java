@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.dto.document;
 
+import az.hrportal.hrportalapi.constant.DisciplineType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -117,4 +118,9 @@ public class DocumentData {
     String eventTo;
     String eventName;
     Integer dayInEvent;
+    DisciplineType disciplineType;
+
+    String presentationOwnerName;
+    String presentationOwnerDepartment;
+    String presentationOwnerPosition;
 }

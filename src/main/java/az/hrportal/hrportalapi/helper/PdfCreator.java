@@ -1128,6 +1128,69 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    public void pdfDisciplineAction(Document document, Operation operation) {
+        log.info("pdfDisciplineAction PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İntizam tənbehinə cəlb edilmə barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + operation.getMainOfOrder() + "AR Əmək Məcəlləsinin " +
+                "186.2-ci maddəsini və Cəmiyyətin Daxili Nizam-intizam Qaydalarını rəhbər tutaraq, əmək və icra " +
+                "intizamına riayət edilməsini gücləndirmək məqsədilə");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text1 = new Text("1.Aşağıda adı qeyd olunan işçi intizam tənbehinə cəlb edilsin.");
+        Text subText1 = new Text("İşçinin soyadı, adı, atasının adı: " + employee.getFullName());
+        Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text subText5 = new Text("İntizam tənbehinin növü: (Aşağıda qeyd olunanlardan birini" +
+                " seçim etmə imkanı olmalı) " + operation.getDisciplineType().getValue());
+        Text subText6 = new Text("Təlim-məşq toplantısında iştirak edəcəyi günlər: " + operation.getDayInEvent());
+        Text text2 = new Text("2. İnsan resursları departamentinə tapşırılsın ki, aidiyyəti şəxs əmrlə tanış edilsin.");
+        Text text3 = new Text("Əsas:  Struktur bölmə rəhbərinin təqdimatı və işçinin izahatı.");
+        Text text4 = new Text("Təqdimat sahibinin soyadı, adı, atasının adı: " + operation.getPresentationOwnerName());
+        Text text5 = new Text("Struktur bölmə: " + operation.getPresentationOwnerDepartment());
+        Text text6 = new Text("Vəzifəsi: " + operation.getPresentationOwnerPosition());
+        Text text7 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(list);
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        log.info("********** pdfDisciplineAction PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {

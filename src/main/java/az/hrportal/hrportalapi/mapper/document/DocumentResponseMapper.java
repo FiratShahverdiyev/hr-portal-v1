@@ -5,6 +5,7 @@ import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.mapper.constant.ConstantMapperHelper;
+import az.hrportal.hrportalapi.mapper.constant.DisciplineTypeToValue;
 import az.hrportal.hrportalapi.mapper.constant.StatusToValueAz;
 import az.hrportal.hrportalapi.mapper.position.helper.PositionMapperHelper;
 import az.hrportal.hrportalapi.mapper.position.helper.WorkModeValue;
@@ -44,6 +45,7 @@ public interface DocumentResponseMapper {
     @Mapping(target = "documentType", source = "documentType", qualifiedByName = "documentToValueAz")
     @Mapping(target = "documentId", source = "documentType", qualifiedByName = "documentToId")
     @Mapping(target = "status", source = "status", qualifiedBy = StatusToValueAz.class)
+    @Mapping(target = "disciplineType", source = "disciplineType", qualifiedBy = DisciplineTypeToValue.class)
     GeneralDocumentInformation toGeneralDocumentInformation(Operation operation);
 
     @Named("documentToValueAz")

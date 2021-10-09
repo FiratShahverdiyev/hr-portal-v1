@@ -201,6 +201,10 @@ public class FileUtil {
                 pdfCreator.pdfAttendanceInTraining(document, operation);
                 break;
             }
+            case INTIZAM_TENBEHI: {
+                pdfCreator.pdfDisciplineAction(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
