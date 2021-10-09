@@ -123,7 +123,7 @@ public class PositionService {
 
     public PaginationResponseDto<List<DocumentResponseDto>> getDocumentsById(Integer id, int page, int size) {
         log.info("getDocumentsById service started with id : {}", id);
-        Position position = positionRepository.findByIdWithKnowledgeRelations(id).orElseThrow(() ->
+        Position position = positionRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Position.class, id));
         List<DocumentResponseDto> documents = documentResponseMapper
                 .toDocumentResponseDtos(new ArrayList<>(position.getOperations()));

@@ -18,7 +18,8 @@ public enum DocumentType {
     MADDI_YARDIM(33, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
     MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
     MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə"),
-    SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə");
+    SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
+    TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndırilmə");
 
     private int value;
     private String label;

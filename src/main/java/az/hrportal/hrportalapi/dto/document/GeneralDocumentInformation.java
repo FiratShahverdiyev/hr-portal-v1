@@ -32,4 +32,7 @@ public class GeneralDocumentInformation {
     List<String> notes;
     String newWorkMode;
     String status;
+    String eventFrom;
+    String eventTo;
+    String eventName;
 }

@@ -94,6 +94,12 @@ public class Operation {
     @Column(name = "work_mode")
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
+    @Column(name = "event_from")
+    LocalDate eventFrom;
+    @Column(name = "event_to")
+    LocalDate eventTo;
+    @Column(name = "event_name")
+    String eventName;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

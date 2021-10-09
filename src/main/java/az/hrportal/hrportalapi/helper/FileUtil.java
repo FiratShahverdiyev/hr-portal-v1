@@ -185,6 +185,10 @@ public class FileUtil {
             case SHTAT_EMEK_HAQQINA_ELAVE: {
                 break;
             }
+            case TELIME_GONDERILME: {
+                pdfCreator.pdfEmployeeToTraining(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

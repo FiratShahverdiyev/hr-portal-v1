@@ -903,6 +903,66 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    public void pdfEmployeeToTraining(Document document, Operation operation) {
+        log.info("pdfEmployeeToTraining PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İşçinin təlimə göndərilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text1 = new Text("1. Aşağıda məlumatları qeyd olunan işçinin təlim kursunda iştirakı təmin edilsin.");
+        Text subText1 = new Text("İşçinin soyadı, adı, atasının adı: " + employee.getFullName());
+        Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text subText5 = new Text("Təlimin əhatə etdiyi dövrlər: " + operation.getEventFrom()
+                + " / " + operation.getEventTo());
+        Text subText6 = new Text("Təlimin adı: " + operation.getEventName());
+        Text text2 = new Text("2. Maliyyə departamentinə tapşırılsın ki, işçinin təlimdə olduğu müddətdə Azərbaycan " +
+                "Respublikası Əmək Məcəlləsinin 179-cu maddəsinin 2-ci hissəsinin “L” " +
+                "bəndinə əsasən orta əmək haqqı saxlanılsın.");
+        Text text3 = new Text("3. İnsan resursları departamentinə tapşırılsın ki, əmrdən" +
+                " irəli gələn məsələləri həll etsin. ");
+        Text text4 = new Text("4. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text5 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(subText1.getText()))
+                .add(new ListItem(subText2.getText()))
+                .add(new ListItem(subText3.getText()))
+                .add(new ListItem(subText4.getText()))
+                .add(new ListItem(subText5.getText()))
+                .add(new ListItem(subText6.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(list);
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        log.info("********** pdfEmployeeToTraining PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
         String TTInterphases;

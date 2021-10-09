@@ -112,4 +112,8 @@ public class DocumentData {
     Integer changePeriod;
     BigDecimal financialHelp;
     BigDecimal achievement;
+
+    String eventFrom;
+    String eventTo;
+    String eventName;
 }
