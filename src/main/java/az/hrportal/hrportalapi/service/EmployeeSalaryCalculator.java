@@ -5,12 +5,14 @@ import az.hrportal.hrportalapi.domain.Day;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
 import az.hrportal.hrportalapi.domain.operation.Operation;
+import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.DayRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
@@ -27,6 +30,7 @@ public class EmployeeSalaryCalculator {
     private final EmployeeSalaryRepository employeeSalaryRepository;
     private final EmployeeRepository employeeRepository;
     private final DayRepository dayRepository;
+    private final CacheManager cacheManager;
 
     @Scheduled(cron = "0 0 23 * * 1-6", zone = Constant.timeZone)
     private void salaryManager() {
@@ -70,6 +74,19 @@ public class EmployeeSalaryCalculator {
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
 
+    public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto) {
+        Float gross = employee.getSalary();
+        Float dsmf = percentage(gross, Constant.DSMF);
+        Float incomeTax = percentage(gross, Constant.INCOME_TAX);
+        Float its = percentage(gross, Constant.ITS);
+        Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
+        Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
+        Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+        Float netSalary = gross - totalTax;
+        responseDto.setGrossSalary(gross);
+        responseDto.setNetSalary(netSalary);
+    }
+
     @Transactional
     protected void calculate(Employee employee) {
         log.info("calculate service started");
@@ -97,6 +114,7 @@ public class EmployeeSalaryCalculator {
 
     private void backup() {
         log.info("backup schedule started");
+        Objects.requireNonNull(cacheManager.getCache("employee-salaries")).clear();
         List<EmployeeSalary> employeeSalaries = employeeSalaryRepository.findAllByBackupIsFalse();
         for (EmployeeSalary employeeSalary : employeeSalaries) {
             employeeSalary.setBackup(true);

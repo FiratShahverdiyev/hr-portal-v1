@@ -27,9 +27,11 @@ public class EmployeeSalaryController {
         return ResponseDto.of(employeeSalaryService.getAll(page, size), 200);
     }
 
-    /*@GetMapping("test")
+    @GetMapping("calculate")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public void test() {
-        employeeSalaryCalculator.salaryManager();
-    }*/
+    public ResponseDto<PaginationResponseDto<List<EmployeeSalaryResponseDto>>> calculateAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        return ResponseDto.of(employeeSalaryService.calculateAndGetAll(page, size), 200);
+    }
 }
