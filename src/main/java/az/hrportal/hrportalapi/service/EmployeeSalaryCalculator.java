@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Set;
 
@@ -27,12 +28,12 @@ public class EmployeeSalaryCalculator {
     private final EmployeeRepository employeeRepository;
     private final DayRepository dayRepository;
 
-    @Scheduled(cron = "0 0 23 * * 1-6", zone = "Asia/Baku")
+    @Scheduled(cron = "0 0 23 * * 1-6", zone = Constant.timeZone)
     private void salaryManager() {
         log.info("salaryManager schedule started");
-        LocalDate now = LocalDate.now();
+        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
         Day day = dayRepository.findByDay(now).orElseThrow(() -> new EntityNotFoundException(Day.class, now));
-        if (day.isJobDay()) {
+        if (!day.isJobDay()) {
             log.info("schedule ended because isn't job day. Date : {}", day.getDay());
             return;
         }
@@ -55,10 +56,10 @@ public class EmployeeSalaryCalculator {
 
     private void setEmployeesMonthlySalary() {
         log.info("setEmployeesMonthlySalary schedule started");
-        Day day = dayRepository.findLastJobDayOfMonth(
-                LocalDate.now().getMonthValue()).get(0);
+        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
+        Day day = dayRepository.findLastJobDayOfMonth(now.getMonthValue()).get(0);
         if (!day.getDay().isEqual(LocalDate.now())) {
-            log.info("schedule ended because isn't last day of month. Date : {}", day.getDay());
+            log.info("schedule ended because isn't last day of month. Date : {}", now);
             return;
         }
         backup();

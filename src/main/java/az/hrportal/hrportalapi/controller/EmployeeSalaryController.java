@@ -27,10 +27,9 @@ public class EmployeeSalaryController {
         return ResponseDto.of(employeeSalaryService.getAll(page, size), 200);
     }
 
-   /* @GetMapping("test")
+    /*@GetMapping("test")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public void test() {
-        Day lastDayOfMonth = dayRepository.findLastJobDayOfMonth(LocalDate.now().getMonthValue()).get(0);
-        System.out.println("LASTDAY" + lastDayOfMonth.getDay());
+        employeeSalaryCalculator.salaryManager();
     }*/
 }

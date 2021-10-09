@@ -13,4 +13,5 @@ public class Constant {
     public static final Float UNEMPLOYMENT_INSURANCE = 0.5f;
     public static final Set<DocumentType> passiveDayDocuments = new HashSet<>(Arrays
             .asList());
+    public static final String timeZone = "Asia/Baku";
 }
