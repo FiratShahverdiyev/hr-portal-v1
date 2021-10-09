@@ -193,6 +193,10 @@ public class FileUtil {
                 pdfCreator.pdfEmployeeToSelection(document, operation);
                 break;
             }
+            case TELIM_PLANININ_TESDIQI: {
+                pdfCreator.pdfApproveTrainingPlan(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

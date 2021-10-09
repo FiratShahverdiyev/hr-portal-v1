@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.helper;
 
+import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
@@ -17,6 +18,9 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 @Slf4j
 @Component
@@ -1023,6 +1027,49 @@ public class PdfCreator {
         log.info("********** pdfEmployeeToSelection PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
+
+    public void pdfApproveTrainingPlan(Document document, Operation operation) {
+        log.info("pdfApproveTrainingPlan PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Bakı Beynəlxalq Dəniz Ticarət Limanı” Qapalı Səhmdar " +
+                "Cəmiyyətində Təlim planının təsdiq edilməsi haqqında”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
+        Paragraph paragraph2 = new Paragraph("“Bakı Beynəlxalq Dəniz Ticarət Limanı” Qapalı Səhmdar Cəmiyyətində" +
+                " (bundan sonra -Cəmiyyət) “" + now.getYear() + "-ci il " +
+                "üzrə Təlim planı”nın təsdiq edilməsi məqsədilə, ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Text text1 = new Text("1. “Bakı Beynəlxalq Dəniz Ticarət Limanı”" +
+                " Qapalı Səhmdar Cəmiyyətində əməkdaşların peşə" +
+                " səviyyəsinin artırılması məqsədi ilə “" + now.getYear() + "-ci il üzrə Təlim " +
+                "planı” təsdiq edilsin (əlavə olunur).");
+        Text text2 = new Text("2. İnsan resursları departamentinə tapşırılsın ki," +
+                " “" + now.getYear() + "-ci il üzrə Təlim planı” ilə" +
+                " aidiyyəti struktur bölmələr tanış edilsin və il ərzində Təlim planında nəzərdə tutulan" +
+                " işçilərin təlimə göndərilməsini təmin etsin.");
+        Text text3 = new Text("3. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin.");
+        Text text4 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        log.info("********** pdfApproveTrainingPlan PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
