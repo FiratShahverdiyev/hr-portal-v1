@@ -66,6 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers(ignoredUrls)
+                .antMatchers("/keep-alive")
                 .antMatchers("/auth/**");
     }
 

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -68,9 +69,7 @@ public class EmployeeSalaryCalculator {
         }
         backup();
         List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
-        for (Employee employee : employees) {
-            calculate(employee);
-        }
+        calculateSalary(employees);
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
 
@@ -88,28 +87,32 @@ public class EmployeeSalaryCalculator {
     }
 
     @Transactional
-    protected void calculate(Employee employee) {
-        log.info("calculate service started");
-        Float gross = employee.getSalary();
-        Float dsmf = percentage(gross, Constant.DSMF);
-        Float incomeTax = percentage(gross, Constant.INCOME_TAX);
-        Float its = percentage(gross, Constant.ITS);
-        Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
-        Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
-        Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
-        Float netSalary = gross - totalTax;
-        EmployeeSalary employeeSalary = EmployeeSalary.builder()
-                .grossSalary(gross)
-                .dsmf(dsmf)
-                .incomeTax(incomeTax)
-                .its(its)
-                .unemploymentInsurance(unemploymentInsurance)
-                .tradeUnion(tradeUnion)
-                .netSalary(netSalary)
-                .employee(employee)
-                .build();
-        EmployeeSalary saved = employeeSalaryRepository.save(employeeSalary);
-        log.info("********** calculate service completed with savedId : {} **********", saved.getId());
+    protected void calculateSalary(List<Employee> employees) {
+        log.info("calculateSalary service started");
+        List<EmployeeSalary> employeeSalaries = new ArrayList<>();
+        for (Employee employee : employees) {
+            Float gross = employee.getSalary();
+            Float dsmf = percentage(gross, Constant.DSMF);
+            Float incomeTax = percentage(gross, Constant.INCOME_TAX);
+            Float its = percentage(gross, Constant.ITS);
+            Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
+            Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
+            Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+            Float netSalary = gross - totalTax;
+            EmployeeSalary employeeSalary = EmployeeSalary.builder()
+                    .grossSalary(gross)
+                    .dsmf(dsmf)
+                    .incomeTax(incomeTax)
+                    .its(its)
+                    .unemploymentInsurance(unemploymentInsurance)
+                    .tradeUnion(tradeUnion)
+                    .netSalary(netSalary)
+                    .employee(employee)
+                    .build();
+            employeeSalaries.add(employeeSalary);
+        }
+        employeeSalaryRepository.saveAll(employeeSalaries);
+        log.info("********** calculateSalary service completed with **********");
     }
 
     private void backup() {
