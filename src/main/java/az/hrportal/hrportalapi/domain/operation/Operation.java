@@ -100,8 +100,8 @@ public class Operation {
     LocalDate eventTo;
     @Column(name = "event_name")
     String eventName;
-    @Column(name = "day_in_selection")
-    Integer dayInSelection;
+    @Column(name = "day_in_event")
+    Integer dayInEvent;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

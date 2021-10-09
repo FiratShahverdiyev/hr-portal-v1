@@ -116,5 +116,5 @@ public class DocumentData {
     String eventFrom;
     String eventTo;
     String eventName;
-    Integer dayInSelection;
+    Integer dayInEvent;
 }

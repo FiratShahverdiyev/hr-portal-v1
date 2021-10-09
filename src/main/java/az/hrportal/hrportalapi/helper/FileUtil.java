@@ -197,6 +197,10 @@ public class FileUtil {
                 pdfCreator.pdfApproveTrainingPlan(document, operation);
                 break;
             }
+            case TEDBIRDE_ISTIRAK: {
+                pdfCreator.pdfAttendanceInTraining(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
