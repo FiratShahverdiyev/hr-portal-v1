@@ -38,7 +38,8 @@ public class EmployeeSalaryService {
     }
 
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size) {
-        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
+        log.info("calculateAndGetAll service started");
+        List<Employee> employees = employeeRepository.findAllActiveEmployee(page * size, size);
         List<EmployeeSalaryResponseDto> data = new ArrayList<>();
         for (Employee employee : employees) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
@@ -47,10 +48,7 @@ public class EmployeeSalaryService {
             employeeSalaryCalculator.setEmployeeSalary(employee, employeeSalaryResponseDto);
             data.add(employeeSalaryResponseDto);
         }
-        PagedListHolder<EmployeeSalaryResponseDto> pagedListHolder = new PagedListHolder<>(data);
-        pagedListHolder.setPage(page);
-        pagedListHolder.setPageSize(size);
-        List<EmployeeSalaryResponseDto> response = pagedListHolder.getPageList();
-        return new PaginationResponseDto<>(response, response.size(), employees.size());
+        log.info("********** calculateAndGetAll service completed **********");
+        return new PaginationResponseDto<>(data, data.size(), employeeRepository.getActiveEmployeeCount());
     }
 }
