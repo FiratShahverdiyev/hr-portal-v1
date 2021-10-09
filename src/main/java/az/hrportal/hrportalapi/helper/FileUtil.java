@@ -189,6 +189,10 @@ public class FileUtil {
                 pdfCreator.pdfEmployeeToTraining(document, operation);
                 break;
             }
+            case SECKIDE_ISTIRAK: {
+                pdfCreator.pdfEmployeeToSelection(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
