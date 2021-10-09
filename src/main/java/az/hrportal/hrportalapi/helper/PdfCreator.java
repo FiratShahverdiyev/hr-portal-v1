@@ -907,6 +907,8 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     public void pdfEmployeeToTraining(Document document, Operation operation) {
         log.info("pdfEmployeeToTraining PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
@@ -929,8 +931,8 @@ public class PdfCreator {
         Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text subText5 = new Text("Təlimin əhatə etdiyi dövrlər: " + operation.getEventFrom()
-                + " / " + operation.getEventTo());
+        Text subText5 = new Text("Təlimin əhatə etdiyi dövrlər: " + operation.getEventFrom() +
+                " / " + operation.getEventTo());
         Text subText6 = new Text("Təlimin adı: " + operation.getEventName());
         Text text2 = new Text("2. Maliyyə departamentinə tapşırılsın ki, işçinin təlimdə olduğu müddətdə Azərbaycan " +
                 "Respublikası Əmək Məcəlləsinin 179-cu maddəsinin 2-ci hissəsinin “L” " +
@@ -967,6 +969,8 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     public void pdfEmployeeToSelection(Document document, Operation operation) {
         log.info("pdfEmployeeToSelection PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
@@ -991,8 +995,8 @@ public class PdfCreator {
         Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text subText5 = new Text("Seçkidə iştirak edəcəyi tarixlər: " + operation.getEventFrom()
-                + " / " + operation.getEventTo());
+        Text subText5 = new Text("Seçkidə iştirak edəcəyi tarixlər: " + operation.getEventFrom() +
+                " / " + operation.getEventTo());
         Text subText6 = new Text("Seçkidə iştirak edəcəyi müddət (gün): " + operation.getDayInEvent());
         Text text2 = new Text("2. Maliyyə departamentinə tapşırılsın ki,  bu müddət ərzində işçinin" +
                 " orta aylıq əmək haqqının saxlanılmasını təmin etsin.");
@@ -1028,6 +1032,8 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     public void pdfApproveTrainingPlan(Document document, Operation operation) {
         log.info("pdfApproveTrainingPlan PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
@@ -1070,6 +1076,8 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     public void pdfAttendanceInTraining(Document document, Operation operation) {
         log.info("pdfAttendanceInTraining PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
@@ -1093,8 +1101,8 @@ public class PdfCreator {
         Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text subText5 = new Text("Təlim-məşq toplantısında iştirak edəcəyi tarixlər:  " + operation.getEventFrom()
-                + " / " + operation.getEventTo());
+        Text subText5 = new Text("Təlim-məşq toplantısında iştirak edəcəyi tarixlər:  " + operation.getEventFrom() +
+                " / " + operation.getEventTo());
         Text subText6 = new Text("Təlim-məşq toplantısında iştirak edəcəyi günlər: " + operation.getDayInEvent());
         Text text2 = new Text("2. Maliyyə departamentinə tapşırılsın ki,  bu müddət ərzində orta" +
                 " aylıq əmək haqqının saxlanılmasını təmin etsin.");
@@ -1128,6 +1136,8 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
     public void pdfDisciplineAction(Document document, Operation operation) {
         log.info("pdfDisciplineAction PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
