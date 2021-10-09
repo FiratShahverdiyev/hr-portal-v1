@@ -1249,7 +1249,8 @@ public class PdfCreator {
         Text text2 = new Text("2.Xəbərdarlıq edilən işçinin və ya işçilərin soyadı, adı, atasının adı: " + fullNames);
         Text text3 = new Text("3.İşçinin və ya işçilərin işlədiyi struktur bölmə: " + departments);
         Text text4 = new Text("4.İşçinin və ya işçilərin vəzifəsi:  " + positions);
-        Text text5 = new Text("5.İnsan resursları departamentinə tapşırılsın ki, aidiyyəti şəxs(lər) əmrlə tanış edilsin.");
+        Text text5 = new Text("5.İnsan resursları departamentinə tapşırılsın ki," +
+                " aidiyyəti şəxs(lər) əmrlə tanış edilsin.");
         Text text6 = new Text("Əsas:  Struktur bölmə rəhbərinin təqdimatı və işçinin izahatı.");
         Text text7 = new Text("Təqdimat sahibinin soyadı, adı, atasının adı: " + operation.getPresentationOwnerName());
         Text text8 = new Text("Struktur bölmə: " + operation.getPresentationOwnerDepartment());
