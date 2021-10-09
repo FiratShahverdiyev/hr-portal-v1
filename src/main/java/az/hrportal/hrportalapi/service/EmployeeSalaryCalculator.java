@@ -32,7 +32,7 @@ public class EmployeeSalaryCalculator {
     private final DayRepository dayRepository;
     private final CacheManager cacheManager;
 
-    @Scheduled(cron = "0 0 23 * * 1-6", zone = Constant.timeZone)
+    @Scheduled(cron = "0 0 23 * * 1-5", zone = Constant.timeZone)
     private void salaryManager() {
         log.info("salaryManager schedule started");
         LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
