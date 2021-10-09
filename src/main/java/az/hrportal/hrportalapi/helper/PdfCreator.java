@@ -5,6 +5,8 @@ import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import com.itextpdf.io.font.FontProgram;
 import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.io.font.PdfEncodings;
@@ -16,6 +18,7 @@ import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -24,9 +27,11 @@ import java.time.ZoneId;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class PdfCreator {
     private PdfFont regular;
     private PdfFont bold;
+    private final EmployeeRepository employeeRepository;
 
     public void createFont() {
         regular = getTTInterphasesFont(false);
@@ -1198,6 +1203,74 @@ public class PdfCreator {
         document.add(new Paragraph(text6));
         document.add(new Paragraph(text7));
         log.info("********** pdfDisciplineAction PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    public void pdfWarning(Document document, Operation operation) {
+        log.info("pdfWarning PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İşçiyə/işçilərə xəbərdarlıq edilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmrin əsası: " + operation.getMainOfOrder() + "AR Əmək Məcəlləsinin " +
+                "186.3-cü maddəsini və Cəmiyyətin Daxili Nizam-intizam Qaydalarını rəhbər tutaraq, əmək və icra " +
+                "intizamına riayət edilməsini gücləndirmək məqsədilə,    ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        String fullNames = "";
+        String departments = "";
+        String positions = "";
+        for (Integer employeeId : operation.getEmployeeIds()) {
+            if (fullNames.equals("")) {
+                fullNames = fullNames.concat(",");
+            }
+            if (departments.equals("")) {
+                departments = departments.concat(",");
+            }
+            if (positions.equals("")) {
+                positions = positions.concat(",");
+            }
+            Employee employee = employeeRepository.findById(employeeId).orElseThrow(() ->
+                    new EntityNotFoundException(Employee.class, employeeId));
+            fullNames = fullNames.concat(employee.getFullName());
+            departments = departments.concat(employee.getPosition().getDepartment().getName());
+            positions = positions.concat(employee.getPosition().getVacancy().getName());
+        }
+        Text text1 = new Text("1.Aşağıda adları qeyd olunan işçiyə(işçilərə) xəbərdarlıq edilsin. ");
+        Text text2 = new Text("2.Xəbərdarlıq edilən işçinin və ya işçilərin soyadı, adı, atasının adı: " + fullNames);
+        Text text3 = new Text("3.İşçinin və ya işçilərin işlədiyi struktur bölmə: " + departments);
+        Text text4 = new Text("4.İşçinin və ya işçilərin vəzifəsi:  " + positions);
+        Text text5 = new Text("5.İnsan resursları departamentinə tapşırılsın ki, aidiyyəti şəxs(lər) əmrlə tanış edilsin.");
+        Text text6 = new Text("Əsas:  Struktur bölmə rəhbərinin təqdimatı və işçinin izahatı.");
+        Text text7 = new Text("Təqdimat sahibinin soyadı, adı, atasının adı: " + operation.getPresentationOwnerName());
+        Text text8 = new Text("Struktur bölmə: " + operation.getPresentationOwnerDepartment());
+        Text text9 = new Text("Vəzifəsi: " + operation.getPresentationOwnerPosition());
+        Text text10 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        log.info("********** pdfWarning PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
 

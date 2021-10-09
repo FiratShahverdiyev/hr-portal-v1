@@ -205,6 +205,10 @@ public class FileUtil {
                 pdfCreator.pdfDisciplineAction(document, operation);
                 break;
             }
+            case XEBERDARLIQ: {
+                pdfCreator.pdfWarning(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

@@ -112,6 +112,8 @@ public class Operation {
     String presentationOwnerDepartment;
     @Column(name = "presentation_owner_position")
     String presentationOwnerPosition;
+    @ElementCollection
+    List<Integer> employeeIds;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

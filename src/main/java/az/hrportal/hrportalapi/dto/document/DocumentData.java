@@ -120,6 +120,7 @@ public class DocumentData {
     Integer dayInEvent;
     DisciplineType disciplineType;
 
+    List<Integer> employeeIds;
     String presentationOwnerName;
     String presentationOwnerDepartment;
     String presentationOwnerPosition;
