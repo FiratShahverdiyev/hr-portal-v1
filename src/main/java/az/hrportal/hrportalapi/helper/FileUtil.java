@@ -184,6 +184,7 @@ public class FileUtil {
                 break;
             }
             case SHTAT_EMEK_HAQQINA_ELAVE: {
+                pdfCreator.pdfPositionAdditionalSalary(document, operation);
                 break;
             }
             case TELIME_GONDERILME: {

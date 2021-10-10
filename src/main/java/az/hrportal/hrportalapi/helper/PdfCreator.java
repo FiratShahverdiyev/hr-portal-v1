@@ -1428,6 +1428,58 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfPositionAdditionalSalary(Document document, Operation operation) {
+        log.info("pdfPositionAdditionalSalary PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Əmək haqqına əlavənin müəyyən edilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("İşçinin fəlsəfə və ya elmlər doktoru " +
+                operation.getMainOfOrder() + "" +
+                " elmi dərəcəsinə malik olduğunu nəzərə alaraq Azərbaycan Respublikası Əmək Məcəlləsinin 185-ci" +
+                " maddəsini rəhbər tutaraq, ştat əmək haqqına fərdi əlavənin edilməsi məqsədilə,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
+                .getSubDepartment().getName());
+        Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. Fərdi əlavənin məbləği Azn:                " +
+                "300 Azn (vergilər və digər ödənişlər xaric)");
+        Text text6 = new Text("6. İnsan resursları departamentinə tapşırılsın ki, əmrin surəti ilə" +
+                " aidiyyəti şəxs tanış edilsin. ");
+        Text text7 = new Text("7. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text8 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        log.info("********** pdfPositionAdditionalSalary PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
