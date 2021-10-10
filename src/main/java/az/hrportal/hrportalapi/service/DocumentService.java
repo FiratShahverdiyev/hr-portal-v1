@@ -176,7 +176,7 @@ public class DocumentService {
                 Position position = operation.getPosition();
                 employee.setPosition(position);
                 employee.setActive(true);
-                employee.setSalary(position.getSalary().getSalary());
+                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -191,23 +191,20 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
-                employee.setSalary(position.getSalary().getSalary());
+                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
             }
-
             case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
-                position.setAdditionalSalary(operation.getNewAdditionalSalary());
+                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
-                employee.setSalary(operation.getNewSalary());
                 employeeRepository.save(employee);
-                positionRepository.save(position);
                 break;
             }
-            case ELAVE_EMEK_HAQQI: {
+            case ELAVE_EMEK_HAQQI: { //TODO ?
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
                 employee.setSalary(operation.getNewSalary());

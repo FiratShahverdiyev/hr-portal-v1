@@ -1458,8 +1458,8 @@ public class PdfCreator {
         Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("5. Fərdi əlavənin məbləği Azn:                " +
-                "300 Azn (vergilər və digər ödənişlər xaric)");
+        Text text5 = new Text("5. Fərdi əlavənin məbləği Azn: " + operation.getNewOwnAdditionalSalary() +
+                " (vergilər və digər ödənişlər xaric)");
         Text text6 = new Text("6. İnsan resursları departamentinə tapşırılsın ki, əmrin surəti ilə" +
                 " aidiyyəti şəxs tanış edilsin. ");
         Text text7 = new Text("7. Əmr imzalandığı gündən qüvvəyə minir. ");
