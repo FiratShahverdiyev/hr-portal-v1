@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.Constant;
+import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.domain.Day;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
@@ -76,7 +77,7 @@ public class EmployeeSalaryCalculator {
     public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto) {
         Float gross = employee.getSalary();
         Float dsmf = percentage(gross, Constant.DSMF);
-        Float incomeTax = percentage(gross, Constant.INCOME_TAX);
+        Float incomeTax = calculateIncomeTax(employee);
         Float its = percentage(gross, Constant.ITS);
         Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
         Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
@@ -93,7 +94,7 @@ public class EmployeeSalaryCalculator {
         for (Employee employee : employees) {
             Float gross = employee.getSalary();
             Float dsmf = percentage(gross, Constant.DSMF);
-            Float incomeTax = percentage(gross, Constant.INCOME_TAX);
+            Float incomeTax = calculateIncomeTax(employee);
             Float its = percentage(gross, Constant.ITS);
             Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
             Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
@@ -132,6 +133,39 @@ public class EmployeeSalaryCalculator {
                 return false;
         }
         return true;
+    }
+
+    private Float calculateIncomeTax(Employee employee) {
+        boolean flag;
+        float total;
+        if (employee.getSalary() <= 2500) {
+            total = 200;
+            flag = false;
+        } else {
+            total = 2500;
+            flag = true;
+        }
+        if (employee.getQuotas() != null)
+            for (String quota : employee.getQuotas()) {
+                if (quota.equals(Quota.getQuota(8)) || quota.equals(Quota.getQuota(9))) {
+                    total += 400;
+                    break;
+                }
+                if (quota.equals(Quota.getQuota(5)) || quota.equals(Quota.getQuota(3))) {
+                    total += 200;
+                    break;
+                }
+                if (quota.equals(Quota.getQuota(7))) {
+                    total += 100;
+                    break;
+                }
+            }
+        float incomeTaxAmount = employee.getSalary() - total;
+        if (!flag)
+            return percentage(incomeTaxAmount >= 0 ? incomeTaxAmount : 0, Constant.LESS_THAN_2500_INCOME_TAX);
+        else
+            return percentage(incomeTaxAmount >= 0 ? incomeTaxAmount : 0,
+                    Constant.MORE_THAN_2500_INCOME_TAX) + 350f;
     }
 
     private Float percentage(Float number, Float percentage) {

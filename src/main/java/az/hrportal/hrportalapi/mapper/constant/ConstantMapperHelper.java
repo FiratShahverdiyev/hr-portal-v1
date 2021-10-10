@@ -3,10 +3,12 @@ package az.hrportal.hrportalapi.mapper.constant;
 import az.hrportal.hrportalapi.constant.DisciplineType;
 import az.hrportal.hrportalapi.constant.Status;
 import org.mapstruct.Mapper;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring")
 public interface ConstantMapperHelper {
     @StatusToValueAz

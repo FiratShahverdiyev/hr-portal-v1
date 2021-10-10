@@ -112,6 +112,10 @@ public class Operation {
     String presentationOwnerDepartment;
     @Column(name = "presentation_owner_position")
     String presentationOwnerPosition;
+    @Column(name = "call_back_reason")
+    String callBackReason;
+    @Column(name = "call_back_date")
+    LocalDate callBackDate;
     @ElementCollection
     List<Integer> employeeIds;
     @CreationTimestamp

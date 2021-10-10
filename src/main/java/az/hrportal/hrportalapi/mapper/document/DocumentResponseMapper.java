@@ -22,6 +22,7 @@ import static az.hrportal.hrportalapi.constant.Constant.dateFormat;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring", uses = {PositionMapperHelper.class, ConstantMapperHelper.class})
 public interface DocumentResponseMapper {
     @Named("toDocumentResponseDto")

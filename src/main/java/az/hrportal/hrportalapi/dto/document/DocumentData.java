@@ -124,4 +124,7 @@ public class DocumentData {
     String presentationOwnerName;
     String presentationOwnerDepartment;
     String presentationOwnerPosition;
+
+    String callBackReason;
+    String callBackDate;
 }

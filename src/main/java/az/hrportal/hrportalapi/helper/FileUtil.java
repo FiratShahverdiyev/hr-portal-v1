@@ -209,6 +209,10 @@ public class FileUtil {
                 pdfCreator.pdfWarning(document, operation);
                 break;
             }
+            case ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA: {
+                pdfCreator.pdfCallBackFromVacation(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

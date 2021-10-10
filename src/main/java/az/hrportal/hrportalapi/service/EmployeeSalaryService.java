@@ -45,6 +45,8 @@ public class EmployeeSalaryService {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
             employeeSalaryResponseDto.setFullName(employee.getFullName());
             employeeSalaryResponseDto.setId(employee.getId());
+            if (employee.getPosition() != null)
+                employeeSalaryResponseDto.setVacancyName(employee.getPosition().getVacancy().getName());
             employeeSalaryCalculator.setEmployeeSalary(employee, employeeSalaryResponseDto);
             data.add(employeeSalaryResponseDto);
         }
