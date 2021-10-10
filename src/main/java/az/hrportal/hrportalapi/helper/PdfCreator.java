@@ -1305,9 +1305,9 @@ public class PdfCreator {
                 " / " + operation.getEventTo());
         Text text6 = new Text("6. Geri çağırılma tarixi: " + operation.getCallBackDate());
         Text text7 = new Text("7. Geri çağırılma səbəbi: " + operation.getCallBackReason());
-        Text text9 = new Text("8. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+        Text text8 = new Text("8. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " məsələlərin həllini təmin etsinlər. ");
-        Text text10 = new Text("Baş direktor                                                                   Taleh " +
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
                 "Ziyadov").setFont(bold);
 
         document.add(paragraph1);
@@ -1321,14 +1321,14 @@ public class PdfCreator {
         document.add(new Paragraph(text5));
         document.add(new Paragraph(text6));
         document.add(new Paragraph(text7));
-        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text8));
         if (operation.getNotes() != null) {
             for (String note : operation.getNotes()) {
                 Text text = new Text("Qeyd:  " + note);
                 document.add(new Paragraph(text));
             }
         }
-        document.add(new Paragraph(text10));
+        document.add(new Paragraph(text9));
         log.info("********** pdfCallBackFromVacation PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
@@ -1371,6 +1371,60 @@ public class PdfCreator {
         document.add(new Paragraph(text3));
         document.add(new Paragraph(text4));
         log.info("********** pdfApproveVacationChart PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfAchievement(Document document, Operation operation) {
+        log.info("pdfAchievement PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İşçinin mükafatlandırılması barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Əmək funksiyasını yüksək peşəkarlıq səviyyəsində yerinə yetirdiyinə," +
+                " üzərinə düşən vəzifə öhdəliklərini tam məsuliyyətlə icra etdiyinə görə, Azərbaycan Respublikası" +
+                " Əmək Məcəlləsinin 185-ci maddəsini rəhbər tutaraq, işçini həvəsləndirmək məqsədilə, " +
+                operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
+                .getSubDepartment().getName());
+        Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. Mükafatın məbləği Azn " + operation.getAchievement());
+        Text text6 = new Text("6. Maliyyə departamentinə tapşırılsın ki, bu Əmrdən irəli" +
+                " gələn məsələlərin həllini təmin etsin.");
+        Text text7 = new Text("7. İnsan resursları departamentinə tapşırılsın ki, əmrin surəti ilə" +
+                " aidiyyəti şəxs tanış edilsin. ");
+        Text text8 = new Text("8. Əmr imzalandığı gündən qüvvəyə minir. ");
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        log.info("********** pdfAchievement PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
 

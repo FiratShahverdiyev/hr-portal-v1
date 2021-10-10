@@ -222,6 +222,9 @@ public class DocumentService {
                 positionRepository.save(position);
                 break;
             }
+            case MUKAFATLANDIRMA: {
+
+            }
             default: {
                 break;
             }

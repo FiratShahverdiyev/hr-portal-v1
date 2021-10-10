@@ -176,6 +176,7 @@ public class FileUtil {
                 break;
             }
             case MUKAFATLANDIRMA: {
+                pdfCreator.pdfAchievement(document, operation);
                 break;
             }
             case MUVEQQETI_KECIRILME: {
