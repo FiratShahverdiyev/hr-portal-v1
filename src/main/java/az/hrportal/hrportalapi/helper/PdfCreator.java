@@ -1403,7 +1403,8 @@ public class PdfCreator {
         Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("5. Mükafatın məbləği Azn " + operation.getAchievement());
+        Text text5 = new Text("5. Mükafatın məbləği Azn " + operation.getAchievement() +
+                " (vergilər və digər ödənişlər xaric)");
         Text text6 = new Text("6. Maliyyə departamentinə tapşırılsın ki, bu Əmrdən irəli" +
                 " gələn məsələlərin həllini təmin etsin.");
         Text text7 = new Text("7. İnsan resursları departamentinə tapşırılsın ki, əmrin surəti ilə" +

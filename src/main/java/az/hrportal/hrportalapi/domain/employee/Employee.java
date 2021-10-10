@@ -227,6 +227,8 @@ public class Employee {
     Integer workPermissionPeriod;
     @Column(name = "salary")
     Float salary;
+    @Column(name = "net_income")
+    Float netIncome;
     @Column(name = "start_work_permission_date")
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")

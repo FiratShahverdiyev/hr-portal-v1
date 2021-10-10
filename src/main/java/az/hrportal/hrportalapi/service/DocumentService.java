@@ -186,7 +186,8 @@ public class DocumentService {
                 employee.setActive(false);
                 break;
             }
-            case VEZIFE_DEYISIKLIYI: {
+            case VEZIFE_DEYISIKLIYI:
+            case ISH_YERI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
@@ -222,8 +223,15 @@ public class DocumentService {
                 positionRepository.save(position);
                 break;
             }
-            case MUKAFATLANDIRMA: {
-
+            case MUKAFATLANDIRMA:
+            case MADDI_YARDIM: {
+                Employee employee = operation.getEmployee();
+                employee.setNetIncome(employee.getNetIncome() + operation.getFinancialHelp());
+                employeeRepository.save(employee);
+                break;
+            }
+            case SHTAT_EMEK_HAQQINA_ELAVE: {
+                break;
             }
             default: {
                 break;
