@@ -1058,7 +1058,8 @@ public class PdfCreator {
 
         Text text1 = new Text("1. “Bakı Beynəlxalq Dəniz Ticarət Limanı”" +
                 " Qapalı Səhmdar Cəmiyyətində əməkdaşların peşə" +
-                " səviyyəsinin artırılması məqsədi ilə “" + now.getYear() + "-ci il üzrə Təlim " +
+                " səviyyəsinin artırılması məqsədi ilə “" + now.getYear() + "-" + getSuffix(now.getYear()) +
+                " il üzrə Təlim " +
                 "planı” təsdiq edilsin (əlavə olunur).");
         Text text2 = new Text("2. İnsan resursları departamentinə tapşırılsın ki," +
                 " “" + now.getYear() + "-ci il üzrə Təlim planı” ilə" +
@@ -1332,6 +1333,47 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    public void pdfApproveVacationChart(Document document, Operation operation) {
+        log.info("pdfApproveVacationChart PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Əmək məzuniyyətlərinin verilməsi üçün növbəlilik \n" +
+                "cədvəlinin təsdiq edilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
+        Paragraph paragraph2 = new Paragraph("“Bakı Beynəlxalq Dəniz Ticarət Limanı” Qapalı Səhmdar Cəmiyyətində" +
+                " (bundan sonra “Cəmiyyət” adlandırılacaq) istehsalın və işin normal gedişini tənzimləmək," +
+                " məzuniyyətlərin uçotunun düzgün aparılmasını təmin etmək məqsədilə Azərbaycan Respublikası " +
+                "Əmək Məcəlləsinin 133-cü maddəsini rəhbər tutaraq,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Text text1 = new Text("1. " + operation.getYear() + "-" + getSuffix(operation.getYear()) +
+                " il üzrə Cəmiyyət işçilərinin əmək məzuniyyətlərinin " +
+                "verilməsi üçün növbəlilik cədvəli təsdiq edilsin. (Əlavə №1)");
+        Text text2 = new Text("2. Növbəlilik cədvəli üzrə işçilərin məzuniyyətdən istifadə edilməsi təmin edilsin.");
+        Text text3 = new Text("3. Əmr imzalandığı gündən qüvvəyə minir.");
+        Text text4 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        log.info("********** pdfApproveVacationChart PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
@@ -1345,6 +1387,28 @@ public class PdfCreator {
             return PdfFontFactory.createFont(fontProgram, PdfEncodings.IDENTITY_H, false);
         } catch (Exception ex) {
             throw new DocumentException(ex.getMessage());
+        }
+    }
+
+    private String getSuffix(Integer year) {
+        int lastDigit = year % 10;
+        switch (lastDigit) {
+            case 0:
+            case 9:
+                return "cu";
+            case 1:
+            case 2:
+            case 5:
+            case 7:
+            case 8:
+                return "ci";
+            case 3:
+            case 4:
+                return "cü";
+            case 6:
+                return "cı";
+            default:
+                return "";
         }
     }
 }

@@ -127,4 +127,6 @@ public class DocumentData {
 
     String callBackReason;
     String callBackDate;
+
+    Integer year;
 }

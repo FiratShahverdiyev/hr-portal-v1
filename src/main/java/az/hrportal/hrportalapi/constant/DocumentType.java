@@ -18,6 +18,8 @@ public enum DocumentType {
     MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə"),
     ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA(25, DocumentLabel.EMPLOYEE.toString(),
             "Ödənişsiz məzuniyyətdən geri çağırılma"),
+    MEZUNIYYET_QRAFIKININ_TESDIQI(27, DocumentLabel.EMPLOYEE.toString(),
+            "Məzuniyyət qrafikinin təsdiqi"),
     TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndırilmə"),
     TELIM_PLANININ_TESDIQI(29, DocumentLabel.EMPLOYEE.toString(), "Təlim planının təsdiqi"),
     MADDI_YARDIM(33, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),

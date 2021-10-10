@@ -116,6 +116,8 @@ public class Operation {
     String callBackReason;
     @Column(name = "call_back_date")
     LocalDate callBackDate;
+    @Column(name = "year")
+    Integer year;
     @ElementCollection
     List<Integer> employeeIds;
     @CreationTimestamp

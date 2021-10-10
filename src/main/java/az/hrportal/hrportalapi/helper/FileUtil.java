@@ -213,6 +213,10 @@ public class FileUtil {
                 pdfCreator.pdfCallBackFromVacation(document, operation);
                 break;
             }
+            case MEZUNIYYET_QRAFIKININ_TESDIQI: {
+                pdfCreator.pdfApproveVacationChart(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
