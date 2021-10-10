@@ -12,6 +12,6 @@ public class EmployeeSalaryResponseDto {
     Integer id;
     String fullName;
     String vacancyName;
-    Float netSalary;
-    Float grossSalary;
+    float netSalary;
+    float grossSalary;
 }

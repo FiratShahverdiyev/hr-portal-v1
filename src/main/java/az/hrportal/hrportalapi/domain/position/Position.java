@@ -82,7 +82,7 @@ public class Position {
     @Enumerated(EnumType.STRING)
     WorkCondition workCondition;
     @Column(name = "additional_salary")
-    Float additionalSalary;
+    float additionalSalary;
     @Column(name = "work_mode", nullable = false)
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
@@ -116,7 +116,7 @@ public class Position {
     @Enumerated(EnumType.STRING)
     RequireFile requireFile;
     @Column(name = "height")
-    Float height;
+    float height;
     @Column(name = "military_achievement")
     boolean militaryAchieve;
     @Column(name = "gender_demand")

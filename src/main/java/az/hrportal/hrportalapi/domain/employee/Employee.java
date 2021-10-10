@@ -226,15 +226,15 @@ public class Employee {
     @Column(name = "work_permission_period")
     Integer workPermissionPeriod;
     @Column(name = "salary")
-    Float salary;
+    float salary;
     @Column(name = "net_income")
-    Float netIncome;
+    float netIncome;
     @Column(name = "start_work_permission_date")
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")
     LocalDate expiredWorkPermissionDate;
     @Column(name = "own_additional_salary")
-    Float ownAdditionalSalary;
+    float ownAdditionalSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

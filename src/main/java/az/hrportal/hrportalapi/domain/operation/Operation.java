@@ -69,7 +69,7 @@ public class Operation {
     @Column(name = "dismissal_reason")
     String dismissalReason;
     @Column(name = "compensation")
-    Float compensation;
+    float compensation;
     @ElementCollection
     List<String> notes;
     @Column(name = "join_date")
@@ -77,19 +77,19 @@ public class Operation {
     @Column(name = "test_period")
     Integer testPeriod;
     @Column(name = "own_additional_salary")
-    Float ownAdditionalSalary;
+    float ownAdditionalSalary;
     @Column(name = "change_date")
     LocalDate changeDate;
     @Column(name = "new_own_additional_salary")
-    Float newOwnAdditionalSalary;
+    float newOwnAdditionalSalary;
     @Column(name = "new_additional_salary")
-    Float newAdditionalSalary;
+    float newAdditionalSalary;
     @Column(name = "new_salary")
-    Float newSalary;
+    float newSalary;
     @Column(name = "financial_help")
-    Float financialHelp;
+    float financialHelp;
     @Column(name = "achievement")
-    Float achievement;
+    float achievement;
     @Column(name = "change_period")
     Integer changePeriod;
     @Column(name = "work_mode")

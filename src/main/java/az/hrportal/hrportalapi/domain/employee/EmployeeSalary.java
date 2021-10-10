@@ -38,19 +38,19 @@ public class EmployeeSalary {
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     Employee employee;
     @Column(name = "gross_salary")
-    Float grossSalary;
+    float grossSalary;
     @Column(name = "dsmf")
-    Float dsmf;
+    float dsmf;
     @Column(name = "income_tax")
-    Float incomeTax;
+    float incomeTax;
     @Column(name = "its")
-    Float its;
+    float its;
     @Column(name = "trade_union")
-    Float tradeUnion;
+    float tradeUnion;
     @Column(name = "unemployment_insurance")
-    Float unemploymentInsurance;
+    float unemploymentInsurance;
     @Column(name = "net_salary")
-    Float netSalary;
+    float netSalary;
     @Column(name = "active_days")
     Integer activeDays;
     @Column(name = "salary_calculation_date")

@@ -75,14 +75,14 @@ public class EmployeeSalaryCalculator {
     }
 
     public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto) {
-        Float gross = employee.getSalary();
-        Float dsmf = percentage(gross, Constant.DSMF);
-        Float incomeTax = calculateIncomeTax(employee);
-        Float its = percentage(gross, Constant.ITS);
-        Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
-        Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
-        Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
-        Float netSalary = gross - totalTax;
+        float gross = employee.getSalary();
+        float dsmf = percentage(gross, Constant.DSMF);
+        float incomeTax = calculateIncomeTax(employee);
+        float its = percentage(gross, Constant.ITS);
+        float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
+        float tradeUnion = percentage(gross, Constant.TRADE_UNION);
+        float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+        float netSalary = gross - totalTax;
         responseDto.setGrossSalary(gross);
         responseDto.setNetSalary(netSalary);
     }
@@ -92,14 +92,14 @@ public class EmployeeSalaryCalculator {
         log.info("calculateSalary service started");
         List<EmployeeSalary> employeeSalaries = new ArrayList<>();
         for (Employee employee : employees) {
-            Float gross = employee.getSalary();
-            Float dsmf = percentage(gross, Constant.DSMF);
-            Float incomeTax = calculateIncomeTax(employee);
-            Float its = percentage(gross, Constant.ITS);
-            Float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
-            Float tradeUnion = percentage(gross, Constant.TRADE_UNION);
-            Float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
-            Float netSalary = gross - totalTax;
+            float gross = employee.getSalary();
+            float dsmf = percentage(gross, Constant.DSMF);
+            float incomeTax = calculateIncomeTax(employee);
+            float its = percentage(gross, Constant.ITS);
+            float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
+            float tradeUnion = percentage(gross, Constant.TRADE_UNION);
+            float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+            float netSalary = gross - totalTax;
             EmployeeSalary employeeSalary = EmployeeSalary.builder()
                     .grossSalary(gross)
                     .dsmf(dsmf)
@@ -135,7 +135,7 @@ public class EmployeeSalaryCalculator {
         return true;
     }
 
-    private Float calculateIncomeTax(Employee employee) {
+    private float calculateIncomeTax(Employee employee) {
         boolean flag;
         float total;
         if (employee.getSalary() <= 2500) {
@@ -168,7 +168,7 @@ public class EmployeeSalaryCalculator {
                     Constant.MORE_THAN_2500_INCOME_TAX) + 350f;
     }
 
-    private Float percentage(Float number, Float percentage) {
+    private float percentage(float number, float percentage) {
         return number * percentage / 100;
     }
 }

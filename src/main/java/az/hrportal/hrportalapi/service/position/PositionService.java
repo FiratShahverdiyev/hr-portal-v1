@@ -212,7 +212,7 @@ public class PositionService {
         }
         if (clazz.getSimpleName().equals(Salary.class.getSimpleName())) {
             Salary salary = new Salary();
-            salary.setSalary((Float) value);
+            salary.setSalary((float) value);
             return salaryRepository.save(salary);
         }
         if (clazz.getSimpleName().equals(Skill.class.getSimpleName())) {

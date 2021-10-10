@@ -36,7 +36,7 @@ public class GeneralInfoResponseDto {
     Integer leaderExperience;
     String educationDegree;
     String educationSpeciality;
-    Float height;
+    float height;
     boolean healthy;
     boolean militaryAchieve;
     String genderDemand;

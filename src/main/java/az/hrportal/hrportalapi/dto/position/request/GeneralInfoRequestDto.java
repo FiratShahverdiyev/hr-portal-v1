@@ -54,7 +54,7 @@ public class GeneralInfoRequestDto {
     String educationDegree;
     String educationSpeciality;
     String requireFile;
-    Float height;
+    float height;
     boolean healthy;
     boolean militaryAchieve;
     String genderDemand;
