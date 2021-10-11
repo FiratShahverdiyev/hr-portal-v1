@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.mapper.employee;
 
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.dto.employee.EmployeeSalaryData;
 import az.hrportal.hrportalapi.dto.employee.request.AcademicRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.BusinessRequestDto;
 import az.hrportal.hrportalapi.dto.employee.request.EmployeeGeneralInfoRequestDto;
@@ -45,4 +46,6 @@ public interface EmployeeMapper {
     @Mapping(target = "governmentAchievements", source = "governmentAchievements", ignore = true)
     @Mapping(target = "quotas", source = "quotas", ignore = true)
     void updateEmployee(@MappingTarget Employee employee, AcademicRequestDto academicRequestDto);
+
+    Employee toEmployee(EmployeeSalaryData employeeSalaryData);
 }

@@ -1,8 +1,9 @@
 package az.hrportal.hrportalapi.service;
 
-import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
+import az.hrportal.hrportalapi.dto.employee.EmployeeSalaryData;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
+import az.hrportal.hrportalapi.mapper.employee.EmployeeMapper;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeSalaryMapper;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
@@ -25,6 +26,7 @@ public class EmployeeSalaryService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeSalaryCalculator employeeSalaryCalculator;
     private final EntityManager entityManager;
+    private final EmployeeMapper employeeMapper;
 
     @Cacheable("employee-salaries")
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> getAll(int page, int size) {
@@ -41,23 +43,24 @@ public class EmployeeSalaryService {
 
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size) {
         log.info("calculateAndGetAll service started");
-     /*   String[] sortParams = new String[1];
+     /* String[] sortParams = new String[1];
         sortParams[0] = "fullName";
         Pageable pageable = new OffsetBasedPageRequest(page, size, "DESC", sortParams);
         Page<Employee> employees = employeeRepository.findAllByActiveIsTrue(pageable);*/
-        List<Employee> employees = entityManager
-                .createQuery("SELECT e FROM Employee e ORDER BY e.fullName", Employee.class)
+        List<EmployeeSalaryData> employees = entityManager
+                .createQuery("SELECT new EmployeeSalaryData(e.id,e.fullName,e.position,e.salary,e.quotas)" +
+                        " FROM Employee e left outer join  e.quotas", EmployeeSalaryData.class)
                 .setMaxResults(size)
                 .setFirstResult(page * size)
                 .getResultList();
         List<EmployeeSalaryResponseDto> data = new ArrayList<>();
-        for (Employee employee : employees) {
+        for (EmployeeSalaryData employee : employees) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
             employeeSalaryResponseDto.setFullName(employee.getFullName());
             employeeSalaryResponseDto.setId(employee.getId());
             if (employee.getPosition() != null)
                 employeeSalaryResponseDto.setVacancyName(employee.getPosition().getVacancy().getName());
-            employeeSalaryCalculator.setEmployeeSalary(employee, employeeSalaryResponseDto);
+            employeeSalaryCalculator.setEmployeeSalary(employeeMapper.toEmployee(employee), employeeSalaryResponseDto);
             data.add(employeeSalaryResponseDto);
         }
         log.info("********** calculateAndGetAll service completed **********");

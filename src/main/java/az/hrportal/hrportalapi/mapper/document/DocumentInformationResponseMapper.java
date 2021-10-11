@@ -9,10 +9,12 @@ import az.hrportal.hrportalapi.mapper.position.helper.VacancyCategoryValue;
 import az.hrportal.hrportalapi.mapper.position.helper.WorkModeValue;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring", uses = PositionMapperHelper.class)
 public interface DocumentInformationResponseMapper {
     @Mapping(target = "departmentName", source = "department.name")
