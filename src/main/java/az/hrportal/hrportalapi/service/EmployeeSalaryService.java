@@ -4,12 +4,15 @@ import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeSalaryMapper;
+import az.hrportal.hrportalapi.repository.OffsetBasedPageRequest;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -39,9 +42,10 @@ public class EmployeeSalaryService {
 
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size) {
         log.info("calculateAndGetAll service started");
-        List<Employee> employees = employeeRepository.findAllActiveEmployee(page * size, size);
+        Pageable pageable = new OffsetBasedPageRequest(page, size);
+        Page<Employee> employees = employeeRepository.findAllByActiveIsTrue(pageable);
         List<EmployeeSalaryResponseDto> data = new ArrayList<>();
-        for (Employee employee : employees) {
+        for (Employee employee : employees.getContent()) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
             employeeSalaryResponseDto.setFullName(employee.getFullName());
             employeeSalaryResponseDto.setId(employee.getId());
@@ -51,6 +55,6 @@ public class EmployeeSalaryService {
             data.add(employeeSalaryResponseDto);
         }
         log.info("********** calculateAndGetAll service completed **********");
-        return new PaginationResponseDto<>(data, data.size(), employeeRepository.getActiveEmployeeCount());
+        return new PaginationResponseDto<>(data, data.size(), employees.getSize());
     }
 }
