@@ -235,6 +235,11 @@ public class Employee {
     LocalDate expiredWorkPermissionDate;
     @Column(name = "own_additional_salary")
     float ownAdditionalSalary;
+    @Column(name = "catch_amount")
+    float catchAmount;
+    @Column(name = "catch_months")
+    @ElementCollection
+    Set<Integer> catchMonths;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

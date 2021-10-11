@@ -230,6 +230,13 @@ public class DocumentService {
             case SHTAT_EMEK_HAQQINA_ELAVE: {
                 break;
             }
+            case EMEK_HAQQINDAN_TUTULMA: {
+                Employee employee = operation.getEmployee();
+                employee.setCatchAmount(operation.getCatchAmount());
+                employee.setCatchMonths(operation.getCatchMonths());
+                employeeRepository.save(employee);
+                break;
+            }
             default: {
                 break;
             }

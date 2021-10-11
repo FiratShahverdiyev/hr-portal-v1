@@ -28,6 +28,7 @@ public enum DocumentType {
     SECKIDE_ISTIRAK(36, DocumentLabel.EMPLOYEE.toString(), "Seçkidə iştirak barədə"),
     TEDBIRDE_ISTIRAK(38, DocumentLabel.EMPLOYEE.toString(), "Tədbirdə iştirak"),
     XEBERDARLIQ(45, DocumentLabel.EMPLOYEE.toString(), "Xəbərdarlıq"),
+    EMEK_HAQQINDAN_TUTULMA(46, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqından tutulma"),
     INTIZAM_TENBEHI(47, DocumentLabel.EMPLOYEE.toString(), "İntizam tənbehinə cəlb edilmə");
 
     private int value;

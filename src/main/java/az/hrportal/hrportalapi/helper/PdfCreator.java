@@ -1481,6 +1481,60 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfCatchFromSalary(Document document, Operation operation) {
+        log.info("pdfCatchFromSalary PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Əmək haqqından tutulma barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getMainOfOrder() + " Göstərilənləri nəzərə alaraq," +
+                " müəssisədaxili intizam qaydalarını " +
+                "gücləndirmək və dəymiş maddi ziyanın bərpa olunması məqsədilə");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. Aşağıda adı qeyd olunan işçinin aylıq əmək haqqından qeyd olunan məbləğ tutulsun.");
+        Text text1 = new Text("1.1 İşçinin soyadı, adı, atasının adı:  " +
+                employee.getFullName());
+        Text text2 = new Text("1.2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("1.3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
+                .getSubDepartment().getName());
+        Text text4 = new Text("1.4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("1.5. Tutulma məbləği: " + operation.getCatchAmount());
+        Text text6 = new Text("1.6. Tutulacağı aylar: " + operation.getCatchMonths());
+        Text text7 = new Text("2. Maliyyə Departamentinə tapşırılsın ki," +
+                " əmək haqqından tutulma məsələlərini həll etsin. ");
+        Text text8 = new Text("Əsas: İşçinin izahatı və razılıq ərizəsi. ");
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        log.info("********** pdfCatchFromSalary PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {

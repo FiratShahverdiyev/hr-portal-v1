@@ -32,6 +32,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -90,6 +91,8 @@ public class Operation {
     float financialHelp;
     @Column(name = "achievement")
     float achievement;
+    @Column(name = "catch_amount")
+    float catchAmount;
     @Column(name = "change_period")
     Integer changePeriod;
     @Column(name = "work_mode")
@@ -116,6 +119,9 @@ public class Operation {
     String callBackReason;
     @Column(name = "call_back_date")
     LocalDate callBackDate;
+    @Column(name = "catch_months")
+    @ElementCollection
+    Set<Integer> catchMonths;
     @Column(name = "year")
     Integer year;
     @ElementCollection

@@ -70,11 +70,11 @@ public class EmployeeSalaryCalculator {
         }
         backup();
         List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
-        calculateSalary(employees);
+        calculateSalary(employees, now);
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
 
-    public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto) {
+    public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto, LocalDate date) {
         float gross = employee.getSalary();
         float dsmf = percentage(gross, Constant.DSMF);
         float incomeTax = calculateIncomeTax(employee);
@@ -82,13 +82,17 @@ public class EmployeeSalaryCalculator {
         float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
         float tradeUnion = percentage(gross, Constant.TRADE_UNION);
         float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+        float catchAmount = 0f;
+        if (employee.getCatchMonths().contains(date.getMonthValue())) {
+            catchAmount = employee.getCatchAmount();
+        }
         float netSalary = gross - totalTax;
         responseDto.setGrossSalary(gross);
         responseDto.setNetSalary(netSalary);
     }
 
     @Transactional
-    protected void calculateSalary(List<Employee> employees) {
+    protected void calculateSalary(List<Employee> employees, LocalDate date) {
         log.info("calculateSalary service started");
         List<EmployeeSalary> employeeSalaries = new ArrayList<>();
         for (Employee employee : employees) {
@@ -98,7 +102,11 @@ public class EmployeeSalaryCalculator {
             float its = percentage(gross, Constant.ITS);
             float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
             float tradeUnion = percentage(gross, Constant.TRADE_UNION);
-            float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion;
+            float catchAmount = 0f;
+            if (employee.getCatchMonths().contains(date.getMonthValue())) {
+                catchAmount = employee.getCatchAmount();
+            }
+            float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion + catchAmount;
             float netSalary = gross - totalTax;
             EmployeeSalary employeeSalary = EmployeeSalary.builder()
                     .grossSalary(gross)

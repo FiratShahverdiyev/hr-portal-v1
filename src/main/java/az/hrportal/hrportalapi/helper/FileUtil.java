@@ -219,6 +219,10 @@ public class FileUtil {
                 pdfCreator.pdfApproveVacationChart(document, operation);
                 break;
             }
+            case EMEK_HAQQINDAN_TUTULMA: {
+                pdfCreator.pdfCatchFromSalary(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
