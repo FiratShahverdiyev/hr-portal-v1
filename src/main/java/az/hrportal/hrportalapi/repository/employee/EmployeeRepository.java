@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Page<Employee> findAllByActiveIsTrue(Pageable pageable);
 
     List<Employee> findAllByActiveIsTrue();
+
+    @Query(value = "select count(e.id) from employees e where e.active=true", nativeQuery = true)
+    Integer getActiveEmployeeCount();
 }

@@ -27,7 +27,8 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring", uses = {PositionMapperHelper.class, ConstantMapperHelper.class})
 public interface PositionResponseMapper {
     @Mapping(target = "institutionName", source = "institution.name")

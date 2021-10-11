@@ -7,8 +7,10 @@ import java.util.Optional;
 
 public class OffsetBasedPageRequest implements Pageable {
 
-    private int limit = 0;
-    private int offset = 0;
+    private int limit;
+    private int offset;
+    private String sortDirection;
+    private String[] sortParams;
 
     public OffsetBasedPageRequest(int skip, int offset) {
         if (skip < 0)
@@ -19,6 +21,19 @@ public class OffsetBasedPageRequest implements Pageable {
 
         this.limit = offset;
         this.offset = skip;
+    }
+
+    public OffsetBasedPageRequest(int skip, int offset, String sortDirection, String[] sortParams) {
+        if (skip < 0)
+            throw new IllegalArgumentException("Skip must not be less than zero!");
+
+        if (offset < 0)
+            throw new IllegalArgumentException("Offset must not be less than zero!");
+
+        this.limit = offset;
+        this.offset = skip;
+        this.sortDirection = sortDirection;
+        this.sortParams = sortParams;
     }
 
     @Override
@@ -38,7 +53,7 @@ public class OffsetBasedPageRequest implements Pageable {
 
     @Override
     public Sort getSort() {
-        return null;
+       return Sort.by(Sort.Direction.fromString(sortDirection),sortParams);
     }
 
     @Override

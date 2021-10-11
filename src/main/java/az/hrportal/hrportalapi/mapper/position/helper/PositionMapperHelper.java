@@ -20,6 +20,7 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.Set;
 
 @Mapper(unmappedSourcePolicy = ReportingPolicy.IGNORE,
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         componentModel = "spring")
 public interface PositionMapperHelper {
     @IntToWorkPlace
