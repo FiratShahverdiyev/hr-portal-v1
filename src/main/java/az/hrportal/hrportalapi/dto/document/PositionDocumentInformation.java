@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -15,8 +13,8 @@ public class PositionDocumentInformation {
     String subDepartmentName;
     String vacancyName;
     Integer vacancyCount;
-    BigDecimal salary;
-    BigDecimal additionalSalary;
+    float salary;
+    float additionalSalary;
     String workMode;
     String vacancyCategory;
     String workPlace;

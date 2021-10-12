@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -20,13 +19,13 @@ public class GeneralDocumentInformation {
     String titleDepartment;
     String titleFullName;
     String changeDate;
-    BigDecimal newSalary;
-    BigDecimal newAdditionalSalary;
-    BigDecimal newOwnAdditionalSalary;
+    float newSalary;
+    float newAdditionalSalary;
+    float newOwnAdditionalSalary;
     String joinDate;
     Integer testPeriod;
     Integer changePeriod;
-    BigDecimal ownAdditionalSalary;
+    float ownAdditionalSalary;
     String dismissalReason;
     String dismissalDate;
     List<String> notes;

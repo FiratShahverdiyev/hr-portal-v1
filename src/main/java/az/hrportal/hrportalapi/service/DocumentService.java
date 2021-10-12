@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
@@ -12,6 +13,7 @@ import az.hrportal.hrportalapi.dto.document.DocumentResponseDto;
 import az.hrportal.hrportalapi.dto.document.EmployeeDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.GeneralDocumentInformation;
 import az.hrportal.hrportalapi.dto.document.PositionDocumentInformation;
+import az.hrportal.hrportalapi.error.exception.EmployeeNotActiveException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.ValidationException;
 import az.hrportal.hrportalapi.helper.CommonHelper;
@@ -21,6 +23,7 @@ import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
 import az.hrportal.hrportalapi.mapper.operation.OperationMapper;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
+import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
 import az.hrportal.hrportalapi.repository.position.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -47,6 +50,8 @@ public class DocumentService {
     private final OperationMapper operationMapper;
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
     private final DocumentResponseMapper documentResponseMapper;
+    private final EmployeeSalaryCalculator employeeSalaryCalculator;
+    private final EmployeeSalaryRepository employeeSalaryRepository;
 
     public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
         log.info("export2Pdf service started with operationId : {}", operationId);
@@ -66,9 +71,15 @@ public class DocumentService {
         log.info("create (Document) service started with {}", documentData);
         validate(documentData);
         Operation operation = operationMapper.toOperation(documentData);
-        if (documentData.getEmployeeId() != null)
-            operation.setEmployee(employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
-                    new EntityNotFoundException(Employee.class, documentData.getEmployeeId())));
+        if (documentData.getEmployeeId() != null) {
+            Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
+                    new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
+            if (!DocumentType.intToEnum(documentData.getDocumentType()).equals(DocumentType.ISHE_QEBUL) &&
+                    !employee.getActive()) {
+                throw new EmployeeNotActiveException(employee.getFullName() + " id : " + employee.getId());
+            }
+            operation.setEmployee(employee);
+        }
         if (documentData.getPositionId() != null) {
             Position position = positionRepository.findById(documentData.getPositionId()).orElseThrow(() ->
                     new EntityNotFoundException(Position.class, documentData.getPositionId()));
@@ -174,11 +185,14 @@ public class DocumentService {
             case ISHE_QEBUL: {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
+                EmployeeSalary employeeSalary = new EmployeeSalary();
                 employee.setPosition(position);
                 employee.setActive(true);
                 employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
+                employeeSalary.setEmployee(employee);
                 employeeRepository.save(employee);
+                employeeSalaryRepository.save(employeeSalary);
                 break;
             }
             case XITAM: {

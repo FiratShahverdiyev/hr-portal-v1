@@ -15,7 +15,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -34,11 +33,11 @@ public interface DropDownMapper {
     List<DropDownResponseDto<String>> toSubDepartmentResponseDtos(Set<SubDepartment> subDepartments);
 
     @IterableMapping(qualifiedByName = "toSalaryResponseDto")
-    List<DropDownResponseDto<BigDecimal>> toSalaryResponseDtos(List<Salary> salaries);
+    List<DropDownResponseDto<Float>> toSalaryResponseDtos(List<Salary> salaries);
 
     @Named("toSalaryResponseDto")
     @Mapping(target = "name", source = "salary")
-    DropDownResponseDto<BigDecimal> toSalaryResponseDto(Salary salary);
+    DropDownResponseDto<Float> toSalaryResponseDto(Salary salary);
 
     List<DropDownResponseDto<String>> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);
 

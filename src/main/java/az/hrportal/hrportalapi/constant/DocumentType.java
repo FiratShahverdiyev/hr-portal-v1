@@ -15,6 +15,8 @@ public enum DocumentType {
     ISH_REJIMININ_DEYISTIRILMESI(12, DocumentLabel.EMPLOYEE.toString(), "İş rejiminin dəyiştirilməsi"),
     ISH_YERI_DEYISIKLIYI(13, DocumentLabel.EMPLOYEE.toString(), "Iş yeri dəyişikliyi"),
     MUVEQQETI_KECIRILME(14, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti keçirilmə"),
+    ISCIYE_ODENISIZ_MEZUNIYYET(19, DocumentLabel.EMPLOYEE.toString(),
+            "İşçiyə ödənişsiz məzuniyyətin verilməsi"),
     MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə"),
     ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA(25, DocumentLabel.EMPLOYEE.toString(),
             "Ödənişsiz məzuniyyətdən geri çağırılma"),
@@ -27,6 +29,8 @@ public enum DocumentType {
     SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
     SECKIDE_ISTIRAK(36, DocumentLabel.EMPLOYEE.toString(), "Seçkidə iştirak barədə"),
     TEDBIRDE_ISTIRAK(38, DocumentLabel.EMPLOYEE.toString(), "Tədbirdə iştirak"),
+    ISCININ_ISDEN_KENARLASDIRILMASI(41, DocumentLabel.EMPLOYEE.toString(),
+            "İşçinin işdən kənarlaşdırılması"),
     XEBERDARLIQ(45, DocumentLabel.EMPLOYEE.toString(), "Xəbərdarlıq"),
     EMEK_HAQQINDAN_TUTULMA(46, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqından tutulma"),
     INTIZAM_TENBEHI(47, DocumentLabel.EMPLOYEE.toString(), "İntizam tənbehinə cəlb edilmə");

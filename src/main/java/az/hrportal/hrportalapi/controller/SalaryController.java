@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,7 +28,7 @@ public class SalaryController {
 
     @GetMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<List<DropDownResponseDto<BigDecimal>>> getAll() {
+    public ResponseDto<List<DropDownResponseDto<Float>>> getAll() {
         return ResponseDto.of(salaryService.getAll(), 200);
     }
 }

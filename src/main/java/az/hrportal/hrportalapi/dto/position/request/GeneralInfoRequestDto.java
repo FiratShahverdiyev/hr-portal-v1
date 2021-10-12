@@ -9,7 +9,6 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -33,10 +32,10 @@ public class GeneralInfoRequestDto {
     Integer workCalculateDegree;
     String subWorkCalculateDegree;
     @NotNull
-    BigDecimal salary;
+    float salary;
     @NotEmpty
     String workCondition;
-    BigDecimal additionalSalary;
+    float additionalSalary;
     @NotEmpty
     String workMode;
     @NotEmpty

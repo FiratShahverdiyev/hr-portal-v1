@@ -240,6 +240,10 @@ public class Employee {
     @Column(name = "catch_months")
     @ElementCollection
     Set<Integer> catchMonths;
+    @Column(name = "event_from")
+    LocalDate eventFrom;
+    @Column(name = "event_to")
+    LocalDate eventTo;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

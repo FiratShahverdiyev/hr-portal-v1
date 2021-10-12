@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -28,9 +27,9 @@ public class SalaryService {
         return true;
     }
 
-    public List<DropDownResponseDto<BigDecimal>> getAll() {
+    public List<DropDownResponseDto<Float>> getAll() {
         log.info("getAllSalaries service started");
-        List<DropDownResponseDto<BigDecimal>> response = dropDownMapper
+        List<DropDownResponseDto<Float>> response = dropDownMapper
                 .toSalaryResponseDtos(salaryRepository.findAll());
         log.info("********** getAllSalaries service completed **********");
         return response;

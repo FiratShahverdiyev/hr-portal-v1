@@ -8,8 +8,8 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,7 +36,7 @@ public class DocumentData {
     //newVacancyName
     //newSalary
     //newAdditionalSalary
-    BigDecimal newOwnAdditionalSalary;
+    Float newOwnAdditionalSalary;
 
     /*CHANGE EMPLOYEE SALARY*/
     //Integer employeeId;
@@ -46,9 +46,9 @@ public class DocumentData {
     //additionalSalary
     //ownAdditionalSalary
     //String changeDate;
-    BigDecimal newSalary;
-    BigDecimal newAdditionalSalary;
-    //BigDecimal newOwnAdditionalSalary;
+    Float newSalary;
+    Float newAdditionalSalary;
+    //Float newOwnAdditionalSalary;
 
     /*CREATE POSITION*/
     //Integer positionId;
@@ -81,7 +81,7 @@ public class DocumentData {
     //vacancyName
     String joinDate;
     Integer testPeriod;
-    BigDecimal ownAdditionalSalary;
+    Float ownAdditionalSalary;
     //salary
     //additionalSalary
 
@@ -107,12 +107,12 @@ public class DocumentData {
     //salary
     //additionalSalary
     //String changeDate;
-    //BigDecimal newSalary;
-    //BigDecimal newAdditionalSalary;
+    //Float newSalary;
+    //Float newAdditionalSalary;
 
     Integer changePeriod;
-    BigDecimal financialHelp;
-    BigDecimal achievement;
+    Float financialHelp;
+    Float achievement;
 
     String eventFrom;
     String eventTo;
@@ -129,4 +129,6 @@ public class DocumentData {
     String callBackDate;
 
     Integer year;
+    Set<Integer> catchMonths;
+    Float catchAmount;
 }

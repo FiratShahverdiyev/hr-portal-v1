@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
@@ -16,6 +14,6 @@ public class PositionResponseDto {
     String subDepartmentName;
     String vacancyName;
     Integer vacancyCount;
-    BigDecimal salary;
+    float salary;
     String status;
 }

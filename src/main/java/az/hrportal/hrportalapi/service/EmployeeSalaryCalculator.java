@@ -43,17 +43,17 @@ public class EmployeeSalaryCalculator {
             log.info("schedule ended because isn't job day. Date : {}", day.getDay());
             return;
         }
-        calculateEmployeeWorkDay();
+        calculateEmployeeWorkDay(now);
         setEmployeesMonthlySalary();
         log.info("********** salaryManager schedule completed **********");
     }
 
     @Transactional
-    protected void calculateEmployeeWorkDay() {
+    protected void calculateEmployeeWorkDay(LocalDate now) {
         log.info("calculateEmployeeWorkDay schedule started");
         List<EmployeeSalary> employeeSalaries = employeeSalaryRepository.findAllByBackupIsFalse();
         for (EmployeeSalary employeeSalary : employeeSalaries) {
-            if (checkEmployeeOperations(employeeSalary.getEmployee().getOperations()))
+            if (checkEmployeeOperations(employeeSalary.getEmployee().getOperations(), now))
                 employeeSalary.setActiveDays(employeeSalary.getActiveDays() + 1);
         }
         employeeSalaryRepository.saveAll(employeeSalaries);
@@ -72,6 +72,18 @@ public class EmployeeSalaryCalculator {
         List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
         calculateSalary(employees, now);
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
+    }
+
+    public int getJobDayCountBetween(LocalDate from, LocalDate to) {
+        int jobDayCount = 0;
+        while (!from.isAfter(to)) {
+            Day day = dayRepository.findByDay(from).orElseThrow(() ->
+                    new EntityNotFoundException(Day.class, "getJobDayCountBetween"));
+            if (day.isJobDay())
+                jobDayCount++;
+            from = from.plusDays(1);
+        }
+        return jobDayCount;
     }
 
     public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto, LocalDate date) {
@@ -135,10 +147,14 @@ public class EmployeeSalaryCalculator {
         log.info("********** backup schedule completed **********");
     }
 
-    private boolean checkEmployeeOperations(Set<Operation> operations) {
+    private boolean checkEmployeeOperations(Set<Operation> operations, LocalDate now) {
         for (Operation operation : operations) {
-            if (Constant.passiveDayDocuments.contains(operation.getDocumentType()))
-                return false;
+            if (Constant.passiveDayDocuments.contains(operation.getDocumentType())) {
+                LocalDate from = operation.getEventFrom();
+                LocalDate to = operation.getEventTo();
+                if (from.isEqual(now) || from.isAfter(now) || to.isBefore(now) || to.isEqual(now))
+                    return false;
+            }
         }
         return true;
     }

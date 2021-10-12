@@ -6,7 +6,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Getter
@@ -23,9 +22,9 @@ public class GeneralInfoResponseDto {
     Integer vacancyCount;
     Integer workCalculateDegree;
     String subWorkCalculateDegree;
-    BigDecimal salary;
+    float salary;
     String workCondition;
-    BigDecimal additionalSalary;
+    float additionalSalary;
     String workMode;
     String vacancyCategory;
     String jobFamily;

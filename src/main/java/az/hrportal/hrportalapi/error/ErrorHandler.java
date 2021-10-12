@@ -18,6 +18,7 @@ import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
 import az.hrportal.hrportalapi.error.exception.DocumentException;
+import az.hrportal.hrportalapi.error.exception.EmployeeNotActiveException;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
@@ -129,6 +130,15 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(DocumentException.class)
     public ResponseEntity<ErrorResponseDto> documentException(final Exception e) {
         ErrorCode errorCode = ErrorCode.DOCUMENT_PROBLEM;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
+        return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
+    }
+
+    @ExceptionHandler(EmployeeNotActiveException.class)
+    public ResponseEntity<ErrorResponseDto> employeeIsNotActive(final Exception e) {
+        ErrorCode errorCode = ErrorCode.EMPLOYEE_NOT_ACTIVE;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ---------- \n StackTrace : {}",
                 errorCode.getCode(), e.getMessage(), getStackTrace(e));
