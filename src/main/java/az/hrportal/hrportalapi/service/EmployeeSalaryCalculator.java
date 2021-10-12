@@ -101,6 +101,12 @@ public class EmployeeSalaryCalculator {
         float netSalary = gross - totalTax;
         responseDto.setGrossSalary(gross);
         responseDto.setNetSalary(netSalary);
+        responseDto.setEmployeeITS(its);
+        responseDto.setEmployeeMDSS(percentage(gross, 3f));
+        responseDto.setEmployeeUnemploymentTax(unemploymentInsurance);
+        Integer dayCount = dayRepository.getJobDayCount(date.getMonthValue(), date.getYear());
+        responseDto.setActiveDayCount(dayCount);
+        responseDto.setEmployeeActiveDayCount(dayCount);
     }
 
     @Transactional

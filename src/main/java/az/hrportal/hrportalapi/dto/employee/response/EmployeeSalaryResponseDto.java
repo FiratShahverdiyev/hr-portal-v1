@@ -18,4 +18,14 @@ public class EmployeeSalaryResponseDto {
     String vacancyName;
     float netSalary;
     float grossSalary;
+    Integer employeeActiveDayCount;
+    Integer activeDayCount;
+    float employeeMDSS;
+    float positionMDSS;
+    float employeeITS;
+    float positionITS;
+    float employeeUnemploymentTax;
+    float positionUnemploymentTax;
+    float incomingTax;
+    float other;
 }

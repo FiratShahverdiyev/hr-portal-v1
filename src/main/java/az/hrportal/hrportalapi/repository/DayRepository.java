@@ -14,4 +14,7 @@ public interface DayRepository extends JpaRepository<Day, Integer> {
 
     @Query("select d from Day d where d.jobDay=true and month(d.day) = :month order by d.day desc")
     List<Day> findLastJobDayOfMonth(@Param("month") Integer month);
+
+    @Query("select count(d) from Day d where d.jobDay=true and month(d.day) = :month and year(d.day) = :year")
+    Integer getJobDayCount(Integer month, Integer year);
 }

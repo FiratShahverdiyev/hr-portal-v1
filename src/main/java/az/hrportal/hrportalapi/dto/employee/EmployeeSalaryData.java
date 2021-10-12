@@ -19,4 +19,5 @@ public class EmployeeSalaryData {
     Position position;
     float salary;
     Set<String> quotas;
+
 }
