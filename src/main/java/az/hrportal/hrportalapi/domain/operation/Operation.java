@@ -126,6 +126,12 @@ public class Operation {
     Integer year;
     @ElementCollection
     List<Integer> employeeIds;
+    @Column(name = "assignment_date")
+    LocalDate assignmentDate;
+    @Column(name = "alternate_worker_salary")
+    float alternateWorkerSalary;
+    @Column(name = "difference_salary")
+    float differenceSalary;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

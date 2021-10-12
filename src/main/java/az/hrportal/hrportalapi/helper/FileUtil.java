@@ -223,6 +223,12 @@ public class FileUtil {
                 pdfCreator.pdfCatchFromSalary(document, operation);
                 break;
             }
+            case QEYRI_IS_GUNU: {
+                pdfCreator.pdfNonActiveDay(document, operation);
+            }
+            case MUVEQQETI_HEVALE: {
+                pdfCreator.pdfTemporaryAssignment(document, operation);
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
