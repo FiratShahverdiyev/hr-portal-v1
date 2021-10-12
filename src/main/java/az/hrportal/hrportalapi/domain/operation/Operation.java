@@ -130,8 +130,8 @@ public class Operation {
     LocalDate assignmentDate;
     @Column(name = "alternate_worker_salary")
     float alternateWorkerSalary;
-    @Column(name = "difference_salary")
-    float differenceSalary;
+    @Column(name = "amount")
+    float amount;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

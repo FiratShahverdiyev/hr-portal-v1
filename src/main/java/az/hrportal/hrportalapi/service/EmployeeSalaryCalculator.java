@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.Constant;
+import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.domain.Day;
 import az.hrportal.hrportalapi.domain.employee.Employee;
@@ -108,6 +109,7 @@ public class EmployeeSalaryCalculator {
         responseDto.setGrossSalary(gross);
         responseDto.setNetSalary(netSalary);
         responseDto.setEmployeeITS(its);
+        responseDto.setIncomingTax(incomeTax);
         responseDto.setPositionUnemploymentTax(unemploymentInsurance);
         responseDto.setEmployeeMDSS(percentage(gross, 3f));
         responseDto.setPositionMDSS(percentage(gross, 3f));
@@ -171,11 +173,14 @@ public class EmployeeSalaryCalculator {
     private int checkEmployeeOperationsAndGetPassiveDayCount(Set<Operation> operations, LocalDate date) {
         int count = 0;
         for (Operation operation : operations) {
-            if (Constant.passiveDayDocuments.contains(operation.getDocumentType())) {
-                LocalDate from = operation.getEventFrom();
-                LocalDate to = operation.getEventTo();
-                count += getJobDayCountBetween(from, to, date);
-            }
+            if (operation.getStatus().equals(Status.APPROVED))
+                if (Constant.passiveDayDocuments.contains(operation.getDocumentType())) {
+                    LocalDate from = operation.getEventFrom();
+                    LocalDate to = operation.getEventTo();
+                    if (from == null || to == null)
+                        continue;
+                    count += getJobDayCountBetween(from, to, date);
+                }
         }
         return count;
     }

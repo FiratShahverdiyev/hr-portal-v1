@@ -1669,7 +1669,7 @@ public class PdfCreator {
             paragraph4 = new Paragraph("12.1.Əvəz edilən işçinin maaşı ilə əvəz edən işçinin maaşı arasındakı " +
                     "fərq ödənilsin.").setMarginLeft(50);
         } else {
-            paragraph4 = new Paragraph("12.2.İşçiyə" + operation.getDifferenceSalary() + " məbləğdə əlavə əmək " +
+            paragraph4 = new Paragraph("12.2.İşçiyə " + operation.getAmount() + " məbləğdə əlavə əmək " +
                     "haqqı ödənilsin. ");
         }
         Text text13 = new Text("13.İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn " +
