@@ -74,7 +74,7 @@ public class EmployeeSalaryCalculator {
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
 
-    public int getJobDayCountBetween(LocalDate from, LocalDate to) {
+    public int getJobDayCountBetween(LocalDate from, LocalDate to, LocalDate date) {
         int jobDayCount = 0;
         while (!from.isAfter(to)) {
             Day day = dayRepository.findByDay(from).orElseThrow(() ->
@@ -82,12 +82,18 @@ public class EmployeeSalaryCalculator {
             if (day.isJobDay())
                 jobDayCount++;
             from = from.plusDays(1);
+            if (from.getMonthValue() != date.getMonthValue())
+                break;
         }
         return jobDayCount;
     }
 
     public void setEmployeeSalary(Employee employee, EmployeeSalaryResponseDto responseDto, LocalDate date) {
-        float gross = employee.getSalary();
+        Integer dayCount = dayRepository.getJobDayCount(date.getMonthValue(), date.getYear());
+        responseDto.setActiveDayCount(dayCount);
+        responseDto.setEmployeeActiveDayCount(dayCount - checkEmployeeOperationsAndGetPassiveDayCount(employee
+                .getOperations(), date));
+        float gross = employee.getSalary() / responseDto.getActiveDayCount() * responseDto.getEmployeeActiveDayCount();
         float dsmf = percentage(gross, Constant.DSMF);
         float incomeTax = calculateIncomeTax(employee);
         float its = percentage(gross, Constant.ITS);
@@ -102,11 +108,10 @@ public class EmployeeSalaryCalculator {
         responseDto.setGrossSalary(gross);
         responseDto.setNetSalary(netSalary);
         responseDto.setEmployeeITS(its);
+        responseDto.setPositionUnemploymentTax(unemploymentInsurance);
         responseDto.setEmployeeMDSS(percentage(gross, 3f));
+        responseDto.setPositionMDSS(percentage(gross, 3f));
         responseDto.setEmployeeUnemploymentTax(unemploymentInsurance);
-        Integer dayCount = dayRepository.getJobDayCount(date.getMonthValue(), date.getYear());
-        responseDto.setActiveDayCount(dayCount);
-        responseDto.setEmployeeActiveDayCount(dayCount);
     }
 
     @Transactional
@@ -161,6 +166,18 @@ public class EmployeeSalaryCalculator {
             }
         }
         return true;
+    }
+
+    private int checkEmployeeOperationsAndGetPassiveDayCount(Set<Operation> operations, LocalDate date) {
+        int count = 0;
+        for (Operation operation : operations) {
+            if (Constant.passiveDayDocuments.contains(operation.getDocumentType())) {
+                LocalDate from = operation.getEventFrom();
+                LocalDate to = operation.getEventTo();
+                count += getJobDayCountBetween(from, to, date);
+            }
+        }
+        return count;
     }
 
     private float calculateIncomeTax(Employee employee) {

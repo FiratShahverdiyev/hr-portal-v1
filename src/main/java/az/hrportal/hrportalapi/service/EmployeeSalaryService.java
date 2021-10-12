@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class EmployeeSalaryService {
         return new PaginationResponseDto<>(response, response.size(), data.size());
     }
 
-    public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size) {
+    public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size, String date) {
         log.info("calculateAndGetAll service started");
      /* String[] sortParams = new String[1];
         sortParams[0] = "fullName";
@@ -61,7 +61,7 @@ public class EmployeeSalaryService {
             if (employee.getPosition() != null)
                 employeeSalaryResponseDto.setVacancyName(employee.getPosition().getVacancy().getName());
             employeeSalaryCalculator.setEmployeeSalary(employee, employeeSalaryResponseDto,
-                    LocalDate.now(ZoneId.of(Constant.timeZone)));
+                    LocalDate.parse(date, DateTimeFormatter.ofPattern(Constant.dateFormat)));
             data.add(employeeSalaryResponseDto);
         }
         log.info("********** calculateAndGetAll service completed **********");
