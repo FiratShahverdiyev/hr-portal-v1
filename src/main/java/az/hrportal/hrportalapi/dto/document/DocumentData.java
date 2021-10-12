@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
@@ -131,4 +132,7 @@ public class DocumentData {
     Integer year;
     Set<Integer> catchMonths;
     Float catchAmount;
+    String assignmentDate;
+    Float alternateWorkerSalary;
+    Float differenceSalary;
 }
