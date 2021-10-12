@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -57,6 +59,12 @@ public class EmployeeSalary {
     LocalDate salaryCalculationDate;
     @Column(name = "backup")
     Boolean backup;
+    @CreationTimestamp
+    @Column(name = "created_at")
+    LocalDate createdAt;
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    LocalDate updatedAt;
 
     @PrePersist
     void setBackup() {

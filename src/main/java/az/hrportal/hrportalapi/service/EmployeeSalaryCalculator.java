@@ -68,8 +68,8 @@ public class EmployeeSalaryCalculator {
             log.info("schedule ended because isn't last day of month. Date : {}", now);
             return;
         }
-        backup();
-        List<Employee> employees = employeeRepository.findAllByActiveIsTrue();
+        backup(now);
+        List<EmployeeSalary> employees = employeeSalaryRepository.findAllByBackupIsFalse();
         calculateSalary(employees, now);
         log.info("********** setEmployeesMonthlySalary schedule completed **********");
     }
@@ -104,42 +104,40 @@ public class EmployeeSalaryCalculator {
     }
 
     @Transactional
-    protected void calculateSalary(List<Employee> employees, LocalDate date) {
+    protected void calculateSalary(List<EmployeeSalary> employees, LocalDate date) {
         log.info("calculateSalary service started");
         List<EmployeeSalary> employeeSalaries = new ArrayList<>();
-        for (Employee employee : employees) {
-            float gross = employee.getSalary();
+        for (EmployeeSalary employee : employees) {
+            float gross = employee.getGrossSalary();
             float dsmf = percentage(gross, Constant.DSMF);
-            float incomeTax = calculateIncomeTax(employee);
+            float incomeTax = calculateIncomeTax(employee.getEmployee());
             float its = percentage(gross, Constant.ITS);
             float unemploymentInsurance = percentage(gross, Constant.UNEMPLOYMENT_INSURANCE);
             float tradeUnion = percentage(gross, Constant.TRADE_UNION);
             float catchAmount = 0f;
-            if (employee.getCatchMonths().contains(date.getMonthValue())) {
-                catchAmount = employee.getCatchAmount();
+            if (employee.getEmployee().getCatchMonths().contains(date.getMonthValue())) {
+                catchAmount = employee.getEmployee().getCatchAmount();
             }
             float totalTax = dsmf + incomeTax + its + unemploymentInsurance + tradeUnion + catchAmount;
             float netSalary = gross - totalTax;
-            EmployeeSalary employeeSalary = EmployeeSalary.builder()
-                    .grossSalary(gross)
-                    .dsmf(dsmf)
-                    .incomeTax(incomeTax)
-                    .its(its)
-                    .unemploymentInsurance(unemploymentInsurance)
-                    .tradeUnion(tradeUnion)
-                    .netSalary(netSalary)
-                    .employee(employee)
-                    .build();
-            employeeSalaries.add(employeeSalary);
+            employee.setGrossSalary(gross);
+            employee.setDsmf(dsmf);
+            employee.setIncomeTax(incomeTax);
+            employee.setIts(its);
+            employee.setUnemploymentInsurance(unemploymentInsurance);
+            employee.setTradeUnion(tradeUnion);
+            employee.setNetSalary(netSalary);
+            employeeSalaries.add(employee);
         }
         employeeSalaryRepository.saveAll(employeeSalaries);
         log.info("********** calculateSalary service completed with **********");
     }
 
-    private void backup() {
+    private void backup(LocalDate now) {
         log.info("backup schedule started");
         Objects.requireNonNull(cacheManager.getCache("employee-salaries")).clear();
-        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository.findAllByBackupIsFalse();
+        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository
+                .findAllByCreateDate(now.getMonthValue());
         for (EmployeeSalary employeeSalary : employeeSalaries) {
             employeeSalary.setBackup(true);
         }
