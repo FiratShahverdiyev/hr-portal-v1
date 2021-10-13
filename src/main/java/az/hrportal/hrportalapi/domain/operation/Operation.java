@@ -134,8 +134,10 @@ public class Operation {
     float amount;
     @Column(name = "business_trip_location")
     String businessTripLocation;
-    @Column(name = "business_trip_date")
-    LocalDate businessTripDate;
+    @Column(name = "event_to_business_trip_date")
+    LocalDate evenToBusinessTripDate;
+    @Column(name = "event_from_business_trip_date")
+    LocalDate evenFromBusinessTripDate;
     @Column(name = "business_trip_term")
     Integer businessTripTerm;
     //?
@@ -143,8 +145,16 @@ public class Operation {
     LocalDate nonWorkDay;
     @Column(name = "given_non_work_day")
     LocalDate givenNonWorkDay;
-    @Column(name = "start_date_to_work")
-    LocalDate startDateToWork;
+    @Column(name = "serial_number_1")
+    Integer serialNumber1;
+    @Column(name = "serial_number_2")
+    Integer serialNumber2;
+    @Column(name = "event_from_2")
+    LocalDate eventFrom2;
+    @Column(name = "event_to_2")
+    LocalDate eventTo2;
+    @Column(name = "day_in_event_2")
+    Integer dayInEvent2;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
