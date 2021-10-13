@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.service;
 
+import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
@@ -31,10 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -185,14 +189,10 @@ public class DocumentService {
             case ISHE_QEBUL: {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
-                EmployeeSalary employeeSalary = new EmployeeSalary();
                 employee.setPosition(position);
-                employee.setActive(true);
                 employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
-                employeeSalary.setEmployee(employee);
                 employeeRepository.save(employee);
-                employeeSalaryRepository.save(employeeSalary);
                 break;
             }
             case XITAM: {
@@ -347,6 +347,27 @@ public class DocumentService {
             }
             default:
                 break;
+        }
+    }
+
+    @Transactional
+    @Scheduled(cron = "0 0 22 * * ?", zone = Constant.timeZone)
+    protected void checkOperations() {
+        List<Operation> operations = operationRepository.findAllByStatus(Status.APPROVED);
+        for (Operation operation : operations) {
+            switch (operation.getDocumentType()) {
+                case ISHE_QEBUL: {
+                    if (operation.getJoinDate().equals(LocalDate.now(ZoneId.of(Constant.timeZone)))) {
+                        Employee employee = operation.getEmployee();
+                        employee.setActive(true);
+                        EmployeeSalary employeeSalary = new EmployeeSalary();
+                        employeeSalary.setEmployee(employee);
+                        employeeRepository.save(employee);
+                        employeeSalaryRepository.save(employeeSalary);
+                    }
+                    break;
+                }
+            }
         }
     }
 }

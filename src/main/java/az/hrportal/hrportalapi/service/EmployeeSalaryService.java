@@ -1,7 +1,9 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.Constant;
+import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.employee.Employee;
+import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeSalaryMapper;
@@ -44,12 +46,9 @@ public class EmployeeSalaryService {
 
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size, String date) {
         log.info("calculateAndGetAll service started");
-     /* String[] sortParams = new String[1];
-        sortParams[0] = "fullName";
-        Pageable pageable = new OffsetBasedPageRequest(page, size, "DESC", sortParams);
-        Page<Employee> employees = employeeRepository.findAllByActiveIsTrue(pageable);*/
         List<Employee> employees = entityManager
-                .createQuery("SELECT e FROM Employee e left outer join e.quotas", Employee.class)
+                .createQuery("SELECT e FROM Employee e left outer join e.quotas where e.active=true",
+                        Employee.class)
                 .setMaxResults(size)
                 .setFirstResult(page * size)
                 .getResultList();
