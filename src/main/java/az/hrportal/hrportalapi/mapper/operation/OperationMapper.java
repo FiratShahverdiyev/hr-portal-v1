@@ -25,6 +25,5 @@ public interface OperationMapper {
     @Mapping(target = "businessTripDate", source = "businessTripDate")
     @Mapping(target = "nonWorkDay", source = "nonWorkDay")
     @Mapping(target = "givenNonWorkDay", source = "givenNonWorkDay")
-    @Mapping(target = "startDateToWork", source = "startDateToWork")
     Operation toOperation(DocumentData documentData);
 }
