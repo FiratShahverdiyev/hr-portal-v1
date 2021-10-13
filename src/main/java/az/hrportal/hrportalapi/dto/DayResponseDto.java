@@ -11,4 +11,5 @@ import lombok.experimental.FieldDefaults;
 public class DayResponseDto {
     String day;
     boolean jobDay;
+    String title;
 }
