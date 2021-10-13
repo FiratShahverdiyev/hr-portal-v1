@@ -17,12 +17,16 @@ public enum DocumentType {
     MUVEQQETI_KECIRILME(14, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti keçirilmə"),
     MUVEQQETI_HEVALE(15, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti həvalə barədə"),
     MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə"),
+    MEZUNIYYET_VERILMESI(17, DocumentLabel.EMPLOYEE.toString(), "İşçiyə əmək məzuniyyəti verilməsi barədə"),
     ISCIYE_ODENISIZ_MEZUNIYYET(19, DocumentLabel.EMPLOYEE.toString(),
             "İşçiyə ödənişsiz məzuniyyətin verilməsi"),
+    ISCIYE_SOSIAL_MEZUNIYYET(20, DocumentLabel.EMPLOYEE.toString(), "İşçiyə sosial məzuniyyət" +
+            " verilməsi barədə"),
     QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET(21, DocumentLabel.EMPLOYEE.toString(),
             "İşçiyə qismən ödənişli sosial məzuniyyət verilməsi barədə"),
     ODENISHLI_ISTIRAHET_GUNU(22, DocumentLabel.EMPLOYEE.toString(), "Kollektiv müqaviləyə əsasən " +
             "ödənişli istirahət günü barədə"),
+    MEZUNIYYETIN_UZADILMASI(23, DocumentLabel.EMPLOYEE.toString(), "Əmək məzuniyyətinin uzadılması barədə"),
     ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA(25, DocumentLabel.EMPLOYEE.toString(),
             "Ödənişsiz məzuniyyətdən geri çağırılma"),
     MEZUNIYYET_QRAFIKININ_TESDIQI(27, DocumentLabel.EMPLOYEE.toString(),
@@ -31,6 +35,10 @@ public enum DocumentType {
     TELIM_PLANININ_TESDIQI(29, DocumentLabel.EMPLOYEE.toString(), "Təlim planının təsdiqi"),
     EZAMIYYETE_GONDERILME(30, DocumentLabel.EMPLOYEE.toString(), "İşçinin/işçilərin ezamiyyətə " +
             "göndərilməsi barədə"),
+    EZAMIYYETIN_UZADILMASI(31, DocumentLabel.EMPLOYEE.toString(), "Ezamiyyənin müddətinin uzadılması " +
+            "barədə"),
+    EZAMIYYETDEN_GERI_CAGIRILMA(32, DocumentLabel.EMPLOYEE.toString(), "İşçinin/işçilərin ezamiyyətdən " +
+            "geri çağırılması barədə"),
     MADDI_YARDIM(33, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
     MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
     SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
@@ -39,6 +47,7 @@ public enum DocumentType {
     ISCININ_ISDEN_KENARLASDIRILMASI(41, DocumentLabel.EMPLOYEE.toString(),
             "İşçinin işdən kənarlaşdırılması"),
     QEYRI_IS_GUNU(42, DocumentLabel.EMPLOYEE.toString(), "Qeyri iş gününün müəyyən olunması"),
+    ISH_SAATININ_QISALDILMASI(43, DocumentLabel.EMPLOYEE.toString(), "İş saatlarının qısaldılması barədə"),
     XEBERDARLIQ(45, DocumentLabel.EMPLOYEE.toString(), "Xəbərdarlıq"),
     EMEK_HAQQINDAN_TUTULMA(46, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqından tutulma"),
     INTIZAM_TENBEHI(47, DocumentLabel.EMPLOYEE.toString(), "İntizam tənbehinə cəlb edilmə");

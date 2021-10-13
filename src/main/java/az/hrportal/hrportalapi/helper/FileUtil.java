@@ -236,11 +236,36 @@ public class FileUtil {
                 break;
             }
             case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET: {
-                pdfCreator.pdfPaidSocialBusinessTrip(document, operation);
+                pdfCreator.pdfPaidSocialVacation(document, operation);
                 break;
             }
             case ODENISHLI_ISTIRAHET_GUNU: {
                 pdfCreator.pdfPaidDayOff(document, operation);
+                break;
+            }
+            case ISCIYE_SOSIAL_MEZUNIYYET: {
+                pdfCreator.pdfSocialVacation(document, operation);
+                break;
+            }
+            case MEZUNIYYETIN_UZADILMASI: {
+                pdfCreator.pdfIncreaseVacation(document, operation);
+                break;
+            }
+            case EZAMIYYETIN_UZADILMASI: {
+                pdfCreator.pdfIncreaseBusinessTrip(document, operation);
+                break;
+            }
+            case MEZUNIYYET_VERILMESI: {
+                pdfCreator.pdfGiveVacation(document, operation);
+                break;
+            }
+            case EZAMIYYETDEN_GERI_CAGIRILMA: {
+                pdfCreator.pdfCallBackFromBusinessTrip(document, operation);
+                break;
+            }
+            case ISH_SAATININ_QISALDILMASI: {
+                pdfCreator.pdfDecreaseWorkHours(document, operation);
+                break;
             }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
