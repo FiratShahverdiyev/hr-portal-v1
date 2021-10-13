@@ -144,8 +144,6 @@ public class Operation {
     LocalDate nonWorkDay;
     @Column(name = "given_non_work_day")
     LocalDate givenNonWorkDay;
-    @Column(name = "start_date_to_work")
-    LocalDate startDateToWork;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

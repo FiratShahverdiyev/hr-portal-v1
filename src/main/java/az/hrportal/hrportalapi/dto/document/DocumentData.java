@@ -145,6 +145,5 @@ public class DocumentData {
     String nonWorkDay;
     //ezamiyyə müddətində yolda keçirilmiş istirahət gününün əvəzinə verilmiş istirahət günü
     String givenNonWorkDay;
-    String startDateToWork;
     String otherNotes;
 }
