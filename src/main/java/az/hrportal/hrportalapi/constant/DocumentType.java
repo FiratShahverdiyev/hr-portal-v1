@@ -17,6 +17,7 @@ public enum DocumentType {
     MUVEQQETI_KECIRILME(14, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti keçirilmə"),
     MUVEQQETI_HEVALE(15, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti həvalə barədə"),
     MUVEQQETI_EVEZETME(16, DocumentLabel.EMPLOYEE.toString(), "Müvəqqəti əvəzetmə"),
+    TEHSIL_YARADICILIQ_MEZUNIYYETI(18, DocumentLabel.EMPLOYEE.toString(), "Təhsil-Yaradıcılıq məzuniyyəti"),
     ISCIYE_ODENISIZ_MEZUNIYYET(19, DocumentLabel.EMPLOYEE.toString(),
             "İşçiyə ödənişsiz məzuniyyətin verilməsi"),
     ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA(25, DocumentLabel.EMPLOYEE.toString(),

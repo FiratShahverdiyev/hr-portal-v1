@@ -229,6 +229,10 @@ public class FileUtil {
             case MUVEQQETI_HEVALE: {
                 pdfCreator.pdfTemporaryAssignment(document, operation);
             }
+            case TEHSIL_YARADICILIQ_MEZUNIYYETI: {
+                pdfCreator.pdfEducationVacation(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
