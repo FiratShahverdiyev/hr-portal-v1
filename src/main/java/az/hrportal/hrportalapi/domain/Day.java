@@ -30,4 +30,7 @@ public class Day {
 
     @Column(name = "job_day")
     boolean jobDay;
+
+    @Column(name = "title")
+    String title;
 }

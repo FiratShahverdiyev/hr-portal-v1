@@ -244,6 +244,11 @@ public class DocumentService {
             case SHTAT_EMEK_HAQQINA_ELAVE: {
                 break;
             }
+            case MUVEQQETI_HEVALE: {
+                Employee employee = operation.getEmployee();
+
+                break;
+            }
             case EMEK_HAQQINDAN_TUTULMA: {
                 Employee employee = operation.getEmployee();
                 employee.setCatchAmount(operation.getCatchAmount());

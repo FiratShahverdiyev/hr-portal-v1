@@ -31,7 +31,8 @@ public class EmployeeSalaryController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<PaginationResponseDto<List<EmployeeSalaryResponseDto>>> calculateAll(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
-        return ResponseDto.of(employeeSalaryService.calculateAndGetAll(page, size), 200);
+            @RequestParam(defaultValue = "5") int size,
+            @RequestParam(defaultValue = "10-13-2021") String date) {
+        return ResponseDto.of(employeeSalaryService.calculateAndGetAll(page, size, date), 200);
     }
 }

@@ -17,4 +17,7 @@ public interface DayRepository extends JpaRepository<Day, Integer> {
 
     @Query("select count(d) from Day d where d.jobDay=true and month(d.day) = :month and year(d.day) = :year")
     Integer getJobDayCount(Integer month, Integer year);
+
+    @Query("select count(d) from Day d where d.jobDay=true and d.day >= :from and d.day <= :to")
+    Integer getJobDayCountBetween(LocalDate from, LocalDate to);
 }
