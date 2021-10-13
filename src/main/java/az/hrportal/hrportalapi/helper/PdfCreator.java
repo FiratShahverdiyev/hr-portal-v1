@@ -1772,6 +1772,63 @@ public class PdfCreator {
 
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfPaidSocialBusinessTrip(Document document, Operation operation) {
+        log.info("pdfPaidSocialBusinessTrip PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İşçiyə qismən ödənişli sosial məzuniyyət verilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 127-ci maddəsini rəhbər " +
+                "tutaraq işçinin ərizəsinə əsasən,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+        paragraph2.setFont(bold);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("Aşağıda məlumatları qeyd olunan işçiyə qismən ödənişli sosial məzuniyyət verilsin.");
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı: " + employee.getFullName());
+        Text text2 = new Text("2. Struktur bölmə: " + employee.getPosition().getDepartment());
+        Text text3 = new Text("3. Alt struktur bölmə: " + employee.getPosition().getSubDepartment());
+        Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. Məzuniyyət müddəti: " + operation.getDayInEvent());
+        Text text6 = new Text("6. Məzuniyyətə buraxılma tarixləri: " + operation.getEventFrom() + " - " +
+                operation.getEventTo());
+        Text text7 = new Text("7. İşə başlama tarixi: " + operation.getStartDateToWork());
+        Text text8 = new Text("8. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli" +
+                " gələn zəruri məsələlərin həllini təmin etsinlər");
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        log.info("********** pdfPaidSocialBusinessTrip PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfPaidDayOff(Document document, Operation operation) {
+
+    }
+
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
         String TTInterphases;

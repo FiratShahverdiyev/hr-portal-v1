@@ -235,6 +235,13 @@ public class FileUtil {
                 pdfCreator.pdfGoOnBusinessTrip(document, operation);
                 break;
             }
+            case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET: {
+                pdfCreator.pdfPaidSocialBusinessTrip(document, operation);
+                break;
+            }
+            case ODENISHLI_ISTIRAHET_GUNU: {
+                pdfCreator.pdfPaidDayOff(document, operation);
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

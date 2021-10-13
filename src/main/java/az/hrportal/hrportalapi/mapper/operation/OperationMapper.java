@@ -22,7 +22,6 @@ public interface OperationMapper {
     @Mapping(target = "eventTo", source = "eventTo", dateFormat = dateFormat)
     @Mapping(target = "callBackDate", source = "callBackDate", dateFormat = dateFormat)
     @Mapping(target = "workMode", source = "newWorkMode")
-
     @Mapping(target = "businessTripDate", source = "businessTripDate")
     @Mapping(target = "nonWorkDay", source = "nonWorkDay")
     @Mapping(target = "givenNonWorkDay", source = "givenNonWorkDay")
