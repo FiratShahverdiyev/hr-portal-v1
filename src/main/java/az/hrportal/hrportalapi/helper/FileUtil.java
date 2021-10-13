@@ -225,9 +225,15 @@ public class FileUtil {
             }
             case QEYRI_IS_GUNU: {
                 pdfCreator.pdfNonActiveDay(document, operation);
+                break;
             }
             case MUVEQQETI_HEVALE: {
                 pdfCreator.pdfTemporaryAssignment(document, operation);
+                break;
+            }
+            case EZAMIYYETE_GONDERILME: {
+                pdfCreator.pdfGoOnBusinessTrip(document, operation);
+                break;
             }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);

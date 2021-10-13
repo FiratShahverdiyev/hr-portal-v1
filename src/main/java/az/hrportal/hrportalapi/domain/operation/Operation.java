@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import org.apache.tomcat.jni.Local;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -130,8 +131,21 @@ public class Operation {
     LocalDate assignmentDate;
     @Column(name = "alternate_worker_salary")
     float alternateWorkerSalary;
-    @Column(name = "difference_salary")
-    float differenceSalary;
+    @Column(name = "amount")
+    float amount;
+    @Column(name = "business_trip_location")
+    String businessTripLocation;
+    @Column(name = "business_trip_date")
+    LocalDate businessTripDate;
+    @Column(name = "business_trip_term")
+    Integer businessTripTerm;
+    //?
+    @Column(name = "non_working_day")
+    LocalDate nonWorkDay;
+    @Column(name = "given_non_work_day")
+    LocalDate givenNonWorkDay;
+    @Column(name = "start_date_to_work")
+    LocalDate startDateToWork;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
