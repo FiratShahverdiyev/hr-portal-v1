@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.domain.Day;
+import az.hrportal.hrportalapi.dto.DayRequestDto;
 import az.hrportal.hrportalapi.dto.DayResponseDto;
 import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
 import az.hrportal.hrportalapi.mapper.DayMapper;
@@ -41,6 +42,14 @@ public class DayService {
             }
             dayRepository.save(day);
         }
+    }
+
+    @Transactional
+    public void update(Integer id, DayRequestDto requestDto) {
+        Day day = dayRepository.getById(id);
+        day.setTitle(requestDto.getText());
+        day.setJobDay(requestDto.getJobDay());
+        dayRepository.save(day);
     }
 
     public List<DayResponseDto> getAllByYearAndMonth(int year, int month) {

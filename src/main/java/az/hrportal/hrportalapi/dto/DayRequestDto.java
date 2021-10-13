@@ -8,9 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class DayResponseDto {
-    Integer id;
-    String day;
-    boolean jobDay;
-    String title;
+public class DayRequestDto {
+    String text;
+    Boolean jobDay;
 }
