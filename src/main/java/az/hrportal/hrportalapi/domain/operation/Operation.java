@@ -132,6 +132,19 @@ public class Operation {
     float alternateWorkerSalary;
     @Column(name = "amount")
     float amount;
+    @Column(name = "business_trip_location")
+    String businessTripLocation;
+    @Column(name = "business_trip_date")
+    LocalDate businessTripDate;
+    @Column(name = "business_trip_term")
+    Integer businessTripTerm;
+    //?
+    @Column(name = "non_working_day")
+    LocalDate nonWorkDay;
+    @Column(name = "given_non_work_day")
+    LocalDate givenNonWorkDay;
+    @Column(name = "start_date_to_work")
+    LocalDate startDateToWork;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

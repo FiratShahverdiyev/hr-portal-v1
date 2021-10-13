@@ -6,9 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -134,5 +136,15 @@ public class DocumentData {
     Float catchAmount;
     String assignmentDate;
     Float alternateWorkerSalary;
-    Float differenceSalary;
+    Float amount;
+
+    String businessTripLocation;
+    String businessTripDate;
+    Integer businessTripTerm;
+    //işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix
+    String nonWorkDay;
+    //ezamiyyə müddətində yolda keçirilmiş istirahət gününün əvəzinə verilmiş istirahət günü
+    String givenNonWorkDay;
+    String startDateToWork;
+    String otherNotes;
 }

@@ -23,5 +23,10 @@ public interface OperationMapper {
     @Mapping(target = "callBackDate", source = "callBackDate", dateFormat = dateFormat)
     @Mapping(target = "assignmentDate", source = "assignmentDate", dateFormat = dateFormat)
     @Mapping(target = "workMode", source = "newWorkMode")
+
+    @Mapping(target = "businessTripDate", source = "businessTripDate")
+    @Mapping(target = "nonWorkDay", source = "nonWorkDay")
+    @Mapping(target = "givenNonWorkDay", source = "givenNonWorkDay")
+    @Mapping(target = "startDateToWork", source = "startDateToWork")
     Operation toOperation(DocumentData documentData);
 }

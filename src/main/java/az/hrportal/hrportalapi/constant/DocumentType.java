@@ -26,6 +26,8 @@ public enum DocumentType {
             "Məzuniyyət qrafikinin təsdiqi"),
     TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndırilmə"),
     TELIM_PLANININ_TESDIQI(29, DocumentLabel.EMPLOYEE.toString(), "Təlim planının təsdiqi"),
+    EZAMIYYETE_GONDERILME(30, DocumentLabel.EMPLOYEE.toString(), "İşçinin/işçilərin ezamiyyətə " +
+            "göndərilməsi barədə"),
     MADDI_YARDIM(33, DocumentLabel.EMPLOYEE.toString(), "Maddi yardım"),
     MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
     SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
