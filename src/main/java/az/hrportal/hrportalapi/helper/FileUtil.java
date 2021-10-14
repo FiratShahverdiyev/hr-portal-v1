@@ -271,6 +271,14 @@ public class FileUtil {
                 pdfCreator.pdfEducationVacation(document, operation);
                 break;
             }
+            case HERBI_CAGIRISH: {
+                pdfCreator.pdfMilitaryCalls(document, operation);
+                break;
+            }
+            case ELAVE_ISTIRAHET_GUNU_VERILMESI: {
+                pdfCreator.pdfAdditionalDayOff(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

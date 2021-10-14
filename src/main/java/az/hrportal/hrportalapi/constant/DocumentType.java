@@ -44,7 +44,10 @@ public enum DocumentType {
     MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
     SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
     SECKIDE_ISTIRAK(36, DocumentLabel.EMPLOYEE.toString(), "Seçkidə iştirak barədə"),
+    HERBI_CAGIRISH(37, DocumentLabel.EMPLOYEE.toString(), "Hərbi çağırış barədə"),
     TEDBIRDE_ISTIRAK(38, DocumentLabel.EMPLOYEE.toString(), "Tədbirdə iştirak"),
+    ELAVE_ISTIRAHET_GUNU_VERILMESI(39, DocumentLabel.EMPLOYEE.toString(), "İşçiyə əlavə istirahət günü " +
+            "verilməsi barədə"),
     ISCININ_ISDEN_KENARLASDIRILMASI(41, DocumentLabel.EMPLOYEE.toString(),
             "İşçinin işdən kənarlaşdırılması"),
     QEYRI_IS_GUNU(42, DocumentLabel.EMPLOYEE.toString(), "Qeyri iş gününün müəyyən olunması"),

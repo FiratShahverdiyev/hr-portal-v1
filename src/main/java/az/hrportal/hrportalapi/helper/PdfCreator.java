@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.awt.Color;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
@@ -2277,6 +2278,119 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfMilitaryCalls(Document document, Operation operation) {
+        log.info("pdfMilitaryCalls PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Hərbi çağırış barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph2 = new Paragraph("“Azərbaycan Respublikasında qismən səfərbərlik elan " +
+                "edilməsi haqqında” Azərbaycan Respublikası Prezidentinin 28 sentyabr 2020-ci il tarixli Sərəncamını " +
+                "rəhbər tutaraq, Azərbaycan Respublikası Əmək Məcəlləsinin 179-cu maddəsinin “g” və “ğ” bəndlərinə " +
+                "əsasən," + operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçinin iş yeri və aylıq əmək haqqı saxlanılmaqla" +
+                " müvəqqəti azad edilsin.");
+        Text text1 = new Text(" İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text(" İşlədiyi struktur bölmə:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text(" İşlədiyi alt struktur bölmə:  " + employee.getPosition()
+                .getSubDepartment().getName());
+        Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text(" Müvəqqəti azad olunma müddəti: " + operation.getDayInEvent());
+        Text text6 = new Text("2. İnsan resursları və Maliyyə departamentinə tapşırılsın ki, əmrdən irəli gələn" +
+                " zəruri məsələlərin həllini təmin etsin.");
+        Text text7 = new Text("3. Əmr imzalandığı gündən qüvvəyə minir.");
+        Text text8 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(text1.getText()))
+                .add(new ListItem(text2.getText()))
+                .add(new ListItem(text3.getText()))
+                .add(new ListItem(text4.getText()))
+                .add(new ListItem(text5.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(list);
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        log.info("********** pdfMilitaryCalls PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfAdditionalDayOff(Document document, Operation operation) {
+        log.info("pdfAdditionalDayOff PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İşçiyə əlavə istirahət günü verilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 104-cu maddəsinin " +
+                "3-cü bəndinə və işçinin ərizəsinə əsasən " + operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("Aşağıda məlumatları qeyd olunan işçiyə əlavə istirahət günü verilsin.");
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı: " + employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmə:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi alt struktur bölmə:  " + employee.getPosition()
+                .getSubDepartment().getName());
+        Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. İstirahət tarixi: " + operation.getEventFrom() + " / " + operation.getEventTo());
+        Text text6 = new Text("6. İstirahətin müddəti: " + operation.getDayInEvent());
+        Text text7 = new Text("7. İşçinin işə başlama tarixi: " + operation.getJoinDate());
+        Text text8 = new Text("8. Maliyyə departamentinə tapşırılsın ki, işçinin aylıq əmək haqqı saxlanılsın.");
+        Text text9 = new Text("9. İnsan resursları departamentinə tapşırılsın ki, əmrdən irəli gələn məsələləri " +
+                "həll etsin.");
+        Text text10 = new Text("10. Əmr imzalandığı gündən qüvvəyə minir.");
+        Text text11 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        document.add(new Paragraph(text11));
+        log.info("********** pdfAdditionalDayOff PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
 
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
