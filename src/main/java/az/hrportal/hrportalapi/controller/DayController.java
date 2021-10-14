@@ -37,7 +37,7 @@ public class DayController {
 
     @PutMapping("{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<String> getByYearAndMonth(@PathVariable Integer id,
+    public ResponseDto<String> update(@PathVariable Integer id,
                                                  @RequestBody DayRequestDto dayRequestDto) {
         dayService.update(id, dayRequestDto);
         return ResponseDto.of("Successfully update", 200);
