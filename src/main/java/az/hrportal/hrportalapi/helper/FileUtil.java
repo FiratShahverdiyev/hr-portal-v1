@@ -267,6 +267,10 @@ public class FileUtil {
                 pdfCreator.pdfDecreaseWorkHours(document, operation);
                 break;
             }
+            case TEHSIL_YARADICILIQ_MEZUNIYYETI: {
+                pdfCreator.pdfEducationVacation(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
