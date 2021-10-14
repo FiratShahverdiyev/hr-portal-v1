@@ -2392,6 +2392,71 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfSetAllowance(Document document, Operation operation) {
+        log.info("pdfSetAllowance PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İstehsalat qəzası zamanı xəsarət alan işçiyə müavinətin " +
+                "təyin olunması barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getMainOfOrder());
+
+        Paragraph paragraph3 = new Paragraph("AR Nazirlər Kabinetinin 09 yanvar 2003-cü il tarixli " +
+                "03 nömrəli qərarı ilə təsdiq olunmuş istehsalat qəzası və yaxud peşə xəstəliyi nəticəsində " +
+                "sağlamlığı pozulmuş işçiyə və ya bu səbəbdən həlak olmuş işçinin ailə üzvlərinə ödənclərin" +
+                " verilməsi qaydalarının tələblərinə müvafiq olaraq, ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph4 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. Aşağıda adı qeyd olunan işçiyə aylıq ödənc verilsin.");
+        Text text1 = new Text(" İşçinin soyadı, adı, atasının adı: " + employee.getFullName());
+        Text text2 = new Text(" Struktur bölmə:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text(" İşçinin vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text(" Ödənilmə başlanılan tarix: " + operation.getEventFrom() + " / "
+                + operation.getEventTo());
+        Text text5 = new Text(" Ödəncin məbləği: ");
+        Text text6 = new Text("2. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+                " məsələlərin həllini təmin etsinlər.");
+        Text text7 = new Text("3. Zərərə görə aylıq ödənclər müəssisələrdə əmək haqqının kütləvi artımı zamanı " +
+                "Qanunvericiliyə uyğun təshih olunsun.");
+        Text text8 = new Text("Əsas: " + operation.getReason());
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(text1.getText()))
+                .add(new ListItem(text2.getText()))
+                .add(new ListItem(text3.getText()))
+                .add(new ListItem(text4.getText()))
+                .add(new ListItem(text5.getText()))
+                .setMarginLeft(5);
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(paragraph4);
+        document.add(new Paragraph(text0));
+        document.add(list);
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        log.info("********** pdfSetAllowance PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
         String TTInterphases;

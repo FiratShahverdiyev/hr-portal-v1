@@ -279,6 +279,10 @@ public class FileUtil {
                 pdfCreator.pdfAdditionalDayOff(document, operation);
                 break;
             }
+            case MUAVINETIN_TEYIN_OLUNMASI: {
+                pdfCreator.pdfSetAllowance(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

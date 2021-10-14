@@ -48,6 +48,8 @@ public enum DocumentType {
     TEDBIRDE_ISTIRAK(38, DocumentLabel.EMPLOYEE.toString(), "Tədbirdə iştirak"),
     ELAVE_ISTIRAHET_GUNU_VERILMESI(39, DocumentLabel.EMPLOYEE.toString(), "İşçiyə əlavə istirahət günü " +
             "verilməsi barədə"),
+    MUAVINETIN_TEYIN_OLUNMASI(40, DocumentLabel.EMPLOYEE.toString(), "İstehsalat qəzası zamanı xəsarət " +
+            "alan işçiyə müavinətin təyin olunması barədə"),
     ISCININ_ISDEN_KENARLASDIRILMASI(41, DocumentLabel.EMPLOYEE.toString(),
             "İşçinin işdən kənarlaşdırılması"),
     QEYRI_IS_GUNU(42, DocumentLabel.EMPLOYEE.toString(), "Qeyri iş gününün müəyyən olunması"),
