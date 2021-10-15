@@ -2411,9 +2411,9 @@ public class PdfCreator {
         paragraph2.setTextAlignment(TextAlignment.CENTER);
 
         Paragraph paragraph4 = new Paragraph("ƏMR EDİRƏM:");
-        paragraph3.setTextAlignment(TextAlignment.CENTER);
-        paragraph3.setCharacterSpacing(10);
-        paragraph3.setFont(bold);
+        paragraph4.setTextAlignment(TextAlignment.CENTER);
+        paragraph4.setCharacterSpacing(10);
+        paragraph4.setFont(bold);
 
         Employee employee = operation.getEmployee();
         Text text0 = new Text("1. Aşağıda adı qeyd olunan işçiyə aylıq ödənc verilsin.");
@@ -2423,7 +2423,7 @@ public class PdfCreator {
         Text text3 = new Text(" İşçinin vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text(" Ödənilmə başlanılan tarix: " + operation.getEventFrom() + " / "
                 + operation.getEventTo());
-        Text text5 = new Text(" Ödəncin məbləği: ");
+        Text text5 = new Text(" Ödəncin məbləği: " + operation.getAmount());
         Text text6 = new Text("2. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " məsələlərin həllini təmin etsinlər.");
         Text text7 = new Text("3. Zərərə görə aylıq ödənclər müəssisələrdə əmək haqqının kütləvi artımı zamanı " +
@@ -2454,6 +2454,201 @@ public class PdfCreator {
         document.add(new Paragraph(text8));
         document.add(new Paragraph(text9));
         log.info("********** pdfSetAllowance PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfCallBackFromWorkingVacation(Document document, Operation operation) {
+        log.info("pdfCallBackFromWorkingVacation PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Əmək məzuniyyətindən geri çağırılma barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("İşçinin ərizəsinə əsasən, ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph4 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph4.setTextAlignment(TextAlignment.CENTER);
+        paragraph4.setCharacterSpacing(10);
+        paragraph4.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("Aşağıda adı qeyd olunan işçi əmək məzuniyyətindən geri çağırılsın.");
+        Text text1 = new Text("1. Geri çağırılan işçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. Məzuniyyətə buraxıldığı tarixləri: " + operation.getEventFrom() + " / " +
+                operation.getEventTo());
+        Text text6 = new Text("6. Geri çağırılma tarixi: ");
+        Text text7 = new Text("7. Geri çağırılma səbəbi: " + operation.getReason());
+        Text text8 = new Text("8. Əlavə qeydlər: ");
+        Text text9 = new Text("1. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli " +
+                "gələn məsələlərin həllini təmin etsin.");
+        Text text10 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(text10.getText()))
+                .setMarginLeft(5);
+        document.add(paragraph1);
+        document.add(paragraph2);
+
+        document.add(paragraph4);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(list);
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        log.info("********** pdfCallBackFromWorkingVacation PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfPaymentOfCompensation(Document document, Operation operation) {
+        log.info("pdfPaymentOfCompensation PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“İstifadə edilməmiş əmək məzuniyyətinə görə kompensasiya " +
+                "ödənilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(
+                "Azərbaycan Respublikası Əmək Məcəlləsinin 135-ci maddəsinin 2-ci bəndinə və işçinin " +
+                        "ərizəsinə əsasən, ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. Qanunvericiliyin tələbinə uyğun olaraq aşağıda məlumatları qeyd olunan işçiyə " +
+                "müvafiq iş ilində müəyyən səbəbdən istifadə edilməmiş əmək məzuniyyətinə görə müəyyən olunmuş " +
+                "qaydada və məbləğdə kompensasiya ödənilsin.  ");
+        Text text1 = new Text(" İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text(" İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text3 = new Text(" İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text(" İstifadə etmədiyi məzuniyyətin iş ili dövrü/ dövrləri: " +
+                operation.getEventFrom() + " / " + operation.getEventTo());
+        Text text6 = new Text(" İstifadə edilməmiş məzuniyyət günləri: ");
+        Text text7 = new Text(" Əsas məzuniyyət günləri");
+        Text text8 = new Text(" Staja görə əlavə məzuniyyət günləri");
+        Text text9 = new Text(" Əmək şəraitinə görə əlavə məzuniyyət günləri");
+        Text text10 = new Text(" Uşaqlı qadınlara verilən əlavə məzuniyyət günləri");
+        Text text11 = new Text("2. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
+                " məsələlərin həllini təmin etsinlər.");
+        Text text12 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list
+                .add(new ListItem(text7.getText()))
+                .add(new ListItem(text8.getText()))
+                .add(new ListItem(text9.getText()))
+                .add(new ListItem(text10.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(list);
+        document.add(new Paragraph(text11));
+        document.add(new Paragraph(text12));
+        log.info("********** pdfPaymentOfCompensation PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfAttractToWork(Document document, Operation operation) {
+        log.info("pdfAttractToWork PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+
+        Text text01 = new Text("İş vaxtından artıq işə cəlb edilmə haqqında");
+        Text text02 = new Text("İstirahət və ya bayram günündə işə cəlb edilmə haqqında ");
+
+        Paragraph paragraph2 = new Paragraph(operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. İşə cəlb edilən işçinin və ya işçilərin soyadı, adı, atasının adı: "
+                + employee.getFullName());
+        Text text1 = new Text("2. İşə cəlb edilən işçi və ya işçilərin işlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text2 = new Text("3. İşə cəlb edilən işçi və ya işçilərin vəzifəsi: " + employee.getPosition().getSubDepartment().getName());
+        Text text3 = new Text("4. İşə cəlb edilmə tarixi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text("5. İşə cəlb edilmə saatları: ");
+        Text text5 = new Text("6. Maliyyə Departamentinə tapşırılsın ki, " + employee.getFullName() +
+                " Azərbaycan Respublikası Əmək Məcəlləsinin 164-cü maddəsinin 1-ci hissəsinə əsasən əmək haqqı " +
+                "ikiqat məbləğdə ödənilsin.");
+        Text text6 = new Text("Əsas:  Struktur bölmə rəhbərinin təqdimatı və " + employee.getFullName() + " ərizəsi");
+        Text text7 = new Text("Struktur bölmə rəhbərinin soyadı, adı, atasının adı: ");
+        Text text8 = new Text("Struktur bölmənin adı: ");
+        Text text9 = new Text("Vəzifəsi: ");
+        Text text10 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(text01.getText()))
+                .add(new ListItem(text02.getText()))
+                .setMarginLeft(5);
+
+        List list2 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list2
+                .add(new ListItem(text7.getText()))
+                .add(new ListItem(text8.getText()))
+                .add(new ListItem(text9.getText()));
+
+        document.add(list1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(list2);
+        document.add(new Paragraph(text10));
+        log.info("********** pdfAttractToWork PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
 
