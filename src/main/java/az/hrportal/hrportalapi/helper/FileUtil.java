@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.interceptor.CacheAspectSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -270,30 +269,6 @@ public class FileUtil {
             }
             case TEHSIL_YARADICILIQ_MEZUNIYYETI: {
                 pdfCreator.pdfEducationVacation(document, operation);
-                break;
-            }
-            case HERBI_CAGIRISH: {
-                pdfCreator.pdfMilitaryCalls(document, operation);
-                break;
-            }
-            case ELAVE_ISTIRAHET_GUNU_VERILMESI: {
-                pdfCreator.pdfAdditionalDayOff(document, operation);
-                break;
-            }
-            case MUAVINETIN_TEYIN_OLUNMASI: {
-                pdfCreator.pdfSetAllowance(document, operation);
-                break;
-            }
-            case MEZUNIYYETDEN_GERI_QAYITMA: {
-                pdfCreator.pdfCallBackFromWorkingVacation(document, operation);
-                break;
-            }
-            case KOMPENSASIYA_ODENILMESI: {
-                pdfCreator.pdfPaymentOfCompensation(document, operation);
-                break;
-            }
-            case ISHE_CELB_EDILME: {
-                pdfCreator.pdfAttractToWork(document, operation);
                 break;
             }
             default:
