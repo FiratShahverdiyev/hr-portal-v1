@@ -154,5 +154,4 @@ public class DocumentData {
     String eventFrom2;
     String eventTo2;
     Integer dayInEvent2;
-    String reason;
 }
