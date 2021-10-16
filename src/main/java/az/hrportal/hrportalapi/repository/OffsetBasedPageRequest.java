@@ -53,7 +53,7 @@ public class OffsetBasedPageRequest implements Pageable {
 
     @Override
     public Sort getSort() {
-       return Sort.by(Sort.Direction.fromString(sortDirection),sortParams);
+        return Sort.by(Sort.Direction.fromString(sortDirection), sortParams);
     }
 
     @Override

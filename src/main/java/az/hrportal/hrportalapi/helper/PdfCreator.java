@@ -1664,7 +1664,8 @@ public class PdfCreator {
                 .getName()).setBold();
         Text text9 = new Text("9. Keçirildiyi iş yeri: " + position.getWorkPlace().getValue()).setBold();
         Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getGrossSalary()).setBold();
-        Text text11 = new Text("11. Əvəz edilən işçinin əmək haqqı:  " + operation.getAlternateWorkerSalary()).setBold();
+        Text text11 = new Text("11. Əvəz edilən işçinin əmək haqqı:  " +
+                operation.getAlternateWorkerSalary()).setBold();
         Text text12 = new Text("12. Ödəniləcək əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla)").setBold();
 
         Paragraph paragraph4;
@@ -1730,8 +1731,8 @@ public class PdfCreator {
         Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventFromBusinessTripDate() + " / " +
                 operation.getEventToBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
-        Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: "
-                + operation.getNonWorkDay());
+        Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: " +
+                operation.getNonWorkDay());
         Text text10 = new Text("9. Ezamiyyə müddətində yolda keçirilmiş istirahət gününün əvəzinə verilmiş " +
                 "istirahət günü: " + operation.getGivenNonWorkDay());
         Text text11 = new Text("10. İşçinin işə başlama tarixi" + operation.getJoinDate());
@@ -1956,8 +1957,8 @@ public class PdfCreator {
         Text text6 = new Text("6. Məzuniyyətə buraxılma tarixləri: " + operation.getEventFrom() + " / " +
                 operation.getEventTo()).setBold();
         Text text7 = new Text("7. Məzuniyyət dövrünə təsadüf edən əmək qabiliyyəti olmama günləri: ").setBold();
-        Text text8 = new Text("8. Məzuniyyətin keçirildiyi tarixlər: " + operation.getEventFrom2() + " / "
-                + operation.getEventTo2()).setBold();
+        Text text8 = new Text("8. Məzuniyyətin keçirildiyi tarixlər: " + operation.getEventFrom2() + " / " +
+                operation.getEventTo2()).setBold();
         Text text9 = new Text("9. Məzuniyyətin keçirildiyi müddət: " + operation.getDayInEvent2()).setBold();
         Text text10 = new Text("10. İşə başlama tarix: " + operation.getJoinDate()).setBold();
         Text text11 = new Text("11. Maliyyə departamentinə tapşırılsın ki, əmrdən irəli gələn ödəmə məsələlərini " +
@@ -2011,8 +2012,8 @@ public class PdfCreator {
         Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventToBusinessTripDate() + " / " +
                 operation.getEventFromBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
-        Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: "
-                + operation.getNonWorkDay());
+        Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: " +
+                operation.getNonWorkDay());
         Text text10 = new Text("9. Ezamiyyə müddətində yolda keçirilmiş istirahət gününün əvəzinə verilmiş " +
                 "istirahət günü: " + operation.getGivenNonWorkDay());
         Text text11 = new Text("10. İşçinin işə başlama tarixi" + operation.getJoinDate());
@@ -2073,7 +2074,8 @@ public class PdfCreator {
         Text text1 = new Text("Aşağıda məlumatları qeyd olunan işçiyə əmək məzuniyyəti verilsin.");
         Text text2 = new Text("1. İşçi (lər)nin soyadı, adı, atasının adı " + employee.getFullName()).setBold();
         Text text3 = new Text("2. Struktur bölmə: " + employee.getPosition().getDepartment().getName()).setBold();
-        Text text4 = new Text("3. Alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName()).setBold();
+        Text text4 = new Text("3. Alt struktur bölmə: " +
+                employee.getPosition().getSubDepartment().getName()).setBold();
         Text text5 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName()).setBold();
         Text text6 = new Text("5. Məzuniyyətin iş ili dövrü (dövrləri): ").setBold();
         Text text7 = new Text("6. Məzuniyyət müddəti: " + operation.getDayInEvent()).setBold();
@@ -2136,7 +2138,8 @@ public class PdfCreator {
         Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventFromBusinessTripDate() + " / " +
                 operation.getEventToBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
-        Text text9 = new Text("8. Ezamiyyətdən geri çağırıldığı və işə başladığı tarix: " + operation.getCallBackDate());
+        Text text9 = new Text("8. Ezamiyyətdən geri çağırıldığı və işə başladığı tarix: " +
+                operation.getCallBackDate());
         Text text11 = new Text("10. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, əmrdən irəli gələn " +
                 "məsələləri həll etsinlər.");
         Text text13 = new Text("11. Əmr imzalandığı gündən qüvvəyə minir.");
@@ -2189,7 +2192,8 @@ public class PdfCreator {
         Employee employee = operation.getEmployee();
         Text text1 = new Text("İşçinin əmək haqqı saxlanılmaqla iş vaxtı aşağıda qeyd edildiyi kimi müəyyən edilsin.");
         Text text2 = new Text("1. İşçinin soyadı, adı, ata adı: " + employee.getFullName());
-        Text text3 = new Text("2. İşçinin işlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text3 = new Text("2. İşçinin işlədiyi struktur bölmə: " +
+                employee.getPosition().getDepartment().getName());
         Text text4 = new Text("3. İşçinin işlədiyi alt struktur bölmə: " +
                 employee.getPosition().getSubDepartment().getName());
         Text text5 = new Text("4. İşçinin vəzifəsi: " + employee.getPosition().getVacancy().getName());
@@ -2419,8 +2423,8 @@ public class PdfCreator {
         Text text2 = new Text(" Struktur bölmə:  " + employee.getPosition()
                 .getDepartment().getName());
         Text text3 = new Text(" İşçinin vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text4 = new Text(" Ödənilmə başlanılan tarix: " + operation.getEventFrom() + " / "
-                + operation.getEventTo());
+        Text text4 = new Text(" Ödənilmə başlanılan tarix: " + operation.getEventFrom() + " / " +
+                operation.getEventTo());
         Text text5 = new Text(" Ödəncin məbləği: " + operation.getAmount());
         Text text6 = new Text("2. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " məsələlərin həllini təmin etsinlər.");
@@ -2515,7 +2519,7 @@ public class PdfCreator {
                 operation.getId());
     }
 
-    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfPaymentOfCompensation(Document document, Operation operation) {
         log.info("pdfPaymentOfCompensation PDF creator started with operationId : {}", operation.getId());
@@ -2582,7 +2586,7 @@ public class PdfCreator {
                 operation.getId());
     }
 
-    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfAttractToWork(Document document, Operation operation) {
         log.info("pdfAttractToWork PDF creator started with operationId : {}", operation.getId());
@@ -2600,10 +2604,12 @@ public class PdfCreator {
         paragraph3.setFont(bold);
 
         Employee employee = operation.getEmployee();
-        Text text0 = new Text("1. İşə cəlb edilən işçinin və ya işçilərin soyadı, adı, atasının adı: "
-                + employee.getFullName());
-        Text text1 = new Text("2. İşə cəlb edilən işçi və ya işçilərin işlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
-        Text text2 = new Text("3. İşə cəlb edilən işçi və ya işçilərin vəzifəsi: " + employee.getPosition().getSubDepartment().getName());
+        Text text0 = new Text("1. İşə cəlb edilən işçinin və ya işçilərin soyadı, adı, atasının adı: " +
+                employee.getFullName());
+        Text text1 = new Text("2. İşə cəlb edilən işçi və ya işçilərin işlədiyi struktur bölmə: " +
+                employee.getPosition().getDepartment().getName());
+        Text text2 = new Text("3. İşə cəlb edilən işçi və ya işçilərin vəzifəsi: " +
+                employee.getPosition().getSubDepartment().getName());
         Text text3 = new Text("4. İşə cəlb edilmə tarixi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("5. İşə cəlb edilmə saatları: ");
         Text text5 = new Text("6. Maliyyə Departamentinə tapşırılsın ki, " + employee.getFullName() +

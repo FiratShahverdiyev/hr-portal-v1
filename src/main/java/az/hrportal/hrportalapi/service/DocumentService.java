@@ -312,7 +312,7 @@ public class DocumentService {
             case MUVEQQETI_KECIRILME: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getNewOwnAdditionalSalary() == null || documentData.getChangeDate() == null ||
-                        documentData.getChangePeriod() == null)
+                        documentData.getNewTerm() == null)
                     throw new ValidationException("employeeId,positionId," +
                             "newOwnAdditionalSalary,changeDate,changePeriod");
                 break;
@@ -323,13 +323,13 @@ public class DocumentService {
                 break;
             }
             case MUKAFATLANDIRMA: {
-                if (documentData.getEmployeeId() == null || documentData.getAchievement() == null)
+                if (documentData.getEmployeeId() == null || documentData.getAchievementAmount() == null)
                     throw new ValidationException("employeeId,achievement");
                 break;
             }
             case MUVEQQETI_EVEZETME: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
-                        documentData.getChangePeriod() == null)
+                        documentData.getNewTerm() == null)
                     throw new ValidationException("employeeId,positionId,changePeriod");
                 break;
             }

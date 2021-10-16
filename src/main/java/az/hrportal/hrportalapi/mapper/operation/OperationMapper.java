@@ -21,7 +21,7 @@ public interface OperationMapper {
     @Mapping(target = "eventFrom", source = "eventFrom", dateFormat = dateFormat)
     @Mapping(target = "eventTo", source = "eventTo", dateFormat = dateFormat)
     @Mapping(target = "callBackDate", source = "callBackDate", dateFormat = dateFormat)
-    @Mapping(target = "assignmentTerm", source = "assignmentDate", dateFormat = dateFormat)
+    @Mapping(target = "assignmentTerm", source = "assignmentTerm", dateFormat = dateFormat)
     @Mapping(target = "workMode", source = "newWorkMode")
     @Mapping(target = "eventToBusinessTripDate", source = "evenToBusinessTripDate", dateFormat = dateFormat)
     @Mapping(target = "eventFromBusinessTripDate", source = "evenFromBusinessTripDate", dateFormat = dateFormat)

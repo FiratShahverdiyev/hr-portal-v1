@@ -348,6 +348,9 @@ public class OperationSchedule {
                     operationRepository.save(operation);
                     break;
                 }
+                default: {
+
+                }
             }
         }
     }
@@ -411,7 +414,8 @@ public class OperationSchedule {
         responseDto.setActiveDayCount(dayCount);
         responseDto.setEmployeeActiveDayCount(dayCount - checkEmployeeOperationsAndGetPassiveDayCount(employee
                 .getOperations(), date));
-        float gross = employee.getGrossSalary() / responseDto.getActiveDayCount() * responseDto.getEmployeeActiveDayCount();
+        float gross = employee.getGrossSalary() / responseDto.getActiveDayCount() *
+                responseDto.getEmployeeActiveDayCount();
         float dsmf = percentage(gross, Constant.DSMF);
         float incomeTax = calculateIncomeTax(employee);
         float its = percentage(gross, Constant.ITS);

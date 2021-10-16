@@ -110,9 +110,9 @@ public class DocumentData {
     //Float newSalary;
     //Float newAdditionalSalary;
 
-    Integer changePeriod;
+    Integer newTerm; //deyisti
     Float financialHelp;
-    Float achievement;
+    Float achievementAmount; //deyisti
 
     String eventFrom;
     String eventTo;
@@ -131,7 +131,7 @@ public class DocumentData {
     Integer year;
     Set<Integer> catchMonths;
     Float catchAmount;
-    String assignmentDate;
+    String assignmentTerm; //deyisti
     Float alternateWorkerSalary;
     Float amount;
 
