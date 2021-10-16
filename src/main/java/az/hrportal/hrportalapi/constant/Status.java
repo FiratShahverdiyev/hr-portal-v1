@@ -7,7 +7,8 @@ import lombok.Getter;
 public enum Status {
     PENDING(0, "Təsdiq gözləyir"),
     APPROVED(1, "Təsdiqlənib"),
-    REJECTED(2, "Ləğv edildi");
+    REJECTED(2, "Ləğv edildi"),
+    DONE(3, "Hesablandı");
 
     private int value;
     private String valueAz;

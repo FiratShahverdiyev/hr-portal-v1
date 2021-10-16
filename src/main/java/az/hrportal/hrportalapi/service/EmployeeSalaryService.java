@@ -1,9 +1,7 @@
 package az.hrportal.hrportalapi.service;
 
 import az.hrportal.hrportalapi.constant.Constant;
-import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.domain.employee.Employee;
-import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.mapper.employee.EmployeeSalaryMapper;
@@ -28,7 +26,7 @@ public class EmployeeSalaryService {
     private final EmployeeSalaryRepository employeeSalaryRepository;
     private final EmployeeSalaryMapper employeeSalaryMapper;
     private final EmployeeRepository employeeRepository;
-    private final EmployeeSalaryCalculator employeeSalaryCalculator;
+    private final OperationSchedule operationSchedule;
     private final EntityManager entityManager;
 
     @Cacheable("employee-salaries")
@@ -59,7 +57,7 @@ public class EmployeeSalaryService {
             employeeSalaryResponseDto.setId(employee.getId());
             if (employee.getPosition() != null)
                 employeeSalaryResponseDto.setVacancyName(employee.getPosition().getVacancy().getName());
-            employeeSalaryCalculator.setEmployeeSalary(employee, employeeSalaryResponseDto,
+            operationSchedule.setEmployeeSalary(employee, employeeSalaryResponseDto,
                     LocalDate.parse(date, DateTimeFormatter.ofPattern(Constant.dateFormat)));
             data.add(employeeSalaryResponseDto);
         }
