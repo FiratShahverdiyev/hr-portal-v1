@@ -155,6 +155,8 @@ public class Operation {
     LocalDate eventTo2;
     @Column(name = "day_in_event_2")
     Integer dayInEvent2;
+    @Column(name = "reason")
+    String reason;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
