@@ -2656,6 +2656,66 @@ public class PdfCreator {
                 operation.getId());
     }
 
+    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfFiredFromWork(Document document, Operation operation) {
+        log.info("pdfFiredFromWork PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+
+        Paragraph paragraph1 = new Paragraph("“İşçinin işdən kənarlaşdırılması barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph(operation.getMainOfOrder());
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçi işdən kənarlaşdırılsın. ");
+
+        Text text1 = new Text("1.1. İşçinin soyadı, adı, ata adı: " + employee.getFullName());
+        Text text2 = new Text("1.2. İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text4 = new Text("1.4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("1.5. Kənarlaşdırma müddəti: ");
+        Text text6 = new Text("2. Maliyyə departamentinə tapşırılsın ki, Azərbaycan Respublikası Əmək Məcəlləsinin " +
+                "62-ci maddəsinə uyğun olaraq, həmin işçiyə işdən kənar edilən vaxt ərzində əmək haqqı ödənilməsin.");
+        Text text7 = new Text("3. İnsan resursları departamentinə tapşırılsın ki, bu əmrdən irəli gələn zəruri" +
+                " məsələlərin həllini təmin etsin.");
+        Text text8 = new Text("4. Əmrin icrasına nəzarət Baş direktorun müavini Söhrab İsmayılova həvalə edilsin.");
+        Text text9 = new Text("5. Bu əmr imzalandığı tarixdən qüvvəyə minir.");
+        Text text10 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(text1.getText()))
+                .add(new ListItem(text2.getText()))
+                .add(new ListItem(text3.getText()))
+                .add(new ListItem(text4.getText()))
+                .add(new ListItem(text5.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(list1);
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        log.info("********** pdfFiredFromWork PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
     @SuppressWarnings("checkstyle:localvariablename")
     private PdfFont getTTInterphasesFont(boolean isBold) {
         String TTInterphases;
