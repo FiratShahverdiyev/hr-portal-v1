@@ -58,7 +58,7 @@ public class GeneralInfoResponseDto {
     String startWorkPermissionDate;
     String expiredWorkPermissionDate;
 
-    Boolean active;
+    String employeeActivity;
     List<FamilyMemberResponseDto> familyMembers;
     String photo;
 }

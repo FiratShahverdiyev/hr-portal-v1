@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.domain.operation;
 import az.hrportal.hrportalapi.constant.DisciplineType;
 import az.hrportal.hrportalapi.constant.DocumentType;
 import az.hrportal.hrportalapi.constant.Status;
+import az.hrportal.hrportalapi.constant.employee.Series;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.position.Position;

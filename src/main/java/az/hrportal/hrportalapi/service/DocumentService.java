@@ -1,10 +1,9 @@
 package az.hrportal.hrportalapi.service;
 
-import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.constant.DocumentType;
+import az.hrportal.hrportalapi.constant.EmployeeActivity;
 import az.hrportal.hrportalapi.constant.Status;
 import az.hrportal.hrportalapi.domain.employee.Employee;
-import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.KeyValueLabel;
@@ -24,7 +23,6 @@ import az.hrportal.hrportalapi.mapper.document.DocumentResponseMapper;
 import az.hrportal.hrportalapi.mapper.operation.OperationMapper;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
-import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
 import az.hrportal.hrportalapi.repository.position.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -32,13 +30,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,8 +49,6 @@ public class DocumentService {
     private final OperationMapper operationMapper;
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
     private final DocumentResponseMapper documentResponseMapper;
-    private final OperationSchedule operationSchedule;
-    private final EmployeeSalaryRepository employeeSalaryRepository;
 
     public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
         log.info("export2Pdf service started with operationId : {}", operationId);
@@ -79,7 +72,7 @@ public class DocumentService {
             Employee employee = employeeRepository.findById(documentData.getEmployeeId()).orElseThrow(() ->
                     new EntityNotFoundException(Employee.class, documentData.getEmployeeId()));
             if (!DocumentType.intToEnum(documentData.getDocumentType()).equals(DocumentType.ISHE_QEBUL) &&
-                    !employee.getActive()) {
+                    !employee.getEmployeeActivity().equals(EmployeeActivity.IN)) {
                 throw new EmployeeNotActiveException(employee.getFullName() + " id : " + employee.getId());
             }
             operation.setEmployee(employee);
@@ -173,7 +166,7 @@ public class DocumentService {
 
     @Transactional
     protected void checkAndDo(Operation operation) {
-        switch (operation.getDocumentType()) {
+     /*   switch (operation.getDocumentType()) {
             case SHTAT_VAHIDININ_LEGVI: {
                 Position position = operation.getPosition();
                 position.setStatus(Status.REJECTED);
@@ -190,7 +183,7 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
-                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
+                employee.setGrossSalary(position.getSalary().getAmount() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -259,7 +252,7 @@ public class DocumentService {
             default: {
                 break;
             }
-        }
+        }*/
     }
 
     private void validate(DocumentData documentData) {
@@ -347,27 +340,6 @@ public class DocumentService {
             }
             default:
                 break;
-        }
-    }
-
-    @Transactional
-    @Scheduled(cron = "0 0 22 * * ?", zone = Constant.timeZone)
-    protected void checkOperations() {
-        List<Operation> operations = operationRepository.findAllByStatus(Status.APPROVED);
-        for (Operation operation : operations) {
-            switch (operation.getDocumentType()) {
-                case ISHE_QEBUL: {
-                    if (operation.getJoinDate().equals(LocalDate.now(ZoneId.of(Constant.timeZone)))) {
-                        Employee employee = operation.getEmployee();
-                        employee.setActive(true);
-                        EmployeeSalary employeeSalary = new EmployeeSalary();
-                        employeeSalary.setEmployee(employee);
-                        employeeRepository.save(employee);
-                        employeeSalaryRepository.save(employeeSalary);
-                    }
-                    break;
-                }
-            }
         }
     }
 }

@@ -411,7 +411,7 @@ public class OperationSchedule {
         responseDto.setActiveDayCount(dayCount);
         responseDto.setEmployeeActiveDayCount(dayCount - checkEmployeeOperationsAndGetPassiveDayCount(employee
                 .getOperations(), date));
-        float gross = employee.getSalary() / responseDto.getActiveDayCount() * responseDto.getEmployeeActiveDayCount();
+        float gross = employee.getGrossSalary() / responseDto.getActiveDayCount() * responseDto.getEmployeeActiveDayCount();
         float dsmf = percentage(gross, Constant.DSMF);
         float incomeTax = calculateIncomeTax(employee);
         float its = percentage(gross, Constant.ITS);
@@ -505,7 +505,7 @@ public class OperationSchedule {
     private float calculateIncomeTax(Employee employee) {
         boolean flag;
         float total;
-        if (employee.getSalary() <= 2500) {
+        if (employee.getGrossSalary() <= 2500) {
             total = 200;
             flag = false;
         } else {
@@ -527,7 +527,7 @@ public class OperationSchedule {
                     break;
                 }
             }
-        float incomeTaxAmount = employee.getSalary() - total;
+        float incomeTaxAmount = employee.getGrossSalary() - total;
         if (!flag)
             return percentage(incomeTaxAmount >= 0 ? incomeTaxAmount : 0, Constant.LESS_THAN_2500_INCOME_TAX);
         else

@@ -21,7 +21,7 @@ public class SalaryService {
     public Boolean create(SalaryRequestDto salaryRequestDto) {
         log.info("create service started with {}", salaryRequestDto);
         Salary salary = new Salary();
-        salary.setSalary(salaryRequestDto.getSalary());
+        salary.setAmount(salaryRequestDto.getSalary());
         salaryRepository.save(salary);
         log.info("********** create service completed with {} **********", salaryRequestDto);
         return true;

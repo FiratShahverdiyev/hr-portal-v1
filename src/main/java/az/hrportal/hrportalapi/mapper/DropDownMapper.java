@@ -36,7 +36,7 @@ public interface DropDownMapper {
     List<DropDownResponseDto<Float>> toSalaryResponseDtos(List<Salary> salaries);
 
     @Named("toSalaryResponseDto")
-    @Mapping(target = "name", source = "salary")
+    @Mapping(target = "name", source = "amount")
     DropDownResponseDto<Float> toSalaryResponseDto(Salary salary);
 
     List<DropDownResponseDto<String>> toJobFamilyResponseDtos(List<JobFamily> jobFamilies);

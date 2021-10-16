@@ -45,7 +45,7 @@ public class EmployeeSalaryService {
     public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size, String date) {
         log.info("calculateAndGetAll service started");
         List<Employee> employees = entityManager
-                .createQuery("SELECT e FROM Employee e left outer join e.quotas where e.active=true",
+                .createQuery("SELECT e FROM Employee e left outer join e.quotas where e.employeeActivity='IN'",
                         Employee.class)
                 .setMaxResults(size)
                 .setFirstResult(page * size)

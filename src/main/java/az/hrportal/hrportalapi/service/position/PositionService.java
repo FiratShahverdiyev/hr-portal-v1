@@ -212,7 +212,7 @@ public class PositionService {
         }
         if (clazz.getSimpleName().equals(Salary.class.getSimpleName())) {
             Salary salary = new Salary();
-            salary.setSalary((float) value);
+            salary.setAmount((float) value);
             return salaryRepository.save(salary);
         }
         if (clazz.getSimpleName().equals(Skill.class.getSimpleName())) {
@@ -317,7 +317,7 @@ public class PositionService {
         }
 
         Optional<Salary> optionalSalary = salaryRepository
-                .findBySalary(generalInfoRequestDto.getSalary());
+                .findByAmount(generalInfoRequestDto.getSalary());
         Salary salary;
         if (optionalSalary.isEmpty()) {
             salary = (Salary) saveOther(generalInfoRequestDto.getSalary(), Salary.class);

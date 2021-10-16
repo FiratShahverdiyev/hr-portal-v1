@@ -14,6 +14,6 @@ public class EmployeeResponseDto {
     String fullName;
     String department;
     String position;
-    Boolean active;
+    String employeeActivity;
     float salary;
 }

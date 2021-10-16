@@ -260,7 +260,7 @@ public class Employee {
     Date updatedAt;
 
     @PrePersist
-    void setActivity() {
+    void setEmployeeActivity() {
         this.employeeActivity = EmployeeActivity.NONE;
     }
 }

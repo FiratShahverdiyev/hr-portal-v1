@@ -37,7 +37,7 @@ public interface PositionResponseMapper {
     @Mapping(target = "vacancyName", source = "vacancy.name")
     @Mapping(target = "educationSpeciality", source = "educationSpeciality.name")
     @Mapping(target = "jobFamily", source = "jobFamily.name")
-    @Mapping(target = "salary", source = "salary.salary")
+    @Mapping(target = "salary", source = "salary.amount")
     @Mapping(target = "vacancyCount", source = "count")
     @Mapping(target = "educationDegree", source = "educationDegree", qualifiedBy = EducationDegreeValue.class)
     @Mapping(target = "genderDemand", source = "genderDemand", qualifiedBy = GenderDemandValue.class)
@@ -62,7 +62,7 @@ public interface PositionResponseMapper {
     @Mapping(target = "subDepartmentName", source = "subDepartment.name")
     @Mapping(target = "vacancyName", source = "vacancy.name")
     @Mapping(target = "vacancyCount", source = "count")
-    @Mapping(target = "salary", source = "salary.salary")
+    @Mapping(target = "salary", source = "salary.amount")
     @Mapping(target = "status", source = "status", qualifiedBy = StatusToValueAz.class)
     PositionResponseDto toPositionResponseDto(Position position);
 }
