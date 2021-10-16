@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum Series {
-    AZE(""),
-    AA("");
+    AZE("AZE"),
+    AA("AA");
 
     private String value;
 

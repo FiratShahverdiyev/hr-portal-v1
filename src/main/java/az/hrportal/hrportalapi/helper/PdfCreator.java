@@ -67,7 +67,7 @@ public class PdfCreator {
         Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + position.getVacancy().getName());
         Text subText4 = new Text("Ştat vahidi (say):   " + position.getCount());
         Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
-                position.getSalary().getSalary());
+                position.getSalary().getAmount());
         Text subText6 = new Text("İş rejimi: " + position.getWorkMode().getValue());
         Text subText7 = new Text("Təsis edilən vəzifənin kateqoriyası: " + position.getVacancyCategory().getValue());
         Text subText8 = new Text("İş yerinin ünvanı: " + position.getWorkPlace());
@@ -133,7 +133,7 @@ public class PdfCreator {
         Text subText3 = new Text("Ştat vahidinin adı (vəzifə): " + position.getVacancy().getName());
         Text subText4 = new Text("Ştat vahidi (say):   " + position.getCount());
         Text subText5 = new Text("Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla): " +
-                position.getSalary().getSalary());
+                position.getSalary().getAmount());
         Text subText6 = new Text("İş rejimi: " + position.getWorkMode().getValue());
         Text subText7 = new Text("İş yerinin ünvanı: " + position.getWorkPlace());
         Text text2 = new Text("2. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
@@ -200,7 +200,7 @@ public class PdfCreator {
         Text text5 = new Text("5. İşə qəbul tarixi: " + operation.getJoinDate());
         Text text6 = new Text("6. Sınaq müddəti: " + operation.getTestPeriod());
         Text text7 = new Text("7. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + operation.getOwnAdditionalSalary());
         Text text8 = new Text("8. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, " +
@@ -331,7 +331,7 @@ public class PdfCreator {
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
         Text text5 = new Text("5. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla)");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
@@ -415,12 +415,12 @@ public class PdfCreator {
 
         Text text6 = new Text("6.Keçirildiyi vəzifə:  " + position.getVacancy().getName());
         Text text7 = new Text("7. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
         Text text8 = new Text("8. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
         Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
@@ -497,7 +497,7 @@ public class PdfCreator {
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
         Text text5 = new Text("5. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla)");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
 
         Text text6 = new Text("6. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
@@ -573,10 +573,10 @@ public class PdfCreator {
         Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("5. İşçinin faktiki iş rejimi:  " + employee.getPosition().getWorkMode().getValue());
+        Text text5 = new Text("5. İşçinin faktiki iş rejimi:  " + employee.getWorkMode().getValue());
         Text text6 = new Text("6. İşçinin keçirildiyi iş rejimi:  " + operation.getWorkMode().getValue());
         Text text7 = new Text("7. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla) : " +
-                employee.getPosition().getSalary().getSalary());
+                employee.getPosition().getSalary().getAmount());
         Text text8 = new Text("8. Dəyişiklik edilən əmək haqqı Azn (vergilər və digər ödənişlər daxil olmaqla: ");
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
@@ -630,17 +630,17 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Keçirildiyi müddət:   " + operation.getChangePeriod());
+        Text text5 = new Text("5. Keçirildiyi müddət:   " + operation.getNewTerm());
         Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
         Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
         Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
         Text text9 = new Text("9. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
         Text text10 = new Text("10. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
         Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
@@ -768,12 +768,12 @@ public class PdfCreator {
 
         Text text6 = new Text("6.Keçirildiyi iş yeri: " + position.getWorkPlace());
         Text text7 = new Text("7. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
         Text text8 = new Text("8. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
         Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
@@ -850,17 +850,17 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Keçirildiyi müddət:   " + operation.getChangePeriod());
+        Text text5 = new Text("5. Keçirildiyi müddət: " + operation.getNewTerm());
         Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
         Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
         Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
         Text text9 = new Text("9. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getSalary());
+        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
         Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
 
         Text text10 = new Text("10. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getSalary());
+        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
         Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
@@ -1167,8 +1167,7 @@ public class PdfCreator {
         Text subText2 = new Text("İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text subText3 = new Text("İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text subText4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text subText5 = new Text("İntizam tənbehinin növü: (Aşağıda qeyd olunanlardan birini" +
-                " seçim etmə imkanı olmalı) " + operation.getDisciplineType().getValue());
+        Text subText5 = new Text("İntizam tənbehinin növü: " + operation.getDisciplineType().getValue());
         Text subText6 = new Text("Təlim-məşq toplantısında iştirak edəcəyi günlər: " + operation.getDayInEvent());
         Text text2 = new Text("2. İnsan resursları departamentinə tapşırılsın ki, aidiyyəti şəxs əmrlə tanış edilsin.");
         Text text3 = new Text("Əsas:  Struktur bölmə rəhbərinin təqdimatı və işçinin izahatı.");
@@ -1404,7 +1403,7 @@ public class PdfCreator {
         Text text3 = new Text("3. İşçinin işlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
         Text text4 = new Text("4. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("5. Mükafatın məbləği Azn " + operation.getAchievement() +
+        Text text5 = new Text("5. Mükafatın məbləği Azn " + operation.getAchievementAmount() +
                 " (vergilər və digər ödənişlər xaric)");
         Text text6 = new Text("6. Maliyyə departamentinə tapşırılsın ki, bu Əmrdən irəli" +
                 " gələn məsələlərin həllini təmin etsin.");
@@ -1659,18 +1658,18 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Həvalə müddəti:    " + operation.getAssignmentDate());
+        Text text5 = new Text("5. Həvalə müddəti:    " + operation.getAssignmentTerm());
         Text text6 = new Text("6. Həvalə olunan vəzifə:   " + position.getVacancy().getName());
         Text text7 = new Text("7. Həvalə olunan vəzifənin aid olduğu struktur bölmə: " + position.getDepartment());
         Text text8 = new Text("8. Həvalə olunan vəzifənin aid olduğu alt struktur bölmə: " + position.getSubDepartment()
                 .getName()).setBold();
         Text text9 = new Text("9. Keçirildiyi iş yeri: " + position.getWorkPlace().getValue()).setBold();
-        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getSalary()).setBold();
+        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getGrossSalary()).setBold();
         Text text11 = new Text("11. Əvəz edilən işçinin əmək haqqı:  " + operation.getAlternateWorkerSalary()).setBold();
         Text text12 = new Text("12. Ödəniləcək əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla)").setBold();
 
         Paragraph paragraph4;
-        if (operation.getAlternateWorkerSalary() > employee.getSalary()) {
+        if (operation.getAlternateWorkerSalary() > employee.getGrossSalary()) {
             paragraph4 = new Paragraph("12.1.Əvəz edilən işçinin maaşı ilə əvəz edən işçinin maaşı arasındakı " +
                     "fərq ödənilsin.").setMarginLeft(50);
         } else {
@@ -1729,8 +1728,8 @@ public class PdfCreator {
         Text text4 = new Text("3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text text5 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text6 = new Text("5. Ezam olunduğu ölkə/şəhər/rayon: " + operation.getBusinessTripLocation());
-        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEvenFromBusinessTripDate() + " / " +
-                operation.getEvenToBusinessTripDate());
+        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventFromBusinessTripDate() + " / " +
+                operation.getEventToBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
         Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: "
                 + operation.getNonWorkDay());
@@ -1889,7 +1888,7 @@ public class PdfCreator {
         paragraph1.setFont(bold);
 
         Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 125-ci maddəsinin " +
-                "1-ci bəndi və SN " + operation.getSerialNumber1() + " seriyalı" + operation.getSerialNumber2() +
+                "1-ci bəndi və SN " + operation.getSeries().getValue() + " seriyalı" + operation.getSerialNumber() +
                 " saylı əmək qabiliyyətinin olmaması vərəqəsinə əsasən,");
         paragraph2.setTextAlignment(TextAlignment.CENTER);
 
@@ -2010,8 +2009,8 @@ public class PdfCreator {
         Text text4 = new Text("3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text text5 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text6 = new Text("5. Ezam olunduğu ölkə/şəhər/rayon: " + operation.getBusinessTripLocation());
-        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEvenToBusinessTripDate() + " / " +
-                operation.getEvenFromBusinessTripDate());
+        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventToBusinessTripDate() + " / " +
+                operation.getEventFromBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
         Text text9 = new Text("8. Ezamiyyə müddətində işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix: "
                 + operation.getNonWorkDay());
@@ -2135,8 +2134,8 @@ public class PdfCreator {
         Text text4 = new Text("3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text text5 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text6 = new Text("5. Ezam olunduğu ölkə/şəhər/rayon: " + operation.getBusinessTripLocation());
-        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEvenFromBusinessTripDate() + " / " +
-                operation.getEvenToBusinessTripDate());
+        Text text7 = new Text("6. Ezam olunma tarixi: " + operation.getEventFromBusinessTripDate() + " / " +
+                operation.getEventToBusinessTripDate());
         Text text8 = new Text("7. Ezamiyyət müddəti: " + operation.getBusinessTripTerm());
         Text text9 = new Text("8. Ezamiyyətdən geri çağırıldığı və işə başladığı tarix: " + operation.getCallBackDate());
         Text text11 = new Text("10. Maliyyə və İnsan resursları departamentinə tapşırılsın ki, əmrdən irəli gələn " +

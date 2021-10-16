@@ -29,7 +29,7 @@ public class Salary {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "salaries_id_seq")
     Integer id;
     @Column(name = "salary", unique = true)
-    float salary;
+    float amount;
     @OneToMany(mappedBy = "salary")
     Set<Position> positions;
     @CreationTimestamp

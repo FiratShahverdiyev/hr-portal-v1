@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.domain.employee;
 
+import az.hrportal.hrportalapi.constant.EmployeeActivity;
 import az.hrportal.hrportalapi.constant.employee.BloodGroup;
 import az.hrportal.hrportalapi.constant.employee.DriverCategory;
 import az.hrportal.hrportalapi.constant.employee.EducationType;
@@ -7,6 +8,7 @@ import az.hrportal.hrportalapi.constant.employee.FamilyCondition;
 import az.hrportal.hrportalapi.constant.employee.Gender;
 import az.hrportal.hrportalapi.constant.employee.MilitaryAchievement;
 import az.hrportal.hrportalapi.constant.employee.Series;
+import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.domain.embeddable.Certificate;
 import az.hrportal.hrportalapi.domain.embeddable.FamilyMember;
 import az.hrportal.hrportalapi.domain.operation.Operation;
@@ -185,6 +187,8 @@ public class Employee {
     String graduateFileNumber;
     @Column(name = "graduate_file_start_date")
     LocalDate graduateFileDate;
+    @Column(name = "join_date")
+    LocalDate joinDate;
     @Column(name = "education_type")
     @Enumerated(EnumType.STRING)
     EducationType educationType;
@@ -215,8 +219,9 @@ public class Employee {
     boolean prisoner;
     @Column(name = "colleagues_alliance")
     boolean memberOfColleaguesAlliance;
-    @Column(name = "active")
-    Boolean active;
+    @Column(name = "activity")
+    @Enumerated(EnumType.STRING)
+    EmployeeActivity employeeActivity;
     @OneToMany(mappedBy = "employee")
     Set<Operation> operations;
     @Column(name = "work_permission_serial")
@@ -226,7 +231,7 @@ public class Employee {
     @Column(name = "work_permission_period")
     Integer workPermissionPeriod;
     @Column(name = "salary")
-    float salary;
+    float grossSalary;
     @Column(name = "net_income")
     float netIncome;
     @Column(name = "start_work_permission_date")
@@ -244,6 +249,9 @@ public class Employee {
     LocalDate eventFrom;
     @Column(name = "event_to")
     LocalDate eventTo;
+    @Column(name = "work_mode")
+    @Enumerated(EnumType.STRING)
+    WorkMode workMode;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
@@ -252,7 +260,7 @@ public class Employee {
     Date updatedAt;
 
     @PrePersist
-    void setActive() {
-        this.active = false;
+    void setActivity() {
+        this.employeeActivity = EmployeeActivity.NONE;
     }
 }

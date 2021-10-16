@@ -54,7 +54,7 @@ public class DocumentService {
     private final OperationMapper operationMapper;
     private final DocumentInformationResponseMapper documentInformationResponseMapper;
     private final DocumentResponseMapper documentResponseMapper;
-    private final EmployeeSalaryCalculator employeeSalaryCalculator;
+    private final OperationSchedule operationSchedule;
     private final EmployeeSalaryRepository employeeSalaryRepository;
 
     public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
@@ -190,7 +190,7 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
-                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
+                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -205,7 +205,7 @@ public class DocumentService {
                 Employee employee = operation.getEmployee();
                 Position position = operation.getPosition();
                 employee.setPosition(position);
-                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
+                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -213,7 +213,7 @@ public class DocumentService {
             case EMEK_HAQQI_DEYISIKLIYI: {
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
-                employee.setSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
+                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
                 employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                 employeeRepository.save(employee);
                 break;
@@ -221,7 +221,7 @@ public class DocumentService {
             case ELAVE_EMEK_HAQQI: { //TODO ?
                 Employee employee = operation.getEmployee();
                 Position position = employee.getPosition();
-                employee.setSalary(operation.getNewSalary());
+                employee.setGrossSalary(operation.getNewSalary());
                 position.setAdditionalSalary(operation.getNewAdditionalSalary());
                 employeeRepository.save(employee);
                 positionRepository.save(position);
