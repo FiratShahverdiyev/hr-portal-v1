@@ -296,6 +296,10 @@ public class FileUtil {
                 pdfCreator.pdfAttractToWork(document, operation);
                 break;
             }
+            case ISCININ_ISDEN_KENARLASDIRILMASI: {
+                pdfCreator.pdfFiredFromWork(document, operation);
+                break;
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }
