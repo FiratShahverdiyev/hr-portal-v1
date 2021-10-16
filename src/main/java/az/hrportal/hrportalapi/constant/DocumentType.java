@@ -28,8 +28,12 @@ public enum DocumentType {
     ODENISHLI_ISTIRAHET_GUNU(22, DocumentLabel.EMPLOYEE.toString(), "Kollektiv müqaviləyə əsasən " +
             "ödənişli istirahət günü barədə"),
     MEZUNIYYETIN_UZADILMASI(23, DocumentLabel.EMPLOYEE.toString(), "Əmək məzuniyyətinin uzadılması barədə"),
+    MEZUNIYYETDEN_GERI_QAYITMA(24, DocumentLabel.EMPLOYEE.toString(), "Əmək məzuniyyətindən geri çağırılma " +
+            "barədə"),
     ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA(25, DocumentLabel.EMPLOYEE.toString(),
             "Ödənişsiz məzuniyyətdən geri çağırılma"),
+    KOMPENSASIYA_ODENILMESI(26, DocumentLabel.EMPLOYEE.toString(),
+            "İstifadə edilməmiş əmək məzuniyyətinə görə kompensasiya ödənilməsi barədə"),
     MEZUNIYYET_QRAFIKININ_TESDIQI(27, DocumentLabel.EMPLOYEE.toString(),
             "Məzuniyyət qrafikinin təsdiqi"),
     TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndırilmə"),
@@ -44,11 +48,18 @@ public enum DocumentType {
     MUKAFATLANDIRMA(34, DocumentLabel.EMPLOYEE.toString(), "Mükafatlandırma"),
     SHTAT_EMEK_HAQQINA_ELAVE(35, DocumentLabel.EMPLOYEE.toString(), "Ştat əmək haqqına əlavə"),
     SECKIDE_ISTIRAK(36, DocumentLabel.EMPLOYEE.toString(), "Seçkidə iştirak barədə"),
+    HERBI_CAGIRISH(37, DocumentLabel.EMPLOYEE.toString(), "Hərbi çağırış barədə"),
     TEDBIRDE_ISTIRAK(38, DocumentLabel.EMPLOYEE.toString(), "Tədbirdə iştirak"),
+    ELAVE_ISTIRAHET_GUNU_VERILMESI(39, DocumentLabel.EMPLOYEE.toString(), "İşçiyə əlavə istirahət günü " +
+            "verilməsi barədə"),
+    MUAVINETIN_TEYIN_OLUNMASI(40, DocumentLabel.EMPLOYEE.toString(), "İstehsalat qəzası zamanı xəsarət " +
+            "alan işçiyə müavinətin təyin olunması barədə"),
     ISCININ_ISDEN_KENARLASDIRILMASI(41, DocumentLabel.EMPLOYEE.toString(),
             "İşçinin işdən kənarlaşdırılması"),
     QEYRI_IS_GUNU(42, DocumentLabel.EMPLOYEE.toString(), "Qeyri iş gününün müəyyən olunması"),
     ISH_SAATININ_QISALDILMASI(43, DocumentLabel.EMPLOYEE.toString(), "İş saatlarının qısaldılması barədə"),
+    ISHE_CELB_EDILME(44, DocumentLabel.EMPLOYEE.toString(), "İş vaxtından artıq işə cəlb edilmə " +
+            "haqqında / İstirahət və ya bayram günündə işə cəlb edilmə haqqında "),
     XEBERDARLIQ(45, DocumentLabel.EMPLOYEE.toString(), "Xəbərdarlıq"),
     EMEK_HAQQINDAN_TUTULMA(46, DocumentLabel.EMPLOYEE.toString(), "Əmək haqqından tutulma"),
     INTIZAM_TENBEHI(47, DocumentLabel.EMPLOYEE.toString(), "İntizam tənbehinə cəlb edilmə");
