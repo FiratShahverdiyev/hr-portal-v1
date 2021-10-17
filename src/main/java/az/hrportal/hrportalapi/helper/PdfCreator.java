@@ -576,7 +576,7 @@ public class PdfCreator {
         Text text5 = new Text("5. İşçinin faktiki iş rejimi:  " + employee.getWorkMode().getValue());
         Text text6 = new Text("6. İşçinin keçirildiyi iş rejimi:  " + operation.getWorkMode().getValue());
         Text text7 = new Text("7. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla) : " +
-                employee.getPosition().getSalary().getAmount());
+                employee.getGrossSalary());
         Text text8 = new Text("8. Dəyişiklik edilən əmək haqqı Azn (vergilər və digər ödənişlər daxil olmaqla: ");
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
@@ -631,14 +631,14 @@ public class PdfCreator {
         Text text5 = new Text("5. Əvəzetmə müddəti:   " + operation.getNewTerm());
         Text text6 = new Text("6. Əvəz olunan vəzifə: " + operation.getPosition().getVacancy().getName());
         Text text7 = new Text("7. Əvəz olunan vəzifənin aid olduğu struktur bölmə: " +
-                operation.getPosition().getDepartment().getName());
+                position.getDepartment().getName());
         Text text8 = new Text("8. Əvəz olunan vəzifənin aid olduğu alt struktur bölmə: " +
-                operation.getPosition().getSubDepartment().getName());
+                position.getSubDepartment().getName());
         Text text9 = new Text("9. Əvəz olunan vəzifənin aid olduğu iş yeri: " +
-                operation.getPosition().getWorkPlace().getValue());
-        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getPosition().getSalary().getAmount());
+                position.getWorkPlace().getValue());
+        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getGrossSalary());
         Text text11 = new Text("11. Əvəz edilən vəzifənin əmək haqqı:" +
-                operation.getPosition().getSalary().getAmount());
+                position.getSalary().getAmount());
         Text text12 = new Text("12. Ödəniləcək əmək haqqı: ");
         Text text13 = new Text("12.1. İşçiyə boş vəzifə üçün nəzərdə tutulmuş əmək haqqının (vəzifə maaşının) " +
                 "50% miqdarında əlavə əmək haqqı ödənilsin.");
