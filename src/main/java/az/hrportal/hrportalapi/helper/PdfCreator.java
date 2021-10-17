@@ -2657,12 +2657,14 @@ public class PdfCreator {
         long dayDiff = ChronoUnit.DAYS.between(from, to);
         String result = "";
         if (dayDiff > 365) {
-            result += dayDiff / 365 + " il ";
-            dayDiff = dayDiff % 365;
+            long temp = dayDiff % 365;
+            result += (dayDiff - temp) / 365 + " il ";
+            dayDiff = temp;
         }
         if (dayDiff > 30) {
-            result += dayDiff / 30 + " ay ";
-            dayDiff = dayDiff % 30;
+            long temp = dayDiff % 30;
+            result += (dayDiff - temp) / 30 + " ay ";
+            dayDiff = temp;
         }
         if (dayDiff > 0) {
             result += dayDiff + " gün";
