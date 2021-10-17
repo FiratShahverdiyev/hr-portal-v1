@@ -633,8 +633,8 @@ public class PdfCreator {
                 operation.getPosition().getDepartment().getName());
         Text text8 = new Text("8. Əvəz olunan vəzifənin aid olduğu alt struktur bölmə: " +
                 operation.getPosition().getSubDepartment().getName());
-        Text text9 = new Text("9. Əvəz olunan vəzifənin aid olduğu iş yeri: "
-                + operation.getPosition().getWorkPlace().getValue());
+        Text text9 = new Text("9. Əvəz olunan vəzifənin aid olduğu iş yeri: " +
+                operation.getPosition().getWorkPlace().getValue());
         Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text text11 = new Text("11. Əvəz edilən vəzifənin əmək haqqı:" +
                 operation.getPosition().getSalary().getAmount());
@@ -2646,7 +2646,7 @@ public class PdfCreator {
                 operation.getId());
     }
 
-    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfFiredFromWork(Document document, Operation operation) {
         log.info("pdfFiredFromWork PDF creator started with operationId : {}", operation.getId());
@@ -2665,10 +2665,10 @@ public class PdfCreator {
 
         Employee employee = operation.getEmployee();
         Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçi işdən kənarlaşdırılsın. ");
-
         Text text1 = new Text("1.1. İşçinin soyadı, adı, ata adı: " + employee.getFullName());
         Text text2 = new Text("1.2. İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
-        Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " +
+                employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text("1.4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("1.5. Kənarlaşdırma müddəti: ");
         Text text6 = new Text("2. Maliyyə departamentinə tapşırılsın ki, Azərbaycan Respublikası Əmək Məcəlləsinin " +
