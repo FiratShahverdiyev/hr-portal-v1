@@ -605,7 +605,76 @@ public class PdfCreator {
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfTemporaryChange(Document document, Operation operation) {
-        //Yaz
+        log.info("pdfTemporaryChange PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+        Paragraph paragraph1 = new Paragraph("“Boş vəzifə üzrə müvəqqəti əvəzetmə barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+        paragraph1.setFont(bold);
+
+        Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 61-ci maddəsinin " +
+                "1-ci bəndini rəhbər tutaraq" + operation.getTitleDepartment() + " departamentinin müdiri " +
+                operation.getTitleFullName() + " oğlunun təqdimatı və işçinin ərizəsinə əsasən,");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+        paragraph3.setFont(bold);
+
+        Employee employee = operation.getEmployee();
+        Position position = operation.getPosition();
+        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text("2. İşlədiyi struktur bölmə:  " + employee.getPosition()
+                .getDepartment().getName());
+        Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
+        Text text5 = new Text("5. Əvəzetmə müddəti:   " + operation.getNewTerm());
+        Text text6 = new Text("6. Əvəz olunan vəzifə: " + operation.getPosition().getVacancy().getName());
+        Text text7 = new Text("7. Əvəz olunan vəzifənin aid olduğu struktur bölmə: " +
+                operation.getPosition().getDepartment().getName());
+        Text text8 = new Text("8. Əvəz olunan vəzifənin aid olduğu alt struktur bölmə: " +
+                operation.getPosition().getSubDepartment().getName());
+        Text text9 = new Text("9. Əvəz olunan vəzifənin aid olduğu iş yeri: " +
+                operation.getPosition().getWorkPlace().getValue());
+        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getPosition().getSalary().getAmount());
+        Text text11 = new Text("11. Əvəz edilən vəzifənin əmək haqqı:" +
+                operation.getPosition().getSalary().getAmount());
+        Text text12 = new Text("12. Ödəniləcək əmək haqqı: ");
+        Text text13 = new Text("12.1. İşçiyə boş vəzifə üçün nəzərdə tutulmuş əmək haqqının (vəzifə maaşının) " +
+                "50% miqdarında əlavə əmək haqqı ödənilsin.");
+        Text text14 = new Text("13. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn " +
+                "zəruri məsələlərin həllini təmin etsinlər.");
+        Text text15 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+
+        List list1 = new List()
+                .setSymbolIndent(12)
+                .setListSymbol("\u2022");
+
+        list1
+                .add(new ListItem(text13.getText()))
+                .setMarginLeft(5);
+
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
+        document.add(new Paragraph(text10));
+        document.add(new Paragraph(text11));
+        document.add(new Paragraph(text12));
+        document.add(list1);
+        document.add(new Paragraph(text14));
+        document.add(new Paragraph(text15));
+        log.info("********** pdfTemporaryChange PDF creator completed with operationId : {} **********",
+                operation.getId());
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
@@ -2578,7 +2647,7 @@ public class PdfCreator {
                 operation.getId());
     }
 
-    @SuppressWarnings({"checkstyle:v8ariabledeclarationusagedistance",
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfFiredFromWork(Document document, Operation operation) {
         log.info("pdfFiredFromWork PDF creator started with operationId : {}", operation.getId());
@@ -2597,10 +2666,10 @@ public class PdfCreator {
 
         Employee employee = operation.getEmployee();
         Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçi işdən kənarlaşdırılsın. ");
-
         Text text1 = new Text("1.1. İşçinin soyadı, adı, ata adı: " + employee.getFullName());
         Text text2 = new Text("1.2. İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
-        Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " +
+                employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text("1.4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("1.5. Kənarlaşdırma müddəti: ");
         Text text6 = new Text("2. Maliyyə departamentinə tapşırılsın ki, Azərbaycan Respublikası Əmək Məcəlləsinin " +

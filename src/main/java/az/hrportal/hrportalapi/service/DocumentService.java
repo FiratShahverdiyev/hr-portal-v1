@@ -52,8 +52,8 @@ public class DocumentService {
 
     public byte[] export2Pdf(Integer operationId, HttpServletResponse httpServletResponse) {
         log.info("export2Pdf service started with operationId : {}", operationId);
-        Operation operation = operationRepository.findById(operationId).orElseThrow(() ->
-                new EntityNotFoundException(Operation.class, operationId));
+        Operation operation = operationRepository.findById(operationId)
+                .orElseThrow(() -> new EntityNotFoundException(Operation.class, operationId));
         byte[] response = fileUtil.createAndGetPdf(operation);
         String fileName = operation.getDocumentType().getValueAz();
         httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION,
