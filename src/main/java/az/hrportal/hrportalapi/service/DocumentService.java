@@ -96,9 +96,6 @@ public class DocumentService {
         Operation operation = operationRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, id));
         operation.setStatus(Status.intToEnum(status));
-        if (status == 1) {
-            checkAndDo(operation);
-        }
         Operation saved = operationRepository.save(operation);
         log.info("changeStatus service completed with id : {}, status : {}", id, status);
         return saved.getId();
@@ -162,97 +159,6 @@ public class DocumentService {
         }
         log.info("********** getDocumentTypes service completed **********");
         return documentTypes;
-    }
-
-    @Transactional
-    protected void checkAndDo(Operation operation) {
-     /*   switch (operation.getDocumentType()) {
-            case SHTAT_VAHIDININ_LEGVI: {
-                Position position = operation.getPosition();
-                position.setStatus(Status.REJECTED);
-                positionRepository.save(position);
-                break;
-            }
-            case SHTAT_VAHIDININ_TESISI: {
-                Position position = operation.getPosition();
-                position.setStatus(Status.APPROVED);
-                positionRepository.save(position);
-                break;
-            }
-            case ISHE_QEBUL: {
-                Employee employee = operation.getEmployee();
-                Position position = operation.getPosition();
-                employee.setPosition(position);
-                employee.setGrossSalary(position.getSalary().getAmount() + position.getAdditionalSalary());
-                employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
-                employeeRepository.save(employee);
-                break;
-            }
-            case XITAM: {
-                Employee employee = operation.getEmployee();
-                employee.setActive(false);
-                break;
-            }
-            case VEZIFE_DEYISIKLIYI:
-            case ISH_YERI_DEYISIKLIYI: {
-                Employee employee = operation.getEmployee();
-                Position position = operation.getPosition();
-                employee.setPosition(position);
-                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
-                employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
-                employeeRepository.save(employee);
-                break;
-            }
-            case EMEK_HAQQI_DEYISIKLIYI: {
-                Employee employee = operation.getEmployee();
-                Position position = employee.getPosition();
-                employee.setGrossSalary(position.getSalary().getSalary() + position.getAdditionalSalary());
-                employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
-                employeeRepository.save(employee);
-                break;
-            }
-            case ELAVE_EMEK_HAQQI: { //TODO ?
-                Employee employee = operation.getEmployee();
-                Position position = employee.getPosition();
-                employee.setGrossSalary(operation.getNewSalary());
-                position.setAdditionalSalary(operation.getNewAdditionalSalary());
-                employeeRepository.save(employee);
-                positionRepository.save(position);
-                break;
-            }
-            case ISH_REJIMININ_DEYISTIRILMESI: {
-                Employee employee = operation.getEmployee();
-                Position position = employee.getPosition();
-                position.setWorkMode(operation.getWorkMode());
-                positionRepository.save(position);
-                break;
-            }
-            case MUKAFATLANDIRMA:
-            case MADDI_YARDIM: {
-                Employee employee = operation.getEmployee();
-                employee.setNetIncome(employee.getNetIncome() + operation.getFinancialHelp());
-                employeeRepository.save(employee);
-                break;
-            }
-            case SHTAT_EMEK_HAQQINA_ELAVE: {
-                break;
-            }
-            case MUVEQQETI_HEVALE: {
-                Employee employee = operation.getEmployee();
-
-                break;
-            }
-            case EMEK_HAQQINDAN_TUTULMA: {
-                Employee employee = operation.getEmployee();
-                employee.setCatchAmount(operation.getCatchAmount());
-                employee.setCatchMonths(operation.getCatchMonths());
-                employeeRepository.save(employee);
-                break;
-            }
-            default: {
-                break;
-            }
-        }*/
     }
 
     private void validate(DocumentData documentData) {

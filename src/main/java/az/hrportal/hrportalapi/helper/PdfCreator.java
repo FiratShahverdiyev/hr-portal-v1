@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 @Slf4j
 @Component
@@ -839,7 +840,8 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Keçirildiyi müddət: " + operation.getNewTerm());
+        Text text5 = new Text("5. Keçirildiyi müddət: " + getBetweenDates(operation.getEventFrom(),
+                operation.getEventTo()));
         Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
         Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
         Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
@@ -854,8 +856,7 @@ public class PdfCreator {
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
-        Text text12 = new Text("12. Əmr imzalandığı gündən qüvvəyə minir. ");
-        Text text13 = new Text("Baş direktor                                                                   Taleh " +
+        Text text12 = new Text("Baş direktor                                                                   Taleh " +
                 "Ziyadov").setFont(bold);
 
         List list1 = new List()
@@ -895,7 +896,6 @@ public class PdfCreator {
         document.add(list2);
         document.add(new Paragraph(text11));
         document.add(new Paragraph(text12));
-        document.add(new Paragraph(text13));
         log.info("********** pdfTemporaryPass PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
@@ -1647,7 +1647,8 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Həvalə müddəti:    " + operation.getAssignmentTerm());
+        Text text5 = new Text("5. Həvalə müddəti: " + getBetweenDates(operation.getEventFrom(),
+                operation.getEventTo()));
         Text text6 = new Text("6. Həvalə olunan vəzifə:   " + position.getVacancy().getName());
         Text text7 = new Text("7. Həvalə olunan vəzifənin aid olduğu struktur bölmə: " + position.getDepartment());
         Text text8 = new Text("8. Həvalə olunan vəzifənin aid olduğu alt struktur bölmə: " + position.getSubDepartment()
@@ -2719,6 +2720,25 @@ public class PdfCreator {
         } catch (Exception ex) {
             throw new DocumentException(ex.getMessage());
         }
+    }
+
+    private String getBetweenDates(LocalDate from, LocalDate to) {
+        long dayDiff = ChronoUnit.DAYS.between(from, to);
+        String result = "";
+        if (dayDiff > 365) {
+            long temp = dayDiff % 365;
+            result += (dayDiff - temp) / 365 + " il ";
+            dayDiff = temp;
+        }
+        if (dayDiff > 30) {
+            long temp = dayDiff % 30;
+            result += (dayDiff - temp) / 30 + " ay ";
+            dayDiff = temp;
+        }
+        if (dayDiff > 0) {
+            result += dayDiff + " gün";
+        }
+        return result;
     }
 
     private String getSuffix(Integer year) {

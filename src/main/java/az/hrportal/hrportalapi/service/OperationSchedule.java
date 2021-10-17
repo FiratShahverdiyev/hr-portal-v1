@@ -7,11 +7,13 @@ import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.domain.Day;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.domain.employee.EmployeeSalary;
+import az.hrportal.hrportalapi.domain.employee.GrossSalary;
 import az.hrportal.hrportalapi.domain.operation.Operation;
 import az.hrportal.hrportalapi.domain.position.Position;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.DayRepository;
+import az.hrportal.hrportalapi.repository.GrossSalaryRepository;
 import az.hrportal.hrportalapi.repository.OperationRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeRepository;
 import az.hrportal.hrportalapi.repository.employee.EmployeeSalaryRepository;
@@ -39,10 +41,13 @@ public class OperationSchedule {
     private final OperationRepository operationRepository;
     private final PositionRepository positionRepository;
     private final DayRepository dayRepository;
+    private final GrossSalaryRepository grossSalaryRepository;
     private final CacheManager cacheManager;
 
     @Scheduled(cron = "0 0 23 * * ?", zone = Constant.timeZone)
-    private void schedule() {
+    @Transactional
+    protected void schedule() {
+        resetGrossCalculation();
         LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
         for (Operation operation : operationRepository.findAllByStatus(Status.APPROVED)) {
             switch (operation.getDocumentType()) {
@@ -69,7 +74,7 @@ public class OperationSchedule {
                     Employee employee = operation.getEmployee();
                     Position position = operation.getPosition();
                     employee.setEmployeeActivity(EmployeeActivity.IN);
-                    //Additional salaryden vergi tutulurmu ?
+                    //Additional salaryden vergi tutulurmu ? tutulmur
                     employee.setGrossSalary(position.getSalary().getAmount() +
                             position.getAdditionalSalary() + operation.getOwnAdditionalSalary());
                     employee.setPosition(position);
@@ -102,8 +107,8 @@ public class OperationSchedule {
                     Position position = operation.getPosition();
                     employee.setPosition(position);
                     employee.setGrossSalary(position.getSalary().getAmount() +
-                            position.getAdditionalSalary() + operation.getOwnAdditionalSalary());
-                    employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
+                            position.getAdditionalSalary() + operation.getNewOwnAdditionalSalary());
+                    employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
                     employee.setWorkMode(position.getWorkMode());
                     employeeRepository.save(employee);
                     operation.setStatus(Status.DONE);
@@ -138,7 +143,7 @@ public class OperationSchedule {
                 case ISH_REJIMININ_DEYISTIRILMESI: {
                     Employee employee = operation.getEmployee();
                     employee.setWorkMode(operation.getWorkMode());
-                    //Sual Dəyişiklik edilən əmək haqqı Azn (vergilər və digər ödənişlər daxil olmaqla):
+                    employee.setGrossSalary(operation.getNewSalary()); //Bunda front newSalary gonderecek
                     employeeRepository.save(employee);
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
@@ -149,91 +154,151 @@ public class OperationSchedule {
                         break;
                     }
                     Employee employee = operation.getEmployee();
-                    //Bu nedir ?
-
+                    Position position = operation.getPosition();
+                    employee.setPosition(position);
+                    employee.setGrossSalary(operation.getNewSalary() +
+                            operation.getNewAdditionalSalary() + operation.getNewOwnAdditionalSalary());
+                    employee.setOwnAdditionalSalary(operation.getNewOwnAdditionalSalary());
+                    employeeRepository.save(employee);
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case MUVEQQETI_KECIRILME: {
-                    if (!now.equals(operation.getChangeDate())) {
+                    if (now.isBefore(operation.getChangeDate())) {
                         break;
                     }
-                    //Sual pdfTemporaryPass izah lazimdi
-                    Employee employee = operation.getEmployee();
 
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
+                    Employee employee = operation.getEmployee();
+                    Position position = operation.getPosition();
+                    float newGross = position.getSalary().getAmount() +
+                            position.getAdditionalSalary() + operation.getNewOwnAdditionalSalary();
+                    int jobDayCount = dayRepository.getJobDayCount(now.getMonthValue(), now.getYear());
+                    GrossSalary grossSalary = new GrossSalary();
+                    if (employee.getGrossSalary() < newGross) {
+                        grossSalary.setAmount(newGross / jobDayCount);
+                    } else {
+                        grossSalary.setAmount(employee.getGrossSalary() / jobDayCount);
+                    }
+                    grossSalary.setEmployee(employee);
+                    grossSalary.setDate(now);
+                    grossSalaryRepository.save(grossSalary);
+                    employee.setGrossCalculated(true);
+                    employeeRepository.save(employee);
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
                 case MUVEQQETI_HEVALE: {
-                    if (!now.equals(operation.getChangeDate())) {
+                    if (now.isBefore(operation.getChangeDate())) {
                         break;
                     }
-                    //Sual pdfTemporaryAssignment izah lazimdi
+                    //Hevale muddeti (eventFrom - eventTo) erzinde eger diger iscinin emek haqqi coxdursa
+                    //hemen tarix erzinde diger iscinin almali oldugu emek haqqi tapilir
+
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
                 case MUVEQQETI_EVEZETME: {
-                    if (!now.equals(operation.getChangeDate())) {
+                    if (now.isBefore(operation.getChangeDate())) {
                         break;
                     }
-                    //Sual pdfTemporaryChange izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
+                    int jobDayCount = dayRepository.getJobDayCount(now.getMonthValue(), now.getYear());
+                    Employee employee = operation.getEmployee();
+                    Position position = operation.getPosition();
+                    float newSalary = position.getSalary().getAmount() + position.getAdditionalSalary();
+                    GrossSalary grossSalary = new GrossSalary();
+                    grossSalary.setDate(now);
+                    grossSalary.setEmployee(employee);
+                    grossSalary.setAmount((employee.getGrossSalary() / jobDayCount) + (newSalary / jobDayCount) / 2);
+                    employee.setGrossCalculated(true);
+                    employeeRepository.save(employee);
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
                 case MEZUNIYYET_VERILMESI: {
-                    //Sual pdfGiveVacation izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
+                    //Iscinin son 12 ay erzinde tam islediyi aylarin emek haqqisi toplanir bolunur sayina
+                    //bolunur 30.4 e ve orta gunluk emek haqqi tapilir. (eventFrom - eventTo) erzinde hemen aya dusen
+                    //gun sayina vurulur ve iscinin gorosu bolunur vurulur ve alinan reqemler
+                    // toplanir iscinin grosu olur
+                    //Qeyri is gunu , is gunu ferq etmir
+                    Employee employee = operation.getEmployee();
+                    float average = getAverageOfYear(employee);
+                    int jobDayCount = dayRepository.getJobDayCount(now.getMonthValue(), now.getYear());
+                    GrossSalary grossSalary = new GrossSalary();
+                    grossSalary.setDate(now);
+                    grossSalary.setEmployee(employee);
+                    grossSalary.setAmount(employee.getGrossSalary() / jobDayCount + average);
+                    employee.setGrossCalculated(true);
+                    employeeRepository.save(employee);
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
+                case TELIME_GONDERILME:
+                case ODENISHLI_ISTIRAHET_GUNU:
                 case TEHSIL_YARADICILIQ_MEZUNIYYETI: {
-                    //Sual pdfEducationVacation izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
+                    //default 30 gun verilir. cixdigi vaxtdan 30 gun sonraya qeder maas hesablanmir ve son iki ay aldigi
+                    //maas (hesablanan maas, yeni vergi tutulmamis) bolunur son iki ay islediyi gunlerin sayina vurulur
+                    //hemen aya dusen mezuniyyet gunlerinin sayina
+                    //is gunleri nezere alinir
+                    Employee employee = operation.getEmployee();
+                    Day date = dayRepository.findByDay(now).orElseThrow(() ->
+                            new EntityNotFoundException(Day.class, now));
+                    if (date.isJobDay()) {
+                        GrossSalary grossSalary = new GrossSalary();
+                        grossSalary.setEmployee(employee);
+                        grossSalary.setDate(now);
+                        grossSalary.setAmount(getAverageOfMonth(employee));
+                    } else {
+                        GrossSalary grossSalary = new GrossSalary();
+                        grossSalary.setEmployee(employee);
+                        grossSalary.setDate(now);
+                        grossSalary.setAmount(0);
+                    }
+                    employee.setGrossCalculated(true);
+                    employeeRepository.save(employee);
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
-                case ISCIYE_ODENISIZ_MEZUNIYYET: {
-                    //Sual
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
-                    break;
-                }
+                case ISCIYE_ODENISIZ_MEZUNIYYET:
+                case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET:
                 case ISCIYE_SOSIAL_MEZUNIYYET: {
-                    //Sual pdfSocialVacation izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
-                    break;
-                }
-                case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET: {
-                    //Sual pdfPaidSocialVacation izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
-                    break;
-                }
-                case ODENISHLI_ISTIRAHET_GUNU: {
-                    //Sual pdfPaidDayOff izah lazimdi
-
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
+                    Employee employee = operation.getEmployee();
+                    GrossSalary grossSalary = new GrossSalary();
+                    grossSalary.setEmployee(employee);
+                    grossSalary.setDate(now);
+                    grossSalary.setAmount(0);
+                    employee.setGrossCalculated(true);
+                    employeeRepository.save(employee);
+                    if (now.equals(operation.getEventTo())) {
+                        operation.setStatus(Status.DONE);
+                        operationRepository.save(operation);
+                    }
                     break;
                 }
                 case MEZUNIYYETIN_UZADILMASI: {
-                    //Sual pdfSocialBusinessTrip izah lazimdi
+                    //Mezuniyyetin vaxti uzadilir ve normal hesablanmalar davam edir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA: {
-                    //Sual pdfCallBackFromVacation izah lazimdi
+                    //Iscinin mezuniyyet muddeti qisaldilir normal hesablamalar davam edir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
@@ -245,76 +310,87 @@ public class OperationSchedule {
                     operationRepository.save(operation);
                     break;
                 }
-                case TELIME_GONDERILME: {
-                    operation.setStatus(Status.DONE);
-                    operationRepository.save(operation);
-                    break;
-                }
                 case EZAMIYYETE_GONDERILME: {
-                    //Sual pdfGoOnBusinessTrip izah lazimdi
+                    //Orta ayliq emek haqqi tapilir vurulur ezmamiyyetde oldugu muddete ve ezamiyyet (90 or 70) vurulur
+                    //ezamiyyet muddetine alinan reqemler toplanir. Istirahet gunlerine dusse
+                    // ise baslama tarixi uzadilir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case EZAMIYYETIN_UZADILMASI: {
-                    //Sual pdfIncreaseBusinessTrip izah lazimdi
+                    //Vaxt uzadilir yeniden hesbalanir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case EZAMIYYETDEN_GERI_CAGIRILMA: {
-                    //Sual pdfCallBackFromBusinessTrip izah lazimdi
+                    //Vaxt qisalir yeniden hesablanir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case MADDI_YARDIM: {
-                    //Sual pdfFinancialHelp izah lazimdi
+                    //Alacagi maasa elave olunur
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case MUKAFATLANDIRMA: {
-                    //Sual pdfAchievement izah lazimdi
+                    //Alacagi maasa elave olunur
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case SHTAT_EMEK_HAQQINA_ELAVE: {
-                    //Sual pdfPositionAdditionalSalary izah lazimdi
+                    //Alacagi maasa elave olunur
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case SECKIDE_ISTIRAK: {
-                    //Sual pdfEmployeeToSelection izah lazimdi
+                    //Orta gunluk verilir
+
+                    operation.setStatus(Status.DONE);
+                    operationRepository.save(operation);
+                    break;
+                }
+                case HERBI_CAGIRISH: {
+                    //Orta gunluk verilir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case TEDBIRDE_ISTIRAK: {
-                    //Sual pdfAttendanceInTraining izah lazimdi
+                    //Orta gunluk verilir
+
+                    operation.setStatus(Status.DONE);
+                    operationRepository.save(operation);
+                    break;
+                }
+                case MUAVINETIN_TEYIN_OLUNMASI: {
+                    //?
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case ISCININ_ISDEN_KENARLASDIRILMASI: {
-                    //Sual pdfAttendanceInTraining izah lazimdi
+                    //Maas verilmir
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
                     break;
                 }
                 case QEYRI_IS_GUNU: {
-                    //Sual pdfNonActiveDay izah lazimdi
+                    //+
 
                     operation.setStatus(Status.DONE);
                     operationRepository.save(operation);
@@ -352,6 +428,28 @@ public class OperationSchedule {
 
                 }
             }
+        }
+        calculateNormalSalary(now);
+    }
+
+    @Transactional
+    protected void calculateNormalSalary(LocalDate now) {
+        int jobDayCount = dayRepository.getJobDayCount(now.getMonthValue(), now.getYear());
+        for (Employee employee : employeeRepository
+                .findAllByGrossCalculatedIsFalseAndEmployeeActivity(EmployeeActivity.IN)) {
+            GrossSalary grossSalary = new GrossSalary();
+            grossSalary.setEmployee(employee);
+            grossSalary.setAmount(employee.getGrossSalary() / jobDayCount);
+            grossSalary.setDate(now);
+            grossSalaryRepository.save(grossSalary);
+        }
+    }
+
+    @Transactional
+    protected void resetGrossCalculation(){
+        for (Employee employee : employeeRepository.findAllByEmployeeActivity(EmployeeActivity.IN)) {
+            employee.setGrossCalculated(false);
+            employeeRepository.save(employee);
         }
     }
 
@@ -537,6 +635,42 @@ public class OperationSchedule {
         else
             return percentage(incomeTaxAmount >= 0 ? incomeTaxAmount : 0,
                     Constant.MORE_THAN_2500_INCOME_TAX) + 350f;
+    }
+
+    private float getAverageOfYear(Employee employee) {
+        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository
+                .findAllByEmployeeAndBackupIsTrue(employee);
+        int count = 0;
+        float totalSalary = 0;
+        int border = 12;
+        for (EmployeeSalary employeeSalary : employeeSalaries) {
+            int jobDayCount = dayRepository.getJobDayCount(employeeSalary.getSalaryCalculationDate()
+                    .getMonthValue(), employeeSalary.getSalaryCalculationDate().getYear());
+            if (jobDayCount == employeeSalary.getActiveDays()) {
+                count++;
+                totalSalary += employeeSalary.getGrossSalary();
+            }
+            if (border == 0)
+                break;
+            border--;
+        }
+        return totalSalary / count / 30.4f;
+    }
+
+    private float getAverageOfMonth(Employee employee) {
+        List<EmployeeSalary> employeeSalaries = employeeSalaryRepository
+                .findAllByEmployeeAndBackupIsTrue(employee);
+        float totalSalary = 0;
+        int border = 2;
+        int totalActiveDays = 0;
+        for (EmployeeSalary employeeSalary : employeeSalaries) {
+            totalSalary += employeeSalary.getGrossSalary();
+            totalActiveDays += employeeSalary.getActiveDays();
+            if (border == 0)
+                break;
+            border--;
+        }
+        return totalSalary / totalActiveDays;
     }
 
     private float percentage(float number, float percentage) {
