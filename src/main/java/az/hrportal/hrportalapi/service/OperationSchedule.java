@@ -274,7 +274,7 @@ public class OperationSchedule {
                     }
                     break;
                 }
-                case ISCIYE_ODENISIZ_MEZUNIYYET:
+                case ISCIYE_ODENISSIZ_MEZUNIYYET:
                 case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET:
                 case ISCIYE_SOSIAL_MEZUNIYYET: {
                     Employee employee = operation.getEmployee();

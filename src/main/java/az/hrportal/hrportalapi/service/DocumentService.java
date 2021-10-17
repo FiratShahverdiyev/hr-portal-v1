@@ -215,6 +215,7 @@ public class DocumentService {
                     throw new ValidationException("employeeId,positionId,newOwnAdditionalSalary,changeDate");
                 break;
             }
+
             case MUVEQQETI_KECIRILME: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getNewOwnAdditionalSalary() == null || documentData.getChangeDate() == null ||
@@ -223,6 +224,29 @@ public class DocumentService {
                             "newOwnAdditionalSalary,changeDate,changePeriod");
                 break;
             }
+
+            //Answer from Firat, Nata --------------------------------------------------------------------------- BEGIN
+            case MUVEQQETI_HEVALE: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getChangeDate() == null)
+                    throw new ValidationException("employeeId, positionId" + "changeDate");
+                break;
+            }
+
+            case TEHSIL_YARADICILIQ_MEZUNIYYETI:
+            case SECKIDE_ISTIRAK:
+            case MEZUNIYYET_VERILMESI: {
+                if (documentData.getEmployeeId() == null || documentData.getDayInEvent() == null)
+                    throw new ValidationException("employeeId, dayInEvent");
+                break;
+            }
+
+            case ISCIYE_ODENISSIZ_MEZUNIYYET: {
+                if (documentData.getEmployeeId() == null)
+                    throw new ValidationException("employeeId");
+                break;
+            }
+
             case MADDI_YARDIM: {
                 if (documentData.getEmployeeId() == null || documentData.getFinancialHelp() == null)
                     throw new ValidationException("employeeId,financialHelp");
