@@ -136,8 +136,8 @@ public class DocumentData {
     Float amount;
 
     String businessTripLocation;
-    String evenToBusinessTripDate;
-    String evenFromBusinessTripDate;
+    String eventToBusinessTripDate;
+    String eventFromBusinessTripDate;
     Integer businessTripTerm;
     //işçinin yolda keçirdiyi istirahət gününə təsadüf etdiyi tarix
     String nonWorkDay;

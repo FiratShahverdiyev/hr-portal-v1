@@ -299,6 +299,9 @@ public class FileUtil {
                 pdfCreator.pdfFiredFromWork(document, operation);
                 break;
             }
+            case ISCIYE_ODENISSIZ_MEZUNIYYET: {
+                pdfCreator.pdfFreeVacation(document, operation);
+            }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
         }

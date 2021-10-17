@@ -576,7 +576,7 @@ public class PdfCreator {
         Text text5 = new Text("5. İşçinin faktiki iş rejimi:  " + employee.getWorkMode().getValue());
         Text text6 = new Text("6. İşçinin keçirildiyi iş rejimi:  " + operation.getWorkMode().getValue());
         Text text7 = new Text("7. Faktiki əmək haqqı: AZN (vergilər və digər ödənişlər daxil olmaqla) : " +
-                employee.getPosition().getSalary().getAmount());
+                employee.getGrossSalary());
         Text text8 = new Text("8. Dəyişiklik edilən əmək haqqı Azn (vergilər və digər ödənişlər daxil olmaqla: ");
         Text text9 = new Text("9. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
@@ -612,7 +612,7 @@ public class PdfCreator {
         paragraph1.setFont(bold);
 
         Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 61-ci maddəsinin " +
-                "1-ci bəndini rəhbər tutaraq" + operation.getTitleDepartment() + " departamentinin müdiri " +
+                "1-ci bəndini rəhbər tutaraq " + operation.getTitleDepartment() + " departamentinin müdiri " +
                 operation.getTitleFullName() + " oğlunun təqdimatı və işçinin ərizəsinə əsasən,");
         paragraph2.setTextAlignment(TextAlignment.CENTER);
 
@@ -631,14 +631,14 @@ public class PdfCreator {
         Text text5 = new Text("5. Əvəzetmə müddəti:   " + operation.getNewTerm());
         Text text6 = new Text("6. Əvəz olunan vəzifə: " + operation.getPosition().getVacancy().getName());
         Text text7 = new Text("7. Əvəz olunan vəzifənin aid olduğu struktur bölmə: " +
-                operation.getPosition().getDepartment().getName());
+                position.getDepartment().getName());
         Text text8 = new Text("8. Əvəz olunan vəzifənin aid olduğu alt struktur bölmə: " +
-                operation.getPosition().getSubDepartment().getName());
+                position.getSubDepartment().getName());
         Text text9 = new Text("9. Əvəz olunan vəzifənin aid olduğu iş yeri: " +
-                operation.getPosition().getWorkPlace().getValue());
-        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getPosition().getSalary().getAmount());
+                position.getWorkPlace().getValue());
+        Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getGrossSalary());
         Text text11 = new Text("11. Əvəz edilən vəzifənin əmək haqqı:" +
-                operation.getPosition().getSalary().getAmount());
+                position.getSalary().getAmount());
         Text text12 = new Text("12. Ödəniləcək əmək haqqı: ");
         Text text13 = new Text("12.1. İşçiyə boş vəzifə üçün nəzərdə tutulmuş əmək haqqının (vəzifə maaşının) " +
                 "50% miqdarında əlavə əmək haqqı ödənilsin.");
@@ -2293,13 +2293,13 @@ public class PdfCreator {
         Employee employee = operation.getEmployee();
         Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçinin iş yeri və aylıq əmək haqqı saxlanılmaqla" +
                 " müvəqqəti azad edilsin.");
-        Text text1 = new Text(" İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
-        Text text2 = new Text(" İşlədiyi struktur bölmə:  " + employee.getPosition()
+        Text text1 = new Text("İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text("İşlədiyi struktur bölmə:  " + employee.getPosition()
                 .getDepartment().getName());
-        Text text3 = new Text(" İşlədiyi alt struktur bölmə:  " + employee.getPosition()
+        Text text3 = new Text("İşlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
-        Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text(" Müvəqqəti azad olunma müddəti: " + operation.getDayInEvent());
+        Text text4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("Müvəqqəti azad olunma müddəti: " + operation.getDayInEvent());
         Text text6 = new Text("2. İnsan resursları və Maliyyə departamentinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsin.");
         Text text7 = new Text("3. Əmr imzalandığı gündən qüvvəyə minir.");
@@ -2436,6 +2436,7 @@ public class PdfCreator {
                 .add(new ListItem(text4.getText()))
                 .add(new ListItem(text5.getText()))
                 .setMarginLeft(5);
+
         document.add(paragraph1);
         document.add(paragraph2);
         document.add(paragraph3);
@@ -2475,7 +2476,7 @@ public class PdfCreator {
         Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("5. Məzuniyyətə buraxıldığı tarixləri: " + operation.getEventFrom() + " / " +
                 operation.getEventTo());
-        Text text6 = new Text("6. Geri çağırılma tarixi: ");
+        Text text6 = new Text("6. Geri çağırılma tarixi: " + operation.getCallBackDate());
         Text text7 = new Text("7. Geri çağırılma səbəbi: " + operation.getReason());
         Text text8 = new Text("8. Əlavə qeydlər: ");
         Text text9 = new Text("1. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli " +
@@ -2537,8 +2538,9 @@ public class PdfCreator {
         Text text2 = new Text(" İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text text3 = new Text(" İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text(" İstifadə etmədiyi məzuniyyətin iş ili dövrü/ dövrləri: " +
-                operation.getEventFrom() + " / " + operation.getEventTo());
+        Text text5 = new Text(" İstifadə etmədiyi məzuniyyətin iş ili dövrü/ dövrləri: ");
+        //??
+        // operation.getEventFrom() + " / " + operation.getEventTo());
         Text text6 = new Text(" İstifadə edilməmiş məzuniyyət günləri: ");
         Text text7 = new Text(" Əsas məzuniyyət günləri");
         Text text8 = new Text(" Staja görə əlavə məzuniyyət günləri");
@@ -2671,7 +2673,7 @@ public class PdfCreator {
         Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " +
                 employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text("1.4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("1.5. Kənarlaşdırma müddəti: ");
+        Text text5 = new Text("1.5. Kənarlaşdırma müddəti: " + operation.getDayInEvent());
         Text text6 = new Text("2. Maliyyə departamentinə tapşırılsın ki, Azərbaycan Respublikası Əmək Məcəlləsinin " +
                 "62-ci maddəsinə uyğun olaraq, həmin işçiyə işdən kənar edilən vaxt ərzində əmək haqqı ödənilməsin.");
         Text text7 = new Text("3. İnsan resursları departamentinə tapşırılsın ki, bu əmrdən irəli gələn zəruri" +
@@ -2703,6 +2705,54 @@ public class PdfCreator {
         document.add(new Paragraph(text8));
         document.add(new Paragraph(text9));
         document.add(new Paragraph(text10));
+        log.info("********** pdfFiredFromWork PDF creator completed with operationId : {} **********",
+                operation.getId());
+    }
+
+    @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
+            "checkstyle:avoidescapedunicodecharacters"})
+    protected void pdfFreeVacation(Document document, Operation operation) {
+        log.info("pdfFiredFromWork PDF creator started with operationId : {}", operation.getId());
+        document.setFont(regular);
+
+        Paragraph paragraph1 = new Paragraph("“İşçiyə ödənişsiz məzuniyyət verilməsi barədə”");
+        paragraph1.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin " +
+                "129 və 130-cu maddələrini rəhbər tutaraq, işçinin ərizəsinə əsasən, ");
+        paragraph2.setTextAlignment(TextAlignment.CENTER);
+
+        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
+        paragraph3.setTextAlignment(TextAlignment.CENTER);
+        paragraph3.setCharacterSpacing(10);
+
+        Employee employee = operation.getEmployee();
+        Text text0 = new Text("Aşağıda məlumatları qeyd olunan işçiyə ödənişsiz məzuniyyət verilsin.");
+        Text text1 = new Text("1. İşçinin soyadı, adı, ata adı: " + employee.getFullName());
+        Text text2 = new Text("2. Struktur bölmə: " + employee.getPosition().getDepartment().getName());
+        Text text3 = new Text("3. Alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
+        Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("5. Məzuniyyət müddəti: " + operation.getDayInEvent());
+        Text text6 = new Text("6. Məzuniyyətə buraxılma tarixləri: " +
+                operation.getEventFrom() + " / " + operation.getEventTo());
+        Text text7 = new Text("7. İşə başlama tarixi: " + operation.getJoinDate());
+        Text text8 = new Text("8. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn " +
+                "zəruri məsələlərin həllini təmin etsinlər.");
+        Text text9 = new Text("Baş direktor                                                                   Taleh " +
+                "Ziyadov").setFont(bold);
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(new Paragraph(text0));
+        document.add(new Paragraph(text1));
+        document.add(new Paragraph(text2));
+        document.add(new Paragraph(text3));
+        document.add(new Paragraph(text4));
+        document.add(new Paragraph(text5));
+        document.add(new Paragraph(text6));
+        document.add(new Paragraph(text7));
+        document.add(new Paragraph(text8));
+        document.add(new Paragraph(text9));
         log.info("********** pdfFiredFromWork PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
