@@ -446,14 +446,14 @@ public class OperationSchedule {
     }
 
     @Transactional
-    protected void resetGrossCalculation(){
+    protected void resetGrossCalculation() {
         for (Employee employee : employeeRepository.findAllByEmployeeActivity(EmployeeActivity.IN)) {
             employee.setGrossCalculated(false);
             employeeRepository.save(employee);
         }
     }
 
-    @Scheduled(cron = "0 0 23 * * 1-5", zone = Constant.timeZone)
+    /*@Scheduled(cron = "0 0 23 * * 1-5", zone = Constant.timeZone)
     private void salaryManager() {
         log.info("salaryManager schedule started");
         LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
@@ -465,7 +465,7 @@ public class OperationSchedule {
         calculateEmployeeWorkDay(now);
         setEmployeesMonthlySalary();
         log.info("********** salaryManager schedule completed **********");
-    }
+    }*/
 
     @Transactional
     protected void calculateEmployeeWorkDay(LocalDate now) {
