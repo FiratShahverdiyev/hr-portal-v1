@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 @Slf4j
 @Component
@@ -604,86 +605,7 @@ public class PdfCreator {
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
             "checkstyle:avoidescapedunicodecharacters"})
     protected void pdfTemporaryChange(Document document, Operation operation) {
-        log.info("pdfTemporaryChange PDF creator started with operationId : {}", operation.getId());
-        document.setFont(regular);
-        Paragraph paragraph1 = new Paragraph("“Müvəqqəti keçirilmə barədə”");
-        paragraph1.setTextAlignment(TextAlignment.CENTER);
-        paragraph1.setFont(bold);
-
-        Paragraph paragraph2 = new Paragraph("Azərbaycan Respublikası Əmək Məcəlləsinin 60-cı maddəsini rəhbər" +
-                " tutaraq" + operation.getTitleDepartment() + "departamentinin müdiri " + operation.getTitleFullName() +
-                " oğlunun təqdimatına əsasən,");
-        paragraph2.setTextAlignment(TextAlignment.CENTER);
-        paragraph2.setFont(bold);
-
-        Paragraph paragraph3 = new Paragraph("ƏMR EDİRƏM:");
-        paragraph3.setTextAlignment(TextAlignment.CENTER);
-        paragraph3.setCharacterSpacing(10);
-        paragraph3.setFont(bold);
-
-        Employee employee = operation.getEmployee();
-        Position position = operation.getPosition();
-        Text text1 = new Text("1. İşçinin soyadı, adı, atasının adı:  " +
-                employee.getFullName());
-        Text text2 = new Text("2. İşlədiyi struktur bölmənin adı:  " + employee.getPosition()
-                .getDepartment().getName());
-        Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Keçirildiyi müddət:   " + operation.getNewTerm());
-        Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
-        Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
-        Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
-        Text text9 = new Text("9. Əmək haqqı AZN(vergilər və digər ödənişlər daxil olmaqla):");
-        Text subText1 = new Text("Ştat üzrə əsas əmək haqqı: " + employee.getPosition().getSalary().getAmount());
-        Text subText2 = new Text("Əmək şəraitinə görə əlavə: " + employee.getPosition().getAdditionalSalary());
-        Text subText3 = new Text("Digər fərdi əlavə: " + employee.getOwnAdditionalSalary());
-
-        Text text10 = new Text("10. Keçirildiyi əmək haqqı (Azn) vergilər və digər ödənişlər daxil olmaqla): ");
-        Text subText4 = new Text("Ştat üzrə əsas əmək haqqı: " + position.getSalary().getAmount());
-        Text subText5 = new Text("Əmək şəraitinə görə əlavə: " + position.getAdditionalSalary());
-        Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
-        Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
-                " zəruri məsələlərin həllini təmin etsinlər. ");
-        Text text12 = new Text("Baş direktor                                                                   Taleh " +
-                "Ziyadov").setFont(bold);
-
-        List list1 = new List()
-                .setSymbolIndent(12)
-                .setListSymbol("\u2022");
-
-        list1
-                .add(new ListItem(subText1.getText()))
-                .add(new ListItem(subText2.getText()))
-                .setMarginLeft(5);
-
-        List list2 = new List()
-                .setSymbolIndent(12)
-                .setListSymbol("\u2022");
-
-        list2
-                .add(new ListItem(subText4.getText()))
-                .add(new ListItem(subText5.getText()))
-                .setMarginLeft(5);
-
-        document.add(paragraph1);
-        document.add(paragraph2);
-        document.add(paragraph3);
-        document.add(new Paragraph(text1));
-        document.add(new Paragraph(text2));
-        document.add(new Paragraph(text3));
-        document.add(new Paragraph(text4));
-        document.add(new Paragraph(text5));
-        document.add(new Paragraph(text6));
-        document.add(new Paragraph(text7));
-        document.add(new Paragraph(text8));
-        document.add(new Paragraph(text9));
-        document.add(list1);
-        document.add(new Paragraph(text10));
-        document.add(list2);
-        document.add(new Paragraph(text11));
-        document.add(new Paragraph(text12));
-        log.info("********** pdfTemporaryChange PDF creator completed with operationId : {} **********",
-                operation.getId());
+        //Yaz
     }
 
     @SuppressWarnings({"checkstyle:variabledeclarationusagedistance",
@@ -849,7 +771,8 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Keçirildiyi müddət: " + operation.getNewTerm());
+        Text text5 = new Text("5. Keçirildiyi müddət: " + getBetweenDates(operation.getEventFrom(),
+                operation.getEventTo()));
         Text text6 = new Text("6. Keçirildiyi struktur bölmə: " + position.getDepartment().getName());
         Text text7 = new Text("7. Keçirildiyi alt struktur bölmə: " + position.getSubDepartment().getName());
         Text text8 = new Text("8. Keçirildiyi iş yeri: " + position.getWorkPlace());
@@ -864,8 +787,7 @@ public class PdfCreator {
         Text subText6 = new Text("Digər fərdi əlavə: " + operation.getNewOwnAdditionalSalary());
         Text text11 = new Text("11. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsinlər. ");
-        Text text12 = new Text("12. Əmr imzalandığı gündən qüvvəyə minir. ");
-        Text text13 = new Text("Baş direktor                                                                   Taleh " +
+        Text text12 = new Text("Baş direktor                                                                   Taleh " +
                 "Ziyadov").setFont(bold);
 
         List list1 = new List()
@@ -905,7 +827,6 @@ public class PdfCreator {
         document.add(list2);
         document.add(new Paragraph(text11));
         document.add(new Paragraph(text12));
-        document.add(new Paragraph(text13));
         log.info("********** pdfTemporaryPass PDF creator completed with operationId : {} **********",
                 operation.getId());
     }
@@ -1657,7 +1578,8 @@ public class PdfCreator {
                 .getDepartment().getName());
         Text text3 = new Text("3. İşlədiyi vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text4 = new Text("4. Dəyişiklik tarixi:  " + operation.getChangeDate());
-        Text text5 = new Text("5. Həvalə müddəti:    " + operation.getAssignmentTerm());
+        Text text5 = new Text("5. Həvalə müddəti: " + getBetweenDates(operation.getEventFrom(),
+                operation.getEventTo()));
         Text text6 = new Text("6. Həvalə olunan vəzifə:   " + position.getVacancy().getName());
         Text text7 = new Text("7. Həvalə olunan vəzifənin aid olduğu struktur bölmə: " + position.getDepartment());
         Text text8 = new Text("8. Həvalə olunan vəzifənin aid olduğu alt struktur bölmə: " + position.getSubDepartment()
@@ -2729,6 +2651,23 @@ public class PdfCreator {
         } catch (Exception ex) {
             throw new DocumentException(ex.getMessage());
         }
+    }
+
+    private String getBetweenDates(LocalDate from, LocalDate to) {
+        long dayDiff = ChronoUnit.DAYS.between(from, to);
+        String result = "";
+        if (dayDiff > 365) {
+            result += dayDiff / 365 + " il ";
+            dayDiff = dayDiff % 365;
+        }
+        if (dayDiff > 30) {
+            result += dayDiff / 30 + " ay ";
+            dayDiff = dayDiff % 30;
+        }
+        if (dayDiff > 0) {
+            result += dayDiff + " gün";
+        }
+        return result;
     }
 
     private String getSuffix(Integer year) {

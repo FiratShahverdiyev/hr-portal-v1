@@ -252,6 +252,10 @@ public class Employee {
     @Column(name = "work_mode")
     @Enumerated(EnumType.STRING)
     WorkMode workMode;
+    @OneToMany(mappedBy = "employee")
+    Set<GrossSalary> grossSalaries;
+    @Column(name = "gross_calculated")
+    boolean grossCalculated;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;
