@@ -638,7 +638,7 @@ public class PdfCreator {
         Text text10 = new Text("10. Əvəz edən işçinin əmək haqqı: " + employee.getPosition().getSalary().getAmount());
         Text text11 = new Text("11. Əvəz edilən vəzifənin əmək haqqı:" +
                 operation.getPosition().getSalary().getAmount());
-        Text text12 = new Text("12. Ödəniləcək əmək haqqı: " + operation.getPosition().getSalary().getAmount());
+        Text text12 = new Text("12. Ödəniləcək əmək haqqı: ");
         Text text13 = new Text("12.1. İşçiyə boş vəzifə üçün nəzərdə tutulmuş əmək haqqının (vəzifə maaşının) " +
                 "50% miqdarında əlavə əmək haqqı ödənilsin.");
         Text text14 = new Text("13. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli gələn " +
