@@ -215,7 +215,6 @@ public class DocumentService {
                     throw new ValidationException("employeeId,positionId,newOwnAdditionalSalary,changeDate");
                 break;
             }
-
             case MUVEQQETI_KECIRILME: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getNewOwnAdditionalSalary() == null || documentData.getChangeDate() == null ||
@@ -224,29 +223,163 @@ public class DocumentService {
                             "newOwnAdditionalSalary,changeDate,changePeriod");
                 break;
             }
-
-            //Answer from Firat, Nata --------------------------------------------------------------------------- BEGIN
             case MUVEQQETI_HEVALE: {
                 if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
                         documentData.getChangeDate() == null)
                     throw new ValidationException("employeeId, positionId" + "changeDate");
                 break;
             }
-
-            case TEHSIL_YARADICILIQ_MEZUNIYYETI:
             case SECKIDE_ISTIRAK:
+            case TEHSIL_YARADICILIQ_MEZUNIYYETI:
+            case ISCIYE_ODENISSIZ_MEZUNIYYET:
+            case ISCIYE_SOSIAL_MEZUNIYYET:
+            case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET:
+            case ODENISHLI_ISTIRAHET_GUNU: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getDayInEvent() == null || documentData.getEventFrom() == null ||
+                        documentData.getEventTo() == null || documentData.getJoinDate() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "dayInEvent, eventFrom, eventTo, joinDate");
+            }
             case MEZUNIYYET_VERILMESI: {
-                if (documentData.getEmployeeId() == null || documentData.getDayInEvent() == null)
-                    throw new ValidationException("employeeId, dayInEvent");
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getDayInEvent() == null || documentData.getEventFrom() == null ||
+                        documentData.getEventTo() == null || documentData.getJoinDate() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "dayInEvent, eventFrom, eventTo, joinDate");
                 break;
             }
-
-            case ISCIYE_ODENISSIZ_MEZUNIYYET: {
-                if (documentData.getEmployeeId() == null)
-                    throw new ValidationException("employeeId");
+            case MEZUNIYYETIN_UZADILMASI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getDayInEvent() == null || documentData.getEventFrom() == null ||
+                        documentData.getEventTo() == null || documentData.getJoinDate() == null ||
+                        documentData.getEventFrom2() == null || documentData.getEventTo2() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "dayInEvent, eventFrom, eventTo, joinDate, eventFrom2, eventTo2,");
                 break;
             }
-
+            case MEZUNIYYETDEN_GERI_QAYITMA: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getEventFrom() == null || documentData.getEventTo() == null ||
+                        documentData.getJoinDate() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "eventFrom, eventTo, joinDate");
+                break;
+            }
+            case ODENISSIZ_MEZUNIYYETDEN_CAGIRILMA: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getEventFrom() == null || documentData.getEventTo() == null ||
+                        documentData.getJoinDate() == null || documentData.getCallBackDate() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "eventFrom, eventTo, joinDate, callBackDate");
+                break;
+            }
+            case ISHE_CELB_EDILME:
+            case KOMPENSASIYA_ODENILMESI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null)
+                    throw new ValidationException("employeeId, positionId");
+                break;
+            }
+            case QEYRI_IS_GUNU:
+            case MEZUNIYYET_QRAFIKININ_TESDIQI: {
+                if (documentData.getYear() == null)
+                    throw new ValidationException("year");
+                break;
+            }
+            case TELIME_GONDERILME: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getEventFrom() == null || documentData.getEventTo() == null ||
+                        documentData.getEventName() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "eventFrom, eventTo, eventName");
+                break;
+            }
+            case TELIM_PLANININ_TESDIQI: {
+                break;
+            }
+            case EZAMIYYETE_GONDERILME:
+            case EZAMIYYETIN_UZADILMASI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getBusinessTripLocation() == null ||
+                        documentData.getEventFromBusinessTripDate() == null ||
+                        documentData.getEventToBusinessTripDate() == null ||
+                        documentData.getBusinessTripTerm() == null || documentData.getNonWorkDay() == null ||
+                        documentData.getGivenNonWorkDay() == null || documentData.getJoinDate() == null)
+                    throw new ValidationException("employeeId, positionId" + "businessTripLocation ," +
+                            "eventFromBusinessTripDate, eventToBusinessTripDate, nonWorkDay, givenNonWorkDay");
+                break;
+            }
+            case EZAMIYYETDEN_GERI_CAGIRILMA: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getBusinessTripLocation() == null ||
+                        documentData.getEventFromBusinessTripDate() == null ||
+                        documentData.getEventToBusinessTripDate() == null ||
+                        documentData.getBusinessTripTerm() == null || documentData.getNonWorkDay() == null ||
+                        documentData.getGivenNonWorkDay() == null || documentData.getJoinDate() == null ||
+                        documentData.getCallBackDate() == null)
+                    throw new ValidationException("employeeId, positionId" + "businessTripLocation ," +
+                            "eventFromBusinessTripDate, eventToBusinessTripDate, nonWorkDay, " +
+                            "givenNonWorkDay, callBackDate");
+                break;
+            }
+            case ISCININ_ISDEN_KENARLASDIRILMASI:
+            case HERBI_CAGIRISH: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getDayInEvent() == null)
+                    throw new ValidationException("employeeId, positionId, dayInEvent");
+                break;
+            }
+            case TEDBIRDE_ISTIRAK: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getEventFrom() == null || documentData.getEventTo() == null ||
+                        documentData.getDayInEvent() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "eventFrom, eventTo, dayInEvent");
+                break;
+            }
+            case ELAVE_ISTIRAHET_GUNU_VERILMESI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getEventFrom() == null || documentData.getEventTo() == null ||
+                        documentData.getDayInEvent() == null || documentData.getJoinDate() == null)
+                    throw new ValidationException("employeeId, positionId" +
+                            "eventFrom, eventTo, dayInEvent, joinDate");
+                break;
+            }
+            case MUAVINETIN_TEYIN_OLUNMASI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getAmount() == null || documentData.getEventFrom() == null ||
+                        documentData.getEventTo() == null)
+                    throw new ValidationException("employeeId, positionId" + "amount, eventFrom, eventTo");
+                break;
+            }
+            //Pdf in icerisinde yeni fieldler teyin olunmalidi
+            case ISH_SAATININ_QISALDILMASI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null)
+                    throw new ValidationException("employeeId, positionId");
+                break;
+            }
+            case XEBERDARLIQ: {
+                if (documentData.getPresentationOwnerDepartment() == null ||
+                        documentData.getPresentationOwnerPosition() == null)
+                    throw new ValidationException("presentationOwnerDepartment, presentationOwnerPosition");
+                break;
+            }
+            case EMEK_HAQQINDAN_TUTULMA: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getCatchAmount() == null || documentData.getCatchMonths() == null)
+                    throw new ValidationException("employeeId, positionId, catchAmount, catchMonths");
+                break;
+            }
+            case INTIZAM_TENBEHI: {
+                if (documentData.getEmployeeId() == null || documentData.getPositionId() == null ||
+                        documentData.getDisciplineType().getValue() == null || documentData.getDayInEvent() == null ||
+                        documentData.getPresentationOwnerName() == null ||
+                        documentData.getPresentationOwnerDepartment() == null ||
+                        documentData.getPresentationOwnerPosition() == null)
+                    throw new ValidationException("employeeId, positionId, disciplineType, dayInEvent, " +
+                            "presentationOwnerName, presentationOwnerDepartment, presentationOwnerPosition");
+                break;
+            }
             case MADDI_YARDIM: {
                 if (documentData.getEmployeeId() == null || documentData.getFinancialHelp() == null)
                     throw new ValidationException("employeeId,financialHelp");

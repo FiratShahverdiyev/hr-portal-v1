@@ -2293,13 +2293,13 @@ public class PdfCreator {
         Employee employee = operation.getEmployee();
         Text text0 = new Text("1. Aşağıda məlumatları qeyd olunan işçinin iş yeri və aylıq əmək haqqı saxlanılmaqla" +
                 " müvəqqəti azad edilsin.");
-        Text text1 = new Text(" İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
-        Text text2 = new Text(" İşlədiyi struktur bölmə:  " + employee.getPosition()
+        Text text1 = new Text("İşçinin soyadı, adı, atasının adı:  " + employee.getFullName());
+        Text text2 = new Text("İşlədiyi struktur bölmə:  " + employee.getPosition()
                 .getDepartment().getName());
-        Text text3 = new Text(" İşlədiyi alt struktur bölmə:  " + employee.getPosition()
+        Text text3 = new Text("İşlədiyi alt struktur bölmə:  " + employee.getPosition()
                 .getSubDepartment().getName());
-        Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text(" Müvəqqəti azad olunma müddəti: " + operation.getDayInEvent());
+        Text text4 = new Text("Vəzifəsi: " + employee.getPosition().getVacancy().getName());
+        Text text5 = new Text("Müvəqqəti azad olunma müddəti: " + operation.getDayInEvent());
         Text text6 = new Text("2. İnsan resursları və Maliyyə departamentinə tapşırılsın ki, əmrdən irəli gələn" +
                 " zəruri məsələlərin həllini təmin etsin.");
         Text text7 = new Text("3. Əmr imzalandığı gündən qüvvəyə minir.");
@@ -2436,6 +2436,7 @@ public class PdfCreator {
                 .add(new ListItem(text4.getText()))
                 .add(new ListItem(text5.getText()))
                 .setMarginLeft(5);
+
         document.add(paragraph1);
         document.add(paragraph2);
         document.add(paragraph3);
@@ -2475,7 +2476,7 @@ public class PdfCreator {
         Text text4 = new Text("4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
         Text text5 = new Text("5. Məzuniyyətə buraxıldığı tarixləri: " + operation.getEventFrom() + " / " +
                 operation.getEventTo());
-        Text text6 = new Text("6. Geri çağırılma tarixi: ");
+        Text text6 = new Text("6. Geri çağırılma tarixi: " + operation.getCallBackDate());
         Text text7 = new Text("7. Geri çağırılma səbəbi: " + operation.getReason());
         Text text8 = new Text("8. Əlavə qeydlər: ");
         Text text9 = new Text("1. İnsan resursları və Maliyyə departamentlərinə tapşırılsın ki, əmrdən irəli " +
@@ -2537,8 +2538,9 @@ public class PdfCreator {
         Text text2 = new Text(" İşlədiyi struktur bölmə: " + employee.getPosition().getDepartment().getName());
         Text text3 = new Text(" İşlədiyi alt struktur bölmə: " + employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text(" Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text(" İstifadə etmədiyi məzuniyyətin iş ili dövrü/ dövrləri: " +
-                operation.getEventFrom() + " / " + operation.getEventTo());
+        Text text5 = new Text(" İstifadə etmədiyi məzuniyyətin iş ili dövrü/ dövrləri: ");
+        //??
+        // operation.getEventFrom() + " / " + operation.getEventTo());
         Text text6 = new Text(" İstifadə edilməmiş məzuniyyət günləri: ");
         Text text7 = new Text(" Əsas məzuniyyət günləri");
         Text text8 = new Text(" Staja görə əlavə məzuniyyət günləri");
@@ -2671,7 +2673,7 @@ public class PdfCreator {
         Text text3 = new Text("1.3. İşlədiyi alt struktur bölmə: " +
                 employee.getPosition().getSubDepartment().getName());
         Text text4 = new Text("1.4. Vəzifəsi: " + employee.getPosition().getVacancy().getName());
-        Text text5 = new Text("1.5. Kənarlaşdırma müddəti: ");
+        Text text5 = new Text("1.5. Kənarlaşdırma müddəti: " + operation.getDayInEvent());
         Text text6 = new Text("2. Maliyyə departamentinə tapşırılsın ki, Azərbaycan Respublikası Əmək Məcəlləsinin " +
                 "62-ci maddəsinə uyğun olaraq, həmin işçiyə işdən kənar edilən vaxt ərzində əmək haqqı ödənilməsin.");
         Text text7 = new Text("3. İnsan resursları departamentinə tapşırılsın ki, bu əmrdən irəli gələn zəruri" +
