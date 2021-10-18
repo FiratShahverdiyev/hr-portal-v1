@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.service.employee;
 
+import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.constant.employee.Quota;
 import az.hrportal.hrportalapi.domain.employee.AddressCity;
 import az.hrportal.hrportalapi.domain.employee.AddressCountry;
@@ -256,7 +257,7 @@ public class EmployeeService {
             } else {
                 governmentAchievement = optionalGovernmentAchievement.get();
                 governmentAchievement.setStartDate(LocalDate.parse(requestDto.getStartDate(),
-                        DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+                        DateTimeFormatter.ofPattern(Constant.dateFormat)));
                 governmentAchievementRepository.save(governmentAchievement);
             }
             governmentAchievements.add(governmentAchievement);

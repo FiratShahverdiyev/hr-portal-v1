@@ -13,6 +13,6 @@ public class Constant {
     public static final float TRADE_UNION = 2f;
     public static final float UNEMPLOYMENT_INSURANCE = 0.5f;
     public static final Set<DocumentType> passiveDayDocuments = new HashSet<>(Arrays
-            .asList(DocumentType.ISCININ_ISDEN_KENARLASDIRILMASI, DocumentType.ISCIYE_ODENISIZ_MEZUNIYYET));
+            .asList(DocumentType.ISCININ_ISDEN_KENARLASDIRILMASI, DocumentType.ISCIYE_ODENISSIZ_MEZUNIYYET));
     public static final String timeZone = "Asia/Baku";
 }

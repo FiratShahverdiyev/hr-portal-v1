@@ -32,7 +32,7 @@ public class EmployeeSalaryController {
     public ResponseDto<PaginationResponseDto<List<EmployeeSalaryResponseDto>>> calculateAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "10-13-2021") String date) {
-        return ResponseDto.of(employeeSalaryService.calculateAndGetAll(page, size, date), 200);
+            @RequestParam int year, @RequestParam int month) {
+        return ResponseDto.of(employeeSalaryService.calculateAndGetAll(page, size, year, month), 200);
     }
 }

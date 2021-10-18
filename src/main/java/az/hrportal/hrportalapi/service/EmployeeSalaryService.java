@@ -1,6 +1,5 @@
 package az.hrportal.hrportalapi.service;
 
-import az.hrportal.hrportalapi.constant.Constant;
 import az.hrportal.hrportalapi.domain.employee.Employee;
 import az.hrportal.hrportalapi.dto.PaginationResponseDto;
 import az.hrportal.hrportalapi.dto.employee.response.EmployeeSalaryResponseDto;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +40,8 @@ public class EmployeeSalaryService {
         return new PaginationResponseDto<>(response, response.size(), data.size());
     }
 
-    public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size, String date) {
+    public PaginationResponseDto<List<EmployeeSalaryResponseDto>> calculateAndGetAll(int page, int size,
+                                                                                     int year, int month) {
         log.info("calculateAndGetAll service started");
         List<Employee> employees = entityManager
                 .createQuery("SELECT e FROM Employee e left outer join e.quotas where e.employeeActivity='IN'",
@@ -51,14 +50,14 @@ public class EmployeeSalaryService {
                 .setFirstResult(page * size)
                 .getResultList();
         List<EmployeeSalaryResponseDto> data = new ArrayList<>();
+        LocalDate date = LocalDate.of(year, month, 1);
         for (Employee employee : employees) {
             EmployeeSalaryResponseDto employeeSalaryResponseDto = new EmployeeSalaryResponseDto();
             employeeSalaryResponseDto.setFullName(employee.getFullName());
             employeeSalaryResponseDto.setId(employee.getId());
             if (employee.getPosition() != null)
                 employeeSalaryResponseDto.setVacancyName(employee.getPosition().getVacancy().getName());
-            operationSchedule.setEmployeeSalary(employee, employeeSalaryResponseDto,
-                    LocalDate.parse(date, DateTimeFormatter.ofPattern(Constant.dateFormat)));
+            operationSchedule.setEmployeeSalary(employee, employeeSalaryResponseDto, date);
             data.add(employeeSalaryResponseDto);
         }
         log.info("********** calculateAndGetAll service completed **********");

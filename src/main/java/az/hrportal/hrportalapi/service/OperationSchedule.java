@@ -49,6 +49,7 @@ public class OperationSchedule {
     protected void schedule() {
         resetGrossCalculation();
         LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
+        boolean activeDay = true;
         for (Operation operation : operationRepository.findAllByStatus(Status.APPROVED)) {
             switch (operation.getDocumentType()) {
                 case SHTAT_VAHIDININ_TESISI: {
@@ -274,7 +275,7 @@ public class OperationSchedule {
                     }
                     break;
                 }
-                case ISCIYE_ODENISIZ_MEZUNIYYET:
+                case ISCIYE_ODENISSIZ_MEZUNIYYET:
                 case QISMEN_ODENISHLI_SOSIAL_MEZUNIYYET:
                 case ISCIYE_SOSIAL_MEZUNIYYET: {
                     Employee employee = operation.getEmployee();
@@ -430,6 +431,13 @@ public class OperationSchedule {
             }
         }
         calculateNormalSalary(now);
+        Day day = dayRepository.findLastJobDayOfMonth(now.getMonthValue()).get(0);
+        if (!day.getDay().isEqual(LocalDate.now())) {
+            log.info("schedule ended because isn't last day of month. Date : {}", now);
+            return;
+        }
+        backup();
+        calculateEmployeesMonthlySalary();
     }
 
     @Transactional
@@ -453,20 +461,6 @@ public class OperationSchedule {
         }
     }
 
-    /*@Scheduled(cron = "0 0 23 * * 1-5", zone = Constant.timeZone)
-    private void salaryManager() {
-        log.info("salaryManager schedule started");
-        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
-        Day day = dayRepository.findByDay(now).orElseThrow(() -> new EntityNotFoundException(Day.class, now));
-        if (!day.isJobDay()) {
-            log.info("schedule ended because isn't job day. Date : {}", day.getDay());
-            return;
-        }
-        calculateEmployeeWorkDay(now);
-        setEmployeesMonthlySalary();
-        log.info("********** salaryManager schedule completed **********");
-    }*/
-
     @Transactional
     protected void calculateEmployeeWorkDay(LocalDate now) {
         log.info("calculateEmployeeWorkDay schedule started");
@@ -479,18 +473,21 @@ public class OperationSchedule {
         log.info("********** calculateEmployeeWorkDay schedule completed **********");
     }
 
-    private void setEmployeesMonthlySalary() {
-        log.info("setEmployeesMonthlySalary schedule started");
-        LocalDate now = LocalDate.now(ZoneId.of(Constant.timeZone));
-        Day day = dayRepository.findLastJobDayOfMonth(now.getMonthValue()).get(0);
-        if (!day.getDay().isEqual(LocalDate.now())) {
-            log.info("schedule ended because isn't last day of month. Date : {}", now);
-            return;
+    private void calculateEmployeesMonthlySalary() {
+        log.info("calculateEmployeesMonthlySalary schedule started");
+        for (Employee employee : employeeRepository.findAllByEmployeeActivity(EmployeeActivity.IN)) {
+            float employeeMonthlyGross = 0f;
+            EmployeeSalary employeeSalary = new EmployeeSalary();
+            for (GrossSalary grossSalary : employee.getGrossSalaries()) {
+                employeeMonthlyGross += grossSalary.getAmount();
+            }
+            grossSalaryRepository.deleteAll(employee.getGrossSalaries());
+            employeeSalary.setEmployee(employee);
+            employeeSalary.setGrossSalary(employeeMonthlyGross);
+            //TODO calculate employee salary
+            employeeSalaryRepository.save(employeeSalary);
         }
-        backup(now);
-        List<EmployeeSalary> employees = employeeSalaryRepository.findAllByBackupIsFalse();
-        calculateSalary(employees, now);
-        log.info("********** setEmployeesMonthlySalary schedule completed **********");
+        log.info("********** calculateEmployeesMonthlySalary schedule completed **********");
     }
 
     public int getJobDayCountBetween(LocalDate from, LocalDate to, LocalDate date) {
@@ -565,11 +562,11 @@ public class OperationSchedule {
         log.info("********** calculateSalary service completed with **********");
     }
 
-    private void backup(LocalDate now) {
+    private void backup() {
         log.info("backup schedule started");
         Objects.requireNonNull(cacheManager.getCache("employee-salaries")).clear();
         List<EmployeeSalary> employeeSalaries = employeeSalaryRepository
-                .findAllByCreateDate(now.getMonthValue());
+                .findAllByBackupIsFalse();
         for (EmployeeSalary employeeSalary : employeeSalaries) {
             employeeSalary.setBackup(true);
         }
