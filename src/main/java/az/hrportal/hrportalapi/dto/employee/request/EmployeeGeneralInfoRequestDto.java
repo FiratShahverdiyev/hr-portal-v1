@@ -1,12 +1,10 @@
 package az.hrportal.hrportalapi.dto.employee.request;
 
-import az.hrportal.hrportalapi.helper.validation.Number;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
