@@ -23,6 +23,7 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -135,8 +136,10 @@ public class Employee {
     String businessPhone;
     @Column(name = "internal_business_phone")
     String internalBusinessPhone;
+    @Email
     @Column(name = "own_mail_address")
     String ownMailAddress;
+    @Email
     @Column(name = "business_mail_address")
     String businessMailAddress;
     @Column(name = "family_member")

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -64,8 +65,10 @@ public class EmployeeGeneralInfoRequestDto {
     String businessPhone;
     @NotEmpty
     String internalBusinessPhone;
+    @Email
     @NotEmpty
     String ownMailAddress;
+    @Email
     @NotEmpty
     String businessMailAddress;
     String familyCondition;
