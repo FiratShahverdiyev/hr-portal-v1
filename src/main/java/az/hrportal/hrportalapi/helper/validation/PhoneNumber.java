@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Constraint(
         validatedBy = {}
 )
-public @interface Number {
+public @interface PhoneNumber {
     String message() default "validation.invalidPhone.message";
 
     Class<?>[] groups() default {};
