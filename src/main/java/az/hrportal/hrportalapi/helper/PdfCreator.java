@@ -2585,8 +2585,7 @@ public class PdfCreator {
         log.info("pdfAttractToWork PDF creator started with operationId : {}", operation.getId());
         document.setFont(regular);
 
-        Text text01 = new Text("İş vaxtından artıq işə cəlb edilmə haqqında");
-        Text text02 = new Text("İstirahət və ya bayram günündə işə cəlb edilmə haqqında ");
+        Text text01 = new Text(operation.getReason());
 
         Paragraph paragraph2 = new Paragraph(operation.getMainOfOrder());
         paragraph2.setTextAlignment(TextAlignment.CENTER);
@@ -2615,15 +2614,6 @@ public class PdfCreator {
         Text text10 = new Text("Baş direktor                                                                   Taleh " +
                 "Ziyadov").setFont(bold);
 
-        List list1 = new List()
-                .setSymbolIndent(12)
-                .setListSymbol("\u2022");
-
-        list1
-                .add(new ListItem(text01.getText()))
-                .add(new ListItem(text02.getText()))
-                .setMarginLeft(5);
-
         List list2 = new List()
                 .setSymbolIndent(12)
                 .setListSymbol("\u2022");
@@ -2633,7 +2623,7 @@ public class PdfCreator {
                 .add(new ListItem(text8.getText()))
                 .add(new ListItem(text9.getText()));
 
-        document.add(list1);
+        document.add(new Paragraph(text01));
         document.add(paragraph2);
         document.add(paragraph3);
         document.add(new Paragraph(text0));

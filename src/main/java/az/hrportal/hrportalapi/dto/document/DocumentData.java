@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Set;
@@ -134,7 +136,6 @@ public class DocumentData {
     String assignmentTerm; //deyisti
     Float alternateWorkerSalary;
     Float amount;
-
     String businessTripLocation;
     String eventToBusinessTripDate;
     String eventFromBusinessTripDate;

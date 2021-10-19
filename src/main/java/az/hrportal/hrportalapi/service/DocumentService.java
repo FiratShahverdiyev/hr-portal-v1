@@ -276,8 +276,8 @@ public class DocumentService {
             }
             case ISHE_CELB_EDILME:
             case KOMPENSASIYA_ODENILMESI: {
-                if (documentData.getEmployeeId() == null)
-                    throw new ValidationException("employeeId");
+                if (documentData.getEmployeeId() == null || documentData.getReason() == null)
+                    throw new ValidationException("employeeId, reason");
                 break;
             }
             case QEYRI_IS_GUNU:

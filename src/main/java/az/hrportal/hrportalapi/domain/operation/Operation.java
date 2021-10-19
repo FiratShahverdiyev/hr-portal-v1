@@ -30,6 +30,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.FutureOrPresent;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -67,6 +68,7 @@ public class Operation {
     @Enumerated(EnumType.STRING)
     Status status;
     @Column(name = "dismissal_date")
+    @FutureOrPresent
     LocalDate dismissalDate; //Xitam edilme tarixi
     @Column(name = "dismissal_reason")
     String dismissalReason; //Xitam sebebi
@@ -75,12 +77,14 @@ public class Operation {
     @ElementCollection
     List<String> notes;
     @Column(name = "join_date")
+    @FutureOrPresent
     LocalDate joinDate; //Ise qebul olunma tarixi
     @Column(name = "test_period")
     Integer testPeriod; //Iscinin sinaq muddeti
     @Column(name = "own_additional_salary")
     float ownAdditionalSalary; //Ishe qebulda isciye verilecek diger ferdi elave
     @Column(name = "change_date")
+    @FutureOrPresent
     LocalDate changeDate; //Deyisiklik tarixi. Sual_1: Deyisiklik tarixi ne demekdir ?
     @Column(name = "new_own_additional_salary")
     float newOwnAdditionalSalary; //Iscinin yeni ferdi elavesi
@@ -100,8 +104,10 @@ public class Operation {
     @Enumerated(EnumType.STRING)
     WorkMode workMode; //Iscinin kecirildiyi is rejimi
     @Column(name = "event_from")
+    @FutureOrPresent
     LocalDate eventFrom; //
     @Column(name = "event_to")
+    @FutureOrPresent
     LocalDate eventTo; //
     @Column(name = "event_name")
     String eventName; //
@@ -119,6 +125,7 @@ public class Operation {
     @Column(name = "call_back_reason")
     String callBackReason;
     @Column(name = "call_back_date")
+    @FutureOrPresent
     LocalDate callBackDate;
     @Column(name = "catch_months")
     @ElementCollection
@@ -136,15 +143,19 @@ public class Operation {
     @Column(name = "business_trip_location")
     String businessTripLocation;
     @Column(name = "event_to_business_trip_date")
+    @FutureOrPresent
     LocalDate eventToBusinessTripDate;
     @Column(name = "event_from_business_trip_date")
+    @FutureOrPresent
     LocalDate eventFromBusinessTripDate;
     @Column(name = "business_trip_term")
     Integer businessTripTerm;
     //?
     @Column(name = "non_working_day")
+    @FutureOrPresent
     LocalDate nonWorkDay;
     @Column(name = "given_non_work_day")
+    @FutureOrPresent
     LocalDate givenNonWorkDay;
     @Column(name = "serial_number")
     String serialNumber;
@@ -152,8 +163,10 @@ public class Operation {
     @Enumerated(EnumType.STRING)
     Series series;
     @Column(name = "event_from_2")
+    @FutureOrPresent
     LocalDate eventFrom2; //Sual_5: Əmək məzuniyyətinin uzadılması barədə
     @Column(name = "event_to_2")
+    @FutureOrPresent
     LocalDate eventTo2; //Sual_5: Əmək məzuniyyətinin uzadılması barədə
     @Column(name = "day_in_event_2")
     Integer dayInEvent2; //Sual_5: Əmək məzuniyyətinin uzadılması barədə

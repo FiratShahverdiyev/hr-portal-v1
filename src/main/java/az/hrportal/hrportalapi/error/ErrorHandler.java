@@ -84,7 +84,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
                     400, fieldName + " - " + message);
         });
         return ResponseEntity.status(400)
-                .body(new ErrorResponseDto(ref.fieldName + " - " + ref.message, 400));
+                .body(new ErrorResponseDto(errors, 400));
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
