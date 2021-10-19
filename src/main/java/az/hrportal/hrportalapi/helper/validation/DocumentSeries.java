@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Constraint(
         validatedBy = {}
 )
-public @interface IDSeries {
+public @interface DocumentSeries {
     String message() default "Invalid Series";
 
     Class<?>[] groups() default {};
