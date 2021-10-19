@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.dto.employee.request;
 
+import az.hrportal.hrportalapi.helper.validation.Number;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -54,7 +55,6 @@ public class EmployeeGeneralInfoRequestDto {
     String addressApartment;
     @NotEmpty
     String addressHome;
-
     @NotEmpty
     String homePhone;
     @NotEmpty
@@ -65,10 +65,8 @@ public class EmployeeGeneralInfoRequestDto {
     String businessPhone;
     @NotEmpty
     String internalBusinessPhone;
-    @Email
     @NotEmpty
     String ownMailAddress;
-    @Email
     @NotEmpty
     String businessMailAddress;
     String familyCondition;
