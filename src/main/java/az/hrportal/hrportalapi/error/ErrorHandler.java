@@ -23,6 +23,7 @@ import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
 import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
 import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
+import az.hrportal.hrportalapi.error.exception.LongTimeInActiveUser;
 import az.hrportal.hrportalapi.error.exception.ValidationException;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import lombok.RequiredArgsConstructor;
@@ -119,12 +120,12 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(400).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
-    @ExceptionHandler(InvalidTokenException.class)
+    @ExceptionHandler({InvalidTokenException.class, LongTimeInActiveUser.class})
     public ResponseEntity<ErrorResponseDto> invalidToken(final Exception e) {
-        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER;
+        ErrorCode errorCode = ErrorCode.TOKEN_INVALID;
         String message = messageResolver.resolve(errorCode.getMessage());
         log.error("---------- Api error, errorCode: {} message: {} ----------", errorCode.getCode(), e.getMessage());
-        return ResponseEntity.status(500).body(new ErrorResponseDto(message, errorCode.getCode()));
+        return ResponseEntity.status(401).body(new ErrorResponseDto(message, errorCode.getCode()));
     }
 
     @ExceptionHandler(DocumentException.class)

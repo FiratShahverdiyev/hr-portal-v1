@@ -1,5 +1,6 @@
 package az.hrportal.hrportalapi.security;
 
+import az.hrportal.hrportalapi.error.exception.LongTimeInActiveUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -65,8 +66,11 @@ public class TokenProvider {
             validateAndExtractClaim(expiredToken);
             throw new RuntimeException("Token isn't expired. Pls dont force to refresh!");
         } catch (ExpiredJwtException ex) {
-            Claims claims = ex.getClaims();
             Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 15);
+            if (new Date().getTime() > (ex.getClaims().getExpiration().getTime() +
+                    accessTokenValidityInMilliseconds * 15))
+                throw new LongTimeInActiveUser("Long time inactive user!");
+            Claims claims = ex.getClaims();
             return Jwts.builder()
                     .setSubject((String) claims.get("sub"))
                     .claim("username", claims.get("username"))
