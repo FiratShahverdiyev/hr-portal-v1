@@ -37,6 +37,10 @@ public class AuthenticationService {
         return tokenProvider.createToken(authentication);
     }
 
+    public String refresh(RefreshTokenRequestDto expiredToken) {
+        return tokenProvider.createRefreshToken(expiredToken.getToken());
+    }
+
     @PostConstruct
     @Transactional
     protected void initUser() {
@@ -52,7 +56,4 @@ public class AuthenticationService {
         userRepository.save(user);
     }
 
-    public String refresh(RefreshTokenRequestDto expiredToken) {
-        return tokenProvider.createRefreshToken(expiredToken.getToken());
-    }
 }
