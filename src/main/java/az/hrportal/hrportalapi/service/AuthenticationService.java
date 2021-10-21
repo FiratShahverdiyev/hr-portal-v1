@@ -37,8 +37,9 @@ public class AuthenticationService {
         return tokenProvider.createToken(authentication);
     }
 
-    public String refresh(RefreshTokenRequestDto expiredToken) {
-        return tokenProvider.createRefreshToken(expiredToken.getToken());
+    public String refresh(RefreshTokenRequestDto requestDto) {
+        log.info("refresh service started with request : {}", requestDto);
+        return tokenProvider.createRefreshToken(requestDto.getToken());
     }
 
     @PostConstruct

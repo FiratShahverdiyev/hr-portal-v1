@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
@@ -26,8 +25,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("refresh")
-    public ResponseDto<String> refresh(@RequestBody RefreshTokenRequestDto expiredToken) {
-        return ResponseDto.of(authenticationService.refresh(expiredToken), 200);
+    public ResponseDto<String> refresh(@RequestBody RefreshTokenRequestDto requestDto) {
+        return ResponseDto.of(authenticationService.refresh(requestDto), 200);
     }
 
 }
