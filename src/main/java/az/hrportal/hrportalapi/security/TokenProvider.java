@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.security;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -48,7 +49,7 @@ public class TokenProvider {
                 authorities = authorities.concat(",");
             authorities = authorities.concat(authority.getAuthority());
         }
-        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 60 * 24);
+        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 15);
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("username", user.getUsername())
@@ -57,6 +58,25 @@ public class TokenProvider {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(tokenValidity)
                 .compact();
+    }
+
+    public String createRefreshToken(String expiredToken) {
+        try {
+            validateAndExtractClaim(expiredToken);
+            throw new RuntimeException("Token isn't expired. Pls dont force to refresh!");
+        } catch (ExpiredJwtException ex) {
+            Claims claims = ex.getClaims();
+            Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 15);
+            return Jwts.builder()
+                    .setSubject((String) claims.get("sub"))
+                    .claim("username", claims.get("username"))
+                    .claim("role", claims.get("role"))
+                    .signWith(key, SignatureAlgorithm.HS512)
+                    .setExpiration(tokenValidity)
+                    .compact();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     public Authentication parseAuthentication(String token) {

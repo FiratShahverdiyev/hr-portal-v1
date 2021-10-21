@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service;
 import az.hrportal.hrportalapi.constant.Role;
 import az.hrportal.hrportalapi.domain.User;
 import az.hrportal.hrportalapi.dto.LoginRequestDto;
+import az.hrportal.hrportalapi.dto.RefreshTokenRequestDto;
 import az.hrportal.hrportalapi.repository.UserRepository;
 import az.hrportal.hrportalapi.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,9 @@ public class AuthenticationService {
         roles.add(Role.ROLE_ADMIN);
         user.setRoles(roles);
         userRepository.save(user);
+    }
+
+    public String refresh(RefreshTokenRequestDto expiredToken) {
+        return tokenProvider.createRefreshToken(expiredToken.getToken());
     }
 }
