@@ -35,7 +35,8 @@ public class EmployeeController {
 
     @PostMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> create(@RequestBody EmployeeGeneralInfoRequestDto employeeGeneralInfoRequestDto) {
+    public ResponseDto<Integer> create(@RequestBody @Valid EmployeeGeneralInfoRequestDto
+                                               employeeGeneralInfoRequestDto) {
         return ResponseDto.of(employeeService.saveGeneralInfo(employeeGeneralInfoRequestDto), 200);
     }
 

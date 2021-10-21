@@ -183,9 +183,9 @@ public class OperationSchedule {
                     }
                     grossSalary.setEmployee(employee);
                     grossSalary.setDate(now);
-                    grossSalaryRepository.save(grossSalary);
                     employee.setGrossCalculated(true);
                     employeeRepository.save(employee);
+                    grossSalaryRepository.save(grossSalary);
                     if (now.equals(operation.getEventTo())) {
                         operation.setStatus(Status.DONE);
                         operationRepository.save(operation);
@@ -219,6 +219,7 @@ public class OperationSchedule {
                     grossSalary.setAmount((employee.getGrossSalary() / jobDayCount) + (newSalary / jobDayCount) / 2);
                     employee.setGrossCalculated(true);
                     employeeRepository.save(employee);
+                    grossSalaryRepository.save(grossSalary);
                     if (now.equals(operation.getEventTo())) {
                         operation.setStatus(Status.DONE);
                         operationRepository.save(operation);
@@ -240,6 +241,7 @@ public class OperationSchedule {
                     grossSalary.setAmount(employee.getGrossSalary() / jobDayCount + average);
                     employee.setGrossCalculated(true);
                     employeeRepository.save(employee);
+                    grossSalaryRepository.save(grossSalary);
                     if (now.equals(operation.getEventTo())) {
                         operation.setStatus(Status.DONE);
                         operationRepository.save(operation);
@@ -261,11 +263,13 @@ public class OperationSchedule {
                         grossSalary.setEmployee(employee);
                         grossSalary.setDate(now);
                         grossSalary.setAmount(getAverageOfMonth(employee));
+                        grossSalaryRepository.save(grossSalary);
                     } else {
                         GrossSalary grossSalary = new GrossSalary();
                         grossSalary.setEmployee(employee);
                         grossSalary.setDate(now);
                         grossSalary.setAmount(0);
+                        grossSalaryRepository.save(grossSalary);
                     }
                     employee.setGrossCalculated(true);
                     employeeRepository.save(employee);
@@ -285,6 +289,7 @@ public class OperationSchedule {
                     grossSalary.setAmount(0);
                     employee.setGrossCalculated(true);
                     employeeRepository.save(employee);
+                    grossSalaryRepository.save(grossSalary);
                     if (now.equals(operation.getEventTo())) {
                         operation.setStatus(Status.DONE);
                         operationRepository.save(operation);
