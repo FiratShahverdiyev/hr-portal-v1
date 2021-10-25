@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service.position;
 import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.domain.position.Skill;
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.position.SkillRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +37,14 @@ public class SkillService {
         }
         log.info("********** getAll service completed **********");
         return response;
+    }
+
+    public Integer delete(Integer id) {
+        log.info("delete (Skill) service started with id : {}", id);
+        Skill skill = skillRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Skill.class, id));
+        skillRepository.delete(skill);
+        log.info("********** save (Skill) service completed with id : {}, ", id);
+        return id;
     }
 }

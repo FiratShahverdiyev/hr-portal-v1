@@ -5,10 +5,7 @@ import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.service.employee.CitizenCountryService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,11 @@ public class CitizenCountryController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto<String>>> getAll() {
         return ResponseDto.of(citizenCountryService.getAll(), 200);
+    }
+
+    @DeleteMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> delete(Integer id) {
+        return ResponseDto.of(citizenCountryService.delete(id), 200);
     }
 }
