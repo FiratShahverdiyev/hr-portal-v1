@@ -8,12 +8,9 @@ import az.hrportal.hrportalapi.error.exception.RelationalException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RelationException;
-import javax.management.relation.RelationNotFoundException;
 import java.util.List;
 
 @Slf4j
