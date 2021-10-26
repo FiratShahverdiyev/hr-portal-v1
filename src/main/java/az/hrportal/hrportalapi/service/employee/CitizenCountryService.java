@@ -2,6 +2,7 @@ package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.domain.employee.CitizenCountry;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.employee.CitizenCountryRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,14 @@ public class CitizenCountryService {
                 .toCountryResponseDtos(citizenCountryRepository.findAll());
         log.info("********** getAll service completed **********");
         return response;
+    }
+
+    public String delete(String name) {
+        log.info("delete (CitizenCountry) service started with name : {}", name);
+        CitizenCountry citizenCountry = citizenCountryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(CitizenCountry.class, name));
+        citizenCountryRepository.delete(citizenCountry);
+        log.info("********** delete (CitizenCountry) service completed with name : {} **********", name);
+        return name;
     }
 }

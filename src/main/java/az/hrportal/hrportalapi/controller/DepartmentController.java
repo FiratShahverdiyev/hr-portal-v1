@@ -6,12 +6,7 @@ import az.hrportal.hrportalapi.dto.position.request.DepartmentRequestDto;
 import az.hrportal.hrportalapi.service.position.DepartmentService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,5 +32,11 @@ public class DepartmentController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<List<DropDownResponseDto<String>>> getAllSubDepartments(@PathVariable String department) {
         return ResponseDto.of(departmentService.getAllByDepartment(department), 200);
+    }
+
+    @DeleteMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<String> deleteDepartment(String name) {
+        return ResponseDto.of(departmentService.delete(name), 200);
     }
 }

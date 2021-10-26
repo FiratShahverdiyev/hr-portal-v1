@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service.position;
 import az.hrportal.hrportalapi.domain.position.Institution;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.InstitutionRequestDto;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.InstitutionRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,14 @@ public class InstitutionService {
                 .toInstitutionResponseDtos(institutionRepository.findAll());
         log.info("********** getAllInstitutions service completed **********");
         return response;
+    }
+
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Institution institution = institutionRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Institution.class, name));
+        institutionRepository.delete(institution);
+        log.info("********** delete service completed with name, {} **********", name);
+        return name;
     }
 }

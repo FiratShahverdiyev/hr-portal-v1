@@ -50,7 +50,7 @@ public class TokenProvider {
                 authorities = authorities.concat(",");
             authorities = authorities.concat(authority.getAuthority());
         }
-        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 15);
+        Date tokenValidity = new Date(new Date().getTime() + accessTokenValidityInMilliseconds * 1500);
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("username", user.getUsername())

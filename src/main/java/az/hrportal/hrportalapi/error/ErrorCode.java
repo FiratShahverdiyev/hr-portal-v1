@@ -15,7 +15,8 @@ public enum ErrorCode {
     TOKEN_INVALID(310, "error.token.invalid"),
     EMPLOYEE_NOT_ACTIVE(311, "error.employee.not-active"),
     BAD_REQUEST(400, "error.bad-request"),
-    ACCESS_DENIED(403, "error.access-denied");
+    ACCESS_DENIED(403, "error.access-denied"),
+    RELATIONAL_EXCEPTION(312, "error.relational");
 
     private int code;
     private String message;

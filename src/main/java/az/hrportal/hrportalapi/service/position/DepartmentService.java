@@ -4,6 +4,7 @@ import az.hrportal.hrportalapi.domain.position.Department;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.DepartmentRequestDto;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
+import az.hrportal.hrportalapi.error.exception.RelationalException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,17 @@ public class DepartmentService {
                         new EntityNotFoundException(Department.class, departmentName)).getSubDepartment());
         log.info("********** getAllSubDepartmentsByDepartment service completed **********");
         return subDepartments;
+    }
+
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Department department = departmentRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Department.class, name));
+        if (department.getSubDepartment().size() >= 1) {
+            throw new RelationalException(Department.class);
+        }
+        departmentRepository.delete(department);
+        log.info("********** delete service completed with id, {} ********** ", name);
+        return name;
     }
 }

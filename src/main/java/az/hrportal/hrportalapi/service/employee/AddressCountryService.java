@@ -2,6 +2,7 @@ package az.hrportal.hrportalapi.service.employee;
 
 import az.hrportal.hrportalapi.domain.employee.AddressCountry;
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.employee.AddressCountryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,5 +35,14 @@ public class AddressCountryService {
         }
         log.info("********** getAll service completed **********");
         return response;
+    }
+
+    public Integer delete(Integer id) {
+        log.info("delete (AddressCountry) service started with id : {}", id);
+        AddressCountry addressCountry = addressCountryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(AddressCountry.class, id));
+        addressCountryRepository.delete(addressCountry);
+        log.info("********** delete (AddressCountry) service completed with id : {} **********", id);
+        return id;
     }
 }

@@ -53,7 +53,6 @@ public class EmployeeGeneralInfoRequestDto {
     String addressApartment;
     @NotEmpty
     String addressHome;
-
     @NotEmpty
     String homePhone;
     @NotEmpty

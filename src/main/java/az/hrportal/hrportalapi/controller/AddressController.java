@@ -5,12 +5,10 @@ import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.service.employee.AddressCityService;
 import az.hrportal.hrportalapi.service.employee.AddressCountryService;
 import az.hrportal.hrportalapi.service.employee.AddressDistrictService;
+import com.amazonaws.Response;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -34,6 +32,12 @@ public class AddressController {
         return ResponseDto.of(addressDistrictService.getAll(), 200);
     }
 
+    @DeleteMapping("district")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> deleteDistrict(Integer id) {
+        return ResponseDto.of(addressDistrictService.delete(id), 200);
+    }
+
     @PostMapping("country")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> createCountry(String country) {
@@ -44,6 +48,12 @@ public class AddressController {
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Set<KeyValue<String, Integer>>> getCountries() {
         return ResponseDto.of(addressCountryService.getAll(), 200);
+    }
+
+    @DeleteMapping("country")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> deleteCountry(Integer id) {
+        return ResponseDto.of(addressCountryService.delete(id), 200);
     }
 
     @PostMapping("city")
@@ -57,4 +67,11 @@ public class AddressController {
     public ResponseDto<Set<KeyValue<String, Integer>>> getCities() {
         return ResponseDto.of(addressCityService.getAll(), 200);
     }
+
+    @DeleteMapping("city")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> deleteCity(Integer id) {
+        return ResponseDto.of(addressCityService.delete(id), 200);
+    }
+
 }

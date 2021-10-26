@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service.position;
 import az.hrportal.hrportalapi.domain.position.Vacancy;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.VacancyRequestDto;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.VacancyRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,14 @@ public class VacancyService {
         List<DropDownResponseDto<String>> response = dropDownMapper.toVacancyResponseDtos(vacancyRepository.findAll());
         log.info("********** getAllVacancies service completed **********");
         return response;
+    }
+
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Vacancy vacancy = vacancyRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Vacancy.class, name));
+        vacancyRepository.delete(vacancy);
+        log.info("********** delete service completed with id, {} ********** ", name);
+        return name;
     }
 }
