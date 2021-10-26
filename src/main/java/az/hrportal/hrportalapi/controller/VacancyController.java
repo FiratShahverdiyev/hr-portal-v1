@@ -6,11 +6,7 @@ import az.hrportal.hrportalapi.dto.position.request.VacancyRequestDto;
 import az.hrportal.hrportalapi.service.position.VacancyService;
 import io.swagger.annotations.ApiImplicitParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,4 +27,11 @@ public class VacancyController {
     public ResponseDto<List<DropDownResponseDto<String>>> getAll() {
         return ResponseDto.of(vacancyService.getAll(), 200);
     }
+
+    @DeleteMapping
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Integer> delete(Integer id) {
+        return ResponseDto.of(vacancyService.delete(id), 200);
+    }
+
 }

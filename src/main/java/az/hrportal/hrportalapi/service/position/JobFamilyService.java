@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service.position;
 import az.hrportal.hrportalapi.domain.position.JobFamily;
 import az.hrportal.hrportalapi.dto.DropDownResponseDto;
 import az.hrportal.hrportalapi.dto.position.request.JobFamilyRequestDto;
+import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.JobFamilyRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,14 @@ public class JobFamilyService {
                 .toJobFamilyResponseDtos(jobFamilyRepository.findAll());
         log.info("********** getAllJobFamilies service completed **********");
         return response;
+    }
+
+    public Integer delete(Integer id) {
+        log.info("delete service started with id, {}", id);
+        JobFamily jobFamily = jobFamilyRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(JobFamily.class, id));
+        jobFamilyRepository.delete(jobFamily);
+        log.info("********** delete service completed with id, {} **********", id);
+        return id;
     }
 }

@@ -17,14 +17,7 @@ import az.hrportal.hrportalapi.constant.position.VacancyCategory;
 import az.hrportal.hrportalapi.constant.position.WorkCondition;
 import az.hrportal.hrportalapi.constant.position.WorkMode;
 import az.hrportal.hrportalapi.constant.position.WorkPlace;
-import az.hrportal.hrportalapi.error.exception.DocumentException;
-import az.hrportal.hrportalapi.error.exception.EmployeeNotActiveException;
-import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
-import az.hrportal.hrportalapi.error.exception.EnumNotFoundException;
-import az.hrportal.hrportalapi.error.exception.FileExtensionNotAllowedException;
-import az.hrportal.hrportalapi.error.exception.InvalidTokenException;
-import az.hrportal.hrportalapi.error.exception.LongTimeInActiveUser;
-import az.hrportal.hrportalapi.error.exception.ValidationException;
+import az.hrportal.hrportalapi.error.exception.*;
 import az.hrportal.hrportalapi.helper.i18n.LocaleMessageResolver;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -183,6 +176,16 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
         log.error("---------- Api error, errorCode: {} message: {}  must not be null ---------- \n StackTrace : {}",
                 errorCode.getCode(), e.getMessage(), getStackTrace(e));
         return ResponseEntity.status(400).body(new ErrorResponseDto(e.getMessage() + " " + message,
+                errorCode.getCode()));
+    }
+
+    @ExceptionHandler(RelationalException.class)
+    public ResponseEntity<ErrorResponseDto> relationalException(final Exception e) {
+        ErrorCode errorCode = ErrorCode.RELATIONAL_EXCEPTION;
+        String message = messageResolver.resolve(errorCode.getMessage());
+        log.error("---------- Api error, errorCode: {} message: {} can not be deleted ---------- \n StackTrace : {}",
+                errorCode.getCode(), e.getMessage(), getStackTrace(e));
+        return ResponseEntity.status(312).body(new ErrorResponseDto(e.getMessage() + " " + message,
                 errorCode.getCode()));
     }
 
