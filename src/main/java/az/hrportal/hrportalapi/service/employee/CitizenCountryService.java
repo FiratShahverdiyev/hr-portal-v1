@@ -36,12 +36,12 @@ public class CitizenCountryService {
         return response;
     }
 
-    public Integer delete(Integer id) {
-        log.info("delete (CitizenCountry) service started with id : {}", id);
-        CitizenCountry citizenCountry = citizenCountryRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(CitizenCountry.class, id));
+    public String delete(String name) {
+        log.info("delete (CitizenCountry) service started with name : {}", name);
+        CitizenCountry citizenCountry = citizenCountryRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(CitizenCountry.class, name));
         citizenCountryRepository.delete(citizenCountry);
-        log.info("********** delete (CitizenCountry) service completed with id : {} **********", id);
-        return id;
+        log.info("********** delete (CitizenCountry) service completed with name : {} **********", name);
+        return name;
     }
 }

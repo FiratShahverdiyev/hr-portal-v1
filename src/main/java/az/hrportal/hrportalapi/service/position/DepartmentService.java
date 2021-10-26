@@ -49,15 +49,15 @@ public class DepartmentService {
         return subDepartments;
     }
 
-    public Integer delete(Integer id) {
-        log.info("delete service started with id, {}", id);
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Department.class, id));
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Department department = departmentRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Department.class, name));
         if (department.getSubDepartment().size() >= 1) {
             throw new RelationalException(Department.class);
         }
         departmentRepository.delete(department);
-        log.info("********** delete service completed with id, {} ********** ", id);
-        return id;
+        log.info("********** delete service completed with id, {} ********** ", name);
+        return name;
     }
 }

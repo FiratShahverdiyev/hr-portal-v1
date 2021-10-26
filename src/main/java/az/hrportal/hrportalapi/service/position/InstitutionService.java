@@ -36,12 +36,12 @@ public class InstitutionService {
         return response;
     }
 
-    public Integer delete(Integer id) {
-        log.info("delete service started with id, {}", id);
-        Institution institution = institutionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Institution.class, id));
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Institution institution = institutionRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Institution.class, name));
         institutionRepository.delete(institution);
-        log.info("********** delete service completed with id, {} **********", id);
-        return id;
+        log.info("********** delete service completed with name, {} **********", name);
+        return name;
     }
 }
