@@ -301,6 +301,7 @@ public class FileUtil {
             }
             case ISCIYE_ODENISSIZ_MEZUNIYYET: {
                 pdfCreator.pdfFreeVacation(document, operation);
+                break;
             }
             default:
                 throw new EnumNotFoundException(DocumentType.class, documentType);
