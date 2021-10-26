@@ -240,6 +240,7 @@ public class DocumentService {
                         documentData.getJoinDate() == null)
                     throw new ValidationException("employeeId," +
                             "dayInEvent, eventFrom, eventTo, joinDate");
+                break;
             }
             case MEZUNIYYET_VERILMESI: {
                 if (documentData.getEmployeeId() == null || documentData.getDayInEvent() == null ||
