@@ -35,12 +35,12 @@ public class VacancyService {
         return response;
     }
 
-    public Integer delete(Integer id) {
-        log.info("delete service started with id, {}", id);
-        Vacancy vacancy = vacancyRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Vacancy.class, id));
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Vacancy vacancy = vacancyRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Vacancy.class, name));
         vacancyRepository.delete(vacancy);
-        log.info("********** delete service completed with id, {} ********** ", id);
-        return id;
+        log.info("********** delete service completed with id, {} ********** ", name);
+        return name;
     }
 }

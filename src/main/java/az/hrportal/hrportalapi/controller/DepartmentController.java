@@ -36,8 +36,7 @@ public class DepartmentController {
 
     @DeleteMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> deleteDepartment(Integer id) {
-        return ResponseDto.of(departmentService.delete(id), 200);
+    public ResponseDto<String> deleteDepartment(String name) {
+        return ResponseDto.of(departmentService.delete(name), 200);
     }
-
 }

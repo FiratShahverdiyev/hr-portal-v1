@@ -8,12 +8,9 @@ import az.hrportal.hrportalapi.error.exception.RelationalException;
 import az.hrportal.hrportalapi.mapper.DropDownMapper;
 import az.hrportal.hrportalapi.repository.position.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RelationException;
-import javax.management.relation.RelationNotFoundException;
 import java.util.List;
 
 @Slf4j
@@ -49,15 +46,15 @@ public class DepartmentService {
         return subDepartments;
     }
 
-    public Integer delete(Integer id) {
-        log.info("delete service started with id, {}", id);
-        Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Department.class, id));
+    public String delete(String name) {
+        log.info("delete service started with name, {}", name);
+        Department department = departmentRepository.findByName(name)
+                .orElseThrow(() -> new EntityNotFoundException(Department.class, name));
         if (department.getSubDepartment().size() >= 1) {
             throw new RelationalException(Department.class);
         }
         departmentRepository.delete(department);
-        log.info("********** delete service completed with id, {} ********** ", id);
-        return id;
+        log.info("********** delete service completed with id, {} ********** ", name);
+        return name;
     }
 }

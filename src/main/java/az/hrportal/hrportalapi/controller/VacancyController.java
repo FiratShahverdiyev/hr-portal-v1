@@ -30,8 +30,7 @@ public class VacancyController {
 
     @DeleteMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> delete(Integer id) {
-        return ResponseDto.of(vacancyService.delete(id), 200);
+    public ResponseDto<String> delete(String name) {
+        return ResponseDto.of(vacancyService.delete(name), 200);
     }
-
 }
