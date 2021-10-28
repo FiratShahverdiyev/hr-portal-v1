@@ -20,9 +20,7 @@ public class GeneralInfoRequestDto {
     String institutionName;
     @NotEmpty
     String departmentName;
-    @NotEmpty
     String subDepartmentName;
-    //    @NotEmpty
     String obeyDepartmentName; // TODO Enum ??
     @NotEmpty
     String vacancyName;
