@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -35,28 +34,28 @@ public class EmployeeController {
 
     @PostMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> create(@RequestBody @Valid EmployeeGeneralInfoRequestDto
+    public ResponseDto<Integer> create(@RequestBody EmployeeGeneralInfoRequestDto
                                                employeeGeneralInfoRequestDto) {
         return ResponseDto.of(employeeService.saveGeneralInfo(employeeGeneralInfoRequestDto), 200);
     }
 
     @PutMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid EmployeeGeneralInfoRequestDto
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody EmployeeGeneralInfoRequestDto
             employeeGeneralInfoRequestDto) {
         return ResponseDto.of(employeeService.updateGeneralInfo(id, employeeGeneralInfoRequestDto), 200);
     }
 
     @PutMapping("business-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody
             BusinessRequestDto businessRequestDto) {
         return ResponseDto.of(employeeService.updateBusiness(id, businessRequestDto), 200);
     }
 
     @PutMapping("academic-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody @Valid
+    public ResponseDto<Integer> update(@PathVariable Integer id, @RequestBody
             AcademicRequestDto academicRequestDto) {
         return ResponseDto.of(employeeService.updateAcademic(id, academicRequestDto), 200);
     }

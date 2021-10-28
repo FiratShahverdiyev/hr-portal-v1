@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
 
@@ -34,21 +33,21 @@ public class PositionController {
 
     @PostMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
-    public ResponseDto<Integer> create(@RequestBody @Valid GeneralInfoRequestDto generalInfoRequestDto) {
+    public ResponseDto<Integer> create(@RequestBody GeneralInfoRequestDto generalInfoRequestDto) {
         return ResponseDto.of(positionService.saveGeneralInfo(generalInfoRequestDto), 200);
     }
 
     @PutMapping("knowledge/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> update(@PathVariable Integer id,
-                                       @RequestBody @Valid KnowledgeRequestDto knowledgeRequestDto) {
+                                       @RequestBody KnowledgeRequestDto knowledgeRequestDto) {
         return ResponseDto.of(positionService.updateKnowledge(id, knowledgeRequestDto), 200);
     }
 
     @PutMapping("general-info/{id}")
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
     public ResponseDto<Integer> update(@PathVariable Integer id,
-                                       @RequestBody @Valid GeneralInfoRequestDto generalInfoRequestDto) {
+                                       @RequestBody GeneralInfoRequestDto generalInfoRequestDto) {
         return ResponseDto.of(positionService.updateGeneralInfo(id, generalInfoRequestDto), 200);
     }
 
