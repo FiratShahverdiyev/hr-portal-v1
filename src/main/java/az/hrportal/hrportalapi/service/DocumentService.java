@@ -92,9 +92,13 @@ public class DocumentService {
 
     @Transactional
     public Integer changeStatus(Integer id, Integer status) {
-        log.info("changeStatus service started with id : {}, status : {}", id, status);
+        log.info("changeStatus service sdocuetarted with id : {}, status : {}", id, status);
         Operation operation = operationRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, id));
+        if (Status.intToEnum(status).equals(Status.APPROVED)) {
+            documentApproved(operation);
+            operation.setStatus(Status.DONE);
+        }
         operation.setStatus(Status.intToEnum(status));
         Operation saved = operationRepository.save(operation);
         log.info("changeStatus service completed with id : {}, status : {}", id, status);
@@ -159,6 +163,53 @@ public class DocumentService {
         }
         log.info("********** getDocumentTypes service completed **********");
         return documentTypes;
+    }
+
+    private void documentApproved(Operation operation) {
+        switch (operation.getDocumentType()) {
+            case SHTAT_VAHIDININ_TESISI: {
+                Position position = operation.getPosition();
+                position.setStatus(Status.APPROVED);
+                positionRepository.save(position);
+                operation.setStatus(Status.DONE);
+                operationRepository.save(operation);
+                break;
+            }
+            case SHTAT_VAHIDININ_LEGVI: {
+                Position position = operation.getPosition();
+                position.setStatus(Status.REJECTED);
+                positionRepository.save(position);
+                operation.setStatus(Status.DONE);
+                operationRepository.save(operation);
+                break;
+            }
+            case ISHE_QEBUL: {
+                Employee employee = operation.getEmployee();
+                Position position = operation.getPosition();
+                employee.setEmployeeActivity(EmployeeActivity.IN);
+                //Additional salaryden vergi tutulurmu ? tutulmur
+                employee.setGrossSalary(position.getSalary().getAmount() +
+                        position.getAdditionalSalary() + operation.getOwnAdditionalSalary());
+                employee.setPosition(position);
+                employee.setJoinDate(operation.getJoinDate());
+                employee.setOwnAdditionalSalary(operation.getOwnAdditionalSalary());
+                employee.setWorkMode(position.getWorkMode());
+                //Sinaq muddetinin bir onemi varmi ?
+                employeeRepository.save(employee);
+                operation.setStatus(Status.DONE);
+                operationRepository.save(operation);
+                break;
+            }
+            case XITAM: {
+                Employee employee = operation.getEmployee();
+                employee.setEmployeeActivity(EmployeeActivity.OUT);
+                //Kompensasiya hesabla
+                employeeRepository.save(employee);
+                operation.setStatus(Status.DONE);
+                operationRepository.save(operation);
+                break;
+            }
+        }
     }
 
     private void validate(DocumentData documentData) {
