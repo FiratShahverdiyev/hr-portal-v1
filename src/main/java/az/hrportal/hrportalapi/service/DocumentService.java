@@ -92,7 +92,7 @@ public class DocumentService {
 
     @Transactional
     public Integer changeStatus(Integer id, Integer status) {
-        log.info("changeStatus service sdocuetarted with id : {}, status : {}", id, status);
+        log.info("changeStatus service started with id : {}, status : {}", id, status);
         Operation operation = operationRepository.findById(id).orElseThrow(() ->
                 new EntityNotFoundException(Operation.class, id));
         if (Status.intToEnum(status).equals(Status.APPROVED)) {
