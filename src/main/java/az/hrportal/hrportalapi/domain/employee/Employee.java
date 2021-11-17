@@ -67,16 +67,16 @@ public class Employee {
     @Column(name = "military_achievement")
     @Enumerated(EnumType.STRING)
     MilitaryAchievement militaryAchievement;
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name")
     String fullName;
-    @Column(name = "birthday", nullable = false)
+    @Column(name = "birthday")
     LocalDate birthday;
-    @Column(name = "birthplace", nullable = false)
+    @Column(name = "birthplace")
     String birthplace;
     @ManyToOne
-    @JoinColumn(name = "citizen_country_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "citizen_country_id", referencedColumnName = "id")
     CitizenCountry citizenCountry;
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     Gender gender;
     @Column(name = "blood_group")
@@ -87,47 +87,47 @@ public class Employee {
     @Column(name = "foreign_passport_series")
     @Enumerated(EnumType.STRING)
     Series foreignPassportSeries;
-    @Column(name = "foreign_passport_number", nullable = false)
+    @Column(name = "foreign_passport_number")
     String foreignPassportNumber;
-    @Column(name = "foreign_passport_start_date", nullable = false)
+    @Column(name = "foreign_passport_start_date")
     LocalDate foreignPassportStartDate;
-    @Column(name = "foreign_passport_end_date", nullable = false)
+    @Column(name = "foreign_passport_end_date")
     LocalDate foreignPassportEndDate;
-    @Column(name = "id_card_series", nullable = false)
+    @Column(name = "id_card_series")
     @Enumerated(EnumType.STRING)
     Series IDCardSeries;
-    @Column(name = "id_card_number", nullable = false)
+    @Column(name = "id_card_number")
     String IDCardNumber;
-    @Column(name = "id_card_pin", nullable = false)
+    @Column(name = "id_card_pin")
     String IDCardPin;
-    @Column(name = "id_card_organization", nullable = false)
+    @Column(name = "id_card_organization")
     String IDCardOrganization;
-    @Column(name = "id_card_start_date", nullable = false)
+    @Column(name = "id_card_start_date")
     LocalDate IDCardStartDate;
-    @Column(name = "id_card_end_date", nullable = false)
+    @Column(name = "id_card_end_date")
     LocalDate IDCardEndDate;
     @ManyToOne
-    @JoinColumn(name = "address_country_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_country_id", referencedColumnName = "id")
     AddressCountry addressCountry;
     @ManyToOne
-    @JoinColumn(name = "address_city_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_city_id", referencedColumnName = "id")
     AddressCity addressCity;
     @ManyToOne
-    @JoinColumn(name = "address_district_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_district_id", referencedColumnName = "id")
     AddressDistrict addressDistrict;
-    @Column(name = "address_village", nullable = false)
+    @Column(name = "address_village")
     String addressVillage;
-    @Column(name = "address_street", nullable = false)
+    @Column(name = "address_street")
     String addressStreet;
-    @Column(name = "address_block", nullable = false)
+    @Column(name = "address_block")
     String addressBlock;
-    @Column(name = "address_apartment", nullable = false)
+    @Column(name = "address_apartment")
     String addressApartment;
-    @Column(name = "address_home", nullable = false)
+    @Column(name = "address_home")
     String addressHome;
     @Column(name = "home_phone")
     String homePhone;
-    @Column(name = "mobile_phone_1", nullable = false)
+    @Column(name = "mobile_phone_1")
     String mobilePhone1;
     @Column(name = "mobile_phone_2")
     String mobilePhone2;
@@ -162,7 +162,7 @@ public class Employee {
     @Column(name = "business_job_end_reason")
     String jobEndReason; //TODO hardan gelir ??
     @Column(name = "business_main_job")
-    boolean isMainJob;
+    Boolean isMainJob;
     @Column(name = "academic_degree_start_date")
     LocalDate academicDegreeDate;
     @Column(name = "academic_degree_file_number")
@@ -216,9 +216,9 @@ public class Employee {
     @Column(name = "driver_card_end_date")
     LocalDate driverCardEndDate;
     @Column(name = "prisoner")
-    boolean prisoner;
+    Boolean prisoner;
     @Column(name = "colleagues_alliance")
-    boolean memberOfColleaguesAlliance;
+    Boolean memberOfColleaguesAlliance;
     @Column(name = "activity")
     @Enumerated(EnumType.STRING)
     EmployeeActivity employeeActivity;
@@ -231,17 +231,17 @@ public class Employee {
     @Column(name = "work_permission_period")
     Integer workPermissionPeriod;
     @Column(name = "salary")
-    float grossSalary;
+    Float grossSalary;
     @Column(name = "net_income")
-    float netIncome;
+    Float netIncome;
     @Column(name = "start_work_permission_date")
     LocalDate startWorkPermissionDate;
     @Column(name = "expired_work_permission_date")
     LocalDate expiredWorkPermissionDate;
     @Column(name = "own_additional_salary")
-    float ownAdditionalSalary;
+    Float ownAdditionalSalary;
     @Column(name = "catch_amount")
-    float catchAmount;
+    Float catchAmount;
     @Column(name = "catch_months")
     @ElementCollection
     Set<Integer> catchMonths;
@@ -255,7 +255,7 @@ public class Employee {
     @OneToMany(mappedBy = "employee")
     Set<GrossSalary> grossSalaries;
     @Column(name = "gross_calculated")
-    boolean grossCalculated;
+    Boolean grossCalculated;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

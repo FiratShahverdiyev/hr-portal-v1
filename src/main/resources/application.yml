@@ -53,7 +53,7 @@ application:
 
 logging:
   file:
-    name: "${catalina.base}/logs/hr_info_logs/hr_info_log.log"
+    name: "./logs/hr_info_logs/hr_info_log.log"
   level:
     ROOT: INFO
   pattern:

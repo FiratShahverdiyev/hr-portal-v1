@@ -485,7 +485,7 @@ public class OperationSchedule {
         responseDto.setIncomingTax(incomeTax);
         responseDto.setPositionUnemploymentTax(unemploymentInsurance);
         responseDto.setEmployeeMDSS(percentage(gross, 3f));
-        responseDto.setPositionMDSS(percentage(gross, 3f));
+        responseDto.setPositionMDSS(percentage(gross, 22f));
         responseDto.setEmployeeUnemploymentTax(unemploymentInsurance);
     }
 
