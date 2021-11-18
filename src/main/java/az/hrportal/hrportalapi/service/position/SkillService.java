@@ -3,6 +3,7 @@ package az.hrportal.hrportalapi.service.position;
 import az.hrportal.hrportalapi.constant.position.Level;
 import az.hrportal.hrportalapi.domain.position.Skill;
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.error.exception.EntityNotFoundException;
 import az.hrportal.hrportalapi.repository.position.SkillRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,16 @@ public class SkillService {
         HashSet<KeyValue<String, String>> response = new HashSet<>();
         for (Skill skill : skillRepository.findAll()) {
             response.add(new KeyValue<>(skill.getName(), skill.getLevel().toString()));
+        }
+        log.info("********** getAll service completed **********");
+        return response;
+    }
+
+    public Set<KeyValueLabel<String, String, Integer>> getAllWithIds() {
+        log.info("getAll service started");
+        HashSet<KeyValueLabel<String, String, Integer>> response = new HashSet<>();
+        for (Skill skill : skillRepository.findAll()) {
+            response.add(new KeyValueLabel<>(skill.getName(), skill.getLevel().toString(), skill.getId()));
         }
         log.info("********** getAll service completed **********");
         return response;

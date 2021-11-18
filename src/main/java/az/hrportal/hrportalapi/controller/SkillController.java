@@ -1,6 +1,7 @@
 package az.hrportal.hrportalapi.controller;
 
 import az.hrportal.hrportalapi.dto.KeyValue;
+import az.hrportal.hrportalapi.dto.KeyValueLabel;
 import az.hrportal.hrportalapi.dto.ResponseDto;
 import az.hrportal.hrportalapi.service.position.SkillService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,6 +31,13 @@ public class SkillController {
     public ResponseDto<Set<KeyValue<String, String>>> getAll() {
         return ResponseDto.of(skillService.getAll(), 200);
     }
+
+    @GetMapping("ids")
+    @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
+    public ResponseDto<Set<KeyValueLabel<String, String, Integer>>> getAllWithIds() {
+        return ResponseDto.of(skillService.getAllWithIds(), 200);
+    }
+
 
     @DeleteMapping
     @ApiImplicitParam(name = "Authorization", required = true, paramType = "header", dataType = "String")
