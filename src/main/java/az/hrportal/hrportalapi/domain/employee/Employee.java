@@ -256,6 +256,7 @@ public class Employee {
     Set<GrossSalary> grossSalaries;
     @Column(name = "gross_calculated")
     Boolean grossCalculated;
+    Boolean higherEducation;
     @CreationTimestamp
     @Column(name = "created_at")
     Date createdAt;

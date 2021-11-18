@@ -33,6 +33,7 @@ public class AcademicInfoResponseDto {
     String driverCardCategory;
     String driverCardEndDate;
     List<String> quotas;
+    Boolean higherEducation;
     boolean isPrisoner;
     boolean isMemberOfColleaguesAlliance;
 }
