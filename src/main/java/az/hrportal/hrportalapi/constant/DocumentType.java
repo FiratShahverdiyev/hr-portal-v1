@@ -36,7 +36,7 @@ public enum DocumentType {
             "İstifadə edilməmiş əmək məzuniyyətinə görə kompensasiya ödənilməsi barədə"),
     MEZUNIYYET_QRAFIKININ_TESDIQI(27, DocumentLabel.EMPLOYEE.toString(),
             "Məzuniyyət qrafikinin təsdiqi"),
-    TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndırilmə"),
+    TELIME_GONDERILME(28, DocumentLabel.EMPLOYEE.toString(), "Təlimə göndərilmə"),
     TELIM_PLANININ_TESDIQI(29, DocumentLabel.EMPLOYEE.toString(), "Təlim planının təsdiqi"),
     EZAMIYYETE_GONDERILME(30, DocumentLabel.EMPLOYEE.toString(), "İşçinin/işçilərin ezamiyyətə " +
             "göndərilməsi barədə"),
